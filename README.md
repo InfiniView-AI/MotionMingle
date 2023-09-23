@@ -1,8 +1,8 @@
 # Project Name
 
-Developer Names:
+Developer Names: Qi Shu, Xunzhou Ye, Anhao Jiao, Kehao Huang, Qianlin Chen
 
-Date of project start:
+Date of project start: 2023-09-16
 
 This project is ...
 
