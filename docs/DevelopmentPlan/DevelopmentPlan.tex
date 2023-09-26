@@ -153,13 +153,13 @@ communications like socializing, non-project related chats.
   \caption{Team member roles} \label{TblTeamMemberRoles}
   \begin{tabularx}{1.0\linewidth}[h]{smml}
     \toprule
-    \textbf{Member}            & \textbf{Role}                            & \textbf{Expertise}            & \textbf{Responsibility}                                                                      \\ \hline
+    \textbf{Member}            & \textbf{Role}                               & \textbf{Expertise}               & \textbf{Responsibility}                                                                      \\ \hline
     \midrule
-    Xunzhou (Joe) Ye     & Developer, Co-host Leader          & \LaTeX, Python             & Machine Learning Model, Pipeline Optimizations                                         \\ \hline
-    Qianlin (Maris) Chen & Developer                          & \LaTeX, TypeScript, Python & UI/UX Design, Application Implementation, Full Stack Development                       \\ \hline
-    Shu (Tommy) Qi       & Developer, Co-host Leader, Liaison & TypeScript, Python      & Machine Learning Model, Integration of Machine Learning Models and Application Backend \\ \hline
-    Kehao (Chris) Huang  & Developer                          & \LaTeX, Python, TypeScript & Machine Learning Model, Integration of Machine Learning Models and Application Backend \\ \hline
-    Anhan Jiao           & Developer                          & \LaTeX, Python             & UI/UX Design, Application Implementation, Full Stack Development                       \\
+    Xunzhou (Joe) Ye     & Developer, Co-host Leader, Note Taker & \LaTeX, Python             & Machine Learning Model, Pipeline Optimizations                                         \\ \hline
+    Qianlin (Maris) Chen & Developer                             & \LaTeX, TypeScript, Python & UI/UX Design, Application Implementation, Full Stack Development                       \\ \hline
+    Shu (Tommy) Qi       & Developer, Co-host Leader, Note Taker & TypeScript, Python         & Machine Learning Model, Integration of Machine Learning Models and Application Backend \\ \hline
+    Kehao (Chris) Huang  & Developer                             & \LaTeX, Python, TypeScript & Machine Learning Model, Integration of Machine Learning Models and Application Backend \\ \hline
+    Anhan Jiao           & Developer                             & \LaTeX, Python             & UI/UX Design, Application Implementation, Full Stack Development                       \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -280,26 +280,24 @@ and used on any device.
 \section{Technology}
 
 \begin{description}
-\item[Programming Language] Python, TypeScript
-\item[Linter Tool] Flake8
-\item[Testing Framework] pytest
-\item[Code Coverage] pytest-cov
+\item[Programming Language] Python, JavaScript/TypeScript
+\item[Linter Tool] Flake8, ESlint
+\item[Testing Framework] pytest, jest
+\item[Code Coverage] pytest-cov, jest
 \item[Version Control] git
 \item[CI/CD] Github Actions
 \item[Libraries] WebRTC, PyTorch
-\item[Tools] Visual Studio Codes, Emacs, Google Doc
+\item[Tools] Visual Studio Codes, Emacs, Google Doc, JetBrains IDEs
 \end{description}
 
 \section{Coding Standard}
 
 \begin{itemize}
-\item For the Python portion of the codebase, we will follow the
+\item For the Python portion of the codebase, we will loosely follow the
   \href{https://peps.python.org/pep-0008/}{PEP 8 Python Style Guide}.
 \item For the JavaScript/TypeScript portion of the codebase, we will loosely follow
   the \href{https://google.github.io/styleguide/jsguide.html}{Google JavaScript
     Style Guide}.
-\item Camelcase shall be used as the variable naming convention throughout the
-  codebase.
 \item Snakecase with all capital letters shall be used exclusively for constants.
 \item Adequate documentation and comments in codes is sufficient. Full
   documentation of all APIs is not required. However, high code readability is
