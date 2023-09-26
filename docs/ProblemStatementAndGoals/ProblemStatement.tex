@@ -7,7 +7,7 @@
 
 \author{\authname}
 
-\date{}
+\date{25 September 2023}
 
 \input{../Comments}
 \input{../Common}
@@ -17,40 +17,100 @@
 \maketitle
 
 \begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-\midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
-\bottomrule
-\end{tabularx}
+  \caption{Revision History} \label{TblRevisionHistory}
+  \begin{tabularx}{\textwidth}{llX}
+    \toprule
+    \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+    \midrule
+    25 September 2023 & AJ, KH, QC, QS, XY & Initial draft \\
+    \bottomrule
+  \end{tabularx}
 \end{table}
 
 \section{Problem Statement}
 
-\wss{You should check your problem statement with the
-\href{https://github.com/smiths/capTemplate/blob/main/docs/Checklists/ProbState-Checklist.pdf}
-{problem statement checklist}.}
-\wss{You can change the section headings, as long as you include the required information.}
-
 \subsection{Problem}
+
+Tai Chi is a complete martial art system practiced chiefly by older individuals
+for the purpose of health promotion and rehabilitation. It has been described as
+“meditation in motion” due to its emphasis on slow, gentle movements that have a
+low impact on the body and joints. During the COVID-19 pandemic, group exercise
+classes like Tai Chi transitioned to the online format due to the enforcement of
+social distancing. Therefore, online training for these group exercise lessons
+is conducted in various forms including offering live sessions with webcams and
+providing pre-recorded videos. However, it is widely perceived among both
+practitioners and instructors that current models of teaching Tai Chi virtually
+fall short compared to in-person instruction. One significant drawback of
+learning Tai Chi Online is that practitioners may not be able to see all the
+angles of the instructor’s body needed to understand and mimic the movements.
+Also, the lack of real-time feedback from instructors and interaction among
+participants is also limiting the learning outcomes and engagement for
+practitioners. Therefore, a solution is desired to compensate for the
+limitations of virtual Tai Chi lessons, and expectedly improve the learning
+outcomes and engagement for practitioners to a similar or higher level of the
+in-person teaching model.
 
 \subsection{Inputs and Outputs}
 
-\wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
-Use abstraction so that you can avoid details.}
+\subsubsection{Inputs}
+
+\begin{itemize}
+\item Video stream of Tai Chi instructors
+\item Video stream of practitioners
+\item Audio from both instructors and practitioners, to enable communication during
+  the session
+\item Annotation preference of practitioners
+\end{itemize}
+
+\subsubsection{Outputs}
+
+\begin{itemize}
+\item Tai Chi virtual lessons with audio and real-time annotations
+\item Personalized streaming interface
+\end{itemize}
 
 \subsection{Stakeholders}
 
+\begin{itemize}
+\item Professor of SFWRENG 4G06, Dr. Spencer Smith
+\item Supervisors of the project, Dr. Rong Zheng, Andrew Mitchell
+\item Tai Chi instructors and practitioners
+\end{itemize}
+
 \subsection{Environment}
 
-\wss{Hardware and software}
+\begin{description}
+\item[Software] Windows, Linux or Mac OS
+\item[Hardware] Computers with a camera and optionally a microphone
+\end{description}
 
 \section{Goals}
 
+\begin{description}
+\item[Learning and teaching experience improvement] The product should provide at
+  least three types of visual effects to show the instructor's motions in Tai
+  Chi lectures, making it easier to see the instructor's motions in video calls.
+\item[Minimizing the hardware requirements for end users] The product should be
+  accessible to users as long as they have a device that supports video
+  conferences.
+\item[Real-time video post-processing] The speed of video processing and visual
+  effect generation should not be noticeable. There should be no significant lag
+  (\(< 3\) seconds) in the instructor's and practitioner's video calls.
+\item[Safety of User Data] The application should secure user data. The application
+  should not have any case of data leakage.
+\item[Ease of use] The application should be intuitive to use and no further
+  instruction is required. People of all age groups should be able to learn all
+  the features of the application with ease.
+\end{description}
+
 \section{Stretch Goals}
+
+\begin{description}
+\item[Accurate annotations] The instructor's body annotation should give the best
+  representation of the instructor's body motion.
+\item[Form recognition and captioning] The application should be able to recognize
+  the Tai Chi form based on the instructor's motion and display the name of the
+  form as a caption on top of the video stream.
+\end{description}
 
 \end{document}
