@@ -3,11 +3,16 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 
+% tabularx layouts https://tex.stackexchange.com/a/84401
+\newcolumntype{l}{X}
+\newcolumntype{m}{>{\hsize=.4\hsize}X}
+\newcolumntype{s}{>{\hsize=.3\hsize}X}
+
 \title{Development Plan\\\progname}
 
 \author{\authname}
 
-\date{}
+\date{25 September 2023}
 
 \input{../Comments}
 \input{../Common}
@@ -17,59 +22,299 @@
 \maketitle
 
 \begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-\midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
-\bottomrule
-\end{tabularx}
+  \caption{Revision History} \label{TblRevisionHistory}
+  \begin{tabularx}{\textwidth}{llX}
+    \toprule
+    \textbf{Date} & \textbf{Developer(s)} & \textbf{Change} \\
+    \midrule
+    25 September 2023 & AJ, KH, QC, SQ, XY & Initial draft \\
+    \bottomrule
+  \end{tabularx}
 \end{table}
 
-\wss{Put your introductory blurb here.}
+The following document lists several aspects of our team's plan to approach and
+implement the features for Project \projname. This plan includes meetings, means
+of communication, workflows, proof of concepts, and deliverable timelines.
+
+We are committed to following and executing the development plans outlined here.
+We will work closely with both our supervisors and the course instructor. We
+will maintain transparency and honesty in our work progress, and we will voice
+any concerns and suggestions. If necessary, we will iterate on the scope of the
+project and refine completed work and documentation to ensure the successful
+completion of the capstone project.
 
 \section{Team Meeting Plan}
 
+\subsection{Supervisor Meetings}
+
+\emph{Meetings detail below has been discussed and confirmed with the supervisors.}
+
+\begin{description}
+\item[Time] Wednesdays at 5:00 p.m.
+\item[Length] 30 minutes to 1 hour
+\item[Frequency] Once every two weeks
+\item[Location] Prof. Rong Zheng's office in Information Technology Building (ITB)
+  or a close-by meeting room if available.
+\item[Attendance Expectation] All team members and both supervisors are present.
+\end{description}
+
+\subsubsection{Additional Meetings}
+
+\emph{Out-of-schedule supervisor meetings could be arranged with Andrew Mitchell if
+  needed.}
+
+\begin{description}
+\item[Time] Flexible time on any day other than Wednesday
+\item[Length] 30 minutes to 1 hour
+\item[Location] Microsoft Teams
+\item[Attendance Expectation] All team members and Andrew Mitchell are present.
+\end{description}
+
+\subsection{Scheduled Team Meetings}
+
+\subsubsection{Regular Lectures}
+
+\begin{description}
+\item[Time, Frequency, Location] As arranged by Prof. Spencer
+\item[Length] 50 minutes
+\item[Attendance Expectation] At least two team members are present.
+\end{description}
+
+\subsubsection{Meetings Outside Lectures}
+
+\begin{description}
+\item[Time] Sundays at 8:30 p.m., Wednesdays at 6:00 p.m. or right after the
+  supervisor meeting
+\item[Length] 1 hour
+\item[Frequency] Every week
+\item[Location] Discord
+\item[Attendance Expectation] All team members are present.
+\item[Sprint Review] Every other week on Sundays. Every team member take turns to
+  report on what has been done.
+\end{description}
+
+\subsection{Meeting Details and Rules}
+
+\subsubsection{Github Issues}
+
+Each meeting is planned and documented in the form of a Github issue. The detail
+of the issue (the title or the description) shall include the date, time,
+location, agenda, and records of attendance. The meeting agenda shall be
+prepared ahead of time, either done collaboratively at the end of the previous
+meeting, or summarized by the note taker after the previous meeting. Meeting
+agenda shall clearly outline all the topics to be discussed. All team members
+are free to refine or add to the list of topics after the issue has be initially
+created. Meeting attendance will be recorded by Markdown checkboxes. An issue
+shall be closed after the meeting has taken place. Decisions made in a meeting
+will be announced and documented in the form of comments under the meeting
+issue.
+
+\subsubsection{Absence and No-show Policy}
+
+In case a team member is unable to attend a meeting, the member must inform the
+team \emph{at least 1 hour before the meeting}. Notice of absence shall be
+reported in the form of comments under the Github issue corresponds to the
+missed meeting. Absence without an ahead-of-time notice counts as a no-show.
+
+No-show in meetings shall be recorded and, as a result, will be reflected in the
+team contribution evaluation factor. Frequent or regular absence of meetings,
+even if the absence is being reported and documented, will also negatively
+impact one member's team contribution factor. For a contribution factor on the
+scale of 0 to 1.1, a tentative conversion from the number of absence or no-shows
+is as follow:
+\begin{itemize}
+\item For any consecutive no-show, or 3 consecutive notified absence, take 0.1 off
+  from the contribution factor;
+\item For every 5 consecutive presence, add 0.1 if the contribution factor is lower
+  than 1.
+\end{itemize}
+
+After a reported absence or no-show, the member is responsible for catching up
+with the contents discussed in the missed meeting, by either going over the
+meeting minutes at their free time, or by consulting other teammates.
+
+
 \section{Team Communication Plan}
+
+Microsoft Teams is used for online meetings with supervisors. A group chat on
+Teams with all team members and both supervisors is used for asking questions
+and sharing project resources, including links to related academic papers,
+preliminary work done, technical documents of existing codes.
+
+Discord is the primary platform for hosting online group meetings outside
+lecture time. A dedicated Discord server is created for team communications for
+the project. Discord server events is created for each online meeting as a
+reminder for all team members. A Discord text channel is used for miscellaneous
+communications like socializing, non-project related chats.
 
 \section{Team Member Roles}
 
+\begin{table}[hp]
+  \caption{Team member roles} \label{TblTeamMemberRoles}
+  \begin{tabularx}{1.0\linewidth}[h]{smml}
+    \toprule
+    \textbf{Member}            & \textbf{Role}                            & \textbf{Expertise}            & \textbf{Responsibility}                                                                      \\ \hline
+    \midrule
+    Xunzhou (Joe) Ye     & Developer, Co-host Leader          & \LaTeX, Python             & Machine Learning Model, Pipeline Optimizations                                         \\ \hline
+    Qianlin (Maris) Chen & Developer                          & \LaTeX, TypeScript, Python & UI/UX Design, Application Implementation, Full Stack Development                       \\ \hline
+    Shu (Tommy) Qi       & Developer, Co-host Leader, Liaison & TypeScript, Python      & Machine Learning Model, Integration of Machine Learning Models and Application Backend \\ \hline
+    Kehao (Chris) Huang  & Developer                          & \LaTeX, Python, TypeScript & Machine Learning Model, Integration of Machine Learning Models and Application Backend \\ \hline
+    Anhan Jiao           & Developer                          & \LaTeX, Python             & UI/UX Design, Application Implementation, Full Stack Development                       \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
 \section{Workflow Plan}
 
-\begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classificaiton, etc.?
-\end{itemize}
+We are committed to a typical git workflow in modern production environments.
+There is one centralized git repository for the codebase of the project hosted
+on Github. The main branch in the repository is where all functioning and tested
+codes located. Tags on commits in the main branch will be used to indicate
+snapshots of the repository for deliverables grading.
+
+Relevant product features will be brought up and discussed in team meetings. The
+implementation of features will be decomposed into subtasks and then assigned to
+a team member. A Github issue labeled ``feature'' will be created for tracking
+the progress of implementation and any feedback or discussion related to the
+subtask. If a member encounters unexpected errors or behaviors outside the scope
+of their work during development or testing, they should file an issue with a
+``bug'' label. The issue will be discussed in the next meeting to determine the
+owner of the bug fix. Regression tests shall be created following a close of bug
+issue for documentation purposes. The Github Project board will be used to
+manage and organize all the issues.
+
+Following the creation of an issue, a git branch off from main will be created
+and assigned to this issue. The owner of the issue take full ownership control
+over the branch. Once the development for the issue conclude, the issue will
+close following a successful merge of the dedicated branch to the main branch
+and the deletion of the dedicated branch.
+
+The main branch is protected. Pull request and code review are require to merge
+changes into main. Approvals from \emph{at least two} other team members are
+required to pass the review. Continuous Integration/Continuous Development
+(CI/CD) in the form of automated Github actions is used to perform coding
+standard checks, unit tests, comprehensive regression tests upon each pull
+request. Successful execution of the actions listed above is also required for
+merging into main.
+
+A Github issue shall be opened for each deliverable. Equal contribution to the
+written part of deliverables is assumed by default. Each team member shall
+upload the draft of their parts to a shared Google Doc with minimal formatting.
+The use of Google Doc is intended for easy collaborations and synchronous
+editing in deliverable review meetings. Team members take turn to collect all
+the pieces from the Google Doc and finalize the document with appropriate \LaTeX\
+formatting. This member is also responsible for merging the document change into
+the main branch and initiating a review for other members to check and agree on
+the final version of the document for submission. Checklists inherited from the
+capstone repository template shall be used to guide such review process.
 
 \section{Proof of Concept Demonstration Plan}
 
-What is the main risk, or risks, for the success of your project?  What will you
-demonstrate during your proof of concept demonstration to convince yourself that
-you will be able to overcome this risk?
+\subsection{Plan for Demonstration in November}
+
+A functioning application supporting real-time video conference and minimal
+annotations overlayed on one video stream. Such annotation could be either
+static or generated by the machine learning models from the preliminary work.
+
+\subsection{Most Significant Risk}
+
+It might be the scope of the project being too large and the difficulty of
+integrating annotations in the real-time communication application, which may
+affect the overall timeline and functionality of the project. However, with
+careful planning, coordination, and prioritization of tasks, these risks can be
+mitigated to ensure the final output meets the desired goals and objectives. It
+is important to manage expectations and communicate any potential limitations or
+challenges to stakeholders to ensure a realistic understanding of what can be
+achieved within the given constraints.
+
+\subsection{Will a part of the implementation be difficult?}
+
+The implementation of the real-time communication application with server render
+architecture is difficult due to the complexity of integrating annotations. It
+may require careful planning and coordination to ensure seamless integration
+between the app and the ML model for generating annotations.
+
+\subsection{Will testing be difficult?}
+
+Yes, the difficulties can be summarized into the following two aspects:
+
+\subsubsection{Testing the annotation}
+
+\begin{itemize}
+\item Ensuring the AI annotation performs well in different scenarios and with
+  varying input data may require extensive testing and validation.
+\item Evaluating the accuracy of the AI annotation may be challenging due to the
+  subjective nature of some annotations. Manual verification and comparison with
+  ground truth annotations may be required.
+\item Assessing the robustness of the AI annotation against potential edge cases
+  and outliers may pose difficulties in testing.
+\end{itemize}
+
+\subsubsection{Testing the real-time video streaming application}
+
+\begin{itemize}
+\item Ensuring the real-time video streaming functionality works seamlessly across
+  different devices and network conditions can be challenging.
+\item Testing the stability and reliability of the video streaming feature,
+  especially under high traffic and bandwidth constraints, may pose
+  difficulties.
+\item Evaluating the synchronization of audio and video streams in real time can be
+  complex and require specialized testing methods.
+\item Assessing the performance of the video streaming feature, such as latency,
+  buffering, and quality, may require extensive testing and monitoring.
+\item Validating the compatibility of the video streaming feature with various
+  platforms can be time-consuming and challenging.
+\end{itemize}
+
+\subsubsection{Is a required library difficult to install?}
+
+There are no difficult libraries to install for this project. The required
+libraries for the machine learning models and the application are mostly
+open-source and easily accessible.
+
+\subsubsection{Will portability be a concern?}
+
+No. Since it is an application compatible with all platforms, it can be accessed
+and used on any device.
 
 \section{Technology}
 
-\begin{itemize}
-\item Specific programming language
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Libraries you will likely be using?
-\item Tools you will likely be using?
-\end{itemize}
+\begin{description}
+\item[Programming Language] Python, TypeScript
+\item[Linter Tool] Flake8
+\item[Testing Framework] pytest
+\item[Code Coverage] pytest-cov
+\item[Version Control] git
+\item[CI/CD] Github Actions
+\item[Libraries] WebRTC, PyTorch
+\item[Tools] Visual Studio Codes, Emacs, Google Doc
+\end{description}
 
 \section{Coding Standard}
 
+\begin{itemize}
+\item For the Python portion of the codebase, we will follow the
+  \href{https://peps.python.org/pep-0008/}{PEP 8 Python Style Guide}.
+\item For the JavaScript/TypeScript portion of the codebase, we will loosely follow
+  the \href{https://google.github.io/styleguide/jsguide.html}{Google JavaScript
+    Style Guide}.
+\item Camelcase shall be used as the variable naming convention throughout the
+  codebase.
+\item Snakecase with all capital letters shall be used exclusively for constants.
+\item Adequate documentation and comments in codes is sufficient. Full
+  documentation of all APIs is not required. However, high code readability is
+  expected. Developers shall add comments if they found them helpful in
+  improving readability.
+\end{itemize}
+
 \section{Project Scheduling}
 
-\wss{How will the project be scheduled?}
+\begin{itemize}
+\item For each deliverable, there shall be at least one team meeting to breakdown
+  the tasks and distribute the work to all team members.
+\item Before each deliverable, there shall be at least one team meeting for all
+  team members to review and finalize the document for submission. We aim to
+  have at least 95\% of the deliverable done \emph{1 day before the deadline}.
+\end{itemize}
 
 \end{document}
