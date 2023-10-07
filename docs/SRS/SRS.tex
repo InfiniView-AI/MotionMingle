@@ -4,10 +4,10 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{enumitem}
-\usepackage{biblatex}
+% \usepackage{biblatex}
 \usepackage{graphicx}
 
-\addbibresource{reference.bib}
+% \addbibresource{reference.bib}
 \graphicspath{./}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -53,8 +53,16 @@
 ~\\
 
 ~\newpage
+\section{Introduction}
+This document serves as a comprehensive requirements specification for a WebRTC-based video conferencing application tailored specifically for Tai Chi instruction. The purpose of this document is to provide a detailed guide for the development and implementation of the system, ensuring that all stakeholders and developers have a clear and unified understanding of the project’s scope, objectives, and functional and non-functional requirements. This document follows a structured format of the Meyer’s template, which has four major dimensions or PEGS: Project, Environment, Goals, System. The four dimensions correspond to the four major sections in this document. Slight modifications are made on the document structure to better fit our project:
+\begin{itemize}
+  \item The Functionality section under the System dimension is divided into the functional requirements section and the non-functional requirements section for better clarity.
+  \item Added the Use Case Diagram section to illustrate use cases.
+  \item Added the Finite State Machine section to provide formal specification.
+\end{itemize}
 
 \section{Project}
+This section provides a comprehensive overview of the project’s key aspects. It outlines the project’s structure, responsibilities of team members, technical decisions, and the plan for project execution.
 \subsection{Roles and Personnel}
 A team of five members is designated to carry out the planning, managing, documenting, and execution phases of the project specified in this requirements document (referred to as “the project”). The project is initiated and will be executed in the context of an accumulative academic course on software designs and life cycles. The situation presents time constraints and resource management challenges for all personnel involved. Members of the team are expected to identify potential problems that might hinder the progress of the project, voice their concerns or suggestions, acknowledge their shares of work and fulfill their own responsibilities with a high standard of quality. For each team member, the expected workload is 10 hours per week, totalling 50 hours per week. This is the typical workload of a full-time employee in the technology industry. Also constrained by the academic context, there is no preserved capacity for additional human resources. Induction of further personnel is not possible throughout the execution of the project. The project leader is expected to efficiently utilize and manage the limited resources and group members are expected to be held accountable for their duties.
 \subsubsection{Individual Responsibilities}
@@ -74,6 +82,7 @@ Other technical choices include the choice of programming language, Python, for 
 
 \newpage
 \subsection{Schedule and Milestones}
+Please refer to table \ref{TblMilestones}
 \begin{table}
     \caption{Milestones and Scheduled Due Dates} \label{TblMilestones}
     \begin{tabularx}{1.0\linewidth}[h]{p{7cm}|p{6cm}}
@@ -96,7 +105,10 @@ Other technical choices include the choice of programming language, Python, for 
 \end{table}
 
 \subsection{Tasks and Deliverable}
-\lips
+For the documentation portion for each milestone, the work shall be broken down evenly for each team member. The distribution of work shall be carefully considered. Related or connected topics shall be distributed to an individual team member. Doing so would minimize the need for frequent sync-ups with other team members. Specific division of tasks shall be brought up and discussed in the deliverables planning meetings around 2 weeks ahead of the deliverable due. The description of the divided tasks and the expected completion date shall be posted as checkbox items on the Github meeting issue.
+
+For the implementation aspect of each milestone, there are two stages in total. The first one being to create a prototype for the proof of concept demonstration in mid-November. In this stage, the team shall be focusing on implementing the real-time video conferencing web application, which includes the user clients, UI designs, and the servicing infrastructure. At the same time, all team members shall be familiar with all technologies relevant to implementations. The second stage is to build on top of the prototype, carrying out the full implementation for the Revision 0 demonstration in February 2024. At this stage, the web application shall seamlessly integrate with the machine learning models and provide all specified functionalities and features to users.
+
 \subsection{Required Technology Elements}
 \begin{description}
 \item[Programming Language:] Python JavaScript/TypeScript
@@ -105,7 +117,7 @@ Other technical choices include the choice of programming language, Python, for 
 \item[Code coverage:] pytest-cov, jest
 \item[Version Contro:l] git
 \item[CI/CD:] GitHub Actions
-\item[Libraries:] WebRTC, PyTorch
+\item[Libraries:] WebRTC, PyTorch, Bun.js
 \item[ML Models:] OpenPose, SMPL, ShapeMask
 \item[UI Design framework:] Ant Design
 \end{description}
@@ -166,7 +178,7 @@ In the requirement elicitation process, project requirements will be acquired du
 
 \subsection{Constraints}
 \begin{description}
-    \item[Bandwith] The Application must not occupy more than 20MB/s download speed[1] and 5 MB/s upload speed[2], as these two numbers are the most common home internet speeds for Canadian families.
+    \item[Bandwidth] The Application must not occupy more than 20MB/s download speed[1] and 5 MB/s upload speed[2], as these two numbers are the most common home internet speeds for Canadian families.
     \item[Compatibility] The product must be able to operate on all Windows, Mac OS and Linux platforms because over 95\% of the computers run on these three systems[3].
     \item[Security] Data leak in any video conference system is not permitted, according to the Personal Information Protection and Electronic Documents Act [4].
     \item[Ease of Learning] One of the target audiences of our system is senior people. This user group usually has some difficulties in using software as they have lower technical device adoption[7]. The UI interaction must be clear and intuitive enough for senior people to learn all the features without further instructions.
@@ -202,6 +214,7 @@ By offering Tai Chi lessons online, practitioners can practice from their own ho
 \end{description}
 
 \section{Goals}
+This section outlines the goals and objectives of the project, providing context for its development. It also presents the expected benefits of the project and offers a high-level overview of the system’s functionality, limitations, and stakeholders involved in the project.
 \subsection{Context and Overall Objective}
 The prevailing situation in Tai Chi instruction involves a transition from traditional in-person classes to online training sessions induced by the enforcement of social distancing during the COVID-19 pandemic. The transition has imposed numerous challenges for both instructors and practitioners. This project aims to address the pressing need for an enhanced online learning platform for Tai Chi. By providing real-time annotations, minimizing hardware requirements, ensuring data security, and offering user-friendly interfaces, our project is expected to elevate online Tai Chi instruction to a smooth and enriching experience. The project is subsequently decomposed into two major components: the video conferencing platform that supports video and audio communications, and the machine learning pipelines that process the video stream from instructors and generate real-time annotations.
 
@@ -248,6 +261,7 @@ The system is tailored with specific guidelines in mind. It's worth noting that 
 There are two primary documents that predate the current research. The first encompasses feedback from users who faced challenges with plain video calls during the COVID-19 user preferences and opinions regarding annotation methods and features. The second compiles feedback from demo studies and focus groups, shedding light on user preferences and opinions regarding annotation methods and features. Together, these feedback sources offer a comprehensive view of user needs and project requirements. 
 
 \section{System}
+This section provides a detailed breakdown of the system’s desired functionalities and behavior with priorities, proposes a high-level verification plan with acceptance criteria, and states all the likely and unlikely changes of the system.
 \subsection{Components}
 \subsubsection{Front-End (Client-Side)}
 \begin{itemize}
@@ -267,6 +281,17 @@ There are two primary documents that predate the current research. The first enc
     \item API Server
     \item Machine Learning Models (Annotations)
 \end{itemize}
+\subsubsection{Infrastructure}
+\begin{itemize}
+    \item Networking
+    \item Cloud
+\end{itemize}
+For the WebRTC-based video conferencing application using an SFU architecture, participants initiate sessions through a user interface. The WebRTC Client, aided by STUN and TURN servers, manages connection establishment and multi-media stream transmissions. Real-time Communication Engine establishes, maintains, and terminates the real-time sessions. Session setup details, communicated via the Signaling Server using the Session Description Protocol (SDP), determine the following media rendering. During the video conference, the Selective Forwarding Unit (SFU) routes and optimizes media stream distribution to participants. The video streams will be extracted from the SFU server,  and transferred to the API server by the socket. Then the API server will assign its integrated Machine Learning Models to render the video and send it back to the client side. The underlying infrastructure ensures efficient data transmission, maintaining overall application performance.
+
+\subsection{Finite State Machine}
+\includegraphics[width=15cm, height=15cm]{FSM.png}
+
+
 \subsection{Functional Requirements}
 \begin{itemize}
     \item[FR1] The system shall provide a real-time video streaming interface for Tai Chi instructors to conduct live sessions. \label{FR1}
@@ -419,10 +444,11 @@ There are two primary documents that predate the current research. The first enc
 \end{itemize}
 \textbf{Robustness or Fault-Tolerance Requirement}
 \begin{itemize}
-    \item[PR4] The system shall have zero fault-tolerant. \label{PR4}
+    \item[PR4] The system shall implement zero fault tolerance with respect to user errors
+    . \label{PR4}
     \begin{itemize}
-        \item Rationale: The users must know when they make errors.
-        \item Fit Criteria: The system displays warning messages when there are errors.
+        \item Rationale: It is essential that users receive appropriate feedback when errors occur to support system understandability.
+        \item Fit Criteria: Warning messages indicating errors shall be displayed to the user to confirm lack of fault tolerance per the zero fault tolerance requirement.
         \item Priority: Medium
     \end{itemize}
 \end{itemize}
@@ -662,6 +688,7 @@ The high-level verification and acceptance criteria outlined below are intended 
 \end{itemize}
 
 \subsection{Traceability Matrix}
+Please refer to \ref{TblTrace_1} and \ref{TblTrace_2}.
 \begin{table}[h!]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|c|}
@@ -690,7 +717,7 @@ The high-level verification and acceptance criteria outlined below are intended 
     HS1 & X & X & & & & &   \\ \hline
     HS2 & X & X & & & & &   \\ \hline
     \end{tabular}
-    \caption{Traceability Matrix Showing the Connections Between Functional Requirements and Non-functional Requirements} \label{TblTrace}
+    \caption{Traceability Matrix Showing the Connections Between Functional Requirements and Non-functional Requirements} \label{TblTrace_1}
 \end{table}
 
 \begin{table}[h!]
@@ -721,27 +748,52 @@ The high-level verification and acceptance criteria outlined below are intended 
     HS1 & & & & & &    \\ \hline
     HS2 & & & & & &    \\ \hline
     \end{tabular}
-    \caption{Traceability Matrix Showing the Connections Between Functional Requirements and Non-functional Requirements} \label{TblTrace}
+    \caption{Traceability Matrix Showing the Connections Between Functional Requirements and Non-functional Requirements} \label{TblTrace_2}
 \end{table}
 
-\newpage{}
-\section*{Appendix --- Reflection}
+\subsection{Likely/Unlikely Changes}
+\subsubsection*{Likely Changes}
+\begin{itemize}
+  \item The application could be extended in the future to offer mobile compatibility, providing users accessibility on both desktop and mobile platforms.
+  \item A login and access control system may need to be implemented to restrict video streaming capabilities to authorized users only, in order to adhere to security best practices.
+  \item Additional features may need to be incorporated into future iterations based on discoveries from real-world usage and direct end user feedback.
+  \item Web application compatibility may be offered to provide increased reach and usability across different devices and operating systems.
+  \item The initial system load capacity will be set conservatively due to unknown demand. As user adoption increases over time, load capacity can be scaled up to support larger volumes of traffic.
+  \item The Real-Time Processing requirement might change as no metric has been provided from the stakeholders.
+  \item The application may be extended in the future to offer functionality to allow practitioners to stream their videos and audios.
+\end{itemize}
+\subsubsection*{Unlikely Changes}
+\begin{itemize}
+  \item The application will be designed to comply with all applicable laws and regulations[4][5][6]. User personal information will only be collected or used with explicit consent.
+  \item Given this is a student capstone project, the primary stakeholder and client is unlikely to change.
+  \item As a student capstone project, schedule and budget constraints are relatively fixed and not expected to change significantly.
+  \item The user input to the application and the outputs to users should remain unchanged, as the overall objective is determined.
+  \item A key priority in the system design will be ease of use and learnability, given the target user base has less technical expertise.
+  \item The application will implement access controls to ensure users only view data they are properly authorized to access.
+  \item Annotation generation will occur in a dedicated backend system.
+  \item The application will allow configurable annotation types displayed to practitioners.
+  \item The application is intended to operate on Windows, Linux and MacOS platforms, but not limited to running on these systems natively.
+  \item Secure data transmission and storage will be implemented to safeguard user data and mitigate data leakage risks.
+\end{itemize}
 
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
+% \newpage{}
+% \section*{Appendix --- Reflection}
 
-\begin{enumerate}
-  \item What knowledge and skills will the team collectively need to acquire to
-  successfully complete this capstone project?  Examples of possible knowledge
-  to acquire include domain-specific knowledge from the domain of your
-  application, software engineering knowledge, mechatronics knowledge or
-  computer science knowledge.  Skills may be related to technology, or writing,
-  or presentation, or team management, etc.  You should look to identify at
-  least one item for each team member.
-  \item For each of the knowledge areas and skills identified in the previous
-  question, what are at least two approaches to acquiring the knowledge or
-  mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
-\end{enumerate}
+% The information in this section will be used to evaluate the team members on the
+% graduate attribute of Lifelong Learning.  Please answer the following questions:
+
+% \begin{enumerate}
+%   \item What knowledge and skills will the team collectively need to acquire to
+%   successfully complete this capstone project?  Examples of possible knowledge
+%   to acquire include domain-specific knowledge from the domain of your
+%   application, software engineering knowledge, mechatronics knowledge or
+%   computer science knowledge.  Skills may be related to technology, or writing,
+%   or presentation, or team management, etc.  You should look to identify at
+%   least one item for each team member.
+%   \item For each of the knowledge areas and skills identified in the previous
+%   question, what are at least two approaches to acquiring the knowledge or
+%   mastering the skill?  Of the identified approaches, which will each team
+%   member pursue, and why did they make this choice?
+% \end{enumerate}
 
 \end{document}
