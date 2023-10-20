@@ -2,8 +2,11 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{hyperref}
+% https://tex.stackexchange.com/questions/12703/how-to-create-fixed-width-table-columns-with-text-raggedright-centered-raggedlef
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
 
+
+\usepackage{hyperref}
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
     linkcolor=red,          % color of internal links (change box color with linkbordercolor)
@@ -12,11 +15,26 @@
     urlcolor=cyan           % color of external links
 }
 
+\usepackage[shortlabels]{enumitem}
+\usepackage{pdflscape}
+\usepackage{ltablex}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{siunitx}
+
+% command from https://tex.stackexchange.com/questions/150492/how-to-use-itemize-in-table-environment
+% \newcommand{\tabitem}{~~\llap{\textbullet}~~}
+\newcounter{PRcnt}
+\setcounter{PRcnt}{2}
+\newcounter{SRcnt}
+\setcounter{SRcnt}{10}
 \title{Hazard Analysis\\\progname}
 
 \author{\authname}
 
-\date{}
+\date{20 October 2023}
 
 \input{../Comments}
 \input{../Common}
@@ -31,16 +49,14 @@
 \pagenumbering{roman}
 
 \begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-\midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
-\bottomrule
-\end{tabularx}
+  \caption{Revision History} \label{TblRevisionHistory}
+  \begin{tabularx}{\textwidth}{llX}
+    \toprule
+    \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+    \midrule
+    17 October 2023 & AJ, KH, QC, QS, XY & Initial draft \\
+    \bottomrule
+  \end{tabularx}
 \end{table}
 
 ~\newpage
@@ -51,35 +67,425 @@ Date2 & Name(s) & Description of changes\\
 
 \pagenumbering{arabic}
 
-\wss{You are free to modify this template.}
-
 \section{Introduction}
 
-\wss{You can include your definition of what a hazard is here.}
+In alignment with the foundational principles laid out by Nancy Leveson, a
+"hazard" within the context of our Tai Chi instruction platform can be
+identified as any inherent property or external condition. It could potentially
+cause the system to deviate from its intended functionality, particularly when
+interacting with various environmental factors.
+
+This document is dedicated to a comprehensive hazard analysis of our innovative
+Tai Chi video conferencing application, identifying the hazards and emphasizing
+the appropriate actions for the hazards.
 
 \section{Scope and Purpose of Hazard Analysis}
 
+This document describes the scope and purpose of hazard analysis for our
+WebRTC-based Tai Chi instruction application, focusing on identifying potential
+hazards within specific system boundaries and components, and prescribing
+comprehensive mitigation strategies. While acknowledging that users' diverse
+hardware configurations are beyond our control, the system is designed for broad
+compatibility, assuming standard web browser functionality on the user's device.
+Our analysis operates under the critical assumption that all application
+functionalities, particularly those related to real-time instructional
+mechanics, are performing as intended, thereby circumventing the need to predict
+various user inputs. Emphasis is placed on fortifying key components---backend
+server and UI---against potential failures. Through this analysis, we commit to
+ensuring an uninterrupted, secure, and user-centric experience, essential for
+the virtual dissemination and mastery of Tai Chi practices.
+
+
 \section{System Boundaries and Components}
+
+The system's boundaries are carefully defined to provide a clear understanding
+of the components that interact with and are integral to our Tai Chi
+video-conferencing application. These boundaries primarily encompass two
+categories of components: System Components and Environment Components.
+
+By outlining system boundaries and components, we aim to establish a framework
+for hazard analysis that emphasizes the interplay between these key components
+and the broader environmental factors. This holistic approach allows us to
+identify and address potential hazards effectively while working to maintain the
+application's integrity and user satisfaction.
+
+\subsection{System Components}
+\begin{itemize}
+\item Client application
+\item Signaling and media stream routing unit
+\item Machine learning annotation pipeline
+\end{itemize}
+
+System Components comprise the essential elements that constitute our
+application. These components are at the core of the system's functionality,
+facilitating user interactions, data routing, and real-time machine
+learning-based annotations.
+
+\subsection{Environment Components}
+
+\begin{itemize}
+\item Personal computing devices
+\item Media capturing device
+\end{itemize}
+
+Environment Components encompass the external factors that influence the
+system's operation. These components are external to the system but play a
+critical role in ensuring a seamless and productive user experience.
 
 \section{Critical Assumptions}
 
-\wss{These assumptions that are made about the software or system.  You should
-minimize the number of assumptions that remove potential hazards.  For instance,
-you could assume a part will never fail, but it is generally better to include
-this potential failure mode.}
+To ensure that the hazard assessment and analysis process remains transparent,
+accountable, and adaptable to changing circumstances, the following assumptions
+are made:
+
+\begin{enumerate}
+\item The user does not intentionally attempt to break the system, such as
+  providing deceptive inputs that aim to trick machine learning models
+  (adversarial attacks).
+\item Only legal content is shared on the conferencing platform. The user does not
+  deliberately exploit the system to spread abusive, criminal, pornographic
+  content.
+\item The user has no physical disability, meaning that users are presumed to have
+  the physical capability to interact with and operate the system without
+  encountering any limitations related to physical disabilities.
+\item Hazard analysis for the media capturing device component only applies to
+  instructors.
+\end{enumerate}
+
 
 \section{Failure Mode and Effect Analysis}
 
-\wss{Include your FMEA table here}
+In the Failure Mode and Effect Analysis (FMEA) section, we employ a structured
+methodology to systematically identify potential failure modes, assess their
+effects, and prioritize recommended actions to mitigate hazards and enhance the
+safety and performance of our Tai Chi video conferencing application.
+
+\setlength{\tabcolsep}{2pt}
+\newgeometry{margin=2cm}
+\begin{landscape}
+  \begin{table}
+    \caption{FMEA table}
+    \begin{tabular}[h]{L{0.1\linewidth}L{0.1\linewidth}L{0.1\linewidth}L{0.13\linewidth}L{0.4\linewidth}L{0.04\linewidth}L{0.04\linewidth}} \toprule \\
+      \textbf{Component}
+      & \textbf{Failure Mode}
+      & \textbf{Effects of Failure}
+      & \textbf{Causes of Failure}
+      & \textbf{Recommended Action}
+      & \textbf{SR}
+      & \textbf{Ref} \\ \midrule
+      \multirow[c]{2}{1\linewidth}{Client Application}
+      & Unauthorized access to media capturing devices
+      & Invasion of user privacy
+      & Lack of considerations for user privacy in the design process
+      & \vspace{-1.1\topsep}
+        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+        \item Ask for permission to access media capturing devices
+        \item Have an indicator when a media capturing device is in use
+        \item Revoke access as soon as the capturing device is no longer needed
+        \end{itemize}
+        \vspace{-1.1\topsep}
+      & \ref{SR4}, \ref{SR5}
+      & H1-1 \\
+      & Unresponsive UI
+      & The user interface is unresponsive to the user interaction
+      & \vspace{-1.1\topsep}
+        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+        \item Delayed response from the server
+        \item Insufficient client-side resource
+        \end{itemize}
+        \vspace{-1.1\topsep}
+      & \vspace{-1.1\topsep}
+        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+        \item Design the system with redundant processing capacity in mind
+        \item Test with workload larger than that in the expected usage scenario
+        \end{itemize}
+        \vspace{-1.1\topsep}
+      & \ref{PR1}
+      & H1-2 \\
+      \multirow[c]{2}{1\linewidth}{Signaling and Stream Routing Unit}
+      & Signaling server down
+      & New WebRTC connections cannot be established
+      & Server hardware failures
+      & Configure the system to automatically switch to a backup signaling
+        server when the primary server experiences downtime.
+      & \ref{PR9}
+      & H2-1 \\
+      & SFU overload
+      & \vspace{-1.1\topsep}
+        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+        \item Decreased video and audio quality
+        \item Session crashes
+        \end{itemize}
+        \vspace{-1.1\topsep}
+      & \vspace{-1.1\topsep}
+        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+        \item Unexpected spikes in number of participants
+        \item Insufficient resource
+        \end{itemize}
+        \vspace{-1.1\topsep}
+      & \vspace{-1.1\topsep}
+        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+        \item Conduct stress tests to determine the system’s maximum capacity.
+        \item Once reaches the maximum capacity, the system will put new requests
+          for creating or joining sessions on hold.
+        \end{itemize}
+        \vspace{-1.1\topsep}
+      & \ref{PR2}, \ref{PR6}
+      & H2-2 \\
+% TODO
+    \end{tabular}
+  \end{table}
+\end{landscape}
+\restoregeometry
 
 \section{Safety and Security Requirements}
 
-\wss{Newly discovered requirements.  These should also be added to the SRS.  (A
-rationale design process how and why to fake it.)}
+New requirements identifiers are highlighted in bold.
+
+\subsection{Performance Requirements}
+
+\subsubsection{Speed Requirements}
+
+\begin{enumerate}[PR1]
+\item The system shall respond to user interactions (e.g. button clicks, menu
+  selections) within 1 second. \label{PR1}
+  \begin{description}
+  \item[Rationale] To provide a responsive and smooth user experience.
+  \item[Fit Criteria] User interactions result in near-instantaneous system
+    responses under typical conditions.
+  \item[Priority] Medium
+  \end{description}
+  \setcounter{enumi}{13}
+\item The system shall provide annotations with minimal delay, ensuring real-time
+  alignment with the instructor's live stream. \label{PR14}
+  \begin{description}
+  \item[Rationale] To ensure the highest quality of instructional annotations that
+    effectively enhance the user experience and learning process. The latency of
+    annotation should not be noticeable.
+  \item[Fit Criteria] The generated annotation should have less than MAX\_DELAY
+    latency between the stream image and annotation.
+  \item[Priority] High
+  \end{description}
+\end{enumerate}
+
+\subsubsection{Reliability and Availability Requirements}
+
+\begin{enumerate}[PR1]
+  \setcounter{enumi}{1}
+\item The signaling server, SFU, and STUN/TURN servers shall operate with high
+  reliability, minimizing service interruptions during live
+  sessions. \label{PR2}
+  \begin{description}
+  \item[Rationale] To ensure a consistent and uninterrupted learning experience for users.
+  \item[Fit Criteria] Real-time communication services are always available.
+  \item[Priority] High
+  \end{description}
+\end{enumerate}
+\begin{enumerate}[label=\textbf{PR\arabic*}]
+  \setcounter{enumi}{6}
+\item The system shall be able to resume the previous session when the session is
+  accidentally terminated due to an application crash or internet interruption.
+  \label{PR7}
+	\begin{description}
+  \item[Rationale] To enhance the overall user experience by minimizing disruptions
+    caused by unforeseen events.
+	\item[Fit Criteria] The system shall automatically save snapshots of conference
+    metadata, try reconnecting after the application successfully restarts or
+    internet access resumes.
+	\item[Priority] Medium
+  \end{description}
+\item The system shall monitor the user's network quality while the user is using
+  the application. \label{PR8}
+	\begin{description}
+  \item[Rationale] To ensure the conference quality of other users.
+	\item[Fit Criteria] The system shall warn the user if network instability is
+    detected, and put the user on hold if the issue persists.
+	\item[Priority] Medium
+  \end{description}
+\item The system shall be running when the primary signaling server is
+  down. \label{PR9}
+	\begin{description}
+  \item[Rationale] To enhance system resilience and reliability and reduce system
+    downtime.
+	\item[Fit Criteria] A redundant signaling server shall be maintained alongside
+    the primary signaling server, and shall be deployed when the primary
+    signaling server is down.
+	\item[Priority] Medium
+  \end{description}
+\item The system shall send warnings to users when video/audio capturing devices
+  are disconnected. \label{PR10}
+  \begin{description}
+  \item[Rationale] The source video stream from the instructor is essential for a
+    demonstrational conference session. If these devices become disconnected
+    without warning, users may not be aware of the issue, leading to confusion
+    and frustration.
+	\item[Fit Criteria] The system should send clear and user-friendly warnings or
+    notifications when it detects the disconnection of video or audio capturing
+    devices.
+	\item[Priority] Critical
+  \end{description}
+\item The system shall ensure that the quality of the video stream captured meets
+  the minimum resolution requirement. \label{PR11}
+	\begin{description}
+  \item[Rationale] To ensure the quality of the input data to the ML pipeline.
+	\item[Fit Criteria] The system shall perform hardware capability examination in
+    any detected and authorized video capturing device, and notify users of the
+    required resolution rate of MIN\_RES.
+	\item[Priority] Critical
+  \end{description}
+\item The system shall generate accurate annotation on top of the user's live
+  stream. \label{PR12}
+	\begin{description}
+  \item[Rationale] To ensure the highest quality of instructional annotations that
+    effectively enhance the user experience and learning process. The generated
+    annotation should be accurate enough.
+	\item[Fit Criteria] The system should generate annotation that meets 4 out of 5
+    team members' accuracy expectations. The accuracy expectations can be met by
+    team members manually checking the annotation.
+	\item[Priority] High
+  \end{description}
+\item The system shall use the media capturing devices the user specified when
+  multiple types of capturing devices are detected. \label{PR13}
+	\begin{description}
+  \item[Rationale] To ensure the user experience, users should be able to specify
+    the media capturing device they want to use.
+	\item[Fit Criteria] When the system detects the presence of multiple media
+    capturing devices of the same type (e.g. cameras, microphones), it shall
+    display a notification to inform the user of this condition. The system will
+    then prompt the user to select which media capturing device to utilize
+    through a device selection form. This form shall allow the user to choose
+    between the available devices of each type that were detected. Upon
+    submission of the form, the chosen media capturing devices will be activated
+    for use within the application.
+	\item[Priority] Medium
+  \end{description}
+  \stepcounter{enumi}
+\item The system shall make sure the view of the subject is within the field of
+  view of the media capturing device. \label{PR15}
+	\begin{description}
+  \item[Rationale] Having a complete view of the subject's body ensures the quality
+    of data feeding into the system for analyzing human body motions.
+	\item[Fit Criteria] The system shall present detailed instructions for the user
+    to properly set up the media capturing device, making sure the body of the
+    subject is fully visible from the perspective of the camera.
+  \item[Priority] Critical
+  \end{description}
+\end{enumerate}
+
+\subsubsection{Scalability of Extensibility Requirements}
+
+\begin{enumerate}[PR1]
+  \setcounter{enumi}{5}
+\item The Selective Forwarding Unit (SFU) shall be scalable to accommodate
+  an increasing number of simultaneous video streams as the user base
+  grows. \label{PR6}
+  \begin{description}
+  \item[Rationale] To support a growing user community without performance
+    degradation.
+  \item[Fit Criteria] The SFU can handle AT least 10 simultaneous
+    video streams during peak usage.
+  \item[Priority] Medium
+  \end{description}
+\end{enumerate}
+
+\subsubsection{Health and Safety Requirements}
+
+\begin{enumerate}[HS1]
+\item The system shall not cause the computers to overload. \label{HS1}
+	\begin{description}
+  \item[Rationale] The system should not overload the users' computers.
+	\item[Fit Criteria] The hardware running the system is under normal temperature.
+	\item[Priority] Medium
+  \end{description}
+\item The system shall not affect users' physical and mental health. \label{HS2}
+  \begin{description}
+  \item[Rationale] The system must not harm users' health and safety.
+  \item[Fit Criteria] Users feel comfortable using the system in various
+    situations.
+  \item[Priority] Critical
+  \end{description}
+\end{enumerate}
+
+\subsection{Security Requirements}
+
+\begin{enumerate}[label=\textbf{SR\arabic*}]
+  \setcounter{enumi}{3}
+\item The system shall access media capturing devices only when user permission is
+  granted. \label{SR4}
+	\begin{description}
+  \item[Rationale] To protect user privacy
+	\item[Fit Criteria] A dialogue shall be displayed to ask for user permission to
+    access media capturing devices.
+	\item[Priority] Critical
+  \end{description}
+\item The system shall ensure the user is always aware of any active
+  media capturing device. \label{SR5}
+	\begin{description}
+  \item[Rationale] To protect user privacy
+	\item[Fit Criteria] An indicator shall be presented for each active media
+    capturing device.
+	\item[Priority] Critical
+  \end{description}
+\item The system shall not retain access to any media capturing device when they
+  are not needed for video conferencing sessions. \label{SR6}
+	\begin{description}
+  \item[Rationale] To protect user privacy
+	\item[Fit Criteria] The access to any media capturing device is terminated as
+    soon as the session ends or the user exits the session.
+	\item[Priority] Critical
+  \end{description}
+\end{enumerate}
 
 \section{Roadmap}
 
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
+In the hazard analysis documentation for our Tai Chi video conferencing
+application, we have identified and prioritized a comprehensive set of safety
+and security requirements together with other non-functional requirements
+through the process of discovering potential hazards. These requirements are
+essential for mitigating potential hazards, ensuring the reliability and
+integrity of our system, and creating a secure and user-centric experience.
+
+Requirements that address fundamental safety and security concerns, such as user
+privacy, system reliability, and user well-being, are given critical priority.
+These requirements include \ref{PR10}, \ref{PR11}, \ref{PR15}, \ref{HS2},
+\ref{SR4}, \ref{SR5}, and \ref{SR6}. Requirements related to the seamless
+operation of our system during both normal and unforeseen events, such as system
+crashes or network interruptions, are considered high priority. These
+requirements include \ref{PR14}, \ref{PR2}, and \ref{PR12}. Requirements that
+focus on system performance, scalability, and the quality of user experience are
+rated as medium priority. \ref{PR1}, \ref{PR6}, \ref{PR7}, \ref{PR8}, \ref{PR9},
+\ref{PR13}, and \ref{HS1} fall under this category.
+
+Given the limited time and human resource within the capstone project timeline,
+all requirements of ``critical'' priority shall be implemented by the end of the
+capstone project. Other requirements with lower priorities could be met by
+future implementations. This roadmap will serve as a guide to ensure that our
+Tai Chi video conferencing application evolves in a way that aligns with our
+commitment to safety, security and user satisfaction.
+
+\section{Appendix}
+
+\subsection{Glossary}
+
+\begin{description}
+\item[Tai Chi] A classical Chinese martial art system practiced for health
+  promotion and rehabilitation.
+\item[Instructor] A person who teaches a Tai Chi class through an online conference
+  system.
+\item[Practitioner] A person who learns Tai Chi through an online conference
+  system.
+\end{description}
+
+\subsection{Symbolic Constants}
+
+\begin{table}[h]
+  \caption{Symbolic constants in Hazard Analysis}
+  \begin{tabularx}{1.0\linewidth}[h]{ll} \toprule \\
+    \textbf{Symbol} & \textbf{Value} \\ \midrule \\
+    MAX\_DELAY \label{const:delay} & \SI{500}{\milli\second} \\
+    MIN\_RES \label{const:res} & 720p \\ \bottomrule
+  \end{tabularx}
+  \label{tab:syms}
+\end{table}
 
 \end{document}
