@@ -25,12 +25,6 @@
 \usepackage{siunitx}
 \usepackage{longtable}
 
-% command from https://tex.stackexchange.com/questions/150492/how-to-use-itemize-in-table-environment
-% \newcommand{\tabitem}{~~\llap{\textbullet}~~}
-\newcounter{PRcnt}
-\setcounter{PRcnt}{2}
-\newcounter{SRcnt}
-\setcounter{SRcnt}{10}
 \title{Hazard Analysis\\\progname}
 
 \author{\authname}
@@ -70,7 +64,7 @@
     & & Roadmap\\
     \midrule
     & QC & Introduction,\\
-    & & Scope and Purpose of Hazard Analysis\\       
+    & & Scope and Purpose of Hazard Analysis\\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -174,189 +168,191 @@ are made:
 In the Failure Mode and Effect Analysis (FMEA) section, we employ a structured
 methodology to systematically identify potential failure modes, assess their
 effects, and prioritize recommended actions to mitigate hazards and enhance the
-safety and performance of our Tai Chi video conferencing application.
+safety and performance of our Tai Chi video conferencing application. Table
+\ref{tab:fmea} summaries the FMEA for our project.
 
 \setlength{\tabcolsep}{2pt}
-\newgeometry{margin=1.5cm}
+\newgeometry{margin=2cm}
 \begin{landscape}
-  \begin{table}
-    \caption{FMEA table}
-    \begin{tabular}[h]{L{0.09\linewidth}L{0.1\linewidth}L{0.15\linewidth}L{0.13\linewidth}L{0.35\linewidth}L{0.04\linewidth}L{0.04\linewidth}} \toprule \\
-      \textbf{Component}
-      & \textbf{Failure Mode}
-      & \textbf{Effects of Failure}
-      & \textbf{Causes of Failure}
-      & \textbf{Recommended Action}
-      & \textbf{SR}
-      & \textbf{Ref} \\ \midrule
-      \multirow[c]{2}{1\linewidth}{Client Application}
-      & Unauthorized access to media capturing devices
-      & Invasion of user privacy
-      & Lack of considerations for user privacy in the design process
-      & \vspace{-1.1\topsep}
-        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Ask for permission to access media capturing devices
-        \item Have an indicator when a media capturing device is in use
-        \item Revoke access as soon as the capturing device is no longer needed
-        \end{itemize}
-        \vspace{-1.1\topsep}
-      & \ref{SR4}, \ref{SR5}
-      & H1-1 \\
-      & Unresponsive UI
-      & The user interface is unresponsive to the user interaction
-      & \vspace{-1.1\topsep}
-        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Delayed response from the server
-        \item Insufficient client-side resource
-        \end{itemize}
-        \vspace{-1.1\topsep}
-      & \vspace{-1.1\topsep}
-        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Design the system with redundant processing capacity in mind
-        \item Test with workload larger than that in the expected usage scenario
-        \end{itemize}
-        \vspace{-1.1\topsep}
-      & \ref{PR1}
-      & H1-2 \\
-      \multirow[c]{2}{1\linewidth}{Signaling and Stream Routing Unit}
-      & Signaling server down
-      & New WebRTC connections cannot be established
-      & Server hardware failures
-      & Configure the system to automatically switch to a backup signaling
-        server when the primary server experiences downtime.
-      & \ref{PR9}
-      & H2-1 \\
-      & SFU overload
-      & \vspace{-1.1\topsep}
-        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Decreased video and audio quality
-        \item Session crashes
-        \end{itemize}
-        \vspace{-1.1\topsep}
-      & \vspace{-1.1\topsep}
-        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Unexpected spikes in number of participants
-        \item Insufficient resource
-        \end{itemize}
-        \vspace{-1.1\topsep}
-      & \vspace{-1.1\topsep}
-        \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Conduct stress tests to determine the system’s maximum capacity.
-        \item Once reaches the maximum capacity, the system will put new requests
-          for creating or joining sessions on hold.
-        \end{itemize}
-        \vspace{-1.1\topsep}
-      & \ref{PR2}, \ref{PR6}
-      & H2-2 \\
-      \multirow[c]{2}{1\linewidth}{ML Annotation Pipeline}
-      & Inaccurate annotation produced
-      & Negatively impact learning outcomes.
-      & \vspace{-1.1\topsep}
+  \begin{longtable}[h]{L{0.09\linewidth}L{0.1\linewidth}L{0.15\linewidth}L{0.13\linewidth}L{0.35\linewidth}L{0.05\linewidth}L{0.04\linewidth}}
+    \caption{FMEA table} \label{tab:fmea} \\ \toprule \\
+    \textbf{Component}
+    & \textbf{Failure Mode}
+    & \textbf{Effects of Failure}
+    & \textbf{Causes of Failure}
+    & \textbf{Recommended Action}
+    & \textbf{SR}
+    & \textbf{Ref} \\ \midrule
+    \endfirsthead
+    \textbf{Component}
+    & \textbf{Failure Mode}
+    & \textbf{Effects of Failure}
+    & \textbf{Causes of Failure}
+    & \textbf{Recommended Action}
+    & \textbf{SR}
+    & \textbf{Ref} \\ \midrule
+    \endhead
+    \multicolumn{7}{r@{}}{continue on next page \ldots} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    \multirow[c]{2}{1\linewidth}{Client Application}
+    & Unauthorized access to media capturing devices
+    & Invasion of user privacy
+    & Lack of considerations for user privacy in the design process
+    & \vspace{-1.1\topsep}
       \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Corrupted input data.
-        \item Low-fidelity input data.
+      \item Ask for permission to access media capturing devices
+      \item Have an indicator when a media capturing device is in use
+      \item Revoke access as soon as the capturing device is no longer needed
       \end{itemize}
-      & \vspace{-1.1\topsep}
+      \vspace{-1.1\topsep}
+    & \ref{SR4}, \ref{SR5}
+    & H1-1 \\
+    & Unresponsive UI
+    & The user interface is unresponsive to the user interaction
+    & \vspace{-1.1\topsep}
       \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Set a confidence threshold. Refuse to process if below the threshold. Forward feedback to the front end.
-        \item Increase allowance/tolerance of “bad” data, increase the robustness of the annotation pipeline.
+      \item Delayed response from the server
+      \item Insufficient client-side resource
       \end{itemize}
-      & \ref{PR12}
-      & H3-1 \\
-      & Latency in Annotation
-      & Negatively impact learning outcomes.
-      & \vspace{-1.1\topsep}
+      \vspace{-1.1\topsep}
+    & \vspace{-1.1\topsep}
       \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Heavy system load, inefficient machine learning model
-        \item The high volume of render requests.
+      \item Design the system with redundant processing capacity in mind
+      \item Test with workload larger than that in the expected usage scenario
       \end{itemize}
-      & \vspace{-1.1\topsep}
+      \vspace{-1.1\topsep}
+    & \ref{PR1}
+    & H1-2 \\ \midrule
+    \multirow[c]{2}{1\linewidth}{Signaling and Stream Routing Unit}
+    & Signaling server down
+    & New WebRTC connections cannot be established
+    & Server hardware failures
+    & Configure the system to automatically switch to a backup signaling
+      server when the primary server experiences downtime.
+    & \ref{PR9}
+    & H2-1 \\
+    & SFU overload
+    & \vspace{-1.1\topsep}
       \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Improve the efficiency of the machine learning model.
-        \item Allocate additional resources to accommodate higher loads.
+      \item Decreased video and audio quality
+      \item Session crashes
       \end{itemize}
-      & \ref{PR14}
-      & H3-2 \\
-      \multirow[c]{1}{1\linewidth}{Personal Computing Device}
-      & The application is not running correctly
-      & App crashed
-      & \vspace{-1.1\topsep}
+      \vspace{-1.1\topsep}
+    & \vspace{-1.1\topsep}
       \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Insufficient running memory.
-        \item Outdated OS version.
+      \item Unexpected spikes in number of participants
+      \item Insufficient resource
       \end{itemize}
-      & Automatically save conference metadata, try to reconnect after the application restart.
-      & \ref{HS1}, \ref{PR7}
-      & H4-1\\
-    \end{tabular}
-  \end{table}
-\end{landscape}
-
-\setlength{\tabcolsep}{2pt}
-\newgeometry{margin=1.5cm}
-\begin{landscape}
-  \begin{table}
-    \caption{FMEA table-continued}
-    \begin{tabular}[h]{L{0.09\linewidth}L{0.1\linewidth}L{0.15\linewidth}L{0.13\linewidth}L{0.35\linewidth}L{0.04\linewidth}L{0.04\linewidth}} \toprule \\
-      \textbf{Component}
-      & \textbf{Failure Mode}
-      & \textbf{Effects of Failure}
-      & \textbf{Causes of Failure}
-      & \textbf{Recommended Action}
-      & \textbf{SR}
-      & \textbf{Ref} \\ \midrule
-      \multirow[c]{1}{1\linewidth}{Personal Computing Device}
-      & Network Interruption
-      & Client-Server connection lost
-      & No internet connection on the user’s side.
-      & Retry connection after a predetermined delay.
-      & \ref{PR7}
-      & H4-2\\
-      & Network stability fluctuation
-      & Inefficient bit rate and low-resolution
-      & Unstable internet connection on the user’s side
-      & \vspace{-1.1\topsep}
+      \vspace{-1.1\topsep}
+    & \vspace{-1.1\topsep}
       \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Monitor network quality in real-time. Warn users if instability is detected.
-        \item Put user on hold if network problem persists.
-      \end{itemize}      
-      & \ref{PR8}
-      & H4-3\\
-      \multirow[c]{4}{1\linewidth}{Media Capturing Device}
-      & Device lost connection
-      & Loss of source video stream
-      & A malfunctioning physical device or loose device connection
-      & Send warnings to users when video or audio devices are disconnected
-      & \ref{PR10}
-      & H5-1\\
-
-      & Vision obscured
-      & Part of the instructor's body is invisible from the perspective of the video-capturing device
-      & Misplaced capturing device; The user moves or rotates the video-capturing device by accident
-      & Send warnings to the user when no full human body is detected in the capturing device
-      & \ref{PR15}
-      & H5-2\\
-
-      & Insufficient resolution
-      & Low-fidelity output data
-      & Limited hardware capability
-      & \vspace{-1.1\topsep}
+      \item Conduct stress tests to determine the system’s maximum capacity.
+      \item Once reaches the maximum capacity, the system will put new requests for
+        creating or joining sessions on hold.
+      \end{itemize}
+      \vspace{-1.1\topsep}
+    & \ref{PR2}, \ref{PR6}
+    & H2-2 \\ \midrule
+    \multirow[c]{2}{1\linewidth}{ML Annotation Pipeline}
+    & Inaccurate annotation produced
+    & Negatively impact learning outcomes.
+    & \vspace{-1.1\topsep}
       \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
-        \item Perform hardware capability examination, and warn the user if incapable hardware detected
-        \item Specify and notify the user of the minimum system requirements/environment for running the application
-      \end{itemize}  
-      & \ref{PR11}
-      & H5-3\\
-
-      & Multiple devices detected
-      & The client application is unable to select the correct media-capturing device
-      & Multiple media-capturing devices are connected to the machine running the application
-      & Send warnings to the user when multiple media capturing devices are detected, and ask users to select the one they wants to use
-      & \ref{PR13}
-      & H5-4\\
-
-    \end{tabular}
-  \end{table}
+      \item Corrupted input data.
+      \item Low-fidelity input data.
+      \end{itemize}
+      \vspace{-1.1\topsep}
+    & \vspace{-1.1\topsep}
+      \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+      \item Set a confidence threshold. Refuse to process if below the threshold.
+        Forward feedback to the front end.
+      \item Increase allowance/tolerance of “bad” data, increase the robustness of
+        the annotation pipeline.
+      \end{itemize}
+      \vspace{-1.1\topsep}
+    & \ref{PR12}
+    & H3-1 \\
+    & Latency in Annotation
+    & Negatively impact learning outcomes.
+    & \vspace{-1.1\topsep}
+      \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+      \item Heavy system load, inefficient machine learning model
+      \item The high volume of render requests.
+      \end{itemize}
+      \vspace{-1.1\topsep}
+    & \vspace{-1.1\topsep}
+      \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+      \item Improve the efficiency of the machine learning model.
+      \item Allocate additional resources to accommodate higher loads.
+      \end{itemize}
+      \vspace{-1.1\topsep}
+    & \ref{PR14}
+    & H3-2 \\ \midrule
+    \multirow[c]{1}{1\linewidth}{Personal Computing Device}
+    & The application is not running correctly
+    & App crashed
+    & \vspace{-1.1\topsep}
+      \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+      \item Insufficient running memory.
+      \item Outdated OS version.
+      \end{itemize}
+      \vspace{-1.1\topsep}
+    & Automatically save conference metadata, try to reconnect after the application restart.
+    & \ref{HS1}, \ref{PR7}
+    & H4-1\\
+    & Network Interruption
+    & Client-Server connection lost
+    & No internet connection on the user’s side.
+    & Retry connection after a predetermined delay.
+    & \ref{PR7}
+    & H4-2\\
+    & Network stability fluctuation
+    & Inefficient bit rate and low-resolution
+    & Unstable internet connection on the user’s side
+    & \vspace{-1.1\topsep}
+      \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+      \item Monitor network quality in real-time. Warn users if instability is
+        detected.
+      \item Put user on hold if network problem persists.
+      \end{itemize}
+      \vspace{-1.1\topsep}
+    & \ref{PR8}
+    & H4-3\\ \midrule
+    \multirow[c]{4}{1\linewidth}{Media Capturing Device}
+    & Device lost connection
+    & Loss of source video stream
+    & A malfunctioning physical device or loose device connection
+    & Send warnings to users when video or audio devices are disconnected
+    & \ref{PR10}
+    & H5-1\\
+    & Vision obscured
+    & Part of the instructor's body is invisible from the perspective of the video-capturing device
+    & Misplaced capturing device; The user moves or rotates the video-capturing device by accident
+    & Send warnings to the user when no full human body is detected in the capturing device
+    & \ref{PR15}
+    & H5-2\\
+    & Insufficient resolution
+    & Low-fidelity output data
+    & Limited hardware capability
+    & \vspace{-1.1\topsep}
+      \begin{itemize}[nosep,topsep=0pt,leftmargin=10pt]
+      \item Perform hardware capability examination, and warn the user if incapable
+        hardware detected
+      \item Specify and notify the user of the minimum system
+        requirements/environment for running the application
+      \end{itemize}
+      \vspace{-1.1\topsep}
+    & \ref{PR11}
+    & H5-3\\
+    & Multiple devices detected
+    & The client application is unable to select the correct media-capturing device
+    & Multiple media-capturing devices are connected to the machine running the application
+    & Send warnings to the user when multiple media capturing devices are detected, and ask users to select the one they wants to use
+    & \ref{PR13}
+    & H5-4\\
+  \end{longtable}
 \end{landscape}
 \restoregeometry
 
