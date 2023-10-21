@@ -24,6 +24,9 @@
 \usepackage{geometry}
 \usepackage{siunitx}
 \usepackage{longtable}
+\usepackage[style=ieee]{biblatex}
+\addbibresource{/home/joe/Documents/McMaster/SFWRENG 4G06 Capstone Design Project (ft. Spencer)/MotionMingle/refs/References.bib}
+%\addbibresource{../../refs/References.bib}
 
 \title{Hazard Analysis\\\progname}
 
@@ -69,21 +72,22 @@
   \end{tabularx}
 \end{table}
 
-~\newpage
+\newpage{}
 
-\tableofcontents
+\tableofcontents{}
+\listoftables{}
 
-~\newpage
+\newpage{}
 
 \pagenumbering{arabic}
 
 \section{Introduction}
 
-In alignment with the foundational principles laid out by Nancy Leveson, a ``hazard"
- within the context of our Tai Chi instruction platform can be
-identified as any inherent property or external condition. It could potentially
-cause the system to deviate from its intended functionality, particularly when
-interacting with various environmental factors.
+In alignment with the foundational principles laid out by
+\textcite{leveson_engineering_2011}, a ``hazard'' within the context of our Tai
+Chi instruction platform can be identified as any inherent property or external
+condition. It could potentially cause the system to deviate from its intended
+functionality, particularly when interacting with various environmental factors.
 
 This document is dedicated to a comprehensive hazard analysis of our innovative
 Tai Chi video conferencing application, identifying the hazards and emphasizing
@@ -610,5 +614,7 @@ commitment to safety, security and user satisfaction.
   \end{tabularx}
   \label{tab:syms}
 \end{table}
+
+\printbibliography[heading=bibnumbered]{}
 
 \end{document}
