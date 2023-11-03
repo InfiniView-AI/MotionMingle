@@ -70,21 +70,26 @@ in.}
   \toprule
   \textbf{symbol} & \textbf{description}\\
   \midrule
-  T & Test\\
+  Tai Chi & A classical Chinese martial art system practiced for health promotion and rehabilitation.\\
+  Instructor & A person who teaches a Tai Chi class through an online conference system.\\
+  Practitioner & A person who learns Tai Chi through an online conference system. \\
+  Pipeline & A sequence of processing elements connected in series, which are responsible for generating annotations. \\
+  UI & User Interface. \\
+  TA & Teaching Assistant.\\
+  SRS & The Software Requirements Specification document.\\
+  POC & proof of concept.\\ 
+  SFU & Selective Forwarding Unit, a component in real-time communication systems like WebRTC that routes and selectively forwards audio and video streams from one participant to others.\\
+  V\&V Plan & The verification and validation plan document(this document).\\
+  Type: Functional & Functional test: An input/output blackbox type test. \\
+  Type: Dynamic & Dynamic test: Test type that requires code/program to be executed. \\
+  Type: Manual & Manual test: Test type that requires the user to do the test without using automated tools. \\
+  Type: Automated & Automated test: Test type containing code/program that can be executed. \\
+  Stress test & Testing the limits (often the amount of data) of a system. \\
+  Performance test & Testing the performance(includes different metrics) of a system. \\
   \bottomrule
 \end{tabular}\\
-
-\wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
-
-\wss{Remove this section if it isn't needed}
-
 \newpage
-
 \pagenumbering{arabic}
-
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
 
 \section{General Information}
 
@@ -121,16 +126,13 @@ connections between components.
 
 Relevant documentations include:
 \begin{description}
-\item[SRS]
-  \href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/SRS/SRS.pdf}{/docs/SRS/SRS.pdf}
+\item[\href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/SRS/SRS.pdf}{SRS}]
   The SRS document is a related document as most of the requirements specified
   in this document come from the SRS document.
-\item[Development Plan]
-  \href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/DevelopmentPlan/DevelopmentPlan.pdf}{/docs/DevelopmentPlan/DevelopmentPlan.pdf}
+\item[\href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/DevelopmentPlan/DevelopmentPlan.pdf}{Development Plan}]
   The Development Plan document is a related document as it specifies the
   technologies that will be used in the project, including testing tools.
-\item[Hazard Analysis]
-  \href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/HazardAnalysis/HazardAnalysis.pdf}{/docs/HazardAnalysis/HazardAnalysis.pdf}
+\item[\href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/HazardAnalysis/HazardAnalysis.pdf}{Hazard Analysis}]
   The Hazard Analysis document is a related document as some of the requirements
   come from the Hazard Analysis document.
 \end{description}
@@ -344,9 +346,12 @@ For the practitioner, tasks include:
 Developments will observe and note how well the participants can complete the
 given tasks, making connections to the fit criterias of the non-functional
 requirements. The second component will be a user satisfaction survey conducted
-after the observation study. Participants will be asked to rate their experience
-in using the application, in the scale of 1 (unsatisfied) to 10 (satisfied). The
-targeted satisfactory factor is set to 85\%.
+after the observation study. Participants will be asked to take a survey to rate 
+their experience in using the application, in the scale of 1 (unsatisfied) to 5 
+(satisfied). The targeted satisfactory factor is set to 85\%. The survey also includes 
+questions about difficulties the user has encountered, and potential future improvements 
+can be done to the application.
+
 
 For future developments beyond the capstone timeline, the development team will
 continue to conduct review sessions and presentations with stakeholder
@@ -526,11 +531,15 @@ non-functional requirements.
   \item[Input/Condition] Signaling requests for WebRTC connections are initiated.
   \item[Output/Result] The signaling server consistently responds to requests and
     establishes WebRTC connections.
-  \item[How Test Will Be Performed] Structural tests will be used to evaluate the
-    availability and reliability of the signaling server. These tests will
-    involve monitoring and verifying the responsiveness of the signaling server
-    when requests for WebRTC connections are initiated, ensuring its consistent
-    availability.
+  \item[How Test Will Be Performed] Automated tests will be used to evaluate the availability and reliability of the signaling server. These tests will involve monitoring and verifying the responsiveness of the signaling server when requests for WebRTC connections are initiated, ensuring its consistent availability.
+  \end{description}
+\item \label{FRT12}
+  \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The client application is running, but the user didn’t do any operations yet
+    \item[Input/Condition] The user joining video stream session.
+    \item[Output/Result] A button to identify if a user is an instructor or a practitioner is rendered.
+    \item[How Test Will Be Performed] Test will be done automatically by unit testing framework in the CI pipeline. The test code will simulate a user's clicks to join a video stream session, then assert the button to identify if a user is an instructor or a practitioner showed up on the user's screen within the next 1 second.
   \end{description}
 \end{enumerate}
 
@@ -1235,16 +1244,25 @@ All the parts that are not out of scope for testing should be unit tested.
 
 \section{Appendix}
 
-This is where you can place additional information.
-
 \subsection{Symbolic Parameters}
 
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
 \subsection{Usability Survey Questions?}
+Questions for the user experience survey:\\
+1. On a scale of 1 to 5(beyond expectation), how would you rate your overall experience with our Tai Chi video conferencing application?\\
+2. On a scale of 1 to 5(beyond expectation), how would you rate the experience in reading the in-app instructions and navigating through the application?
+3. On a scale of 1 to 5(beyond expectation), how would you rate the video conference quality, considering the clarity, latency, and the accuracy of annotation overlays?
+4. On a scale of 1 to 5(beyond expectation), how would you rate your overall Tai Chi learning experience with the aid of the application?
+5. Are there any specific issues or challenges you've encountered while using the application?\\
+6. How satisfied are you with the speed and responsiveness of the application during your Tai Chi sessions?\\
+7. Do you find that the annotations and real-time guidance provided by the application enhance your Tai Chi learning experience?\\
+8. Have you experienced any disruptions or crashes during your sessions? If yes, please describe.\\
+9. Have you ever received any notifications or warnings related to the security of your sessions, e.g., when media-capturing devices are accessed?\\
+10. Have you received sufficient guidance on using the application effectively for your Tai Chi practice?\\
+11. Are there any specific content or learning materials you would like to see added to the application?\\
 
-\wss{This is a section that would be appropriate for some projects.}
 
 \newpage{}
 \section*{Appendix --- Reflection}
