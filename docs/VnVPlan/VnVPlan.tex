@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -13,6 +14,10 @@
 \usepackage[round]{natbib}
 
 \usepackage[shortlabels]{enumitem}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{pdflscape}
+\usepackage{siunitx}
 
 \input{../Comments}
 \input{../Common}
@@ -29,65 +34,49 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\begin{tabularx}{\textwidth}{llX}
+\toprule {\bf Date} & {\bf Developer(s)} & {\bf Change} \\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+November 3, 2023 & KH, QS, AJ, QC, XY & Initial Draft \\
 \bottomrule
 \end{tabularx}
-
-~\\
-\wss{The intention of the VnV plan is to increase confidence in the software.
-However, this does not mean listing every verification and validation technique
-that has ever been devised.  The VnV plan should also be a \textbf{feasible}
-plan. Execution of the plan should be possible with the time and team available.
-If the full plan cannot be completed during the time available, it can either be
-modified to ``fake it'', or a better solution is to add a section describing
-what work has been completed and what work is still planned for the future.}
-
-\wss{The VnV plan is typically started after the requirements stage, but before
-the design stage.  This means that the sections related to unit testing cannot
-initially be completed.  The sections will be filled in after the design stage
-is complete.  the final version of the VnV plan should have all sections filled
-in.}
 
 \newpage
 
 \tableofcontents
 
 \listoftables
-\wss{Remove this section if it isn't needed}
-\listoffigures
-\wss{Remove this section if it isn't needed}
 
 \newpage
 
 \section{Symbols, Abbreviations, and Acronyms}
 
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l}
-  \toprule
-  \textbf{symbol} & \textbf{description}\\
-  \midrule
-  Tai Chi & A classical Chinese martial art system practiced for health promotion and rehabilitation.\\
-  Instructor & A person who teaches a Tai Chi class through an online conference system.\\
-  Practitioner & A person who learns Tai Chi through an online conference system. \\
-  Pipeline & A sequence of processing elements connected in series, which are responsible for generating annotations. \\
-  UI & User Interface. \\
-  TA & Teaching Assistant.\\
-  SRS & The Software Requirements Specification document.\\
-  POC & proof of concept.\\ 
-  SFU & Selective Forwarding Unit, a component in real-time communication systems like WebRTC that routes and selectively forwards audio and video streams from one participant to others.\\
-  V\&V Plan & The verification and validation plan document(this document).\\
-  Type: Functional & Functional test: An input/output blackbox type test. \\
-  Type: Dynamic & Dynamic test: Test type that requires code/program to be executed. \\
-  Type: Manual & Manual test: Test type that requires the user to do the test without using automated tools. \\
-  Type: Automated & Automated test: Test type containing code/program that can be executed. \\
-  Stress test & Testing the limits (often the amount of data) of a system. \\
-  Performance test & Testing the performance(includes different metrics) of a system. \\
-  \bottomrule
-\end{tabular}\\
+Table \ref{tab:abbrv} lists all the symbols, abbreviations, and acronyms used
+throughout this document.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{L{0.25\linewidth}L{0.8\linewidth}} \toprule
+    \textbf{Symbol}        & \textbf{Description}                                                                                                                                                                     \\ \midrule
+    Tai Chi          & A classical Chinese martial art system practiced for health promotion and rehabilitation.                                                                                          \\
+    Instructor       & A person who teaches a Tai Chi class through an online conference system.                                                                                                          \\
+    Practitioner     & A person who learns Tai Chi through an online conference system.                                                                                                                   \\
+    Pipeline         & A sequence of processing elements connected in series, which are responsible for generating annotations.                                                                           \\
+    UI               & User Interface.                                                                                                                                                                    \\
+    TA               & Teaching Assistant.                                                                                                                                                                \\
+    SRS              & The Software Requirements Specification document.                                                                                                                                  \\
+    POC              & proof of concept.                                                                                                                                                                  \\
+    SFU              & Selective Forwarding Unit, a component in real-time communication systems like WebRTC that routes and selectively forwards audio and video streams from one participant to others. \\
+    V\&V Plan        & The verification and validation plan document(this document).                                                                                                                      \\
+    Type: Functional & Functional test: An input/output blackbox type test.                                                                                                                               \\
+    Type: Dynamic    & Dynamic test: Test type that requires code/program to be executed.                                                                                                                 \\
+    Type: Manual     & Manual test: Test type that requires the user to do the test without using automated tools.                                                                                        \\
+    Type: Automated  & Automated test: Test type containing code/program that can be executed.                                                                                                            \\
+    Stress test      & Testing the limits (often the amount of data) of a system.                                                                                                                         \\
+    Performance test & Testing the performance(includes different metrics) of a system.                                                                                                                   \\ \bottomrule
+  \end{tabular}
+  \caption{List of symbols, abbreviations, and acronyms}
+  \label{tab:abbrv}
+\end{table}
 \newpage
 \pagenumbering{arabic}
 
@@ -346,12 +335,11 @@ For the practitioner, tasks include:
 Developments will observe and note how well the participants can complete the
 given tasks, making connections to the fit criterias of the non-functional
 requirements. The second component will be a user satisfaction survey conducted
-after the observation study. Participants will be asked to take a survey to rate 
-their experience in using the application, in the scale of 1 (unsatisfied) to 5 
-(satisfied). The targeted satisfactory factor is set to 85\%. The survey also includes 
-questions about difficulties the user has encountered, and potential future improvements 
-can be done to the application.
-
+after the observation study. Participants will be asked to take a survey to rate
+their experience in using the application, in the scale of 1 (unsatisfied) to 5
+(satisfied). The targeted satisfactory factor is set to TARGET\_FACTOR. The
+survey also includes questions about difficulties the user has encountered, and
+potential future improvements can be done to the application.
 
 For future developments beyond the capstone timeline, the development team will
 continue to conduct review sessions and presentations with stakeholder
@@ -531,15 +519,25 @@ non-functional requirements.
   \item[Input/Condition] Signaling requests for WebRTC connections are initiated.
   \item[Output/Result] The signaling server consistently responds to requests and
     establishes WebRTC connections.
-  \item[How Test Will Be Performed] Automated tests will be used to evaluate the availability and reliability of the signaling server. These tests will involve monitoring and verifying the responsiveness of the signaling server when requests for WebRTC connections are initiated, ensuring its consistent availability.
+  \item[How Test Will Be Performed] Automated tests will be used to evaluate the
+    availability and reliability of the signaling server. These tests will
+    involve monitoring and verifying the responsiveness of the signaling server
+    when requests for WebRTC connections are initiated, ensuring its consistent
+    availability.
   \end{description}
 \item \label{FRT12}
   \begin{description}
-    \item[Type] Functional, Dynamic, Automated
-    \item[Initial State] The client application is running, but the user didn’t do any operations yet
-    \item[Input/Condition] The user joining video stream session.
-    \item[Output/Result] A button to identify if a user is an instructor or a practitioner is rendered.
-    \item[How Test Will Be Performed] Test will be done automatically by unit testing framework in the CI pipeline. The test code will simulate a user's clicks to join a video stream session, then assert the button to identify if a user is an instructor or a practitioner showed up on the user's screen within the next 1 second.
+  \item[Type] Functional, Dynamic, Automated
+  \item[Initial State] The client application is running, but the user didn’t do
+    any operations yet
+  \item[Input/Condition] The user joining video stream session.
+  \item[Output/Result] A button to identify if a user is an instructor or a
+    practitioner is rendered.
+  \item[How Test Will Be Performed] Test will be done automatically by unit
+    testing framework in the CI pipeline. The test code will simulate a user's
+    clicks to join a video stream session, then assert the button to identify if
+    a user is an instructor or a practitioner showed up on the user's screen
+    within the next 1 second.
   \end{description}
 \end{enumerate}
 
@@ -781,12 +779,13 @@ non-functional requirements.
   \item[How Test Will Be Performed] The test will be done manually by developers
     running the system. A tester shall prepare media capturing devices of
     various specifications. The tester shall make sure that at least one of them
-    captures video at a resolution below MIN\_RES, at least one at MIN\_RES, and
-    at least one higher than MIN\_RES. The tester shall connect each media
-    capturing device to the client application. The test is considered
-    successful if a pop up warning about video input not meeting the minimum
-    required resolution is displayed whenever a capturing device with resolution
-    below MIN\_RES. Otherwise, the test is considered a failure.
+    captures video at a resolution below MIN\_RES, at least one at
+    MIN\_RES, and at least one higher than MIN\_RES. The tester
+    shall connect each media capturing device to the client application. The
+    test is considered successful if a pop up warning about video input not
+    meeting the minimum required resolution is displayed whenever a capturing
+    device with resolution below MIN\_RES. Otherwise, the test is
+    considered a failure.
   \end{description}
 \item \label{NFRT12}
   \begin{description}
@@ -842,9 +841,9 @@ non-functional requirements.
     30 minutes. User performance monitoring tools to measure and record the
     delay between the video stream frames and annotation frames. The test will
     be repeated for at least 5 times under different system loads. The test is
-    considered successful if the recorded delay remains under MAX\_DELAY through
-    each live session. Any deviations beyond MAX\_DELAY will be considered a
-    failure.
+    considered successful if the recorded delay remains under MAX\_DELAY
+    through each live session. Any deviations beyond MAX\_DELAY will be
+    considered a failure.
   \end{description}
 \item \label{NFRT15}
   \begin{description}
@@ -1037,7 +1036,7 @@ non-functional requirements.
     successful and failed breach attempts, and the security status of data
     transmission and storage.
   \end{description}
-\item \label{NRFT22}
+\item \label{NFRT22}
   \begin{description}
   \item[Type] Structural, Static, Manual
   \item[Initial State] The system is in a stable state, ready for testing. The
@@ -1187,7 +1186,7 @@ non-functional requirements.
     Repeat the test on different computing devices. The tester shall monitor the
     CPU temperature of the computer that the system is running on.The test is
     considered successful if the CPU temperature of the computer that the system
-    is running on remains under 65 degree celsius through the test. Otherwise,
+    is running on remains under MAX\_TEMP through the test. Otherwise,
     the test is considered a failure.
   \end{description}
 \item \label{NFRT30}
@@ -1210,6 +1209,82 @@ non-functional requirements.
 \end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
+
+\setlength{\tabcolsep}{2pt}
+\newgeometry{margin=2cm}
+\begin{landscape}
+  Please refer to Table \ref{tab:frt}, Table \ref{tab:nfrt1}, and Table \ref{tab:nfrt2}.
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+               & FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7 & FR8 & FR9 & FR10 & FR11 & FR12 & FR13 & FR14 & FR15 & FR16 \\ \hline
+      \ref{FRT1}  & X   & X   &     &     &     &     &     &     &     &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT2}  &     &     & X   &     &     &     &     &     &     &      &      &      &      &      &      & X    \\ \hline
+      \ref{FRT3}  &     &     &     & X   & X   &     &     &     &     &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT4}  &     &     &     &     &     & X   &     &     &     &      &      &      &      &      & X    &      \\ \hline
+      \ref{FRT5}  &     &     &     &     &     &     &     & X   &     &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT6}  &     &     &     &     &     &     & X   &     &     &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT7}  &     &     &     &     &     &     &     &     & X   &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT8}  &     &     &     &     &     &     &     &     &     & X    &      &      &      &      &      &      \\ \hline
+      \ref{FRT9}  &     &     &     &     &     &     &     &     &     &      & X    &      &      &      &      &      \\ \hline
+      \ref{FRT10} &     &     &     &     &     &     &     &     &     &      &      & X    &      &      &      &      \\ \hline
+      \ref{FRT11} &     &     &     &     &     &     &     &     &     &      &      &      & X    &      &      &      \\ \hline
+      \ref{FRT12} &     &     &     &     &     &     &     &     &     &      &      &      &      & X    &      &      \\ \hline
+    \end{tabular}
+    \caption{Traceability Matrix Showing the Connections Between Test Cases
+      and Functional Requirements}
+    \label{tab:frt}
+  \end{table}
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+                & LF1 & UH1 & UH2 & PR1 & PR2 & PR3 & PR4 & PR5 & PR6 & PR7 & PR8 & PR9 & PR10 & PR11 & PR12 & PR13 \\ \hline
+      \ref{NFRT1}  & X   & X   & X   &     &     &     &     &     &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT2}  &     &     &     & X   & X   &     &     &     &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT3}  &     &     &     &     & X   & X   &     &     &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT4}  &     &     &     &     &     &     & X   &     &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT5}  &     &     &     &     &     &     &     & X   &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT6}  &     &     &     &     &     &     &     &     & X   &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT7}  &     &     &     &     &     &     &     &     &     & X   &     &     &      &      &      &      \\ \hline
+      \ref{NFRT8}  &     &     &     &     &     &     &     &     &     &     & X   &     &      &      &      &      \\ \hline
+      \ref{NFRT9}  &     &     &     &     &     &     &     &     &     &     &     & X   &      &      &      &      \\ \hline
+      \ref{NFRT10} &     &     &     &     &     &     &     &     &     &     &     &     & X    &      &      &      \\ \hline
+      \ref{NFRT11} &     &     &     &     &     &     &     &     &     &     &     &     &      & X    &      &      \\ \hline
+      \ref{NFRT12} &     &     &     &     &     &     &     &     &     &     &     &     &      &      & X    &      \\ \hline
+      \ref{NFRT13} &     &     &     &     &     &     &     &     &     &     &     &     &      &      &      & X    \\ \hline
+    \end{tabular}
+    \caption{Traceability Matrix Showing the Connections Between Test Cases
+      and Non-Functional Requirements}
+    \label{tab:nfrt1}
+  \end{table}
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+                & PR14 & PR15 & OE1 & OE2 & OE3 & MS1 & MS2 & SR1 & SR2 & SR3 & SR4 & SR5 & SR6 & CR1 & LR1 & HS1 & HS2 \\ \hline
+      \ref{NFRT14} & X    &      &     &     &     &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT15} &      & X    &     &     &     &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT16} &      &      & X   &     &     &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT17} &      &      &     & X   &     &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT18} &      &      &     &     & X   &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT19} &      &      &     &     &     & X   &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT20} &      &      &     &     &     &     & X   &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT21} &      &      &     &     &     &     &     & X   &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT22} &      &      &     &     &     &     &     &     & X   &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT23} &      &      &     &     &     &     &     &     &     & X   &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT24} &      &      &     &     &     &     &     &     &     &     & X   &     &     &     &     &     &     \\ \hline
+      \ref{NFRT25} &      &      &     &     &     &     &     &     &     &     &     & X   &     &     &     &     &     \\ \hline
+      \ref{NFRT26} &      &      &     &     &     &     &     &     &     &     &     &     & X   &     &     &     &     \\ \hline
+      \ref{NFRT27} &      &      &     &     &     &     &     &     &     &     &     &     &     & X   &     &     &     \\ \hline
+      \ref{NFRT28} &      &      &     &     &     &     &     &     &     &     &     &     &     &     & X   &     &     \\ \hline
+      \ref{NFRT29} &      &      &     &     &     &     &     &     &     &     &     &     &     &     &     & X   &     \\ \hline
+      \ref{NFRT30} &      &      &     &     &     &     &     &     &     &     &     &     &     &     &     &     & X   \\ \hline
+    \end{tabular}
+    \caption{Traceability Matrix Showing the Connections Between Test Cases
+      and Non-Functional Requirements Continued}
+    \label{tab:nfrt2}
+  \end{table}
+\end{landscape}
+\restoregeometry
 
 \section{Unit Test Description}
 
@@ -1246,23 +1321,48 @@ All the parts that are not out of scope for testing should be unit tested.
 
 \subsection{Symbolic Parameters}
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+\begin{table}[h]
+  \caption{Symbolic constants in Verification and Validation Plan}
+  \begin{tabularx}{1.0\linewidth}[h]{XX} \toprule
+    \textbf{Symbol} & \textbf{Value} \\ \midrule
+    MAX\_DELAY \label{const:delay} & \SI{500}{\milli\second} \\
+    MAX\_TEMP \label{const:temp} & \SI{65}{\degreeCelsius} \\
+    MIN\_RES \label{const:res} & 720p \\
+    TARGET\_FACTOR \label{const:target} & \SI{85}{\percent} \\ \bottomrule
+  \end{tabularx}
+  \label{tab:syms}
+\end{table}
 
-\subsection{Usability Survey Questions?}
-Questions for the user experience survey:\\
-1. On a scale of 1 to 5(beyond expectation), how would you rate your overall experience with our Tai Chi video conferencing application?\\
-2. On a scale of 1 to 5(beyond expectation), how would you rate the experience in reading the in-app instructions and navigating through the application?
-3. On a scale of 1 to 5(beyond expectation), how would you rate the video conference quality, considering the clarity, latency, and the accuracy of annotation overlays?
-4. On a scale of 1 to 5(beyond expectation), how would you rate your overall Tai Chi learning experience with the aid of the application?
-5. Are there any specific issues or challenges you've encountered while using the application?\\
-6. How satisfied are you with the speed and responsiveness of the application during your Tai Chi sessions?\\
-7. Do you find that the annotations and real-time guidance provided by the application enhance your Tai Chi learning experience?\\
-8. Have you experienced any disruptions or crashes during your sessions? If yes, please describe.\\
-9. Have you ever received any notifications or warnings related to the security of your sessions, e.g., when media-capturing devices are accessed?\\
-10. Have you received sufficient guidance on using the application effectively for your Tai Chi practice?\\
-11. Are there any specific content or learning materials you would like to see added to the application?\\
+\subsection{Usability Survey Questions}
+\label{sec:survey}
 
+Questions for the user experience survey:
+
+\begin{enumerate}
+\item On a scale of 1 to 5 (beyond expectation), how would you rate your overall
+  experience with our Tai Chi video conferencing application?
+\item On a scale of 1 to 5 (beyond expectation), how would you rate the experience
+  in reading the in-app instructions and navigating through the application?
+\item On a scale of 1 to 5 (beyond expectation), how would you rate the video
+  conference quality, considering the clarity, latency, and the accuracy of
+  annotation overlays?
+\item On a scale of 1 to 5 (beyond expectation), how would you rate your overall
+  Tai Chi learning experience with the aid of the application?
+\item Are there any specific issues or challenges you've encountered while using
+  the application?
+\item How satisfied are you with the speed and responsiveness of the application
+  during your Tai Chi sessions?
+\item Do you find that the annotations and real-time guidance provided by the
+  application enhance your Tai Chi learning experience?
+\item Have you experienced any disruptions or crashes during your sessions? If yes,
+  please describe.
+\item Have you ever received any notifications or warnings related to the security
+  of your sessions, e.g., when media-capturing devices are accessed?
+\item Have you received sufficient guidance on using the application effectively
+  for your Tai Chi practice?
+\item Are there any specific content or learning materials you would like to see
+  added to the application?
+\end{enumerate}
 
 \newpage{}
 \section*{Appendix --- Reflection}
