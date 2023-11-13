@@ -17,17 +17,22 @@ app.post("/consumer", async ({ body }, res) => {
             }
         ]
     });
-    const desc = new webrtc.RTCSessionDescription(body.sdp);
-    await peer.setRemoteDescription(desc);
-    senderStream.getTracks().forEach(track => peer.addTrack(track, senderStream));
-    const answer = await peer.createAnswer();
-    await peer.setLocalDescription(answer);
-    const payload = {
-        sdp: peer.localDescription
+    try{
+        const desc = new webrtc.RTCSessionDescription(body.sdp);
+        await peer.setRemoteDescription(desc);
+        senderStream.getTracks().forEach(track => peer.addTrack(track, senderStream));
+        const answer = await peer.createAnswer();
+        await peer.setLocalDescription(answer);
+        const payload = {
+            sdp: peer.localDescription
+        }
+    
+        res.json(payload);
+        console.log('practitioner connected to the server');
+    } catch {
+        console.log("a practitioner tries to watch the stream, but the instrcutor hasn't started yet");
     }
 
-    res.json(payload);
-    console.log('practitioner connected to the server');
 });
 
 app.post('/broadcast', async ({ body }, res) => {
