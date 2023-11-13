@@ -7,7 +7,7 @@ window.onload = () => {
 async function init() {
     const peer = createPeer();
     peer.addTransceiver("video", { direction: "recvonly" })
-    console.log('A viewer joined');
+    console.log('A practitioner joined');
 }
 
 function createPeer() {
