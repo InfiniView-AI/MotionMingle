@@ -1,6 +1,7 @@
 window.onload = () => {
     document.getElementById('my-button').onclick = () => {
         init();
+        console.log('instructor start streaming');
     }
 }
 

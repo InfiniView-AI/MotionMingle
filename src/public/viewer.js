@@ -7,6 +7,7 @@ window.onload = () => {
 async function init() {
     const peer = createPeer();
     peer.addTransceiver("video", { direction: "recvonly" })
+    console.log('A viewer joined');
 }
 
 function createPeer() {
@@ -29,10 +30,13 @@ async function handleNegotiationNeededEvent(peer) {
     const payload = {
         sdp: peer.localDescription
     };
-
-    const { data } = await axios.post('/consumer', payload);
-    const desc = new RTCSessionDescription(data.sdp);
-    peer.setRemoteDescription(desc).catch(e => console.log(e));
+    try {
+        const { data } = await axios.post('/consumer', payload);
+        const desc = new RTCSessionDescription(data.sdp);
+        peer.setRemoteDescription(desc).catch(e => console.log(e));    
+    } catch {
+        window.alert("the instructor hasn't started streaming yet!");
+    }
 }
 
 function handleTrackEvent(e) {

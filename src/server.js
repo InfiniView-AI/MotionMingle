@@ -27,6 +27,7 @@ app.post("/consumer", async ({ body }, res) => {
     }
 
     res.json(payload);
+    console.log('practitioner connected to the server');
 });
 
 app.post('/broadcast', async ({ body }, res) => {
@@ -47,6 +48,7 @@ app.post('/broadcast', async ({ body }, res) => {
     }
 
     res.json(payload);
+    console.log('instructor connected to the server');
 });
 
 function handleTrackEvent(e, peer) {
