@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
 push:
-   branches: [ master ]
+   branches: [ 41-initial-front-end-project-set-up ]
 pull_request:
-   branches: [ master ]
+   branches: [ 41-initial-front-end-project-set-up ]
 
 jobs:
 build:
