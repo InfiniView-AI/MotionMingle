@@ -6,18 +6,11 @@ on:
       - main
       - develop
       - 52-github-action-set-up
-  workflow_call:
-    inputs:
-      runs-on:
-        description: Platform to execute on
-        type: string
-        default: ubuntu-latest
-        
-
+      
 jobs:
   APP-Test:
     name: APP-Test  
-    runs-on: ${{ inputs.runs-on }}
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: src/client/src
@@ -32,5 +25,3 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
-
-      
