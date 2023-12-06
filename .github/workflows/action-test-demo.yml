@@ -1,0 +1,19 @@
+name: Action-Test-Demo
+run-name: ${{ github.actor }} is testing 🚀 
+on: [push]
+
+jobs:
+  APP-Test:
+    runs-on: ubuntu-latest
+    matrix:
+        node-version: [14.x, 16.x, 18.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+        node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm test
+      
+      
