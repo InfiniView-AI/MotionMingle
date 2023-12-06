@@ -1,10 +1,24 @@
 name: Action-Test-Demo
 run-name: ${{ github.actor }} is testing 🚀 
-on: [push]
+on: 
+  push:
+    branches:
+      - main
+      - develop
+      - 52-github-action-set-up
+  workflow_call:
+    inputs:
+      runs-on:
+        description: Platform to execute on
+        type: string
+        default: ubuntu-latest
 
 jobs:
   APP-Test:
-    runs-on: ubuntu-latest
+    name: APP-Test  
+    runs-on: ${{ inputs.runs-on }}
+    defaults:
+      working-directory: ~/client/src
     matrix:
         node-version: [14.x, 16.x, 18.x]
     steps:
@@ -15,5 +29,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
-      
+
       
