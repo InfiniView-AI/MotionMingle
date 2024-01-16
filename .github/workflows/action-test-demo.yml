@@ -5,8 +5,7 @@ on:
     branches:
       - main
       - develop
-      - 52-github-action-set-up
-      
+    
 jobs:
   APP-Test:
     name: APP-Test  
