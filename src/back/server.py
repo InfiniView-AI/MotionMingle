@@ -12,12 +12,22 @@ from aiortc import MediaStreamTrack, RTCPeerConnection, RTCSessionDescription, V
 from aiortc.contrib.media import MediaRelay
 from av import VideoFrame
 
+import mediapipe as mp
+
+
 ROOT = os.path.dirname(__file__)
 
 logger = logging.getLogger("pc")
 pcs = set()
 relay = MediaRelay()
 consumer_track = VideoStreamTrack()
+annotation = None
+
+mp_pose = mp.solutions.pose
+pose = mp_pose.Pose(static_image_mode=False, model_complexity=1, enable_segmentation=False, smooth_landmarks=True)
+# Drawing utility
+mp_drawing = mp.solutions.drawing_utils
+
 
 
 class VideoTransformTrack(MediaStreamTrack):
@@ -86,6 +96,18 @@ class VideoTransformTrack(MediaStreamTrack):
             new_frame.pts = frame.pts
             new_frame.time_base = frame.time_base
             return new_frame
+        elif self.transform == "skeleton":
+            # Convert the aiortc frame to an array
+            img = frame.to_ndarray(format="bgr24")
+
+            # Process the frame for skeleton
+            img = await process_frame_for_skeleton(img)
+
+            # Rebuild a VideoFrame, preserving timing information
+            new_frame = VideoFrame.from_ndarray(img, format="bgr24")
+            new_frame.pts = frame.pts
+            new_frame.time_base = frame.time_base
+            return new_frame
         else:
             return frame
 
@@ -112,7 +134,7 @@ async def consumer(request):
     log_info("Track %s sent", consumer_track.kind)
     pc.addTrack(
         # VideoTransformTrack(relay.subscribe(consumer_track), transform=params["video_transform"])
-        VideoTransformTrack(relay.subscribe(consumer_track), transform="cartoon")
+        VideoTransformTrack(relay.subscribe(consumer_track), transform=annotation)
     )
 
     await pc.setRemoteDescription(description)
@@ -143,6 +165,8 @@ async def broadcast(request):
 
     params = await request.json()
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
+    global annotation
+    annotation=params["video_transform"]
 
     pc = RTCPeerConnection()
     pc_id = "PeerConnection(%s)" % uuid.uuid4()
@@ -203,6 +227,22 @@ async def on_shutdown(app):
     coros = [pc.close() for pc in pcs]
     await asyncio.gather(*coros)
     pcs.clear()
+
+
+async def process_frame_for_skeleton(frame):
+    # Convert the BGR frame to RGB
+    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+    # Process the frame
+    results = pose.process(frame_rgb)
+
+    # Draw the pose annotations on the frame
+    annotated_frame = frame.copy()
+    if results.pose_landmarks:
+        mp_drawing.draw_landmarks(annotated_frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+
+    return annotated_frame
+
 
 
 if __name__ == "__main__":
