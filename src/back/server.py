@@ -89,18 +89,16 @@ class VideoTransformTrack(MediaStreamTrack):
         else:
             return frame
 
-
-# async def index(request):
-#     content = open(os.path.join(ROOT, "index.html"), "r").read()
-#     return web.Response(content_type="text/html", text=content)
-#
-#
-# async def javascript(request):
-#     content = open(os.path.join(ROOT, "client.js"), "r").read()
-#     return web.Response(content_type="application/javascript", text=content)
-
-
 async def consumer(request):
+    if request.method == "OPTIONS":
+        return web.Response(
+            content_type="application/json",
+            headers={"Access-Control-Allow-Origin": "*", 
+                        "Access-Control-Allow-Credentials": "true", 
+                        "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+                        "Access-Control-Allow-Headers": "Content-Type"},
+        )
+
     params = await request.json()
     description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
 
@@ -113,7 +111,8 @@ async def consumer(request):
 
     log_info("Track %s sent", consumer_track.kind)
     pc.addTrack(
-        VideoTransformTrack(relay.subscribe(consumer_track), transform=params["video_transform"])
+        # VideoTransformTrack(relay.subscribe(consumer_track), transform=params["video_transform"])
+        VideoTransformTrack(relay.subscribe(consumer_track), transform="cartoon")
     )
 
     await pc.setRemoteDescription(description)
@@ -125,10 +124,23 @@ async def consumer(request):
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
+        headers={"Access-Control-Allow-Origin": "*", 
+            "Access-Control-Allow-Credentials": "true", 
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+            "Access-Control-Allow-Headers": "Content-Type"},
     )
 
 
 async def broadcast(request):
+    if request.method == "OPTIONS":
+        return web.Response(
+            content_type="application/json",
+            headers={"Access-Control-Allow-Origin": "*", 
+                        "Access-Control-Allow-Credentials": "true", 
+                        "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+                        "Access-Control-Allow-Headers": "Content-Type"},
+        )
+
     params = await request.json()
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
 
@@ -179,6 +191,10 @@ async def broadcast(request):
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
+        headers={"Access-Control-Allow-Origin": "*", 
+            "Access-Control-Allow-Credentials": "true", 
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+            "Access-Control-Allow-Headers": "Content-Type"},
     )
 
 
@@ -217,10 +233,10 @@ if __name__ == "__main__":
 
     app = web.Application()
     app.on_shutdown.append(on_shutdown)
-    # app.router.add_get("/", index)
-    # app.router.add_get("/client.js", javascript)
     app.router.add_post("/broadcast", broadcast)
+    app.router.add_options("/broadcast", broadcast)
     app.router.add_post("/consumer", consumer)
+    app.router.add_options("/consumer", consumer)
     web.run_app(
         app, access_log=None, host=args.host, port=args.port, ssl_context=ssl_context
     )
