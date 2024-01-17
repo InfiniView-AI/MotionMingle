@@ -21,7 +21,7 @@ function Instructor() {
 
   const closeRemote = async (pc: RTCPeerConnection) => {
     pc.close();
-    const tracks = await remoteVideoRef.current!.srcObject.getTracks().map((track) => track.stop());
+    // const tracks = await remoteVideoRef.current!.srcObject.getTracks().map((track) => track.stop());
     remoteVideoRef.current!.srcObject = null;
   };
 
@@ -30,7 +30,7 @@ function Instructor() {
     video!.srcObject = null;
   };
 
-  const createPeerConnection = () => {
+  const createConsumerPeerConnection = () => {
     const config = {
       sdpSemantics: 'unified-plan',
       iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
@@ -49,10 +49,16 @@ function Instructor() {
     return pc;
   };
 
-  const negotiate = async (pc: RTCPeerConnection) => {
-    // start
-    console.log('negotiate');
-    // load video
+  const createPeerConnection = () => {
+    const config = {
+      sdpSemantics: 'unified-plan',
+      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
+    };
+    const pc = new RTCPeerConnection(config);
+    return pc;
+  };
+
+  const broadcast = async (pc: RTCPeerConnection) => {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: false,
@@ -60,12 +66,31 @@ function Instructor() {
     stream.getTracks().forEach((track) => {
       pc.addTrack(track, stream);
     });
-
-    // negotiate
     const offer = await pc?.createOffer();
     await pc?.setLocalDescription(offer);
     const requestSdp = pc.localDescription;
-    const sdp = await fetch('http://127.0.0.1:8080/offer', {
+    const sdp = await fetch('http://127.0.0.1:8080/broadcast', {
+      body: JSON.stringify({
+        sdp: requestSdp?.sdp,
+        type: requestSdp?.type,
+        // video transform
+        video_transform: 'skeleton',
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    });
+    const answer = await sdp.json();
+    await pc?.setRemoteDescription(answer);
+    remoteVideoRef.current?.play();
+  };
+
+  const consume = async (pc: RTCPeerConnection) => {
+    const offer = await pc?.createOffer();
+    await pc?.setLocalDescription(offer);
+    const requestSdp = pc.localDescription;
+    const sdp = await fetch('http://127.0.0.1:8080/consumer', {
       body: JSON.stringify({
         sdp: requestSdp?.sdp,
         type: requestSdp?.type,
@@ -75,15 +100,13 @@ function Instructor() {
       },
       method: 'POST',
     });
-    // console.log(`requestSdp: ${requestSdp?.sdp}`);
     const answer = await sdp.json();
-    // console.log('answer is :');
-    // console.log(answer);
     await pc?.setRemoteDescription(answer);
     remoteVideoRef.current?.play();
   };
 
-  let pc: RTCPeerConnection;
+  let broadcaster: RTCPeerConnection;
+  let consumer: RTCPeerConnection;
 
   return (
     <div className="App">
@@ -94,19 +117,28 @@ function Instructor() {
       </div>
       <div className="result">
         <button type="button" onClick={() => getVideo()}>
-          Start
+          Start self video
         </button>
         <button type="button" onClick={() => closeVideo()}>
-          Close
+          Close self video
         </button>
         <button
           type="button"
           onClick={() => {
-            pc = createPeerConnection();
-            negotiate(pc);
+            broadcaster = createPeerConnection();
+            broadcast(broadcaster);
           }}
         >
-          Negotiate
+          Broadcast
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            consumer = createConsumerPeerConnection();
+            consume(consumer);
+          }}
+        >
+          Consume
         </button>
       </div>
       <div className="remote">
@@ -114,8 +146,8 @@ function Instructor() {
           <track kind="captions" />
         </video>
       </div>
-      <button type="button" onClick={() => closeRemote(pc)}>
-        Close Remote
+      <button type="button" onClick={() => closeRemote(broadcaster)}>
+        Stop broadcast
       </button>
     </div>
   );
