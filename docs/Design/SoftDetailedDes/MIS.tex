@@ -258,8 +258,481 @@ SFU server and STUN servers are running in normal conditions.
 \item exception: N/A
 \end{itemize}
 
+\section{MIS of Annotation Configuration Module}
+\label{sec:annotationconfig}
 
+\subsection{Module}
+AnnotationConfig
 
+\subsection{Uses}
+React\\
+RTC Control Module
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Name}              & \textbf{In}        & \textbf{Out}    & \textbf{Exceptions} \\
+    \midrule
+    setIsSkeletonEnabled       & Boolean            & -               & -                   \\
+    setIsCOMEnabled            & Boolean            & -               & -                   \\
+    getIsSkeletonEnabled       & -                  & Boolean         & -                   \\
+    getIsCOMEnabled            & -                  & Boolean         & -                   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+isSkeletonEnabled: Boolean\\
+isCOMEnabled: Boolean
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent setIsSkeletonEnabled(isEnabled: Boolean):
+\begin{itemize}
+  \item transition: isSkeletonEnabled := isEnabled
+  \item output: N/A
+  \item exception: N/A
+\end{itemize}
+
+\noindent setIsCOMEnabled(isEnabled: Boolean):
+\begin{itemize}
+  \item transition: isCOMEnabled := isEnabled
+  \item output: N/A
+  \item exception: N/A
+\end{itemize}
+
+\noindent getIsSkeletonEnabled():
+\begin{itemize}
+  \item input: N/A
+  \item transition: N/A
+  \item output: isSkeletonEnabled
+  \item exception: N/A
+\end{itemize}
+
+\noindent getIsCOMEnabled():
+\begin{itemize}
+  \item input: N/A
+  \item transition: N/A
+  \item output: isCOMEnabled
+  \item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\section{MIS of App Module}
+\label{sec:appmodule}
+
+\subsection{Module}
+App
+
+\subsection{Uses}
+RTC Control Module\\
+Media Control Module\\
+Instructor View Module\\
+Practitioner View Module\\
+Annotation Configuration Module\\
+User Authentication Module
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out}            & \textbf{Exceptions} \\
+    \midrule
+    App           & -           & React.component         & -                   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent App():
+\begin{itemize}
+  \item transition: App:= React.component() Start React App and render it on the user's device
+  \item output: N/A
+  \item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\section{MIS of User Authentication Module}
+\label{sec:userauth}
+
+\subsection{Module}
+Auth
+
+\subsection{Uses}
+Instructor View Module\\
+Practitioner View Module
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out}             & \textbf{Exceptions} \\
+    \midrule
+    Auth          & -           & React.component          & -                   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+isUserInstructor: Boolean
+
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent Auth():
+\begin{itemize}
+  \item transition: Render the authentication page on the user's device, if the user clicks on the Instructor button, then jumps to the instructor view page, if the user clicks on the practitioner button, jumps to the practitioner view page.
+  \item output: N/A
+  \item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\noindent isUserInstructor $\rightarrow$ Instructor view else Practitioner view
+
+\noindent setIsUserInstructor(isEnabled: Boolean):
+\begin{itemize}
+  \item transition: isUserInstructor := isEnabled
+  \item output: N/A
+  \item exception: N/A
+\end{itemize}
+
+\section{MIS of Video Transform Module}
+\label{sec:videotransform}
+
+\subsection{Module}
+VideoTransformTrack
+
+\subsection{Uses}
+HPE, CM
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+kind = ``video''
+
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Routine name} & \textbf{In}             & \textbf{Out}        & \textbf{Exceptions} \\
+    \midrule
+    \_\_init\_\_          & track, transform        & -                   & -                   \\
+    recv                  & -                       & VideoFrame          & -                   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+track: VideoStreamTrack\\
+transform: str
+
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+\_\_init\_\_ is called before any other access program
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \_\_init\_\_(track, transform):
+\begin{itemize}
+  \item transition: initiated by track and transform, self.track = track, self.transform = transform
+  \item output: out := self
+  \item exception: None
+\end{itemize}
+
+\noindent recv(self):
+\begin{itemize}
+  \item transition: Processes a video frame (frame) received from a track. Depending on the value of self.transform, it applies one of the following transformations: "HPE": Converts the frame by applying the HPE module annotation. "CM": Converts the frame by applying the CM module annotation. If self.transform is set to any other value, the frame is returned without any transformation.
+  \item output: Returns a new VideoFrame object (new\_frame) that has undergone the specified transformation, preserving the original frame's timing information (timestamps and time base).
+  \item exception: None
+\end{itemize}
+
+\subsubsection{Local Functions}
+None
+
+\section{MIS of SFU Server Module}
+\label{sec:sfuserver}
+
+\subsection{Module}
+SfuServer
+
+\subsection{Uses}
+VideoTransformTrack
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+    \midrule
+    consumer & request & - & - \\
+    broadcast & request & - & - \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+None
+
+\subsubsection{Environment Variables}
+relay: MediaRelay\\
+consumer\_track: VideoStreamTrack
+
+\subsubsection{Assumptions}
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent consumer(request):
+\begin{itemize}
+  \item transition: Processes a WebRTC connection request. Parses the request to extract session description parameters. Creates a new RTCPeerConnection object. Logs the information about the sent track. Adds a VideoTransformTrack to the peer connection, which includes subscribing to a consumer track and applying a specified video transformation. Sets the remote description of the peer connection based on the received session description. Creates and sets a local description for the peer connection by generating an answer to the received offer.
+  \item output: Returns a web response in JSON format. This response contains the SDP data and the type of the local description set on the peer connection. This information is crucial for establishing the WebRTC connection.
+  \item exception: There is no explicit exception handling within the function. If an error occurs during any of the steps (e.g., parsing the request, setting up the peer connection, or creating the response), the function may raise an exception related to that error. However, such exceptions are not explicitly caught or handled within the function itself. Potential errors could arise from invalid request data, failures in peer connection operations, or issues in response generation.
+\end{itemize}
+
+\noindent broadcast(request):
+\begin{itemize}
+  \item transition: Manages the setup and handling of a WebRTC peer connection for broadcasting. Parses the incoming request to extract the SDP data. Initializes a new RTCPeerConnection. Adds the peer connection to a global set and logs relevant information. Sets up event handlers for different peer connection events:
+    \begin{enumerate}
+      \item Connection State Change: Monitors the connection state, logging changes and closing the connection if it fails.
+      \item Track Reception: Handles received tracks, particularly video tracks, by setting a global consumer\_track for later use, and logs when tracks end.
+      \item Processes the received offer by setting it as the remote description of the peer connection.
+      \item Creates and sets a local description for the peer connection in response to the offer.
+    \end{enumerate}
+  \item output: Returns a web response in JSON format, containing the SDP data and the type of the local description set on the peer connection. This is essential for completing the WebRTC connection setup.
+  \item exception: The function does not explicitly handle exceptions. Errors during the processing of the request, peer connection operations, or event handling may result in exceptions. These exceptions are not caught within the function, meaning the caller must handle any arising errors. Potential errors could include issues with the request format, failures in peer connection setup, or problems in event handling.
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\section{MIS of Human Pose Estimation Annotation Module}
+\label{sec:hpe}
+
+\subsection{Module}
+HPE
+
+\subsection{Uses}
+Numpy, CV2, OS, Sys, Time, Subprocess, Shutil, Socket
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+server\_address, HPE\_address, K, pose, Rt1, R1, t1, P1, Identity, P2
+
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Name}       & \textbf{In}        & \textbf{Out}   & \textbf{Exceptions}      \\
+    \midrule
+    get\_kpts           & Image              & List           & IOError, ValueError      \\
+    measureJoint        & List, List         & Tuple          & N/A                      \\
+    matchKpts           & List               & List           & N/A                      \\
+    get3D               & List, List         & List           & N/A                      \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+External libraries are functioning as expected
+
+\subsubsection{Access Routine Semantics}
+\noindent get\_kpts(img):
+\begin{itemize}
+  \item transition: Saves the input image to a designated path and calls OpenPose to generate keypoints, which are then saved to a JSON file.
+  \item output: Returns a list of keypoints extracted from the input image.
+  \item exception: IOError if image saving or reading fails, ValueError if keypoints processing fails.
+\end{itemize}
+
+\noindent measureJoint(kpts1, kpts2):
+\begin{itemize}
+  \item transition: Computes the length of the spine in each set of keypoints and returns them ordered by length.
+  \item output: Returns a tuple with the first element being the keypoints set with the longer spine.
+  \item exception: N/A
+\end{itemize}
+
+\noindent matchKpts(mirror\_img):
+\begin{itemize}
+  \item transition: Reflects the keypoints from the mirror image to match the real image.
+  \item output: Returns the adjusted keypoints for the mirrored image.
+  \item exception: N/A
+\end{itemize}
+
+\noindent get3D(real\_kpts, mirror\_kpts):
+\begin{itemize}
+  \item transition: Uses the keypoints from the real and mirror images to triangulate 3D points.
+  \item output: Returns the 3D coordinates of the keypoints.
+  \item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A: All functions are intended to be accessed by other modules within the system
+
+\section{MIS of Center of Mass Annotation Module}
+\label{sec:centerofmass}
+
+\subsection{Module}
+CM
+
+\subsection{Uses}
+\noindent numpy: for numerical computations\\
+\noindent params.bodySegParams: for body segmentation parameters\\
+\noindent params.cameraParams: for camera parameters
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+K, pose, P1, P2, R1, t1, R2, t2 - Camera intrinsic and extrinsic parameters, and projection matrices derived from them.\\
+foot\_in\_air\_thresh - Threshold for determining if a foot is in the air.\\
+CoM\_foot\_thresh - Threshold for determining the supporting foot based on the center of mass.
+
+\subsubsection{Exported Access Programs}
+
+\noindent\begin{tabularx}{\textwidth}{X X X X}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+    \midrule
+    getCoM & points\_3D: 3D points array & CoM: Center of Mass point & - \\
+    feetStates & CoM: Center of Mass point points\_3D: 3D points array & left\_foot, right\_foot: States of the feet & - \\
+    \bottomrule
+\end{tabularx}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A: The module does not maintain internal state across invocations.
+
+\subsubsection{Environment Variables}
+N/A: This module does not rely on environment variables for its core functionality.
+
+\subsubsection{Assumptions}
+The module assumes that body segment parameters and camera calibration data provided by the bodySegParams and cameraParams modules are accurate and reliable.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent getCoM(points\_3D):
+\begin{itemize}
+  \item transition: Calculates the center of mass based on the 3D points of body joints.
+  \item output: Returns the 3D coordinates of the body's center of mass.
+  \item exception: No explicit exception handling within the function.
+\end{itemize}
+
+\noindent feetStates(CoM, points\_3D):
+\begin{itemize}
+  \item transition: Determines the state of each foot (left and right) based on their position relative to the center of mass and the vertical distance from the ground.
+  \item output: Returns a tuple containing two dictionaries, left\_foot and right\_foot, each indicating whether the respective foot is on the ground and whether it is supporting body weight.
+  \item exception: No explicit exception handling within the function.
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A: All functions are intended to be accessed by other modules within the system
+
+\section{MIS of STUN Server Module}
+\label{sec:stunserver}
+
+\subsection{Module}
+STUN
+
+\subsection{Uses}
+% You can add the specific uses here
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+STUN\_SERVER\_ADDRESS
+
+\subsubsection{Exported Access Programs}
+% Format for the access programs if there are any
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A: The module does not maintain internal state across invocations.
+
+\subsubsection{Environment Variables}
+N/A: This module does not rely on environment variables for its core functionality.
+
+\subsubsection{Assumptions}
+The module assumes that body segment parameters and camera calibration data provided by the bodySegParams and cameraParams modules are accurate and reliable.
+
+\subsubsection{Access Routine Semantics}
+N/A: No Access Routines are exported from this module
+
+\subsubsection{Local Functions}
+N/A: There is no local function in this module
 
 \newpage
 
