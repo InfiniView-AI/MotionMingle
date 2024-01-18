@@ -472,28 +472,79 @@ PR10 & \mref{mMC}, \mref{mSTU}, \mref{mAPP}\\
 \end{table}
 
 \begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{AC} & \textbf{Modules}\\
-\midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
-\bottomrule
-\end{tabular}
-\caption{Trace Between Anticipated Changes and Modules}
-\label{TblACT}
-\end{table}
+  \centering
+  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+  \toprule
+  \textbf{Non-functional Requirements} & \textbf{Modules} \\
+  \midrule
+  LF1  & M3, M4 \\
+  UH1  & M3, M4 \\
+  UH2  & M3, M4 \\
+  PR1  & M3, M4, M8 \\
+  PR2  & M7, M12, M6 \\
+  PR3  & M7, M12, M6 \\
+  PR4  & Everything \\
+  PR5  & M7 \\
+  PR6  & M8 \\
+  PR7  & M3, M4 \\
+  PR8  & M6 \\
+  PR9  & M1 \\
+  PR10 & M3, M4 \\
+  PR11 & M3, M4 \\
+  PR12 & M5, M9, M10, M11 \\
+  PR13 & M1, M3, M4 \\
+  PR14 & M11, M12 \\
+  PR15 & M3, M4 \\
+  OE1  & M1 \\
+  OE2  & M1 \\
+  OE3  & M1 \\
+  HS1  & M1, M8 \\
+  HS2  & M3, M4 \\
+  MS1  & M1 \\
+  MS2  & M1 \\
+  SR1  & M2 \\
+  SR2  & M2, M3, M4 \\
+  SR3  & M2 \\
+  SR4  & M3, M4 \\
+  SR5  & M3, M4 \\
+  SR6  & M3, M4 \\
+  CR1  & Everything \\
+  LR1  & Everything \\
+  AC1  & M3, M4, M9 \\
+  AC2  & M3, M4, M9 \\
+  AC3  & M5, M8 \\
+  AC4  & M8 \\
+  AC5  & M7, M8 \\
+  AC6  & M3, M4 \\
+  AC7  & M3, M4 \\
+  AC8  & M7M \\
+  AC9  & M2 \\
+  \bottomrule
+  \end{tabular}
+  \caption{Trace Between Non-functional Requirements and Modules}
+  \label{TblNFRM}
+  \end{table}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+  \toprule
+  \textbf{Anticipated Change} & \textbf{Module}\\
+  \midrule
+  AC1 & M3, M4, M9\\
+  AC2 & M3, M4, M9\\
+  AC3 & M5, M8\\
+  AC4 & M8\\
+  AC5 & M7, M8\\
+  AC6 & M3, M4\\
+  AC7 & M3, M4\\
+  AC8 & M7M\\
+  AC9 & M2\\
+  \bottomrule
+  \end{tabular}
+  \caption{Trace Between Anticipated Changes and Modules}
+  \label{TblACM}
+  \end{table}
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
