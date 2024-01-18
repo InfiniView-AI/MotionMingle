@@ -47,8 +47,9 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Jan 13, 2024 & 1.0 & Initial Draft\\
+Jan 14 2024 & 1.1 & Revisit after MIS module decomposition\\
+Jan 17 2024 & 1.2 & Add abbreviations section\\
 \bottomrule
 \end{tabularx}
 
@@ -87,7 +88,11 @@ This section records information for easy reference.
   STUN & Session Traversal Utilities for NAT - a type of server needed for setting up peer-to-peer connections \\
   RTC & Real-Time Communication  \\
   SFU & Selective Forwarding Unit - A software unit that can selectively forward video streams \\
-  
+  UI &  User Interface\\
+  ML &  Machine Learning\\
+  HLS &  HTTP Live Streaming\\
+  MPEG-DASH &  Dynamic Adaptive Streaming over HTTP\\
+  DAG &  Directed Acyclic Graph\\
   \bottomrule
 \end{tabular}\\
 
@@ -669,10 +674,54 @@ because they use modules from the lower levels.
   \end{itemize}
 \end{itemize}
 
-%\section*{References}
+\section{Reflection}
 
-\bibliographystyle {plainnat}
-\bibliography{../../../refs/References}
+The information in this section will be used to evaluate the team members on the
+graduate attribute of Problem Analysis and Design.  Please answer the following questions:
+
+\begin{enumerate}
+  \item What are the limitations of your solution?  Put another way, given
+  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
+  \item Give a brief overview of other design solutions you considered.  What
+  are the benefits and tradeoffs of those other designs compared with the chosen
+  design?  From all the potential options, why did you select documented design?
+  (LO\_Explores)
+\end{enumerate}
+
+\subsection{Qi Shu}
+I am tasked with the development and design of two client-facing pages, as well as managing the connectivity between the client and server. Our current approach is shaped by budget and time considerations.
+
+One drawback of our current strategy, which involves using Figma for UI design and React for implementation, is that its performance falls short compared to native solutions and lack of experienced designers. With more resources at our disposal, my team and I could develop a high-performance native client application with a responsive UI. This would also allow us to conduct thorough user testing to obtain crucial feedback for enhancing the user experience.
+
+Moreover, we could explore additional design tools and technologies to improve the application's visual appeal and functionality, such as adding animations and interactive features.
+As for UI implementation, our experience with different UI tools is limited, guiding our current design choices. In terms of client-server interaction, we considered HTTP live streaming as an alternative to WebRTC due to its popularity and established status in streaming services. However, we opted for WebRTC for its ability to facilitate peer-to-peer connections and integrate client video streams, offering greater flexibility.
+
+\subsection{Kehao Huang}
+I was responsible for designing the front-end portion of the system, as well as investigating the integration of machine learning models into the video transform module. Regarding our documented design, our choice to use JavaScript together with React was driven by practicality, yet I am aware that this combination might not yield the same performance as a native video-conferencing application. With a more generous budget and timeline, I envision developing a native solution that could significantly enhance responsiveness and allow for more intensive user traffic.
+
+Another limitation of our current design is the range of choices for annotations. As of right now, we are planning to provide two types of annotations: center of mass annotation and human pose estimation annotation. Given sufficient time, the system is likely to support a larger variety of annotation types by utilizing more existing machine learning libraries or training our own models.
+
+\subsection{Anhao Jiao}
+In our project integrating a machine learning model with a video stream, the primary limitations included constrained computational resources, which affected model complexity and processing speed, and challenges in model accuracy, scalability, and maintaining data privacy. With unlimited resources, we could enhance computational capabilities for advanced model deployment, develop more tailored and robust models, ensure scalable infrastructure for high-volume traffic, and implement superior data security measures.
+
+Cloud-based processing has benefits such as powerful server-side processing, scalability, and potentially more advanced AI capabilities. The tradeoffs are higher latency, increased dependence on stable internet connectivity, and privacy concerns due to data transmission over the cloud.
+
+The choice of using sockets and focusing on inter-module data efficiency was driven by the specific requirements of the project. The need for real-time processing, coupled with the necessity for different modules to interact seamlessly and use shared data effectively, made this design the most suitable. It offers a balanced approach, optimizing for immediate data processing and action, while also ensuring that computational resources are used efficiently by avoiding redundant data processing across modules.
+
+\subsection{Qianlin Chen}
+I was responsible for developing and designing the SFU module and the video transform module, key components for controlling and transforming video streams in our server system.
+
+One limitation of our current strategy, centered around using Python with libraries like aiortc and OpenCV, is that it may not be as optimized for performance as other potential solutions. This choice was influenced by our familiarity with these tools and the immediate need to meet project deadlines. Given more resources, I would explore the integration of more performance-intensive languages like C++ for critical processing tasks. This would significantly enhance the efficiency and scalability of our modules, especially under high-load conditions.
+
+Additionally, while our current implementation supports basic video transformations, with additional resources, I would delve into more advanced video processing techniques. This could include AI-driven transformations and augmented reality features, which would greatly enrich the user experience and broaden the application's capabilities. Another area for improvement is comprehensive testing under varied network conditions and diverse user scenarios. With more resources, implementing a thorough testing framework and conducting extensive user testing would provide invaluable insights, allowing us to fine-tune our modules for better performance and user satisfaction.
+
+Exploring alternative technologies and protocols was also a crucial part of my role. While WebRTC was ultimately chosen for its real-time capabilities and suitability for our project's needs, alternatives like HLS or MPEG-DASH were considered. These protocols offer advantages in compatibility and established use in streaming services but don't match WebRTC's low latency and interactive capabilities.
+
+\subsection{Xunzhou Ye}
+The decision to write the backend server in Python raises concerns about efficiency, latency, scalability, and concurrent usage. Python, while versatile and widely used, may not be the optimal choice for real-time applications requiring low latency and high scalability. In hindsight, using a more performance-oriented language like C++ or Go might have been considered to address these concerns. On the other hand, the choice of Python for the backend is justified by the convenience it offers in integrating the web server with ML processing. Python has a rich ecosystem of machine learning libraries and frameworks, making it a natural fit for incorporating ML models into the platform. This decision prioritizes ease of development and integration, emphasizing the importance of seamless collaboration between the web server and ML components.
+
+Considering alternative options, the exploration of JavaScript with Node.js for the host server introduces its own set of benefits and trade-offs. While Node.js is known for its event-driven, non-blocking architecture, which can enhance scalability, it may fall short when integrating with ML models written in Python. This limitation arises from the lack of native support for certain ML libraries in JavaScript, potentially hindering the seamless integration of ML-generated annotations.
+
 
 \newpage{}
 
