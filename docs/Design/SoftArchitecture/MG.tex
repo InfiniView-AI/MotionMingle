@@ -65,16 +65,28 @@ This section records information for easy reference.
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   AC & Anticipated Change\\
-  DAG & Directed Acyclic Graph \\
-  M & Module \\
-  MG & Module Guide \\
-  OS & Operating System \\
-  R & Requirement\\
-  SC & Scientific Computing \\
-  SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
+  M & Module \\
+  SRS & Software Requirements Specification \\
+  HA & Hazard Analysis \\
+  VnVPlan & Verification and Validation Plan\\
+  MIS & Module Interface Specification\\
+  MVC & Model-view-controller, a well-known software design pattern \\
+  FR & Functional Requirement \\
+  LF & Look and Feel Requirement \\
+  PR & Performance Requirement \\
+  OE & Operational and Environmental Requirements \\
+  HS & Health and Safety Requirements \\
+  MS & Maintainability and Support Requirement \\
+  SR & Security Requirement \\
+  CR & Cultural Requirement \\
+  LR & Legal Requirement\\
+  HTTP & Hypertext Transfer Protocol \\
+  OS &  Operating System\\
+  STUN & Session Traversal Utilities for NAT - a type of server needed for setting up peer-to-peer connections \\
+  RTC & Real-Time Communication  \\
+  SFU & Selective Forwarding Unit - A software unit that can selectively forward video streams \\
+  
   \bottomrule
 \end{tabular}\\
 
@@ -92,54 +104,29 @@ This section records information for easy reference.
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing
-software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
+This Module Guide Document serves as a design blueprint for MotionMingle - a WebRTC-based video conferencing application designed to enrich the experience of Tai Chi instruction. It presents a modular perspective of the project, guiding the development team in creating a platform that emphasizes real-time interaction, minimal hardware requirements, and ease of use.
 
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
-\begin{itemize}
-\item System details that are likely to change independently should be the
-  secrets of separate modules.
-\item Each data structure is implemented in only one module.
-\item Any other program that requires information stored in a module's data
-  structures must obtain it by calling access programs belonging to that module.
-\end{itemize}
+\subsection{Overview}
+This Module Guide Document serves as a design blueprint for MotionMingle - a WebRTC-based video conferencing application designed to enrich the experience of Tai Chi instruction. It presents a modular perspective of the project, guiding the development team in creating a platform that emphasizes real-time interaction, minimal hardware requirements, and ease of use.
 
-After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
+The document aligns with standards outlined in various project documents, including the SRS, HA, VnVPlan, SystDes, and MIS. \\
 
-\begin{itemize}
-\item New project members: This document can be a guide for a new project member
-  to easily understand the overall structure and quickly find the
-  relevant modules they are searching for.
-\item Maintainers: The hierarchical structure of the module guide improves the
-  maintainers' understanding when they need to make changes to the system. It is
-  important for a maintainer to update the relevant sections of the document
-  after changes have been made.
-\item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility, and flexibility. Designers can verify the
-  system in various ways, such as consistency among modules, feasibility of the
-  decomposition, and flexibility of the design.
-\end{itemize}
+SRS - /docs/SRS/SRS.pdf \\
 
-The rest of the document is organized as follows. Section
-\ref{SecChange} lists the anticipated and unlikely changes of the software
-requirements. Section \ref{SecMH} summarizes the module decomposition that
-was constructed according to the likely changes. Section \ref{SecConnection}
-specifies the connections between the software requirements and the
-modules. Section \ref{SecMD} gives a detailed description of the
-modules. Section \ref{SecTM} includes two traceability matrices. One checks
-the completeness of the design against the requirements provided in the SRS. The
-other shows the relation between anticipated changes and the modules. Section
-\ref{SecUse} describes the use relation between modules.
+HA - /docs/HazardAnalysis/HazardAnalysis.pdf \\
+
+VnVPlan - /docs/VnVPlan/VnVPlan.pdf \\ 
+
+MIS - /docs/Design/SoftDetailedDes/MIS.pdf \\
+
+\subsection{Purpose}
+The aim of this Module Guide Document is to detail the architecture of modules, based on selected design principles and patterns, to clarify the project’s functionalities and the specific roles of each module.
+
+\subsection{Design Principles}
+The Module Guide Document employs principles like information hiding, high cohesion, low coupling, high fan-in, and low fan-out for breaking down modules. These principles involve identifying and securing anticipated changes.
+
+\subsection{Design Pattern}
+The project utilizes the MVC design pattern, facilitating the division of complex problems into manageable sub tasks across different modules, adhering to the separation of concerns principle.
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
@@ -153,15 +140,22 @@ unlikely changes are listed in Section \ref{SecUchange}.
 Anticipated changes are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
 require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+adopted here is called design for change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum :] Video stream sharing by practitioners might be allowed for better user communications.
+\item[\refstepcounter{acnum} \actheacnum :] Audio stream sharing by practitioners might be allowed for better user communications.
+\item[\refstepcounter{acnum} \actheacnum :] The number of annotation types available for users to choose from might change as discovered through the development process.
+
+\item[\refstepcounter{acnum} \actheacnum :] The initial release of the application has a limited load capacity, which will need to be expanded as the application's popularity grows to accommodate a growing number of users.
+
+\item[\refstepcounter{acnum} \actheacnum :] The exactness of annotations is subject to change, given the lack of definitive measurement standards.
+
+\item[\refstepcounter{acnum} \actheacnum :] The application may be extended to offer native client implementation.
+
+\item[\refstepcounter{acnum} \actheacnum :] The application may be extended to offer mobile client implementation.
+\item[\refstepcounter{acnum} \actheacnum :] The application could undergo enhancements with new features based on real-world usage insights.
+\item[\refstepcounter{acnum} \actheacnum :] The application might incorporate an account login system to verify the identity of instructors.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -174,9 +168,31 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum:] The need for specific input/output devices is expected to remain stable, given the application's primary function is to augment the instructor’s video stream with annotations.
+
+\item[\refstepcounter{ucnum} \uctheucnum:]  The necessity for a stable internet connection should persist, as the application depends on HTTP requests for communication between server and client.
+
+\item[\refstepcounter{ucnum} \uctheucnum:]  The application's ease of use is anticipated to remain a constant requirement, catering to its primary user base of elderly individuals.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] The requirement for the application to be easy to learn is expected to stay unchanged, considering its elderly user demographic.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] The demand for server reliability and availability is projected to be consistent, due to its critical role in the application's functionality.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] The system is intended to be compatible with the latest versions of Windows, Linux, and macOS.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] Browser compatibility is a designed feature of the system.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] Unauthorized modifications to the application are to be prevented.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] The fundamental feature of adding annotations to the video stream is not expected to change.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] The application's design, ensuring compliance with relevant laws, is foreseen to remain unaltered.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] The client for this project is not expected to change, as it is designed as a student capstone project with limited market potential.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] The stakeholder for this project is unlikely to change, as it is a student capstone project adhering to specific course guidelines.
+
+\item[\refstepcounter{ucnum} \uctheucnum:] The project's schedule and budget constraints are anticipated to stay fixed, in line with the requirements of the student capstone course.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -187,34 +203,44 @@ below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
 \begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mMC}:] Media Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mUA}:] User Authentication Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIV}:] Instructor View Module
+\item [\refstepcounter{mnum} \mthemnum \label{mPV}:] Practitioner View Module
+\item [\refstepcounter{mnum} \mthemnum \label{mAC}:] Annotation Configuration Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSTU}:] STUN Server Module
+\item [\refstepcounter{mnum} \mthemnum \label{mRTC}:] RTC Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mAPP}:] App Module
+\item [\refstepcounter{mnum} \mthemnum \label{mVT}:] Video Transform Module
+\item [\refstepcounter{mnum} \mthemnum \label{mHPE}:] Human Pose Estimation Annotation Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCOM}:] Center of Mass Annotation Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSFU}:] SFU Server Module
 \end{description}
 
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
 \toprule
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding Module} & ~ \\
+{Hardware-Hiding Module} & M13 \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & M2\\
+& M3\\
+& M4\\
+& M5\\
+& M7\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{3}{0.3\textwidth}{Software Decision Module} & M6\\
+& M8\\
+& M9\\
+& M10\\
+& M11\\
+& M12\\
 \bottomrule
 
 \end{tabular}
@@ -244,7 +270,7 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
 to be implemented.
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Hardware Hiding Modules}
 
 \begin{description}
 \item[Secrets:]The data structure and algorithm used to implement the virtual
@@ -253,6 +279,15 @@ to be implemented.
   system. This module provides the interface between the hardware and the
   software. So, the system can use it to display outputs or to accept inputs.
 \item[Implemented By:] OS
+\end{description}
+
+\subsubsection{Media Control Module (\mref{mMC})}
+
+\begin{description}
+\item[Secrets:]The implementation for capturing camera and microphone input from clients.
+\item[Services:]Enables users to turn on/off camera and microphone to upload audio and video.
+\item[Implemented By:] JavaScript, WebAPI
+\item[Type of Module:] Abstract Data Type
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
@@ -267,19 +302,50 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{User Authentication Module (\mref{mUA})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] The authentication mechanism and user credentials storage format.
+\item[Services:] Authenticates users to grant access to the system based on credentials.
+\item[Implemented By:] JavaScript, React
+\item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Instructor View Module (\mref{mIV})}
 
+\begin{description}
+\item[Secrets:] Instruction delivery and progress tracking mechanisms for instructors.
+\item[Services:] Provides instructors with tools to manage course streaming, and interact with participants.
+\item[Implemented By:] JavaScript, React
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Practitioner View Module (\mref{mPV})}
+
+\begin{description}
+\item[Secrets:] User interface customization based on practitioner's preferences.
+\item[Services:] Allows practitioners to view available annotations, and select preferred annotations.
+\item[Implemented By:] JavaScript, React
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Annotation Configuration Module (\mref{mAC})}
+
+\begin{description}
+\item[Secrets:] The configuration options for annotation types and parameters.
+\item[Services:] Enables users to select and configure various annotation types for personalized course delivery.
+\item[Implemented By:] JavaScript, React
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{RTC Control Module (\mref{mRTC})}
+
+\begin{description}
+\item[Secrets:] The peer-to-peer connection mechanism and connection between the client and the server.
+\item[Services:] Provides other modules the ability to manage WebRTC connections.
+\item[Implemented By:] JavaScript, WebAPI
+\item[Type of Module:] Abstract Data Type
+\end{description}
 
 \subsection{Software Decision Module}
 
@@ -294,7 +360,59 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{APP Module (\mref{mAPP})}
+
+\begin{description}
+\item[Secrets:] The business logic that coordinates the flow of data between modules.
+\item[Services:] Manages application state and serves as the central communication hub for other modules.
+\item[Implemented By:] JavaScript, React
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Video Transform Module (\mref{mVT})}
+
+\begin{description}
+\item[Secrets:] Algorithms for video encoding, decoding, and transformation.
+\item[Services:] Process video streams to apply transformations such as scaling, rotating, and overlaying annotations.
+\item[Implemented By:] Python
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Human Pose Estimation Annotation Module (\mref{mHPE})}
+
+\begin{description}
+\item[Secrets:] The algorithms and data structures used to calculate and represent the skeletal structure of a human figure in video streams.
+\item[Services:] Processes video data to overlay a representation of the human skeleton, aiding in the correction and learning of Tai Chi movements.
+\item[Implemented By:] Python, opencv-python
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Center of Mass Module (\mref{mCOM})}
+
+\begin{description}
+\item[Secrets:] The methods used to determine the center of mass in a given pose or series of movements.
+\item[Services:] Calculates and displays the center of mass in the video feed to help practitioners understand and improve their balance in various Tai Chi poses.
+\item[Implemented By:] Python, opencv-python
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{SFU Server Module (\mref{mSFU})}
+
+\begin{description}
+\item[Secrets:] The implementation of the Selective Forwarding Unit (SFU) for handling media streams.
+\item[Services:] Facilitates the routing of media streams between users to support multi-party video conferencing.
+\item[Implemented By:] Python, aiortc
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{STUN Server Module (\mref{mSTU})}
+
+\begin{description}
+\item[Secrets:] Network traversal techniques and session negotiation mechanisms.
+\item[Services:] Assists in NAT traversal by resolving public IP addresses and enabling peer-to-peer connections.
+\item[Implemented By:] Implemented externally
+\item[Type of Module:] Abstract Object
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -307,19 +425,46 @@ requirements and between the modules and the anticipated changes.
 \centering
 \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
 \toprule
-\textbf{Req.} & \textbf{Modules}\\
+\textbf{Functional Requirements} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+FR1 & \mref{mMC}, \mref{mUA}, \mref{mIV}\\
+FR2 & \mref{mMC}, \mref{mUA}, \mref{mPV}\\
+FR3 & \mref{mMC}, \mref{mUA}, \mref{mIV}, \mref{mPV}\\
+FR4 & \mref{mMC}, \mref{mUA}, \mref{mSTU}, \mref{mAPP},\\
+FR5 & \mref{mMC}, \mref{mUA}, \mref{mSTU}, \mref{mAPP},\\
+FR6 & \mref{mMC}, \mref{mUA}, \mref{mAC}\\
+FR7 & \mref{mMC}, \mref{mVT}\\
+FR8 & \mref{mMC}, \mref{mHPE}, \mref{mSFU}\\
+FR9 & \mref{mMC}, \mref{mSFU}\\
+FR10 & \mref{mMC}, \mref{mSFU}\\
+FR11 & \mref{mMC}, \mref{mVT}, \mref{mHPE}, \mref{mCOM}, \mref{mSFU}\\
+FR12 & \mref{mMC}, \mref{mSTU}, \mref{mAPP}, \mref{mVT}, \mref{mSFU}\\
+FR13 & \mref{mMC}, \mref{mSTU}, \mref{mAPP}\\
+\bottomrule
+\end{tabular}
+\caption{Trace Between Requirements and Modules}
+\label{TblRT}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Functional Requirements} & \textbf{Modules}\\
+\midrule
+LF1 & \mref{mMC}, \mref{mUA}, \mref{mIV}\\
+UH1 & \mref{mMC}, \mref{mUA}, \mref{mPV}\\
+UH2 & \mref{mMC}, \mref{mUA}, \mref{mIV}, \mref{mPV}\\
+PR1 & \mref{mMC}, \mref{mUA}, \mref{mSTU}, \mref{mAPP},\\
+PR2 & \mref{mMC}, \mref{mUA}, \mref{mSTU}, \mref{mAPP},\\
+PR3 & \mref{mMC}, \mref{mUA}, \mref{mAC}\\
+PR4 & \mref{mMC}, \mref{mVT}\\
+PR5 & \mref{mMC}, \mref{mHPE}, \mref{mSFU}\\
+PR6 & \mref{mMC}, \mref{mSFU}\\
+PR7 & \mref{mMC}, \mref{mSFU}\\
+PR8 & \mref{mMC}, \mref{mVT}, \mref{mHPE}, \mref{mCOM}, \mref{mSFU}\\
+PR9 & \mref{mMC}, \mref{mSTU}, \mref{mAPP}, \mref{mVT}, \mref{mSFU}\\
+PR10 & \mref{mMC}, \mref{mSTU}, \mref{mAPP}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
