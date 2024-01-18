@@ -259,7 +259,354 @@ SFU server and STUN servers are running in normal conditions.
 \end{itemize}
 
 
+\section{MIS of Media Control Module} \label{sec:mediactrl}
 
+\subsection{Module}
+
+MediaContorl
+
+\subsection{Uses}
+
+\noindent Web APIs
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+  \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+    \hline
+    \textbf{Name}          & \textbf{In}   & \textbf{Out}      & \textbf{Exceptions} \\
+    \hline
+    setMicEnabled    & Boolean & -           & -             \\
+    setCameraEnabled & Boolean & -           & -             \\
+    getStream        & -       & MediaStream & -             \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\noindent isMicEnabled: Boolean
+
+\noindent isCameraEnabled: Boolean
+
+\subsubsection{Environment Variables}
+
+\noindent Microphone
+
+\noindent Camera
+
+\subsubsection{Assumptions}
+
+User's devices have a functioning screen, camera and microphone.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent setMicEnabled(isEnabled: Boolean):
+\begin{itemize}
+\item transition: isMicEnabled := isEnabled
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+
+\noindent setCameraEnabled(isEnabled: Boolean):
+\begin{itemize}
+\item transition: isCameraEnabled := isEnabled
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+
+\noindent getStream():
+\begin{itemize}
+\item transition: N/A
+\item output: returns the user media stream based on the state value
+  isCameraEnabled and isMicEnabled
+\item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+N/A
+
+
+\section{MIS of Instructor View Module} \label{sec:instrcview}
+
+\subsection{Module}
+
+Instructor
+
+\subsection{Uses}
+
+\noindent Media Control Module
+
+\noindent RTC Control Module
+
+\noindent Annotation Configuration Module
+
+\noindent React
+
+\noindent Web APIs
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+  \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+    \hline
+    \textbf{Name}    & \textbf{In} & \textbf{Out}          & \textbf{Exceptions} \\
+    \hline
+    Instructor & -     & React.component & -             \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\noindent remoteVideoRef: HTMLVideoElement
+
+\noindent selfVideoRef: HTMLVideoElement
+
+\noindent peerConnection: RTCPeerConnection
+
+\subsubsection{Environment Variables}
+
+\noindent Screen
+
+\subsubsection{Assumptions}
+
+User's devices have a functioning screen, camera and microphone.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent Instructor():
+\begin{itemize}
+\item transition: N/A
+\item output: renders a react component of the instructor view page
+\item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\noindent setPeerConnection(pc: RTCPeerConnection):
+\begin{itemize}
+\item transition: peerConnection := pc
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent getSelfVideo():
+\begin{itemize}
+\item transition:
+
+  selfVideoRef.current.video.srcObject:= MediaControl.getStream()
+
+  render video stream from the local camera to screen
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent startRemoteSharing():
+\begin{itemize}
+\item transition: peerConnection.addTrack := MediaControl.getStream()
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent stopRemoteSharing():
+\begin{itemize}
+\item transition:
+
+  remoteVideoRef.current.video.srcObject = null
+
+  peerConnection.close:= true
+
+  stops the remote video on the user’s screen and close the RTCPeerConnection
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent getRemoteVideo():
+\begin{itemize}
+\item transition: get remote video coming from the SFU server and render it on the
+  user's screen.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+
+\section{MIS of Practitioner View Module} \label{sec:pracview}
+
+\subsection{Module}
+
+Practitioner
+
+\subsection{Uses}
+
+\noindent Media Control Module
+
+\noindent RTC Control Module
+
+\noindent Annotation Configuration Module
+
+\noindent React
+
+\noindent Web APIs
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+  \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+    \hline
+    \textbf{Name}      & \textbf{In} & \textbf{Out}          & \textbf{Exceptions} \\
+    \hline
+    Practitioner & -     & React.component & -             \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\noindent remoteVideoRef: HTMLVideoElement
+
+\noindent peerConnection: RTCPeerConnection
+
+\subsubsection{Environment Variables}
+
+\noindent Screen
+
+\subsubsection{Assumptions}
+
+User's devices have a functioning screen.
+
+\subsubsection{Access Routine Semantics}
+
+N/A
+
+\subsubsection{Local Functions}
+
+\noindent setPeerConnection(pc: RTCPeerConnection):
+\begin{itemize}
+\item transition: peerConnection := pc
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent getRemoteVideo():
+\begin{itemize}
+\item transition: get remote video coming from the SFU server and render it on the
+  user's screen.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+
+\section{MIS of Annotation Configuration Module} \label{sec:annoconfig}
+
+\subsection{Module}
+
+AnnotationConfig
+
+\subsection{Uses}
+
+\noindent RTC Control Module
+
+\noindent React
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+  \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+    \hline
+    \textbf{Name}              & \textbf{In}   & \textbf{Out}  & \textbf{Exceptions} \\
+    \hline
+    setIsSkeletonEnabled & Boolean & -       & -             \\
+    setIsCOMEnabled      & Boolean & -       & -             \\
+    getIsSkeletonEnable  & -       & Boolean & -             \\
+    getIsCOMEnable       & -       & Boolean & -             \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\noindent isSkeletonEnabled: Boolean
+
+\noindent isCOMEnabled: Boolean
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent setIsSkeletonEnabled(isEnabled: Boolean):
+\begin{itemize}
+\item transition: isSkeletonEnabled := isEnabled
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent setIsCOMEnabled(isEnabled: Boolean):
+\begin{itemize}
+\item transition: isCOMEnabled := isEnabled
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent getIsSkeletonEnabled():
+\begin{itemize}
+\item transition: N/A
+\item output: isSkeletonEnabled
+\item exception: N/A
+\end{itemize}
+
+\noindent getIsCOMEnabled():
+\begin{itemize}
+\item transition: N/A
+\item output: isCOMEnabled
+\item exception: N/A
+\end{itemize}
+
+
+\subsubsection{Local Functions}
+
+N/A
 
 \newpage
 
