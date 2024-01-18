@@ -5,6 +5,7 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
@@ -46,8 +47,9 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Jan 13, 2024 & 1.0 & Initial Draft\\
+Jan 14 2024 & 1.1 & Revisit after MIS module decomposition\\
+Jan 17 2024 & 1.2 & Add abbreviations section\\
 \bottomrule
 \end{tabularx}
 
@@ -86,7 +88,11 @@ This section records information for easy reference.
   STUN & Session Traversal Utilities for NAT - a type of server needed for setting up peer-to-peer connections \\
   RTC & Real-Time Communication  \\
   SFU & Selective Forwarding Unit - A software unit that can selectively forward video streams \\
-  
+  UI &  User Interface\\
+  ML &  Machine Learning\\
+  HLS &  HTTP Live Streaming\\
+  MPEG-DASH &  Dynamic Adaptive Streaming over HTTP\\
+  DAG &  Directed Acyclic Graph\\
   \bottomrule
 \end{tabular}\\
 
@@ -471,29 +477,91 @@ PR10 & \mref{mMC}, \mref{mSTU}, \mref{mAPP}\\
 \label{TblRT}
 \end{table}
 
+\begin{longtable}{p{0.3\textwidth} p{0.6\textwidth}}
+  \caption{Trace Between Non-functional Requirements and Modules} \label{TblNFRM} \\
+  \toprule
+  \textbf{Non-functional Requirements} & \textbf{Modules} \\
+  \midrule
+  \endfirsthead
+  
+  \multicolumn{2}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \toprule
+  \textbf{Non-functional Requirements} & \textbf{Modules} \\
+  \midrule
+  \endhead
+  
+  \bottomrule
+  \multicolumn{2}{r}{{Continued on next page}} \\ 
+  \endfoot
+  
+  \bottomrule
+  \endlastfoot
+  
+  LF1  & M3, M4 \\
+  UH1  & M3, M4 \\
+  UH2  & M3, M4 \\
+  PR1  & M3, M4, M8 \\
+  PR2  & M7, M12, M6 \\
+  PR3  & M7, M12, M6 \\
+  PR4  & Everything \\
+  PR5  & M7 \\
+  PR6  & M8 \\
+  PR7  & M3, M4 \\
+  PR8  & M6 \\
+  PR9  & M1 \\
+  PR10 & M3, M4 \\
+  PR11 & M3, M4 \\
+  PR12 & M5, M9, M10, M11 \\
+  PR13 & M1, M3, M4 \\
+  PR14 & M11, M12 \\
+  PR15 & M3, M4 \\
+  OE1  & M1 \\
+  OE2  & M1 \\
+  OE3  & M1 \\
+  HS1  & M1, M8 \\
+  HS2  & M3, M4 \\
+  MS1  & M1 \\
+  MS2  & M1 \\
+  SR1  & M2 \\
+  SR2  & M2, M3, M4 \\
+  SR3  & M2 \\
+  SR4  & M3, M4 \\
+  SR5  & M3, M4 \\
+  SR6  & M3, M4 \\
+  CR1  & Everything \\
+  LR1  & Everything \\
+  AC1  & M3, M4, M9 \\
+  AC2  & M3, M4, M9 \\
+  AC3  & M5, M8 \\
+  AC4  & M8 \\
+  AC5  & M7, M8 \\
+  AC6  & M3, M4 \\
+  AC7  & M3, M4 \\
+  AC8  & M7M \\
+  AC9  & M2 \\
+  \end{longtable}
+
 \begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{AC} & \textbf{Modules}\\
-\midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
-\bottomrule
-\end{tabular}
-\caption{Trace Between Anticipated Changes and Modules}
-\label{TblACT}
-\end{table}
+  \centering
+  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+  \toprule
+  \textbf{Anticipated Change} & \textbf{Module}\\
+  \midrule
+  AC1 & M3, M4, M9\\
+  AC2 & M3, M4, M9\\
+  AC3 & M5, M8\\
+  AC4 & M8\\
+  AC5 & M7, M8\\
+  AC6 & M3, M4\\
+  AC7 & M3, M4\\
+  AC8 & M7M\\
+  AC9 & M2\\
+  \bottomrule
+  \end{tabular}
+  \caption{Trace Between Anticipated Changes and Modules}
+  \label{TblACM}
+  \end{table}
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
@@ -515,10 +583,145 @@ because they use modules from the lower levels.
 \label{FigUH}
 \end{figure}
 
-%\section*{References}
+\section{Timeine}
 
-\bibliographystyle {plainnat}
-\bibliography{../../../refs/References}
+\begin{itemize}
+  \item \textbf{Week 1 - 2:}
+  \begin{itemize}
+      \item M2: User Authentication Module
+      \begin{itemize}
+          \item Research and design (Qi)
+          \item Implementation (Qi)
+      \end{itemize}
+      \item M9: App Module
+      \begin{itemize}
+          \item Initial setup and framework implementation (Kehao)
+          \item Define interfaces for other modules (Kehao)
+      \end{itemize}
+  \end{itemize}
+  \item \textbf{Week 3 - 4:}
+  \begin{itemize}
+      \item M13: SFU Server Module
+      \begin{itemize}
+          \item Setup and configuration (Xunzhou)
+          \item Integration with App Module (Kehao)
+      \end{itemize}
+      \item M6: STUN Server Module
+      \begin{itemize}
+          \item Research STUN protocols (Qianlin, Kehao)
+          \item Implementation (Kehao, Qianlin)
+      \end{itemize}
+  \end{itemize}
+  \item \textbf{Week 5:}
+  \begin{itemize}
+      \item M10: Video Transform Module
+      \begin{itemize}
+          \item Research on video transformation techniques (Qianlin, Xunzhou, Anhao)
+          \item Initial implementation (Qianlin, Xunzhou, Anhao)
+      \end{itemize}
+  \end{itemize}
+  \item \textbf{Week 6 - 7:}
+  \begin{itemize}
+      \item M3: Instructor View Module
+      \begin{itemize}
+          \item UI design (Qi)
+          \item Backend integration (Qianlin, Xunzhou, Anhao)
+      \end{itemize}
+      \item M4: Practitioner View Module
+      \begin{itemize}
+          \item UI design (Qi)
+          \item Backend integration (Qianlin, Xunzhou, Anhao)
+      \end{itemize}
+  \end{itemize}
+  \item \textbf{Week 8 - 9:}
+  \begin{itemize}
+      \item M7: RTC Control Module
+      \begin{itemize}
+          \item Implement control logic (Kehao, Xunzhou)
+          \item Integrate with SFU and STUN modules (Kehao, Xunzhou)
+      \end{itemize}
+      \item M8: Media Control Module
+      \begin{itemize}
+          \item Develop media management logic (Xunzhou, Anhao)
+          \item Integration with Video Transform Module (Xunzhou, Anhao)
+      \end{itemize}
+  \end{itemize}
+  \item \textbf{Week 10 - 11:}
+  \begin{itemize}
+      \item M11: Human Pose Estimation Annotation Module
+      \begin{itemize}
+          \item Research and select pose estimation technologies (Qianlin, Kehao)
+          \item Implement annotation logic (Qianlin, Kehao)
+      \end{itemize}
+      \item M12: Center of Mass Annotation Module
+      \begin{itemize}
+          \item Algorithm design for center of mass calculation (Qianlin, Xunzhou)
+          \item Integration with Human Pose Estimation (Qianlin, Xunzhou)
+      \end{itemize}
+  \end{itemize}
+  \item \textbf{Week 12 - 13:}
+  \begin{itemize}
+      \item M5: Annotation Configuration Module
+      \begin{itemize}
+          \item Develop configuration options (Qi, Anhao)
+          \item Implement dynamic changes (Qi, Anhao)
+      \end{itemize}
+      \item Testing and Refinement
+      \begin{itemize}
+          \item Integration testing of all modules (Qi, Anhao, Kehao, Qianlin, Xunzhou)
+          \item Performance optimization and refinement based on tests (All team members)
+      \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\section{Reflection}
+
+The information in this section will be used to evaluate the team members on the
+graduate attribute of Problem Analysis and Design.  Please answer the following questions:
+
+\begin{enumerate}
+  \item What are the limitations of your solution?  Put another way, given
+  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
+  \item Give a brief overview of other design solutions you considered.  What
+  are the benefits and tradeoffs of those other designs compared with the chosen
+  design?  From all the potential options, why did you select documented design?
+  (LO\_Explores)
+\end{enumerate}
+
+\subsection{Qi Shu}
+I am tasked with the development and design of two client-facing pages, as well as managing the connectivity between the client and server. Our current approach is shaped by budget and time considerations.
+
+One drawback of our current strategy, which involves using Figma for UI design and React for implementation, is that its performance falls short compared to native solutions and lack of experienced designers. With more resources at our disposal, my team and I could develop a high-performance native client application with a responsive UI. This would also allow us to conduct thorough user testing to obtain crucial feedback for enhancing the user experience.
+
+Moreover, we could explore additional design tools and technologies to improve the application's visual appeal and functionality, such as adding animations and interactive features.
+As for UI implementation, our experience with different UI tools is limited, guiding our current design choices. In terms of client-server interaction, we considered HTTP live streaming as an alternative to WebRTC due to its popularity and established status in streaming services. However, we opted for WebRTC for its ability to facilitate peer-to-peer connections and integrate client video streams, offering greater flexibility.
+
+\subsection{Kehao Huang}
+I was responsible for designing the front-end portion of the system, as well as investigating the integration of machine learning models into the video transform module. Regarding our documented design, our choice to use JavaScript together with React was driven by practicality, yet I am aware that this combination might not yield the same performance as a native video-conferencing application. With a more generous budget and timeline, I envision developing a native solution that could significantly enhance responsiveness and allow for more intensive user traffic.
+
+Another limitation of our current design is the range of choices for annotations. As of right now, we are planning to provide two types of annotations: center of mass annotation and human pose estimation annotation. Given sufficient time, the system is likely to support a larger variety of annotation types by utilizing more existing machine learning libraries or training our own models.
+
+\subsection{Anhao Jiao}
+In our project integrating a machine learning model with a video stream, the primary limitations included constrained computational resources, which affected model complexity and processing speed, and challenges in model accuracy, scalability, and maintaining data privacy. With unlimited resources, we could enhance computational capabilities for advanced model deployment, develop more tailored and robust models, ensure scalable infrastructure for high-volume traffic, and implement superior data security measures.
+
+Cloud-based processing has benefits such as powerful server-side processing, scalability, and potentially more advanced AI capabilities. The tradeoffs are higher latency, increased dependence on stable internet connectivity, and privacy concerns due to data transmission over the cloud.
+
+The choice of using sockets and focusing on inter-module data efficiency was driven by the specific requirements of the project. The need for real-time processing, coupled with the necessity for different modules to interact seamlessly and use shared data effectively, made this design the most suitable. It offers a balanced approach, optimizing for immediate data processing and action, while also ensuring that computational resources are used efficiently by avoiding redundant data processing across modules.
+
+\subsection{Qianlin Chen}
+I was responsible for developing and designing the SFU module and the video transform module, key components for controlling and transforming video streams in our server system.
+
+One limitation of our current strategy, centered around using Python with libraries like aiortc and OpenCV, is that it may not be as optimized for performance as other potential solutions. This choice was influenced by our familiarity with these tools and the immediate need to meet project deadlines. Given more resources, I would explore the integration of more performance-intensive languages like C++ for critical processing tasks. This would significantly enhance the efficiency and scalability of our modules, especially under high-load conditions.
+
+Additionally, while our current implementation supports basic video transformations, with additional resources, I would delve into more advanced video processing techniques. This could include AI-driven transformations and augmented reality features, which would greatly enrich the user experience and broaden the application's capabilities. Another area for improvement is comprehensive testing under varied network conditions and diverse user scenarios. With more resources, implementing a thorough testing framework and conducting extensive user testing would provide invaluable insights, allowing us to fine-tune our modules for better performance and user satisfaction.
+
+Exploring alternative technologies and protocols was also a crucial part of my role. While WebRTC was ultimately chosen for its real-time capabilities and suitability for our project's needs, alternatives like HLS or MPEG-DASH were considered. These protocols offer advantages in compatibility and established use in streaming services but don't match WebRTC's low latency and interactive capabilities.
+
+\subsection{Xunzhou Ye}
+The decision to write the backend server in Python raises concerns about efficiency, latency, scalability, and concurrent usage. Python, while versatile and widely used, may not be the optimal choice for real-time applications requiring low latency and high scalability. In hindsight, using a more performance-oriented language like C++ or Go might have been considered to address these concerns. On the other hand, the choice of Python for the backend is justified by the convenience it offers in integrating the web server with ML processing. Python has a rich ecosystem of machine learning libraries and frameworks, making it a natural fit for incorporating ML models into the platform. This decision prioritizes ease of development and integration, emphasizing the importance of seamless collaboration between the web server and ML components.
+
+Considering alternative options, the exploration of JavaScript with Node.js for the host server introduces its own set of benefits and trade-offs. While Node.js is known for its event-driven, non-blocking architecture, which can enhance scalability, it may fall short when integrating with ML models written in Python. This limitation arises from the lack of native support for certain ML libraries in JavaScript, potentially hindering the seamless integration of ML-generated annotations.
+
 
 \newpage{}
 
