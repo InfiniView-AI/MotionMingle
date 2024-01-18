@@ -50,21 +50,39 @@ urlcolor=cyan          % color of external links
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
+\begin{tabularx}{\textwidth}{p{3cm}X}
+  \toprule
+  {\bf Date} & {\bf Notes}                                                  \\
+  \midrule
+  Jan 12     & Add MIS for UI components                                    \\
+  Jan 13     & Add MIS for Media Control components, RTC Control components \\
+  Jan 14     & Add MIS for Backend components                               \\
+  Jan 17     & Revise before submission                                     \\
+  \bottomrule
 \end{tabularx}
 
 ~\newpage
-
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
-
-\wss{Also add any additional symbols, abbreviations or acronyms}
+\begin{tabularx}{\textwidth}{p{2cm}X}
+  \toprule
+  {\bf Symbol} & {\bf Description}                                                                                     \\
+  \midrule
+  MG           & Module Guide                                                                                          \\
+  M            & Module                                                                                                \\
+  MIS          & Module Interface Specification                                                                        \\
+  HTTP         & Hypertext Transfer Protocol                                                                           \\
+  OS           & Operating System                                                                                      \\
+  STUN         & Session Traversal Utilities for NAT - a type of server needed for setting up peer-to-peer connections \\
+  RTC          & Real-Time Communication                                                                               \\
+  SFU          & Selective Forwarding Unit - A software unit that can selectively forward video streams                \\
+  API          & Application Programming Interface                                                                     \\
+  SDP          & Session Description Protocol                                                                          \\
+  WebRTC       & Web Real-Time Communication                                                                           \\
+  CM           & Center of Mass Annotation Module                                                                      \\
+  HPE          & Human Pose Estimation Annotation Module                                                               \\
+  \bottomrule
+\end{tabularx}
 
 \newpage
 
@@ -76,17 +94,17 @@ See SRS Documentation at \wss{give url}
 
 \section{Introduction}
 
-The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+The following document details the Module Interface Specifications for the
+\projname application. Complementary documents include the Module Guide.
 
-Complementary documents include the System Requirement Specifications
-and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+The full documentation and implementation can be found at \href{https://github.com/InfiniView-AI/MotionMingle}{MotionMingle.git}.
+
 
 \section{Notation}
 
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
+The following tables summarize the primitive data types, derived data types, and
+other derived data types from aiortc, av, aiohttp, React and Web APIs libraries
+that are used by \projname.
 
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
@@ -95,66 +113,95 @@ with the addition that template modules have been adapted from
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
-The following table summarizes the primitive data types used by \progname. 
+\subsection{Primitive Data Types}
+
+The following table summarizes the primitive data types used by \projname.
 
 \begin{center}
-\renewcommand{\arraystretch}{1.2}
-\noindent 
-\begin{tabular}{l l p{7.5cm}} 
-\toprule 
-\textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
-\midrule
-character & char & a single symbol or digit\\
-integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
-natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
-real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
-\bottomrule
-\end{tabular} 
+  \renewcommand{\arraystretch}{1.2}
+  \noindent
+  \begin{tabular}{l l p{7.5cm}}
+    \toprule
+    \textbf{Data Type} & \textbf{Notation} & \textbf{Description} \\
+    \midrule
+    character & char & a single symbol or digit \\
+    integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
+    natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
+    real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$) \\
+    boolean & $\mathbb{B}$ & a value of either True or False \\
+    \bottomrule
+  \end{tabular}
 \end{center}
 
 \noindent
-The specification of \progname \ uses some derived data types: sequences, strings, and
+The specification of \projname uses some derived data types: sequences, strings, and
 tuples. Sequences are lists filled with elements of the same data type. Strings
 are sequences of characters. Tuples contain a list of values, potentially of
-different types. In addition, \progname \ uses functions, which
+different types. In addition, \projname uses functions, which
 are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
+
+\subsection{Data Types from Libraries}
+
+The following table summarizes the data types provided by external libraries and
+used by \projname.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.2}
+  \noindent
+  \begin{tabular}{l l p{7.5cm}}
+    \toprule
+    \textbf{Data Type}          & \textbf{Notation}           & \textbf{Description}                                                                                                                                                                                                                                            \\
+    \midrule
+    VideoStreamTrack      & VideoStreamTrack      & A dummy video track that reads green frames.                                                                                                                                                                                                              \\
+    MediaRelay            & MediaRelay            & A media source that relays one or more tracks to multiple consumers.                                                                                                                                                                                      \\
+    RTCPeerConnection     & RTCPeerConnection     & An interface represents a WebRTC connection between the local computer and a remote peer.                                                                                                                                                                 \\
+    MediaStreamTrack      & MediaStreamTrack      & A single media track within a media stream.                                                                                                                                                                                                               \\
+    RTCSessionDescription & RTCSessionDescription & An interface describes the potential connection and how it's configured. Each RTCSessionDescription consists of a description type indicating which part of the offer or answer negotiation process it describes and of the SDP descriptor of the session \\
+    JSON                  & JSON                  & JavaScript Object Notation, it is a text-based open standard data interchange setup and only provides a data encoding specification.                                                                                                                      \\
+    RTCTrackEvent         & RTCTrackEvent         & An event triggered by adding a MediaStreamTrack                                                                                                                                                                                                           \\
+    MediaStream           & MediaStream           & A stream of data that usually carries media data                                                                                                                                                                                                          \\
+    HTMLVideoElement      & HTMLVideoElement      & A react type representation of the video element in Hypertext Markup Language                                                                                                                                                                             \\
+    React.component       & React.component       & A independent and reusable bits of react code that outputs HTML elements                                                                                                                                                                                  \\
+    \bottomrule
+  \end{tabular}
+  \caption{Data types from libraries}
+\end{table}
 
 \section{Module Decomposition}
 
 The following table is taken directly from the Module Guide document for this project.
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding} & ~ \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
-\bottomrule
-
-\end{tabular}
-\caption{Module Hierarchy}
-\label{TblMH}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+    \toprule
+    \textbf{Level 1} & \textbf{Level 2} \\
+    \midrule
+    {Hardware-Hiding Module} & \\
+    \midrule
+    \multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
+               & User Authentication Module \\
+               & Instructor View Module \\
+               & Practitioner View Module \\
+               & Annotation Configuration Module \\
+               & RTC Control Module \\
+    \midrule
+    \multirow{3}{0.3\textwidth}{Software Decision Module}
+               & STUN Server Module \\
+               & App Module \\
+               & Video Transform Module \\
+               & Human Pose Estimation Annotation Module \\
+               & Center of Mass Annotation Module \\
+               & SFU Server Module \\
+    \bottomrule
+  \end{tabular}
+  \caption{Module Hierarchy}
+  \label{TblMH}
 \end{table}
 
 \newpage
-~\newpage
 
 \section{MIS of RTC Control Module} \label{sec:rtcctrl}
 
@@ -664,18 +711,22 @@ N/A
 N/A
 
 
-\section{MIS of App Module}
-\label{sec:appmodule}
+\section{MIS of App Module} \label{sec:appmodule}
 
 \subsection{Module}
 App
 
 \subsection{Uses}
-RTC Control Module\\
-Media Control Module\\
-Instructor View Module\\
-Practitioner View Module\\
-Annotation Configuration Module\\
+RTC Control Module
+
+Media Control Module
+
+Instructor View Module
+
+Practitioner View Module
+
+Annotation Configuration Module
+
 User Authentication Module
 
 \subsection{Syntax}
@@ -687,18 +738,18 @@ None
 \begin{table}[h!]
   \centering
   \begin{tabular}{llll}
-    \toprule
-    \textbf{Name} & \textbf{In} & \textbf{Out}            & \textbf{Exceptions} \\
-    \midrule
-    App           & -           & React.component         & -                   \\
-    \bottomrule
+    \hline
+    \textbf{Name} & \textbf{In} & \textbf{Out}          & \textbf{Exceptions} \\
+    \hline
+    App     & -     & React.component & -             \\
+    \hline
   \end{tabular}
 \end{table}
 
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-None
+N/A
 
 \subsubsection{Environment Variables}
 N/A
@@ -710,59 +761,67 @@ N/A
 
 \noindent App():
 \begin{itemize}
-  \item transition: App:= React.component() Start React App and render it on the user's device
-  \item output: N/A
-  \item exception: N/A
+\item transition: App:= React.component()
+
+  starts React App and render it on the user's device
+\item output: N/A
+\item exception: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
 N/A
 
-\section{MIS of User Authentication Module}
-\label{sec:userauth}
+\section{MIS of User Authentication Module} \label{sec:userauth}
 
 \subsection{Module}
 Auth
 
 \subsection{Uses}
-Instructor View Module\\
+Instructor View Module
+
 Practitioner View Module
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-None
+N/A
 
 \subsubsection{Exported Access Programs}
 \begin{table}[h!]
   \centering
   \begin{tabular}{llll}
-    \toprule
-    \textbf{Name} & \textbf{In} & \textbf{Out}             & \textbf{Exceptions} \\
-    \midrule
-    Auth          & -           & React.component          & -                   \\
-    \bottomrule
+    \hline
+    \textbf{Name} & \textbf{In} & \textbf{Out}          & \textbf{Exceptions} \\
+    \hline
+    Auth    & -     & React.component & -             \\
+    \hline
   \end{tabular}
 \end{table}
 
 \subsection{Semantics}
 
 \subsubsection{State Variables}
+
 isUserInstructor: Boolean
 
 \subsubsection{Environment Variables}
-None
+
+N/A
 
 \subsubsection{Assumptions}
-None
+
+N/A
 
 \subsubsection{Access Routine Semantics}
 
 \noindent Auth():
 \begin{itemize}
-  \item transition: Render the authentication page on the user's device, if the user clicks on the Instructor button, then jumps to the instructor view page, if the user clicks on the practitioner button, jumps to the practitioner view page.
-  \item output: N/A
-  \item exception: N/A
+\item transition: Render the authentication page on the user's device, if the user
+  clicks on the Instructor button, then jumps to the instructor view page, if
+  the user clicks on the practitioner button, jumps to the practitioner view
+  page.
+\item output: N/A
+\item exception: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -776,8 +835,7 @@ None
   \item exception: N/A
 \end{itemize}
 
-\section{MIS of Video Transform Module}
-\label{sec:videotransform}
+\section{MIS of Video Transform Module} \label{sec:videotransform}
 
 \subsection{Module}
 VideoTransformTrack
@@ -794,23 +852,25 @@ kind = ``video''
 \begin{table}[h!]
   \centering
   \begin{tabular}{llll}
-    \toprule
-    \textbf{Routine name} & \textbf{In}             & \textbf{Out}        & \textbf{Exceptions} \\
-    \midrule
-    \_\_init\_\_          & track, transform        & -                   & -                   \\
-    recv                  & -                       & VideoFrame          & -                   \\
-    \bottomrule
+    \hline
+    \textbf{Routine name} & \textbf{In}            & \textbf{Out}     & \textbf{Exceptions} \\
+    \hline
+    \_\_init\_\_    & track, transform & -          & -             \\
+    recv            & -                & VideoFrame & -             \\
+    \hline
   \end{tabular}
 \end{table}
 
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-track: VideoStreamTrack\\
-transform: str
+
+track: VideoStreamTrack
+
+transform: string
 
 \subsubsection{Environment Variables}
-None
+N/A
 
 \subsubsection{Assumptions}
 \_\_init\_\_ is called before any other access program
@@ -821,21 +881,31 @@ None
 \begin{itemize}
   \item transition: initiated by track and transform, self.track = track, self.transform = transform
   \item output: out := self
-  \item exception: None
+  \item exception: N/A
 \end{itemize}
 
 \noindent recv(self):
 \begin{itemize}
-  \item transition: Processes a video frame (frame) received from a track. Depending on the value of self.transform, it applies one of the following transformations: "HPE": Converts the frame by applying the HPE module annotation. "CM": Converts the frame by applying the CM module annotation. If self.transform is set to any other value, the frame is returned without any transformation.
-  \item output: Returns a new VideoFrame object (new\_frame) that has undergone the specified transformation, preserving the original frame's timing information (timestamps and time base).
-  \item exception: None
+\item transition: Processes a video frame (frame) received from a track. Depending
+  on the value of self.transform, it applies one of the following
+  transformations:
+  \begin{itemize}
+  \item ``HPE'': Converts the frame by applying the HPE module
+    annotation.
+  \item ``CM'': Converts the frame by applying the CM module annotation.
+  \item If self.transform is set to any other value, the frame is returned without any
+    transformation.
+  \end{itemize}
+\item output: Returns a new VideoFrame object (new\_frame) that has undergone the
+  specified transformation, preserving the original frames timing information
+  (timestamps and time base).
+  \item exception: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
-None
+N/A
 
-\section{MIS of SFU Server Module}
-\label{sec:sfuserver}
+\section{MIS of SFU Server Module} \label{sec:sfuserver}
 
 \subsection{Module}
 SfuServer
@@ -846,60 +916,84 @@ VideoTransformTrack
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-None
+N/A
 
 \subsubsection{Exported Access Programs}
 \begin{table}[h!]
   \centering
   \begin{tabular}{llll}
-    \toprule
-    \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-    \midrule
-    consumer & request & - & - \\
-    broadcast & request & - & - \\
-    \bottomrule
+    \hline
+    \textbf{Routine name} & \textbf{In}   & \textbf{Out} & \textbf{Exceptions} \\
+    \hline
+    consumer        & request & -      & -             \\
+    broadcast       & request & -      & -             \\
+    \hline
   \end{tabular}
 \end{table}
 
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-None
+N/A
 
 \subsubsection{Environment Variables}
-relay: MediaRelay\\
+relay: MediaRelay
+
 consumer\_track: VideoStreamTrack
 
 \subsubsection{Assumptions}
-None
+N/A
 
 \subsubsection{Access Routine Semantics}
 
 \noindent consumer(request):
 \begin{itemize}
-  \item transition: Processes a WebRTC connection request. Parses the request to extract session description parameters. Creates a new RTCPeerConnection object. Logs the information about the sent track. Adds a VideoTransformTrack to the peer connection, which includes subscribing to a consumer track and applying a specified video transformation. Sets the remote description of the peer connection based on the received session description. Creates and sets a local description for the peer connection by generating an answer to the received offer.
-  \item output: Returns a web response in JSON format. This response contains the SDP data and the type of the local description set on the peer connection. This information is crucial for establishing the WebRTC connection.
-  \item exception: There is no explicit exception handling within the function. If an error occurs during any of the steps (e.g., parsing the request, setting up the peer connection, or creating the response), the function may raise an exception related to that error. However, such exceptions are not explicitly caught or handled within the function itself. Potential errors could arise from invalid request data, failures in peer connection operations, or issues in response generation.
+\item transition: Processes a WebRTC connection request. The function performs the
+  following actions:
+  \begin{itemize}
+  \item Parses the request to extract session description parameters.
+  \item Creates a new RTCPeerConnection object.
+  \item Logs the information about the sent track.
+  \item Adds a VideoTransformTrack to the peer connection, which includes subscribing
+    to a consumer track and applying a specified video transformation.
+  \item Sets the remote description of the peer connection based on the received session description.
+  \item Creates and sets a local description for the peer connection by generating an answer to the received offer.
+  \end{itemize}
+\item output: Returns a web response in JSON format. This response contains the SDP
+  data and the type of the local description set on the peer connection.
+\item exception: N/A
 \end{itemize}
 
 \noindent broadcast(request):
 \begin{itemize}
-  \item transition: Manages the setup and handling of a WebRTC peer connection for broadcasting. Parses the incoming request to extract the SDP data. Initializes a new RTCPeerConnection. Adds the peer connection to a global set and logs relevant information. Sets up event handlers for different peer connection events:
+\item transition: Manages the setup and handling of a WebRTC peer connection for
+  broadcasting.
+
+  \begin{itemize}
+  \item Parses the incoming request to extract the SDP data.
+  \item Initializes a new RTCPeerConnection.
+  \item Adds the peer connection to a global set and logs relevant information.
+  \item Sets up event handlers for different peer connection events:
     \begin{enumerate}
-      \item Connection State Change: Monitors the connection state, logging changes and closing the connection if it fails.
-      \item Track Reception: Handles received tracks, particularly video tracks, by setting a global consumer\_track for later use, and logs when tracks end.
-      \item Processes the received offer by setting it as the remote description of the peer connection.
-      \item Creates and sets a local description for the peer connection in response to the offer.
+    \item Connection State Change: Monitors the connection state, logging changes
+      and closing the connection if it fails.
+    \item Track Reception: Handles received tracks, particularly video tracks, by
+      setting a global consumer\_track for later use, and logs when tracks end.
+    \item Processes the received offer by setting it as the remote description of
+      the peer connection.
+    \item Creates and sets a local description for the peer connection in response
+      to the offer.
     \end{enumerate}
-  \item output: Returns a web response in JSON format, containing the SDP data and the type of the local description set on the peer connection. This is essential for completing the WebRTC connection setup.
-  \item exception: The function does not explicitly handle exceptions. Errors during the processing of the request, peer connection operations, or event handling may result in exceptions. These exceptions are not caught within the function, meaning the caller must handle any arising errors. Potential errors could include issues with the request format, failures in peer connection setup, or problems in event handling.
+  \end{itemize}
+\item output: Returns a web response in JSON format, containing the SDP data and
+  the type of the local description set on the peer connection.
+\item exception: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
 N/A
 
-\section{MIS of Human Pose Estimation Annotation Module}
-\label{sec:hpe}
+\section{MIS of Human Pose Estimation Annotation Module} \label{sec:hpe}
 
 \subsection{Module}
 HPE
@@ -916,14 +1010,14 @@ server\_address, HPE\_address, K, pose, Rt1, R1, t1, P1, Identity, P2
 \begin{table}[h!]
   \centering
   \begin{tabular}{llll}
-    \toprule
-    \textbf{Name}       & \textbf{In}        & \textbf{Out}   & \textbf{Exceptions}      \\
-    \midrule
-    get\_kpts           & Image              & List           & IOError, ValueError      \\
-    measureJoint        & List, List         & Tuple          & N/A                      \\
-    matchKpts           & List               & List           & N/A                      \\
-    get3D               & List, List         & List           & N/A                      \\
-    \bottomrule
+    \hline
+    \textbf{Name}      & \textbf{In}      & \textbf{Out} & \textbf{Exceptions}       \\
+    \hline
+    get\_kpts    & Image      & List   & IOError, ValueError \\
+    measureJoint & List, List & Tuple  & N/A                 \\
+    matchKpts    & List       & List   & N/A                 \\
+    get3D        & List, List & List   & N/A                 \\
+    \hline
   \end{tabular}
 \end{table}
 
@@ -941,102 +1035,118 @@ External libraries are functioning as expected
 \subsubsection{Access Routine Semantics}
 \noindent get\_kpts(img):
 \begin{itemize}
-  \item transition: Saves the input image to a designated path and calls OpenPose to generate keypoints, which are then saved to a JSON file.
-  \item output: Returns a list of keypoints extracted from the input image.
-  \item exception: IOError if image saving or reading fails, ValueError if keypoints processing fails.
+\item transition: Saves the input image to a designated path and calls OpenPose to
+  generate keypoints, which are then saved to a JSON file.
+\item output: Returns a list of keypoints extracted from the input image.
+\item exception: IOError if image saving or reading fails, ValueError if keypoints
+  processing fails.
 \end{itemize}
 
 \noindent measureJoint(kpts1, kpts2):
 \begin{itemize}
-  \item transition: Computes the length of the spine in each set of keypoints and returns them ordered by length.
-  \item output: Returns a tuple with the first element being the keypoints set with the longer spine.
-  \item exception: N/A
+\item transition: Computes the length of the spine in each set of keypoints and
+  returns them ordered by length.
+\item output: Returns a tuple with the first element being the keypoints set with
+  the longer spine.
+\item exception: N/A
 \end{itemize}
 
 \noindent matchKpts(mirror\_img):
 \begin{itemize}
-  \item transition: Reflects the keypoints from the mirror image to match the real image.
-  \item output: Returns the adjusted keypoints for the mirrored image.
-  \item exception: N/A
+\item transition: Reflects the keypoints from the mirror image to match the real
+  image.
+\item output: Returns the adjusted keypoints for the mirrored image.
+\item exception: N/A
 \end{itemize}
 
 \noindent get3D(real\_kpts, mirror\_kpts):
 \begin{itemize}
-  \item transition: Uses the keypoints from the real and mirror images to triangulate 3D points.
-  \item output: Returns the 3D coordinates of the keypoints.
-  \item exception: N/A
+\item transition: Uses the keypoints from the real and mirror images to triangulate
+  3D points.
+\item output: Returns the 3D coordinates of the keypoints.
+\item exception: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
-N/A: All functions are intended to be accessed by other modules within the system
+N/A
 
-\section{MIS of Center of Mass Annotation Module}
-\label{sec:centerofmass}
+\section{MIS of Center of Mass Annotation Module} \label{sec:centerofmass}
 
 \subsection{Module}
 CM
 
 \subsection{Uses}
-\noindent numpy: for numerical computations\\
-\noindent params.bodySegParams: for body segmentation parameters\\
+
+\noindent numpy: for numerical computations
+
+\noindent params.bodySegParams: for body segmentation parameters
+
 \noindent params.cameraParams: for camera parameters
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-K, pose, P1, P2, R1, t1, R2, t2 - Camera intrinsic and extrinsic parameters, and projection matrices derived from them.\\
-foot\_in\_air\_thresh - Threshold for determining if a foot is in the air.\\
-CoM\_foot\_thresh - Threshold for determining the supporting foot based on the center of mass.
+
+\noindent K, pose, P1, P2, R1, t1, R2, t2 - Camera intrinsic and extrinsic parameters, and
+projection matrices derived from them.
+
+\noindent foot\_in\_air\_thresh - Threshold for determining if a foot is in the air.
+\noindent CoM\_foot\_thresh - Threshold for determining the supporting foot based on the center of mass.
 
 \subsubsection{Exported Access Programs}
-
-\noindent\begin{tabularx}{\textwidth}{X X X X}
-    \toprule
-    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-    \midrule
-    getCoM & points\_3D: 3D points array & CoM: Center of Mass point & - \\
-    feetStates & CoM: Center of Mass point points\_3D: 3D points array & left\_foot, right\_foot: States of the feet & - \\
-    \bottomrule
+\begin{tabularx}{\textwidth}{X X X X}
+  \hline
+  \textbf{Name}    & \textbf{In}                                                 & \textbf{Out}                                      & \textbf{Exceptions} \\
+  \hline
+  getCoM     & points\_3D: 3D points array                           & CoM: Center of Mass point                   & -             \\
+  feetStates & CoM: Center of Mass point points\_3D: 3D points array & left\_foot, right\_foot: States of the feet & -             \\
+  \hline
 \end{tabularx}
 
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-N/A: The module does not maintain internal state across invocations.
+N/A
 
 \subsubsection{Environment Variables}
-N/A: This module does not rely on environment variables for its core functionality.
+N/A
 
 \subsubsection{Assumptions}
-The module assumes that body segment parameters and camera calibration data provided by the bodySegParams and cameraParams modules are accurate and reliable.
+The module assumes that body segment parameters and camera calibration data
+provided by the bodySegParams and cameraParams modules are accurate and
+reliable.
 
 \subsubsection{Access Routine Semantics}
 
 \noindent getCoM(points\_3D):
 \begin{itemize}
-  \item transition: Calculates the center of mass based on the 3D points of body joints.
-  \item output: Returns the 3D coordinates of the body's center of mass.
-  \item exception: No explicit exception handling within the function.
+\item transition: Calculates the center of mass based on the 3D points of body
+  joints.
+\item output: Returns the 3D coordinates of the bodys center of mass.
+\item exception: N/A
 \end{itemize}
 
 \noindent feetStates(CoM, points\_3D):
 \begin{itemize}
-  \item transition: Determines the state of each foot (left and right) based on their position relative to the center of mass and the vertical distance from the ground.
-  \item output: Returns a tuple containing two dictionaries, left\_foot and right\_foot, each indicating whether the respective foot is on the ground and whether it is supporting body weight.
-  \item exception: No explicit exception handling within the function.
+\item transition: Determines the state of each foot (left and right) based on their
+  position relative to the center of mass and the vertical distance from the
+  ground.
+\item output: Returns a tuple containing two dictionaries, left\_foot and
+  right\_foot, each indicating whether the respective foot is on the ground and
+  whether it is supporting body weight.
+\item exception: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
-N/A: All functions are intended to be accessed by other modules within the system
+N/A
 
-\section{MIS of STUN Server Module}
-\label{sec:stunserver}
+\section{MIS of STUN Server Module} \label{sec:stunserver}
 
 \subsection{Module}
 STUN
 
 \subsection{Uses}
-% You can add the specific uses here
+N/A
 
 \subsection{Syntax}
 
@@ -1044,24 +1154,24 @@ STUN
 STUN\_SERVER\_ADDRESS
 
 \subsubsection{Exported Access Programs}
-% Format for the access programs if there are any
+N/A
 
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-N/A: The module does not maintain internal state across invocations.
+N/A
 
 \subsubsection{Environment Variables}
-N/A: This module does not rely on environment variables for its core functionality.
+N/A
 
 \subsubsection{Assumptions}
-The module assumes that body segment parameters and camera calibration data provided by the bodySegParams and cameraParams modules are accurate and reliable.
+The module assumes that a public STUN server is readily available.
 
 \subsubsection{Access Routine Semantics}
-N/A: No Access Routines are exported from this module
+N/A
 
 \subsubsection{Local Functions}
-N/A: There is no local function in this module
+N/A
 
 \newpage
 
