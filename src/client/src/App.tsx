@@ -14,7 +14,7 @@ export function App() {
       <Route path="/practitioner" element={<Practitioner />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="*" element={<NotFound />} />
-      <Route path="/" element={<NotFound />} />
+      <Route path="/" element={<Auth />} />
     </Routes>
   );
 }
