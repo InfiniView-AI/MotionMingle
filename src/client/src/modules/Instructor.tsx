@@ -6,7 +6,10 @@ import {
   InputLabel,
   SelectChangeEvent,
   Button,
+  Modal,
+  Box,
 } from '@mui/material';
+import MessageModal from './MessageModal';
 
 function Instructor() {
   const selfVideoRef = useRef<HTMLVideoElement>(null);
@@ -14,6 +17,8 @@ function Instructor() {
 
   const [selectedAnnotation, setSelectedAnnotation] = useState<string>('');
   const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isSelfVideoOn, setIsSelfVideoOn] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const selectNewAnnotation = (event: SelectChangeEvent) => {
     setSelectedAnnotation(event.target.value);
@@ -28,6 +33,7 @@ function Instructor() {
         video!.srcObject = stream;
         // play video from selfVideo Ref
         video?.play();
+        setIsSelfVideoOn(true);
       })
       .catch((err) => {
         console.error('OH NO!!!', err);
@@ -43,11 +49,13 @@ function Instructor() {
     // const tracks = await remoteVideoRef.current!.srcObject.getTracks().map((track) => track.stop());
     remoteVideoRef.current!.srcObject = null;
     setIsConnected(false);
+    setIsModalOpen(true);
   };
 
   const closeVideo = () => {
     const video = selfVideoRef.current;
     video!.srcObject = null;
+    setIsSelfVideoOn(false);
   };
 
   const createConsumerPeerConnection = () => {
@@ -152,13 +160,20 @@ function Instructor() {
           <track kind="captions" />
         </video>
       </div>
-      <div className="result">
-        {/* <button type="button" onClick={() => getSelfVideo()}>
-          Start self video
-        </button>
-        <button type="button" onClick={() => closeVideo()}>
+      {isSelfVideoOn ? (
+        <Button variant="contained" color="error" onClick={() => closeVideo()}>
           Close self video
-        </button> */}
+        </Button>
+      ) : (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => getSelfVideo()}
+        >
+          Start self video
+        </Button>
+      )}
+      <div className="result">
         {isConnected ? (
           <Button
             variant="contained"
@@ -189,12 +204,19 @@ function Instructor() {
         >
           Check Annotated Video
         </Button>
+        <Button variant="contained" color="error">
+          Mute
+        </Button>
       </div>
       <div className="remote">
         <video ref={remoteVideoRef} width="300" height="200" playsInline>
           <track kind="captions" />
         </video>
       </div>
+      <MessageModal
+        isModalOpen={isModalOpen}
+        handleClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

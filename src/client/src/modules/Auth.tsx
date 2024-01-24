@@ -4,12 +4,12 @@ import { Button } from '@mui/material';
 
 function Auth() {
   return (
-    <>
+    <center>
       <h1>Hi there,</h1>
       <h1>Welcome to MotionMingle!</h1>
-      <h1>Are you a Tai Chi instructor or a practitioner?</h1>
-      <h1>Hi! I'm a </h1>
-      <Button variant="contained" color="primary">
+      <h1>Are you a Tai Chi Instructor or a Practitioner?</h1>
+      <h1>I am </h1>
+      <Button variant="contained" color="primary" style={{ margin: 30 }}>
         <Link
           to="/instructor"
           style={{ color: '#FFF', textDecoration: 'none' }}
@@ -17,7 +17,8 @@ function Auth() {
           Instructor
         </Link>
       </Button>
-      <Button variant="contained" color="primary">
+      <span>or</span>
+      <Button variant="contained" color="primary" style={{ margin: 30 }}>
         <Link
           to="/practitioner"
           style={{ color: '#FFF', textDecoration: 'none' }}
@@ -25,7 +26,7 @@ function Auth() {
           Practitioner
         </Link>
       </Button>
-    </>
+    </center>
   );
 }
 
