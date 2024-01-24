@@ -8,6 +8,7 @@ import {
   Button,
 } from '@mui/material';
 import MessageModal from './MessageModal';
+import { connectAsConsumer, createPeerConnection } from './RTCControl';
 
 function Instructor() {
   const selfVideoRef = useRef<HTMLVideoElement>(null);
@@ -39,13 +40,10 @@ function Instructor() {
       });
   };
 
-  const createPeerConnection = () => {
-    const config = {
-      sdpSemantics: 'unified-plan',
-      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
-    };
-    const pc = new RTCPeerConnection(config);
-    return pc;
+  const closeSelfVideo = () => {
+    const video = selfVideoRef.current;
+    video!.srcObject = null;
+    setIsSelfVideoOn(false);
   };
 
   useEffect(() => {
@@ -63,18 +61,8 @@ function Instructor() {
     setIsModalOpen(true);
   };
 
-  const closeVideo = () => {
-    const video = selfVideoRef.current;
-    video!.srcObject = null;
-    setIsSelfVideoOn(false);
-  };
-
   const createConsumerPeerConnection = () => {
-    const config = {
-      sdpSemantics: 'unified-plan',
-      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
-    };
-    const pc = new RTCPeerConnection(config);
+    const pc = createPeerConnection();
     pc.addEventListener('track', (event) => {
       if (event.track.kind === 'video') {
         const remoteVideo = remoteVideoRef.current;
@@ -88,14 +76,7 @@ function Instructor() {
     return pc;
   };
 
-  const broadcast = async (pc: RTCPeerConnection) => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: false,
-    });
-    stream.getTracks().forEach((track) => {
-      pc.addTrack(track, stream);
-    });
+  const connectAsBroadcaster = async (pc: RTCPeerConnection) => {
     const offer = await pc?.createOffer();
     await pc?.setLocalDescription(offer);
     const requestSdp = pc.localDescription;
@@ -113,26 +94,24 @@ function Instructor() {
     });
     const answer = await sdp.json();
     await pc?.setRemoteDescription(answer);
+  };
+
+  // TODO: has to add video stream before broadcasting
+  const broadcast = async (pc: RTCPeerConnection) => {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false,
+    });
+    stream.getTracks().forEach((track) => {
+      pc.addTrack(track, stream);
+    });
+    await connectAsBroadcaster(pc);
     remoteVideoRef.current?.play();
     setIsConnected(true);
   };
 
   const consume = async (pc: RTCPeerConnection) => {
-    const offer = await pc?.createOffer();
-    await pc?.setLocalDescription(offer);
-    const requestSdp = pc.localDescription;
-    const sdp = await fetch('http://127.0.0.1:8080/consumer', {
-      body: JSON.stringify({
-        sdp: requestSdp?.sdp,
-        type: requestSdp?.type,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    });
-    const answer = await sdp.json();
-    await pc?.setRemoteDescription(answer);
+    connectAsConsumer(pc);
     remoteVideoRef.current?.play();
   };
 
@@ -162,7 +141,11 @@ function Instructor() {
         </video>
       </div>
       {isSelfVideoOn ? (
-        <Button variant="contained" color="error" onClick={() => closeVideo()}>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => closeSelfVideo()}
+        >
           Close self video
         </Button>
       ) : (

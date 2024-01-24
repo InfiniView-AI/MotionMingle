@@ -7,7 +7,8 @@ import {
   SelectChangeEvent,
   Button,
 } from '@mui/material';
-import MotionMingleButton from './MotionMingleButton';
+import MMButton from './MMButton';
+import { createPeerConnection } from './RTCControl';
 
 function Practitioner() {
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
@@ -27,11 +28,7 @@ function Practitioner() {
   };
 
   const createConsumerPeerConnection = () => {
-    const config = {
-      sdpSemantics: 'unified-plan',
-      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
-    };
-    const pc = new RTCPeerConnection(config);
+    const pc = createPeerConnection();
     pc.addEventListener('track', (event) => {
       if (event.track.kind === 'video') {
         const remoteVideo = remoteVideoRef.current;
@@ -42,15 +39,6 @@ function Practitioner() {
     });
     pc.addTransceiver('video', { direction: 'recvonly' });
     pc.addTransceiver('audio', { direction: 'recvonly' });
-    return pc;
-  };
-
-  const createPeerConnection = () => {
-    const config = {
-      sdpSemantics: 'unified-plan',
-      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
-    };
-    const pc = new RTCPeerConnection(config);
     return pc;
   };
 
@@ -140,7 +128,14 @@ function Practitioner() {
           Connect
         </Button>
       )}
-      <MotionMingleButton displayText="Motion Mingle" buttonColor="error" />
+      {/* <MMButton
+        displayText="Motion Mingle"
+        buttonColor="error"
+        callBack={() => {
+          consumer = createConsumerPeerConnection();
+          consume(consumer);
+        }}
+      /> */}
     </div>
   );
 }
