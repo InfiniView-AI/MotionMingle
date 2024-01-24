@@ -1,10 +1,25 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent,
+  Button,
+} from '@mui/material';
 
 function Instructor() {
   const selfVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
-  const getVideo = () => {
+  const [selectedAnnotation, setSelectedAnnotation] = useState<string>('');
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+
+  const selectNewAnnotation = (event: SelectChangeEvent) => {
+    setSelectedAnnotation(event.target.value);
+  };
+
+  const getSelfVideo = () => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
       .then((stream) => {
@@ -19,10 +34,15 @@ function Instructor() {
       });
   };
 
+  useEffect(() => {
+    getSelfVideo();
+  }, []);
+
   const closeRemote = async (pc: RTCPeerConnection) => {
-    pc.close();
+    // pc.close();
     // const tracks = await remoteVideoRef.current!.srcObject.getTracks().map((track) => track.stop());
     remoteVideoRef.current!.srcObject = null;
+    setIsConnected(false);
   };
 
   const closeVideo = () => {
@@ -74,7 +94,7 @@ function Instructor() {
         sdp: requestSdp?.sdp,
         type: requestSdp?.type,
         // video transform
-        video_transform: 'skeleton',
+        video_transform: selectedAnnotation,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -84,6 +104,7 @@ function Instructor() {
     const answer = await sdp.json();
     await pc?.setRemoteDescription(answer);
     remoteVideoRef.current?.play();
+    setIsConnected(true);
   };
 
   const consume = async (pc: RTCPeerConnection) => {
@@ -110,45 +131,70 @@ function Instructor() {
 
   return (
     <div className="App">
+      Instructor
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Annotation</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectedAnnotation}
+          label="Selected Annotation"
+          onChange={selectNewAnnotation}
+        >
+          <MenuItem value="">None</MenuItem>
+          <MenuItem value="skeleton">Skeleton</MenuItem>
+          <MenuItem value="edges">Edges</MenuItem>
+          <MenuItem value="cartoon">Cartoon</MenuItem>
+        </Select>
+      </FormControl>
       <div className="camera">
         <video ref={selfVideoRef} width="300" height="200" playsInline>
           <track kind="captions" />
         </video>
       </div>
       <div className="result">
-        <button type="button" onClick={() => getVideo()}>
+        {/* <button type="button" onClick={() => getSelfVideo()}>
           Start self video
         </button>
         <button type="button" onClick={() => closeVideo()}>
           Close self video
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            broadcaster = createPeerConnection();
-            broadcast(broadcaster);
-          }}
-        >
-          Broadcast
-        </button>
-        <button
-          type="button"
+        </button> */}
+        {isConnected ? (
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => closeRemote(broadcaster)}
+          >
+            Stop
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              broadcaster = createPeerConnection();
+              broadcast(broadcaster);
+            }}
+          >
+            Broadcast
+          </Button>
+        )}
+        <Button
+          variant="contained"
+          color="primary"
           onClick={() => {
             consumer = createConsumerPeerConnection();
             consume(consumer);
           }}
         >
-          Consume
-        </button>
+          Check Annotated Video
+        </Button>
       </div>
       <div className="remote">
         <video ref={remoteVideoRef} width="300" height="200" playsInline>
           <track kind="captions" />
         </video>
       </div>
-      <button type="button" onClick={() => closeRemote(broadcaster)}>
-        Stop broadcast
-      </button>
     </div>
   );
 }

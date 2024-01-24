@@ -1,9 +1,9 @@
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import Instructor from './pages/Instructor';
-import Practitioner from './pages/Practitioner';
-import Auth from './pages/Auth';
+import Home from './modules/Home';
+import NotFound from './modules/NotFound';
+import Instructor from './modules/Instructor';
+import Practitioner from './modules/Practitioner';
+import Auth from './modules/Auth';
 
 export function App() {
   return (
