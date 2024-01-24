@@ -210,7 +210,10 @@ function Instructor() {
       <MessageModal
         isModalOpen={isModalOpen}
         handleClose={() => setIsModalOpen(false)}
-        handelStopVideo={() => closeRemote(brodcastPc!)}
+        handelStopVideo={() => {
+          closeRemote(brodcastPc!);
+          setIsModalOpen(false);
+        }}
       />
     </div>
   );
