@@ -6,8 +6,6 @@ import {
   InputLabel,
   SelectChangeEvent,
   Button,
-  Modal,
-  Box,
 } from '@mui/material';
 import MessageModal from './MessageModal';
 
@@ -19,6 +17,7 @@ function Instructor() {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [isSelfVideoOn, setIsSelfVideoOn] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [brodcastPc, setBroadcastPc] = useState<RTCPeerConnection>();
 
   const selectNewAnnotation = (event: SelectChangeEvent) => {
     setSelectedAnnotation(event.target.value);
@@ -40,12 +39,24 @@ function Instructor() {
       });
   };
 
+  const createPeerConnection = () => {
+    const config = {
+      sdpSemantics: 'unified-plan',
+      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
+    };
+    const pc = new RTCPeerConnection(config);
+    return pc;
+  };
+
   useEffect(() => {
     getSelfVideo();
+    setBroadcastPc(createPeerConnection());
   }, []);
 
   const closeRemote = async (pc: RTCPeerConnection) => {
-    // pc.close();
+    console.log(pc);
+    pc.close();
+    setBroadcastPc(undefined);
     // const tracks = await remoteVideoRef.current!.srcObject.getTracks().map((track) => track.stop());
     remoteVideoRef.current!.srcObject = null;
     setIsConnected(false);
@@ -74,15 +85,6 @@ function Instructor() {
     });
     pc.addTransceiver('video', { direction: 'recvonly' });
     pc.addTransceiver('audio', { direction: 'recvonly' });
-    return pc;
-  };
-
-  const createPeerConnection = () => {
-    const config = {
-      sdpSemantics: 'unified-plan',
-      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
-    };
-    const pc = new RTCPeerConnection(config);
     return pc;
   };
 
@@ -134,7 +136,6 @@ function Instructor() {
     remoteVideoRef.current?.play();
   };
 
-  let broadcaster: RTCPeerConnection;
   let consumer: RTCPeerConnection;
 
   return (
@@ -178,7 +179,7 @@ function Instructor() {
           <Button
             variant="contained"
             color="error"
-            onClick={() => closeRemote(broadcaster)}
+            onClick={() => closeRemote(brodcastPc!)}
           >
             Stop
           </Button>
@@ -187,8 +188,9 @@ function Instructor() {
             variant="contained"
             color="primary"
             onClick={() => {
-              broadcaster = createPeerConnection();
-              broadcast(broadcaster);
+              // broadcaster = createPeerConnection();
+              // setPeerConnection(broadcaster);
+              broadcast(brodcastPc!);
             }}
           >
             Broadcast
@@ -204,7 +206,11 @@ function Instructor() {
         >
           Check Annotated Video
         </Button>
-        <Button variant="contained" color="error">
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => console.log(brodcastPc)}
+        >
           Mute
         </Button>
       </div>

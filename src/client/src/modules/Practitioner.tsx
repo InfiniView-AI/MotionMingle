@@ -7,7 +7,7 @@ import {
   SelectChangeEvent,
   Button,
 } from '@mui/material';
-import Test from './Button';
+import MotionMingleButton from './MotionMingleButton';
 
 function Practitioner() {
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
@@ -140,7 +140,7 @@ function Practitioner() {
           Connect
         </Button>
       )}
-      {/* <Test displayText="Test" buttonColor="primary" /> */}
+      <MotionMingleButton displayText="Motion Mingle" buttonColor="error" />
     </div>
   );
 }
