@@ -15,8 +15,9 @@ const style = {
 export default function MessageModal(props: {
   isModalOpen: boolean;
   handleClose: () => void;
+  handelStopVideo: () => void;
 }) {
-  const { isModalOpen, handleClose } = props;
+  const { isModalOpen, handleClose, handelStopVideo } = props;
   return (
     <Modal open={isModalOpen} onClose={handleClose}>
       <Box sx={style}>
@@ -27,10 +28,10 @@ export default function MessageModal(props: {
           Are you sure you want to turn stop your video? Practitioner in this
           room can not see your live stream after you stop the video.
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={handelStopVideo}>
           Stop Video
         </Button>
-        <Button variant="contained" color="error">
+        <Button variant="contained" color="error" onClick={handleClose}>
           Cancel
         </Button>
       </Box>

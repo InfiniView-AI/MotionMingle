@@ -8,7 +8,7 @@ import {
   Button,
 } from '@mui/material';
 import MMButton from './MMButton';
-import { createPeerConnection } from './RTCControl';
+import { connectAsConsumer, createPeerConnection } from './RTCControl';
 
 function Practitioner() {
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
@@ -43,21 +43,7 @@ function Practitioner() {
   };
 
   const consume = async (pc: RTCPeerConnection) => {
-    const offer = await pc?.createOffer();
-    await pc?.setLocalDescription(offer);
-    const requestSdp = pc.localDescription;
-    const sdp = await fetch('http://127.0.0.1:8080/consumer', {
-      body: JSON.stringify({
-        sdp: requestSdp?.sdp,
-        type: requestSdp?.type,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    });
-    const answer = await sdp.json();
-    await pc?.setRemoteDescription(answer);
+    await connectAsConsumer(pc);
     remoteVideoRef.current?.play();
     setIsConnected(true);
   };
@@ -110,6 +96,7 @@ function Practitioner() {
         <Button
           variant="contained"
           color="error"
+          size="large"
           onClick={() => {
             closeRemote(consumer);
           }}
@@ -120,6 +107,7 @@ function Practitioner() {
         <Button
           variant="contained"
           color="primary"
+          size="large"
           onClick={() => {
             consumer = createConsumerPeerConnection();
             consume(consumer);

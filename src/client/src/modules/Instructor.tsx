@@ -58,7 +58,6 @@ function Instructor() {
     // const tracks = await remoteVideoRef.current!.srcObject.getTracks().map((track) => track.stop());
     remoteVideoRef.current!.srcObject = null;
     setIsConnected(false);
-    setIsModalOpen(true);
   };
 
   const createConsumerPeerConnection = () => {
@@ -111,7 +110,7 @@ function Instructor() {
   };
 
   const consume = async (pc: RTCPeerConnection) => {
-    connectAsConsumer(pc);
+    await connectAsConsumer(pc);
     remoteVideoRef.current?.play();
   };
 
@@ -144,6 +143,7 @@ function Instructor() {
         <Button
           variant="contained"
           color="error"
+          size="large"
           onClick={() => closeSelfVideo()}
         >
           Close self video
@@ -152,6 +152,7 @@ function Instructor() {
         <Button
           variant="contained"
           color="primary"
+          size="large"
           onClick={() => getSelfVideo()}
         >
           Start self video
@@ -162,7 +163,8 @@ function Instructor() {
           <Button
             variant="contained"
             color="error"
-            onClick={() => closeRemote(brodcastPc!)}
+            size="large"
+            onClick={() => setIsModalOpen(true)}
           >
             Stop
           </Button>
@@ -170,6 +172,7 @@ function Instructor() {
           <Button
             variant="contained"
             color="primary"
+            size="large"
             onClick={() => {
               // broadcaster = createPeerConnection();
               // setPeerConnection(broadcaster);
@@ -182,6 +185,7 @@ function Instructor() {
         <Button
           variant="contained"
           color="primary"
+          size="large"
           onClick={() => {
             consumer = createConsumerPeerConnection();
             consume(consumer);
@@ -192,6 +196,7 @@ function Instructor() {
         <Button
           variant="contained"
           color="error"
+          size="large"
           onClick={() => console.log(brodcastPc)}
         >
           Mute
@@ -205,6 +210,7 @@ function Instructor() {
       <MessageModal
         isModalOpen={isModalOpen}
         handleClose={() => setIsModalOpen(false)}
+        handelStopVideo={() => closeRemote(brodcastPc!)}
       />
     </div>
   );
