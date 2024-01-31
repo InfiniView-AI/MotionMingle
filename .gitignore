@@ -281,5 +281,9 @@ TSWLatexianTemp*
 .DS_Store
 node_modules
 
+# Pycharm file
+.idea/
+
 # installed packages
 package-lock.json
+
