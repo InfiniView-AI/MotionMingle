@@ -105,7 +105,16 @@ documenting lecture notes and strategizing for project deliverables. In cases
 of their unavailability, other team members will assume these responsibilities.
 
 \section{CICD}
+In your project, the CI/CD process is implemented using GitHub Actions, as defined by the workflow `Action-Test-Demo`. 
+This workflow is triggered on pushes to the `main` and `develop` branches. 
+The CI/CD pipeline is centered around ensuring coding standards, running unit tests, and conducting comprehensive regression tests for each pull request. 
+The workflow is named dynamically using the GitHub actor's name, indicating who initiated the run, with a playful rocket emoji to signify progress.
 
-\wss{Say how CICD is used in your project}
+The job `APP-Test` runs on the latest Ubuntu runner and tests the application in the `src/client/src` directory. 
+It's designed to support multiple versions of Node.js, specifically 16.x and 18.x, ensuring compatibility and robustness across different environments. 
+The steps include checking out the code, setting up the Node.js environment, installing dependencies with `npm install`, and then executing tests using `npm test`.
+
+This CI/CD process emphasizes quality and collaboration by requiring approvals from at least two team members for review, and necessitates the successful execution of all defined GitHub actions before merging into the main branch. 
+This approach ensures high standards in code quality and functionality, fostering a reliable and efficient development workflow.
 
 \end{document}
