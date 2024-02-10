@@ -58,7 +58,7 @@
 
 ~\newpage
 \section{Introduction}
-This document serves as a comprehensive requirements specification for a WebRTC-based video conferencing application tailored specifically for Tai Chi instruction. The purpose of this document is to provide a detailed guide for the development and implementation of the system, ensuring that all stakeholders and developers have a clear and unified understanding of the project’s scope, objectives, and functional and non-functional requirements. This document follows a structured format of the Meyer’s template, which has four major dimensions or PEGS: Project, Environment, Goals, System. The four dimensions correspond to the four major sections in this document. Slight modifications are made on the document structure to better fit our project:
+This document serves as a comprehensive requirements specification for a \sout{WebRTC-based video conferencing} \textcolor{red}{video streaming} application tailored specifically for Tai Chi instruction. The purpose of this document is to provide a detailed guide for the development and implementation of the system, ensuring that all stakeholders and developers have a clear and unified understanding of the project’s scope, objectives, and functional and non-functional requirements. This document follows a structured format of the Meyer’s template, which has four major dimensions or PEGS: Project, Environment, Goals, System. The four dimensions correspond to the four major sections in this document. Slight modifications are made on the document structure to better fit our project:
 \begin{itemize}
   \item The Functionality section under the System dimension is divided into the functional requirements section and the non-functional requirements section for better clarity.
   \item Added the Use Case Diagram section to illustrate use cases.
@@ -101,10 +101,12 @@ A team of five members is designated to carry out the planning, managing, docume
 
 
 \subsection{Imposed Technical Choices}
+\textcolor{red}{N/A}
+\sout{
 The majority of the technical choices and decisions originate from the academic context in which the project is planned and carried out. Most of the technical resources shall be chosen from available open-source software, development tools, and intellectual assets. Despite the supervisor allotting a small budget for the completion of the project, team members shall minimize financial costs when making design choices and budgeting decisions. On the other hand, to accommodate the significant amount of computing resources required by machine learning-powered applications, our academic institution would offer computing hardware to support the operation of the specified system in the “System” book. The decision to utilize a self-hosted server, rather than opting for commercial cloud-hosted services, is clear and would help us adhere to our financial budget constraints.
 
 Other technical choices include the choice of programming language, Python, for the machine learning component of the system, and choosing JavaScript/TypeScript for the web application component of the system. Both of these choices are rooted in the fact that the language used to describe each component aligns with industry standards and conventional practices. The technology ecosystems around the two languages are mature and well-tested.
-
+}
 \newpage
 \subsection{Schedule and Milestones}
 Please refer to table \ref{TblMilestones}
@@ -149,7 +151,7 @@ For the implementation aspect of each milestone, there are two stages in total. 
 All of the listed tools are readily available to the public. The availability of these technology elements is crucial to the success of the project.
 
 \subsection{Risk and Mitigation Analysis}
-One potential risk for this project is insufficient background knowledge in some of the required technologies: WebRTC, socket programming, and computer vision. To mitigate this, time will be allocated for team members to learn these technologies before utilization in the project.
+One potential risk for this project is insufficient background knowledge in some of the required technologies: \sout{WebRTC}\textcolor{red}{real-time streaming protocol}, socket programming, and computer vision. To mitigate this, time will be allocated for team members to learn these technologies before utilization in the project.
 
 Furthermore, the current technology selections and goals may evolve over the course of development. For example, it is uncertain whether the machine learning model can generate real-time annotations given factors like network traffic and chosen server-side rendering techniques. If significant changes occur, documentation will be updated accordingly to reflect implemented adjustments.
 
@@ -191,15 +193,16 @@ Please refer to \ref*{Glossary} Glossary
     \item[Security] Data leak in any video conference system is not permitted, according to the Personal Information Protection and Electronic Documents Act\cite{Law1}.
     \item[Ease of Learning] One of the target audiences of our system is senior people. This user group usually has some difficulties in using software as they have lower technical device adoption\cite{olderAdultsTechUse}. The UI interaction must be clear and intuitive enough for senior people to learn all the features without further instructions.
     \item[Compliance] The application is required to comply with all applicable laws\cite{Law1}\cite{Law2}\cite{Law3} and regulations.
+    \item[] 
 \end{description}
 
 \subsection{Assumptions}
 \begin{description}
-    \item[Internet Access] Users of the system are assumed to have a reliable Internet connection. Packet loss and interruptions resulting from poor network connections are generally not accounted for.
+    \item[Internet Access] Users of the system are assumed to have \textcolor{red}{access to }a \sout{reliable} internet connection. Packet loss and interruptions resulting from poor network connections are \sout{generally not} accounted for.
     \item[Device Capability and Compatibility] The system is assumed to run on modern portable/non-portable computing devices with adequate computational power and basic networking and real-time data streaming capabilities. The software runtime environment on top of the capable hardware is also assumed to be up-to-date. Extensive backward compatibility with outdated, deprecated hardware or software is not required.
     \item[Understanding of the Annotation] After adding annotations to the instructor’s streaming video, practitioners are assumed to understand these annotations.
     \item[Cognitive Ability] Assume users are able to understand and use the interface of the system, presuppose that users can navigate, process information, and make informed decisions within the interface without struggling.
-    \item[Supported Video Resolutions] Most users’ built-in webcams in laptops and phones are assumed to support video resolution up to 1080p, which is commonly used for streaming and daily uses.
+    \item[Supported Video Resolutions] Most users’ built-in webcams in laptops and phones are assumed to support video resolution \textcolor{red}{from 480p} \sout{up} to 1080p, which is commonly used for streaming and daily uses.
     \item[Scalability of the System] The system will be designed with scalability in mind, assuming a growing user base.
 \end{description}
 
@@ -274,8 +277,8 @@ This section provides a detailed breakdown of the system’s desired functionali
 \subsubsection{Front-End (Client-Side)}
 \begin{itemize}
     \item User Interface (UI)
-    \item WebRTC Client
-    \item Real-Time Communication Engine
+    \item \sout{WebRTC} \textcolor{red}{Real-Time Communication} Client
+    \item \sout{Real-Time Communication Engine}
 \end{itemize}
 \subsubsection{Back-End (Server-Side)}
 \begin{itemize}
@@ -294,7 +297,7 @@ This section provides a detailed breakdown of the system’s desired functionali
     \item Networking
     \item Cloud
 \end{itemize}
-For the WebRTC-based video conferencing application using an SFU architecture, participants initiate sessions through a user interface. The WebRTC Client, aided by STUN and TURN servers, manages connection establishment and multi-media stream transmissions. Real-time Communication Engine establishes, maintains, and terminates the real-time sessions. Session setup details, communicated via the Signaling Server using the Session Description Protocol (SDP), determine the following media rendering. During the video conference, the Selective Forwarding Unit (SFU) routes and optimizes media stream distribution to participants. The video streams will be extracted from the SFU server,  and transferred to the API server by the socket. Then the API server will assign its integrated Machine Learning Models to render the video and send it back to the client side. The underlying infrastructure ensures efficient data transmission, maintaining overall application performance.
+For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time streaming} application using an SFU architecture, participants initiate sessions through a user interface. The \sout{WebRTC} \textcolor{red}{Real-Time Communication} Client, aided by STUN and TURN servers, manages connection establishment and multi-media stream transmissions. Real-time Communication Engine establishes, maintains, and terminates the real-time sessions. Session setup details, communicated via the Signaling Server using the Session Description Protocol (SDP), determine the following media rendering. During the video conference, the Selective Forwarding Unit (SFU) routes and optimizes media stream distribution to participants. The video streams will be extracted from the SFU server,  and transferred to the API server by the socket. Then the API server will assign its integrated Machine Learning Models to render the video and send it back to the client side. The underlying infrastructure ensures efficient data transmission, maintaining overall application performance.
 
 \subsection{Finite State Machine}
 \includegraphics[width=15cm, height=15cm]{FSM.png}
@@ -386,9 +389,33 @@ For the WebRTC-based video conferencing application using an SFU architecture, p
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item[FR13] The signaling server shall always be available to establish WebRTC connections. \label{FR13}
+    \item[FR13] The signaling server shall always be available to establish \sout{WebRTC} \textcolor{red}{Real-Time streaming} connections. \label{FR13}
     \begin{itemize}
         \item Rationale: Signaling is essential for establishing real-time communications.
+        \item Priority: Critical
+    \end{itemize}
+\end{itemize}
+\begin{itemize}
+\color{red}
+    \item[FR14] The system shall provide 2D Pose Estimation skeleton annotation.\label{FR14}
+    \begin{itemize}
+        \item Rationale: Increase Tai Chi learning experience by providing the instructor's 2D Pose Estimation skeleton annotation.
+        \item Priority: Critical
+    \end{itemize}
+\end{itemize}
+\begin{itemize}
+\color{red}
+    \item[FR15] The system shall provide 3D Pose Estimation skeleton annotation.  \label{FR15}
+    \begin{itemize}
+        \item Rationale: Increase Tai Chi learning experience by providing the instructor's 3D Pose Estimation skeleton annotation.
+        \item Priority: Critical
+    \end{itemize}
+\end{itemize}
+\begin{itemize}
+\color{red}
+    \item[FR16] The system shall provide semantic segmentation annotation.  \label{FR16}
+    \begin{itemize}
+        \item Rationale: To distinguish the instructor from the background and make the annotation more accurate.
         \item Priority: Critical
     \end{itemize}
 \end{itemize}
@@ -595,12 +622,12 @@ made and reviewed by the development team.
     \item[Network] For managing connections, the system might interact with the underlying operating system’s networking stack.
 \end{description}
 \subsection{Detailed Usage Scenarios}
-The real-time video conference application leverages its underlying infrastructure, which includes components like the WebRTC Client, SFU, and API server, to offer a seamless and enriched teaching and learning experience. The instructor's video rendered by machine learning annotations acts as a real-time guide, enhancing the practitioners' understanding and mastery of Tai Chi.
+The real-time video conference application leverages its underlying infrastructure, which includes components like the \sout{WebRTC} \textcolor{red}{Real-Time Communication} Client, SFU, and API server, to offer a seamless and enriched teaching and learning experience. The instructor's video rendered by machine learning annotations acts as a real-time guide, enhancing the practitioners' understanding and mastery of Tai Chi.
 
 The detailed usage for the two main users, Tai Chi practitioners and instructors, is listed as follows:
 \begin{itemize}
-    \item Practitioners initiate their sessions through the application's user interface. Upon joining, the WebRTC Client, with the assistance of STUN and TURN servers, ensures a stable connection for the participant. As they enter the session, they receive the instructor's video feed that's routed through the Selective Forwarding Unit (SFU). This media stream, having been extracted from the SFU server, is then relayed to the API server via a socket connection. The API server, having integrated annotation capabilities, renders the instructor's video by overlaying instructional annotations. This enhanced media stream, filled with real-time annotations detailing specific Tai Chi movements, is then returned to the practitioner's side. Throughout this process, practitioners have a passive role, in that they do not upload videos but solely benefit from the real-time instruction and the added value of the annotations on the instructor's video.
-    \item Instructors initiate their teaching sessions via the same user interface. Their WebRTC Client, in tandem with the STUN and TURN servers, establishes a connection. As instructors demonstrate Tai Chi forms and movements, their video stream is managed by the Real-time Communication Engine, passing session setup details via the Signaling Server using the Session Description Protocol (SDP). Their live video then gets channelled through the SFU, ensuring optimal distribution to all attending practitioners. Post this, the instructor's video stream undergoes a transformation at the API server where it's augmented with instructional annotations. These annotations might highlight specific postures, movement trajectories, or key focus areas, thereby enhancing the instructional value of the video. This annotated video is then disseminated in real-time to all the practitioners, ensuring they have a clear and enhanced understanding of the Tai Chi instructions being provided.
+    \item Practitioners initiate their sessions through the application's user interface. Upon joining, the \sout{WebRTC} \textcolor{red}{Real-Time Communication} Client, with the assistance of STUN and TURN servers, ensures a stable connection for the participant. As they enter the session, they receive the instructor's video feed that's routed through the Selective Forwarding Unit (SFU). This media stream, having been extracted from the SFU server, is then relayed to the API server via a socket connection. The API server, having integrated annotation capabilities, renders the instructor's video by overlaying instructional annotations. This enhanced media stream, filled with real-time annotations detailing specific Tai Chi movements, is then returned to the practitioner's side. Throughout this process, practitioners have a passive role, in that they do not upload videos but solely benefit from the real-time instruction and the added value of the annotations on the instructor's video.
+    \item Instructors initiate their teaching sessions via the same user interface. Their \sout{WebRTC} \textcolor{red}{Real-Time Communication} Client, in tandem with the STUN and TURN servers, establishes a connection. As instructors demonstrate Tai Chi forms and movements, their video stream is managed by the Real-time Communication Engine, passing session setup details via the Signaling Server using the Session Description Protocol (SDP). Their live video then gets channelled through the SFU, ensuring optimal distribution to all attending practitioners. Post this, the instructor's video stream undergoes a transformation at the API server where it's augmented with instructional annotations. These annotations might highlight specific postures, movement trajectories, or key focus areas, thereby enhancing the instructional value of the video. This annotated video is then disseminated in real-time to all the practitioners, ensuring they have a clear and enhanced understanding of the Tai Chi instructions being provided.
 \end{itemize}
 \subsection{Use Case Diagram}
 \includegraphics[width=15cm, height=15cm]{use_case_diagram.jpg}
