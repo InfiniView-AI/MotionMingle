@@ -6,6 +6,8 @@
 \usepackage{enumitem}
 \usepackage{biblatex}
 \usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{ulem}
 
 \addbibresource{reference.bib}
 \graphicspath{./}
@@ -46,6 +48,7 @@
     \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
     \midrule
     25 September 2023 & AJ, KH, QC, QS, XY & Initial draft \\
+    02 February 2024 & AJ, KH, QC, QS, XY & rev 0.1 \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -66,7 +69,7 @@ This document serves as a comprehensive requirements specification for a WebRTC-
     \item[Instructor] A person who teaches a Tai Chi class through an online conference system.
     \item[Practitioner] A person who learns Tai Chi through an online conference system.
     \item[Skeleton Annotation] A type of annotation that the system can generate. This type of annotation looks like a human skeleton.
-    \item[Clock Annotation] A type of annotation that the system can generate. This type of annotation looks like a physical clock surrounding the instructor.
+    \item\sout{\textbf{Clock Annotation}} A type of annotation that the system can generate. This type of annotation looks like a physical clock surrounding the instructor.
     \item[Center of Mass Visualization] A type of annotation that the application generates. This type of annotation shows the instructor’s center of mass with the instructor's face and feet's direction.
     \item[Semantic Segmentation] The process of linking each pixel in an image to a class label. It is a pixel-wise classification task that assigns a semantic label like “person”, “car”, “road”, etc. To every pixel in the image.
     \item[Pose Estimation/Extraction] The process of using machine learning models to estimate the pose of a person from an image or a video by estimating the spatial locations of the person’s key body joints.
@@ -134,13 +137,13 @@ For the implementation aspect of each milestone, there are two stages in total. 
 \begin{description}
 \item[Programming Language:] Python JavaScript/TypeScript
 \item[Linter Tool:] Flake8, ESlint
-\item[Testing Framework:] pytest, Jest
-\item[Code coverage:] pytest-cov, jest
+\item[Testing Framework:] \sout{pytest, Jest} \textcolor{red}{aiohttp, React Testing Library} 
+\item[Code coverage:] \sout{pytest-cov, jest} \textcolor{red}{React Testing Library} 
 \item[Version Contro:l] git
 \item[CI/CD:] GitHub Actions
-\item[Libraries:] WebRTC, PyTorch, Bun.js
-\item[ML Models:] OpenPose, SMPL, ShapeMask
-\item[UI Design framework:] Ant Design
+\item[Libraries:] \sout{WebRTC, PyTorch, Bun.js} \textcolor{red}{aioRTC, MediaPipe, React.js} 
+\item[ML Models:] \sout{OpenPose, SMPL, ShapeMask} \textcolor{red}{MediaPipe} 
+\item[UI Design framework:] \sout{Ant Design} \textcolor{red}{Material UI}
 \end{description}
 All of the listed tools are readily available to the public. The availability of these technology elements is crucial to the success of the project.
 
@@ -361,14 +364,14 @@ For the WebRTC-based video conferencing application using an SFU architecture, p
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item[FR10] The system shall arrange machine learning pipeline(s) based on annotation configuration. \label{FR10}
+    \item[FR10] The system shall arrange \sout{machine learning} \textcolor{red}{annotation} pipeline(s) based on annotation configuration. \label{FR10}
     \begin{itemize}
         \item Rationale: The system needs to generate correct annotations with the pipeline according to the practitioner’s configuration.
         \item Priority: High
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item[FR11] The system shall render the instructor’s video stream with correct annotation through machine learning pipelines. \label{FR11}
+    \item[FR11] The system shall render the instructor’s video stream with correct annotation \sout{through machine learning pipelines}. \label{FR11}
     \begin{itemize}
         \item Rationale: This is one of the outputs of the system.
         \item Priority: Critical
