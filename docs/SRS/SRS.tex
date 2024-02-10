@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{ulem}
+\usepackage{gensymb}
 
 \addbibresource{reference.bib}
 \graphicspath{./}
@@ -405,7 +406,8 @@ For the WebRTC-based video conferencing application using an SFU architecture, p
 \subsubsection{Usability and Humanity Requirement}
 \textbf{Ease of Use Requirement:}
 \begin{itemize}
-    \item[UH1] The system shall have a straightforward and intuitive user interface design. \label{UH1}
+    \item[UH1] \sout{The system shall have a straightforward and intuitive user interface design.}
+    \textcolor{red}{At least 90\% of the users can complete all operations and nevigation without assistance} \label{UH1}
     \begin{itemize}
         \item Rationale: To minimize user frustration and ensure a positive user experience.
         \item Fit Criteria: Users can complete common tasks within the system without extensive assistance.
@@ -417,7 +419,8 @@ For the WebRTC-based video conferencing application using an SFU architecture, p
     \item[UH2] The system shall be easy to learn for users of all age groups and experience levels. \label{UH2}
     \begin{itemize}
         \item Rationale: To accommodate a diverse user base, including older individuals who may be less familiar with technology.
-        \item Fit Criteria: Elder users can perform basic tasks and navigate the system effectively after a short learning period.
+        \item Fit Criteria: Elder users can perform basic tasks and navigate the system effectively \sout{after a short learning period}
+        \textcolor{red}{within 10 minutes}.
         \item Priority: Medium
     \end{itemize}
 \end{itemize}
@@ -497,7 +500,8 @@ For the WebRTC-based video conferencing application using an SFU architecture, p
     \item[OE3] The system shall run smoothly on standard personal computers or laptops equipped with a camera and optionally a microphone. \label{OE3}
     \begin{itemize}
         \item Rationale: To minimize hardware-related barriers to using the platform.
-        \item Fit Criteria: Users with standard personal computers or laptops can use the platform without significant performance issues.
+        \item Fit Criteria: Users with standard personal computers or laptops can use the platform \sout{without significant performance issues}
+        \textcolor{red}{with a video streaming latency of less than 500 ms while maintaining a minimum frame rate of 10 fps}.
         \item Priority: High
     \end{itemize}
 \end{itemize}
@@ -567,7 +571,7 @@ made and reviewed by the development team.
     \item[HS1] The system shall not cause the computers to overload. \label{HS1}
     \begin{itemize}
         \item Rationale: The system should not overload the users’ computers.
-        \item Fit Criteria: The hardware running the system is under normal temperature.
+        \item Fit Criteria: The hardware running the system is under normal temperature \textcolor{red}{65\degree C}.
         \item Priority: Medium
     \end{itemize}
 \end{itemize}
@@ -575,7 +579,7 @@ made and reviewed by the development team.
     \item[HS2] The system shall not affect users’ physical and mental health. \label{HS2}
     \begin{itemize}
         \item Rationale: The system must not harm users’ health and safety.
-        \item Fit Criteria: Users feel comfortable using the system in various situations.
+        \item Fit Criteria: \textcolor{red}{99\% of the} users feel comfortable using the system in various situations.
         \item Priority: Critical
     \end{itemize}
 \end{itemize}
