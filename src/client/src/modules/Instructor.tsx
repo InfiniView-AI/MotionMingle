@@ -95,7 +95,6 @@ function Instructor() {
     await pc?.setRemoteDescription(answer);
   };
 
-  // TODO: has to add video stream before broadcasting
   const broadcast = async (pc: RTCPeerConnection) => {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
@@ -110,7 +109,7 @@ function Instructor() {
   };
 
   const consume = async (pc: RTCPeerConnection) => {
-    await connectAsConsumer(pc);
+    await connectAsConsumer(pc, selectedAnnotation);
     remoteVideoRef.current?.play();
   };
 
