@@ -82,6 +82,7 @@ function Practitioner() {
           <MenuItem value="skeleton">Skeleton</MenuItem>
           <MenuItem value="edges">Edges</MenuItem>
           <MenuItem value="cartoon">Cartoon</MenuItem>
+          <MenuItem value="segmentation">Segmentation</MenuItem>
         </Select>
       </FormControl>
       <div className="camera" />

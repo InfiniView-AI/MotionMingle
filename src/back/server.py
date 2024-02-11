@@ -5,6 +5,7 @@ import logging
 import os
 import ssl
 import uuid
+import numpy as np
 
 import cv2
 from aiohttp import web
@@ -34,6 +35,9 @@ pose = mp_pose.Pose(
     enable_segmentation=False,
     smooth_landmarks=True,
 )
+
+segmentation = mp.solutions.selfie_segmentation.SelfieSegmentation(model_selection=0)
+
 # Drawing utility
 mp_drawing = mp.solutions.drawing_utils
 
@@ -116,6 +120,21 @@ class VideoTransformTrack(MediaStreamTrack):
             new_frame.pts = frame.pts
             new_frame.time_base = frame.time_base
             return new_frame
+        
+        elif self.transform == "segmentation":
+            # Convert the aiortc frame to an array
+            img = frame.to_ndarray(format="bgr24")
+
+            # Process the frame for skeleton
+            # img = await process_frame_for_skeleton(img)
+            img = await process_frame_for_segmentation(img)
+
+            # Rebuild a VideoFrame, preserving timing information
+            new_frame = VideoFrame.from_ndarray(img, format="bgr24")
+            new_frame.pts = frame.pts
+            new_frame.time_base = frame.time_base
+            return new_frame
+
         else:
             return frame
 
@@ -209,7 +228,7 @@ async def broadcast(request):
             effects["skeleton"] = VideoTransformTrack(relay.subscribe(track), "skeleton")
             effects["cartoon"] = VideoTransformTrack(relay.subscribe(track), "cartoon")
             effects["edges"] = VideoTransformTrack(relay.subscribe(track), "edges")
-            effects["rotate"] = VideoTransformTrack(relay.subscribe(track), "rotate")
+            effects["segmentation"] = VideoTransformTrack(relay.subscribe(track), "segmentation")
 
         @track.on("ended")
         async def on_ended():
@@ -256,6 +275,17 @@ async def process_frame_for_skeleton(frame):
         )
 
     return annotated_frame
+
+async def process_frame_for_segmentation(frame):
+    # Convert the BGR frame to RGB
+    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+    # Process the frame
+    results = segmentation.process(frame_rgb)
+    condition = np.stack((results.segmentation_mask,) * 3, axis=-1) > 0.95
+    ouput_frame = np.where(condition, frame, 255).astype(np.uint8)
+
+    return ouput_frame
 
 
 if __name__ == "__main__":
