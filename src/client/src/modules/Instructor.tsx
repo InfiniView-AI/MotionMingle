@@ -8,7 +8,7 @@ import {
   Button,
 } from '@mui/material';
 import MessageModal from './MessageModal';
-import { connectAsConsumer, createPeerConnection } from './RTCControl';
+import { connectAsConsumer, createPeerConnection, connectAsBroadcaster } from './RTCControl';
 
 function Instructor() {
   const selfVideoRef = useRef<HTMLVideoElement>(null);
@@ -75,27 +75,6 @@ function Instructor() {
     return pc;
   };
 
-  const connectAsBroadcaster = async (pc: RTCPeerConnection) => {
-    const offer = await pc?.createOffer();
-    await pc?.setLocalDescription(offer);
-    const requestSdp = pc.localDescription;
-    const sdp = await fetch('http://127.0.0.1:8080/broadcast', {
-      body: JSON.stringify({
-        sdp: requestSdp?.sdp,
-        type: requestSdp?.type,
-        // video transform
-        video_transform: selectedAnnotation,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    });
-    const answer = await sdp.json();
-    await pc?.setRemoteDescription(answer);
-  };
-
-  // TODO: has to add video stream before broadcasting
   const broadcast = async (pc: RTCPeerConnection) => {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
@@ -110,7 +89,7 @@ function Instructor() {
   };
 
   const consume = async (pc: RTCPeerConnection) => {
-    await connectAsConsumer(pc);
+    await connectAsConsumer(pc, selectedAnnotation);
     remoteVideoRef.current?.play();
   };
 
@@ -174,8 +153,6 @@ function Instructor() {
             color="primary"
             size="large"
             onClick={() => {
-              // broadcaster = createPeerConnection();
-              // setPeerConnection(broadcaster);
               broadcast(brodcastPc!);
             }}
           >
