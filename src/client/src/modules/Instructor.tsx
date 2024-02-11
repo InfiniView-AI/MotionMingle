@@ -1,13 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
   SelectChangeEvent,
   Button,
 } from '@mui/material';
 import MessageModal from './MessageModal';
+import SelectAnnotation from './SelectAnnotation';
 import { connectAsConsumer, createPeerConnection, connectAsBroadcaster } from './RTCControl';
 
 function Instructor() {
@@ -98,21 +95,7 @@ function Instructor() {
   return (
     <div className="App">
       Instructor
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Annotation</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={selectedAnnotation}
-          label="Selected Annotation"
-          onChange={selectNewAnnotation}
-        >
-          <MenuItem value="">None</MenuItem>
-          <MenuItem value="skeleton">Skeleton</MenuItem>
-          <MenuItem value="edges">Edges</MenuItem>
-          <MenuItem value="cartoon">Cartoon</MenuItem>
-        </Select>
-      </FormControl>
+      <SelectAnnotation selectedAnnotation={selectedAnnotation} selectionHandler={selectNewAnnotation} />
       <div className="camera">
         <video ref={selfVideoRef} width="300" height="200" playsInline>
           <track kind="captions" />
