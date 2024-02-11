@@ -8,7 +8,7 @@ import {
   Button,
 } from '@mui/material';
 import MessageModal from './MessageModal';
-import { connectAsConsumer, createPeerConnection } from './RTCControl';
+import { connectAsConsumer, createPeerConnection, connectAsBroadcaster } from './RTCControl';
 
 function Instructor() {
   const selfVideoRef = useRef<HTMLVideoElement>(null);
@@ -73,26 +73,6 @@ function Instructor() {
     pc.addTransceiver('video', { direction: 'recvonly' });
     pc.addTransceiver('audio', { direction: 'recvonly' });
     return pc;
-  };
-
-  const connectAsBroadcaster = async (pc: RTCPeerConnection) => {
-    const offer = await pc?.createOffer();
-    await pc?.setLocalDescription(offer);
-    const requestSdp = pc.localDescription;
-    const sdp = await fetch('http://127.0.0.1:8080/broadcast', {
-      body: JSON.stringify({
-        sdp: requestSdp?.sdp,
-        type: requestSdp?.type,
-        // video transform
-        video_transform: selectedAnnotation,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    });
-    const answer = await sdp.json();
-    await pc?.setRemoteDescription(answer);
   };
 
   const broadcast = async (pc: RTCPeerConnection) => {
