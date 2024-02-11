@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
   SelectChangeEvent,
   Button,
 } from '@mui/material';
 import { connectAsConsumer, createPeerConnection } from './RTCControl';
+import SelectAnnotation from './SelectAnnotation';
 
 function Practitioner() {
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
@@ -52,21 +49,7 @@ function Practitioner() {
   return (
     <div className="App">
       Practitioner
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Annotation</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={selectedAnnotation}
-          label="Selected Annotation"
-          onChange={selectNewAnnotation}
-        >
-          <MenuItem value="">None</MenuItem>
-          <MenuItem value="skeleton">Skeleton</MenuItem>
-          <MenuItem value="edges">Edges</MenuItem>
-          <MenuItem value="cartoon">Cartoon</MenuItem>
-        </Select>
-      </FormControl>
+      <SelectAnnotation selectedAnnotation={selectedAnnotation} selectionHandler={selectNewAnnotation} />
       <div className="camera" />
       <div className="result">
       </div>
