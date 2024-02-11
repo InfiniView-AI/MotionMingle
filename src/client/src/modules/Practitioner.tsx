@@ -7,7 +7,6 @@ import {
   SelectChangeEvent,
   Button,
 } from '@mui/material';
-import MMButton from './MMButton';
 import { connectAsConsumer, createPeerConnection } from './RTCControl';
 
 function Practitioner() {
@@ -43,23 +42,7 @@ function Practitioner() {
   };
 
   const consume = async (pc: RTCPeerConnection) => {
-    // await connectAsConsumer(pc);
-    const offer = await pc?.createOffer();
-    await pc?.setLocalDescription(offer);
-    const requestSdp = pc.localDescription;
-    const sdp = await fetch('http://127.0.0.1:8080/consumer', {
-      body: JSON.stringify({
-        sdp: requestSdp?.sdp,
-        type: requestSdp?.type,
-        video_transform: selectedAnnotation,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    });
-    const answer = await sdp.json();
-    await pc?.setRemoteDescription(answer);
+    await connectAsConsumer(pc, selectedAnnotation);
     remoteVideoRef.current?.play();
     setIsConnected(true);
   };

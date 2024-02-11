@@ -7,9 +7,7 @@ export const createPeerConnection = () => {
   return pc;
 };
 
-// TODO: Need to update after we have consumer side annotation selection to server
-// and need to update with data channel after we have dynamic annotation selection
-export const connectAsConsumer = async (pc: RTCPeerConnection) => {
+export const connectAsConsumer = async (pc: RTCPeerConnection, selectedAnnotation: string) => {
   const offer = await pc?.createOffer();
   await pc?.setLocalDescription(offer);
   const requestSdp = pc.localDescription;
@@ -17,6 +15,7 @@ export const connectAsConsumer = async (pc: RTCPeerConnection) => {
     body: JSON.stringify({
       sdp: requestSdp?.sdp,
       type: requestSdp?.type,
+      video_transform: selectedAnnotation,
     }),
     headers: {
       'Content-Type': 'application/json',
