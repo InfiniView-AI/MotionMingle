@@ -173,8 +173,6 @@ function Instructor() {
             color="primary"
             size="large"
             onClick={() => {
-              // broadcaster = createPeerConnection();
-              // setPeerConnection(broadcaster);
               broadcast(brodcastPc!);
             }}
           >

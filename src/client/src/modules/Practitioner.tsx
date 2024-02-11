@@ -69,16 +69,6 @@ function Practitioner() {
       </FormControl>
       <div className="camera" />
       <div className="result">
-        {/* <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            consumer = createConsumerPeerConnection();
-            consume(consumer);
-          }}
-        >
-          Connect
-        </Button> */}
       </div>
       <div className="remote">
         <video
@@ -115,14 +105,6 @@ function Practitioner() {
           Connect
         </Button>
       )}
-      {/* <MMButton
-        displayText="Motion Mingle"
-        buttonColor="error"
-        callBack={() => {
-          consumer = createConsumerPeerConnection();
-          consume(consumer);
-        }}
-      /> */}
     </div>
   );
 }
