@@ -60,7 +60,7 @@ const theme = createTheme({
 function Auth() {
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xl" sx={{ bgcolor: 'background.default' }}>
+      <Container component="main" maxWidth="false" sx={{ bgcolor: 'background.default' }}>
         <Box
           sx={{
             display: 'flex',
