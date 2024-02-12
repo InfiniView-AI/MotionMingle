@@ -23,15 +23,14 @@ class VideoTransformTrack(MediaStreamTrack):
     kind = "video"
 
     def __init__(self, track: MediaStreamTrack, transform: str):
-        super().__init__()  # don't forget this!
-        self.track = track
         if transform not in VideoTransformTrack.__TRANSFORMERS:
             raise UnsupportedTransform(f"transform \"{transform}\" is not supported")
+        super().__init__()  # don't forget this!
+        self.track = track
         self.transform = transform
 
     async def recv(self) -> VideoFrame:
         frame = await self.track.recv()
-
         return VideoTransformTrack.__TRANSFORMERS[self.transform](frame)
 
     @staticmethod
