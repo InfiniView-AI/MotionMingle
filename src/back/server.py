@@ -6,7 +6,6 @@ import os
 import ssl
 import uuid
 
-import cv2
 from aiohttp import web
 from aiortc import (
     MediaStreamTrack,
@@ -15,136 +14,82 @@ from aiortc import (
     VideoStreamTrack,
 )
 from aiortc.contrib.media import MediaRelay
-from av import VideoFrame
+from jsonschema import validate, ValidationError
 
-import mediapipe as mp
+from videotransformtrack import VideoTransformTrack, UnsupportedTransform
 
 ROOT = os.path.dirname(__file__)
 
 logger = logging.getLogger("pc")
-pcs = set()
+peer_connections = set()
 relay = MediaRelay()
-consumer_track = VideoStreamTrack()
-effects = dict()
-
-mp_pose = mp.solutions.pose
-pose = mp_pose.Pose(
-    static_image_mode=False,
-    model_complexity=1,
-    enable_segmentation=False,
-    smooth_landmarks=True,
-)
-# Drawing utility
-mp_drawing = mp.solutions.drawing_utils
+source_video = VideoStreamTrack()
+NO_TRANSFORM: str = "none"
+__transformed_tracks = dict()
 
 
-class VideoTransformTrack(MediaStreamTrack):
-    """
-    A video stream track that transforms frames from another track.
-    """
+def apply_transform(track: MediaStreamTrack, transform: str) -> MediaStreamTrack:
+    if transform == NO_TRANSFORM:
+        return track
+    if transform not in __transformed_tracks:
+        __transformed_tracks[transform] = VideoTransformTrack(track, transform)
+    return __transformed_tracks[transform]
 
-    kind = "video"
 
-    def __init__(self, track, transform):
-        super().__init__()  # don't forget this!
-        self.track = track
-        self.transform = transform
+consumer_schema = {
+    "type": "object",
+    "properties": {
+        "sdp": {"type": "string"},
+        "type": {"type": "string"},
+        "video_transform": {"type": "string"},
+    },
+    "required": ["sdp", "type", "video_transform"],
+}
 
-    async def recv(self):
-        frame = await self.track.recv()
-
-        if self.transform == "cartoon":
-            img = frame.to_ndarray(format="bgr24")
-
-            # prepare color
-            img_color = cv2.pyrDown(cv2.pyrDown(img))
-            for _ in range(6):
-                img_color = cv2.bilateralFilter(img_color, 9, 9, 7)
-            img_color = cv2.pyrUp(cv2.pyrUp(img_color))
-
-            # prepare edges
-            img_edges = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-            img_edges = cv2.adaptiveThreshold(
-                cv2.medianBlur(img_edges, 7),
-                255,
-                cv2.ADAPTIVE_THRESH_MEAN_C,
-                cv2.THRESH_BINARY,
-                9,
-                2,
-            )
-            img_edges = cv2.cvtColor(img_edges, cv2.COLOR_GRAY2RGB)
-
-            # combine color and edges
-            img = cv2.bitwise_and(img_color, img_edges)
-
-            # rebuild a VideoFrame, preserving timing information
-            new_frame = VideoFrame.from_ndarray(img, format="bgr24")
-            new_frame.pts = frame.pts
-            new_frame.time_base = frame.time_base
-            return new_frame
-        elif self.transform == "edges":
-            # perform edge detection
-            img = frame.to_ndarray(format="bgr24")
-            img = cv2.cvtColor(cv2.Canny(img, 100, 200), cv2.COLOR_GRAY2BGR)
-
-            # rebuild a VideoFrame, preserving timing information
-            new_frame = VideoFrame.from_ndarray(img, format="bgr24")
-            new_frame.pts = frame.pts
-            new_frame.time_base = frame.time_base
-            return new_frame
-        elif self.transform == "rotate":
-            # rotate image
-            img = frame.to_ndarray(format="bgr24")
-            rows, cols, _ = img.shape
-            M = cv2.getRotationMatrix2D((cols / 2, rows / 2), frame.time * 45, 1)
-            img = cv2.warpAffine(img, M, (cols, rows))
-
-            # rebuild a VideoFrame, preserving timing information
-            new_frame = VideoFrame.from_ndarray(img, format="bgr24")
-            new_frame.pts = frame.pts
-            new_frame.time_base = frame.time_base
-            return new_frame
-        elif self.transform == "skeleton":
-            # Convert the aiortc frame to an array
-            img = frame.to_ndarray(format="bgr24")
-
-            # Process the frame for skeleton
-            img = await process_frame_for_skeleton(img)
-
-            # Rebuild a VideoFrame, preserving timing information
-            new_frame = VideoFrame.from_ndarray(img, format="bgr24")
-            new_frame.pts = frame.pts
-            new_frame.time_base = frame.time_base
-            return new_frame
-        else:
-            return frame
+broadcast_schema = {
+    "type": "object",
+    "properties": {
+        "sdp": {"type": "string"},
+        "type": {"type": "string"},
+    },
+    "required": ["sdp", "type"],
+}
 
 
 async def consumer(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={"Access-Control-Allow-Origin": "*",
-                     "Access-Control-Allow-Credentials": "true",
-                     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                     "Access-Control-Allow-Headers": "Content-Type"},
+            headers={
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type"
+            },
         )
 
-    params = await request.json()
-    annotation = params["video_transform"]
+    body = await request.json()
+    try:
+        validate(instance=body, schema=consumer_schema)
+    except ValidationError as error:
+        raise web.HTTPBadRequest(reason=error.message)
 
-    description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
+    description = RTCSessionDescription(sdp=body["sdp"], type=body["type"])
     pc = RTCPeerConnection()
     pc_id = "PeerConnection(%s)" % uuid.uuid4()
-    pcs.add(pc)
+    peer_connections.add(pc)
 
     def log_info(msg, *args):
         logger.info(pc_id + " " + msg, *args)
 
-    log_info("Track %s sent", consumer_track.kind)
-    pc.addTrack(
-        relay.subscribe(effects[annotation])
-    )
+    video_transform = NO_TRANSFORM if not body["video_transform"] else body["video_transform"].lower()
+    try:
+        transformed_track = apply_transform(source_video, transform=video_transform)
+    except UnsupportedTransform as error:
+        raise web.HTTPBadRequest(reason=error.message)
+
+    pc.addTrack(relay.subscribe(transformed_track))
+    log_info("Track %s sent", source_video.kind)
 
     await pc.setRemoteDescription(description)
     answer = await pc.createAnswer()
@@ -152,13 +97,16 @@ async def consumer(request):
 
     return web.Response(
         content_type="application/json",
-        text=json.dumps(
-            {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
-        ),
-        headers={"Access-Control-Allow-Origin": "*",
-                 "Access-Control-Allow-Credentials": "true",
-                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                 "Access-Control-Allow-Headers": "Content-Type"},
+        text=json.dumps({
+            "sdp": pc.localDescription.sdp,
+            "type": pc.localDescription.type
+        }),
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type"
+        },
     )
 
 
@@ -166,18 +114,25 @@ async def broadcast(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={"Access-Control-Allow-Origin": "*",
-                     "Access-Control-Allow-Credentials": "true",
-                     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                     "Access-Control-Allow-Headers": "Content-Type"},
+            headers={
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type"
+            },
         )
 
-    params = await request.json()
-    offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
+    body = await request.json()
+    try:
+        validate(instance=body, schema=broadcast_schema)
+    except ValidationError as error:
+        raise web.HTTPBadRequest(reason=error.message)
+
+    offer = RTCSessionDescription(sdp=body["sdp"], type=body["type"])
 
     pc = RTCPeerConnection()
     pc_id = "PeerConnection(%s)" % uuid.uuid4()
-    pcs.add(pc)
+    peer_connections.add(pc)
 
     def log_info(msg, *args):
         logger.info(pc_id + " " + msg, *args)
@@ -196,20 +151,15 @@ async def broadcast(request):
         log_info("Connection state is %s", pc.connectionState)
         if pc.connectionState == "failed":
             await pc.close()
-            pcs.discard(pc)
+            peer_connections.discard(pc)
 
     @pc.on("track")
     def on_track(track):
         log_info("Track %s received", track.kind)
 
         if track.kind == "video":
-            global consumer_track
-            consumer_track = track
-            effects["source"] = relay.subscribe(track)
-            effects["skeleton"] = VideoTransformTrack(relay.subscribe(track), "skeleton")
-            effects["cartoon"] = VideoTransformTrack(relay.subscribe(track), "cartoon")
-            effects["edges"] = VideoTransformTrack(relay.subscribe(track), "edges")
-            effects["rotate"] = VideoTransformTrack(relay.subscribe(track), "rotate")
+            global source_video
+            source_video = track
 
         @track.on("ended")
         async def on_ended():
@@ -224,52 +174,32 @@ async def broadcast(request):
 
     return web.Response(
         content_type="application/json",
-        text=json.dumps(
-            {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
-        ),
-        headers={"Access-Control-Allow-Origin": "*",
-                 "Access-Control-Allow-Credentials": "true",
-                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                 "Access-Control-Allow-Headers": "Content-Type"},
+        text=json.dumps({
+            "sdp": pc.localDescription.sdp,
+            "type": pc.localDescription.type
+        }),
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type"
+        },
     )
 
 
 async def on_shutdown(app):
     # close peer connections
-    coros = [pc.close() for pc in pcs]
+    coros = [pc.close() for pc in peer_connections]
     await asyncio.gather(*coros)
-    pcs.clear()
-
-
-async def process_frame_for_skeleton(frame):
-    # Convert the BGR frame to RGB
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-    # Process the frame
-    results = pose.process(frame_rgb)
-
-    # Draw the pose annotations on the frame
-    annotated_frame = frame.copy()
-    if results.pose_landmarks:
-        mp_drawing.draw_landmarks(
-            annotated_frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS
-        )
-
-    return annotated_frame
+    peer_connections.clear()
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="WebRTC audio / video / data-channels demo"
-    )
+    parser = argparse.ArgumentParser(description="WebRTC audio / video / data-channels demo")
     parser.add_argument("--cert-file", help="SSL certificate file (for HTTPS)")
     parser.add_argument("--key-file", help="SSL key file (for HTTPS)")
-    parser.add_argument(
-        "--host", default="0.0.0.0", help="Host for HTTP server (default: 0.0.0.0)"
-    )
-    parser.add_argument(
-        "--port", type=int, default=8080, help="Port for HTTP server (default: 8080)"
-    )
+    parser.add_argument("--host", default="0.0.0.0", help="Host for HTTP server (default: 0.0.0.0)")
+    parser.add_argument("--port", type=int, default=8080, help="Port for HTTP server (default: 8080)")
     parser.add_argument("--verbose", "-v", action="count")
     args = parser.parse_args()
 
@@ -290,6 +220,4 @@ if __name__ == "__main__":
     app.router.add_options("/broadcast", broadcast)
     app.router.add_post("/consumer", consumer)
     app.router.add_options("/consumer", consumer)
-    web.run_app(
-        app, access_log=None, host=args.host, port=args.port, ssl_context=ssl_context
-    )
+    web.run_app(app, access_log=None, host=args.host, port=args.port, ssl_context=ssl_context)
