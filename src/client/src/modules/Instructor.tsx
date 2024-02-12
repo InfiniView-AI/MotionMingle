@@ -1,14 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
   SelectChangeEvent,
   Button,
 } from '@mui/material';
 import MessageModal from './MessageModal';
-import { connectAsConsumer, createPeerConnection } from './RTCControl';
+import SelectAnnotation from './SelectAnnotation';
+import { connectAsConsumer, createPeerConnection, connectAsBroadcaster } from './RTCControl';
 
 function Instructor() {
   const selfVideoRef = useRef<HTMLVideoElement>(null);
@@ -75,27 +72,6 @@ function Instructor() {
     return pc;
   };
 
-  const connectAsBroadcaster = async (pc: RTCPeerConnection) => {
-    const offer = await pc?.createOffer();
-    await pc?.setLocalDescription(offer);
-    const requestSdp = pc.localDescription;
-    const sdp = await fetch('http://127.0.0.1:8080/broadcast', {
-      body: JSON.stringify({
-        sdp: requestSdp?.sdp,
-        type: requestSdp?.type,
-        // video transform
-        video_transform: selectedAnnotation,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    });
-    const answer = await sdp.json();
-    await pc?.setRemoteDescription(answer);
-  };
-
-  // TODO: has to add video stream before broadcasting
   const broadcast = async (pc: RTCPeerConnection) => {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
@@ -110,7 +86,7 @@ function Instructor() {
   };
 
   const consume = async (pc: RTCPeerConnection) => {
-    await connectAsConsumer(pc);
+    await connectAsConsumer(pc, selectedAnnotation);
     remoteVideoRef.current?.play();
   };
 
@@ -119,21 +95,7 @@ function Instructor() {
   return (
     <div className="App">
       Instructor
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Annotation</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={selectedAnnotation}
-          label="Selected Annotation"
-          onChange={selectNewAnnotation}
-        >
-          <MenuItem value="">None</MenuItem>
-          <MenuItem value="skeleton">Skeleton</MenuItem>
-          <MenuItem value="edges">Edges</MenuItem>
-          <MenuItem value="cartoon">Cartoon</MenuItem>
-        </Select>
-      </FormControl>
+      <SelectAnnotation selectedAnnotation={selectedAnnotation} selectionHandler={selectNewAnnotation} />
       <div className="camera">
         <video ref={selfVideoRef} width="300" height="200" playsInline>
           <track kind="captions" />
@@ -174,8 +136,6 @@ function Instructor() {
             color="primary"
             size="large"
             onClick={() => {
-              // broadcaster = createPeerConnection();
-              // setPeerConnection(broadcaster);
               broadcast(brodcastPc!);
             }}
           >
