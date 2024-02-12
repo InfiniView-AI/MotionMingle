@@ -58,7 +58,7 @@
 
 ~\newpage
 \section{Introduction}
-This document serves as a comprehensive requirements specification for a \sout{WebRTC-based video conferencing} \textcolor{red}{video streaming} application tailored specifically for Tai Chi instruction. The purpose of this document is to provide a detailed guide for the development and implementation of the system, ensuring that all stakeholders and developers have a clear and unified understanding of the project’s scope, objectives, and functional and non-functional requirements. This document follows a structured format of the Meyer’s template, which has four major dimensions or PEGS: Project, Environment, Goals, System. The four dimensions correspond to the four major sections in this document. Slight modifications are made on the document structure to better fit our project:
+This document serves as a comprehensive requirements specification for a \sout{WebRTC-based video conferencing} \textcolor{red}{Real-Time video streaming} application tailored specifically for Tai Chi instruction. The purpose of this document is to provide a detailed guide for the development and implementation of the system, ensuring that all stakeholders and developers have a clear and unified understanding of the project’s scope, objectives, and functional and non-functional requirements. This document follows a structured format of the Meyer’s template, which has four major dimensions or PEGS: Project, Environment, Goals, System. The four dimensions correspond to the four major sections in this document. Slight modifications are made on the document structure to better fit our project:
 \begin{itemize}
   \item The Functionality section under the System dimension is divided into the functional requirements section and the non-functional requirements section for better clarity.
   \item Added the Use Case Diagram section to illustrate use cases.
@@ -151,7 +151,7 @@ For the implementation aspect of each milestone, there are two stages in total. 
 All of the listed tools are readily available to the public. The availability of these technology elements is crucial to the success of the project.
 
 \subsection{Risk and Mitigation Analysis}
-One potential risk for this project is insufficient background knowledge in some of the required technologies: \sout{WebRTC}\textcolor{red}{real-time streaming protocol}, socket programming, and computer vision. To mitigate this, time will be allocated for team members to learn these technologies before utilization in the project.
+One potential risk for this project is insufficient background knowledge in some of the required technologies: \sout{WebRTC} \textcolor{red}{Real-Time streaming protocol}, socket programming, and computer vision. To mitigate this, time will be allocated for team members to learn these technologies before utilization in the project.
 
 Furthermore, the current technology selections and goals may evolve over the course of development. For example, it is uncertain whether the machine learning model can generate real-time annotations given factors like network traffic and chosen server-side rendering techniques. If significant changes occur, documentation will be updated accordingly to reflect implemented adjustments.
 
@@ -297,7 +297,7 @@ This section provides a detailed breakdown of the system’s desired functionali
     \item Networking
     \item Cloud
 \end{itemize}
-For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time streaming} application using an SFU architecture, participants initiate sessions through a user interface. The \sout{WebRTC} \textcolor{red}{Real-Time Communication} Client, aided by STUN and TURN servers, manages connection establishment and multi-media stream transmissions. Real-time Communication Engine establishes, maintains, and terminates the real-time sessions. Session setup details, communicated via the Signaling Server using the Session Description Protocol (SDP), determine the following media rendering. During the video conference, the Selective Forwarding Unit (SFU) routes and optimizes media stream distribution to participants. The video streams will be extracted from the SFU server,  and transferred to the API server by the socket. Then the API server will assign its integrated Machine Learning Models to render the video and send it back to the client side. The underlying infrastructure ensures efficient data transmission, maintaining overall application performance.
+For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video streaming} application using an SFU architecture, participants initiate sessions through a user interface. The \sout{WebRTC} \textcolor{red}{Real-Time Communication} Client, aided by STUN and TURN servers, manages connection establishment and multi-media stream transmissions. Real-time Communication Engine establishes, maintains, and terminates the real-time sessions. Session setup details, communicated via the Signaling Server using the Session Description Protocol (SDP), determine the following media rendering. During the video conference, the Selective Forwarding Unit (SFU) routes and optimizes media stream distribution to participants. The video streams will be extracted from the SFU server,  and transferred to the API server by the socket. Then the API server will assign its integrated Machine Learning Models to render the video and send it back to the client side. The underlying infrastructure ensures efficient data transmission, maintaining overall application performance.
 
 \subsection{Finite State Machine}
 \includegraphics[width=15cm, height=15cm]{FSM.png}
@@ -408,7 +408,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time stream
     \item[FR15] The system shall provide 3D Pose Estimation skeleton annotation.  \label{FR15}
     \begin{itemize}
         \item Rationale: Increase Tai Chi learning experience by providing the instructor's 3D Pose Estimation skeleton annotation.
-        \item Priority: Critical
+        \item Priority: High
     \end{itemize}
 \end{itemize}
 \begin{itemize}
