@@ -8,12 +8,7 @@ import uuid
 
 import cv2
 from aiohttp import web
-from aiortc import (
-    MediaStreamTrack,
-    RTCPeerConnection,
-    RTCSessionDescription,
-    VideoStreamTrack,
-)
+from aiortc import MediaStreamTrack, RTCPeerConnection, RTCSessionDescription, VideoStreamTrack
 from aiortc.contrib.media import MediaRelay
 from av import VideoFrame
 
@@ -25,17 +20,13 @@ logger = logging.getLogger("pc")
 pcs = set()
 relay = MediaRelay()
 consumer_track = VideoStreamTrack()
-effects = dict()
+annotation = None
 
 mp_pose = mp.solutions.pose
-pose = mp_pose.Pose(
-    static_image_mode=False,
-    model_complexity=1,
-    enable_segmentation=False,
-    smooth_landmarks=True,
-)
+pose = mp_pose.Pose(static_image_mode=False, model_complexity=1, enable_segmentation=False, smooth_landmarks=True)
 # Drawing utility
 mp_drawing = mp.solutions.drawing_utils
+
 
 
 class VideoTransformTrack(MediaStreamTrack):
@@ -119,19 +110,18 @@ class VideoTransformTrack(MediaStreamTrack):
         else:
             return frame
 
-
 async def consumer(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={"Access-Control-Allow-Origin": "*",
-                     "Access-Control-Allow-Credentials": "true",
-                     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                     "Access-Control-Allow-Headers": "Content-Type"},
+            headers={"Access-Control-Allow-Origin": "*", 
+                        "Access-Control-Allow-Credentials": "true", 
+                        "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+                        "Access-Control-Allow-Headers": "Content-Type"},
         )
 
     params = await request.json()
-    annotation = params["video_transform"]
+    description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
 
     description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
     pc = RTCPeerConnection()
@@ -155,10 +145,10 @@ async def consumer(request):
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
-        headers={"Access-Control-Allow-Origin": "*",
-                 "Access-Control-Allow-Credentials": "true",
-                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                 "Access-Control-Allow-Headers": "Content-Type"},
+        headers={"Access-Control-Allow-Origin": "*", 
+            "Access-Control-Allow-Credentials": "true", 
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+            "Access-Control-Allow-Headers": "Content-Type"},
     )
 
 
@@ -166,14 +156,16 @@ async def broadcast(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={"Access-Control-Allow-Origin": "*",
-                     "Access-Control-Allow-Credentials": "true",
-                     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                     "Access-Control-Allow-Headers": "Content-Type"},
+            headers={"Access-Control-Allow-Origin": "*", 
+                        "Access-Control-Allow-Credentials": "true", 
+                        "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+                        "Access-Control-Allow-Headers": "Content-Type"},
         )
 
     params = await request.json()
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
+    global annotation
+    annotation=params["video_transform"]
 
     pc = RTCPeerConnection()
     pc_id = "PeerConnection(%s)" % uuid.uuid4()
@@ -227,10 +219,10 @@ async def broadcast(request):
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
-        headers={"Access-Control-Allow-Origin": "*",
-                 "Access-Control-Allow-Credentials": "true",
-                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                 "Access-Control-Allow-Headers": "Content-Type"},
+        headers={"Access-Control-Allow-Origin": "*", 
+            "Access-Control-Allow-Credentials": "true", 
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+            "Access-Control-Allow-Headers": "Content-Type"},
     )
 
 
@@ -251,11 +243,10 @@ async def process_frame_for_skeleton(frame):
     # Draw the pose annotations on the frame
     annotated_frame = frame.copy()
     if results.pose_landmarks:
-        mp_drawing.draw_landmarks(
-            annotated_frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS
-        )
+        mp_drawing.draw_landmarks(annotated_frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
     return annotated_frame
+
 
 
 if __name__ == "__main__":
