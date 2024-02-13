@@ -5,16 +5,9 @@ import logging
 import os
 import ssl
 import uuid
-import numpy as np
 
 import cv2
 from aiohttp import web
-from aiortc import (
-    MediaStreamTrack,
-    RTCPeerConnection,
-    RTCSessionDescription,
-    VideoStreamTrack,
-)
 from aiortc import (
     MediaStreamTrack,
     RTCPeerConnection,
@@ -33,7 +26,6 @@ pcs = set()
 relay = MediaRelay()
 consumer_track = VideoStreamTrack()
 effects = dict()
-effects = dict()
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(
@@ -42,16 +34,12 @@ pose = mp_pose.Pose(
     enable_segmentation=False,
     smooth_landmarks=True,
 )
-
-segmentation = mp.solutions.selfie_segmentation.SelfieSegmentation(model_selection=0)
-
 # Drawing utility
 mp_drawing = mp.solutions.drawing_utils
 
 
 class VideoTransformTrack(MediaStreamTrack):
     """
-    A video stream track that transforms frames from another track.
     A video stream track that transforms frames from another track.
     """
 
@@ -128,24 +116,8 @@ class VideoTransformTrack(MediaStreamTrack):
             new_frame.pts = frame.pts
             new_frame.time_base = frame.time_base
             return new_frame
-        
-        elif self.transform == "segmentation":
-            # Convert the aiortc frame to an array
-            img = frame.to_ndarray(format="bgr24")
-
-            # Process the frame for skeleton
-            # img = await process_frame_for_skeleton(img)
-            img = await process_frame_for_segmentation(img)
-
-            # Rebuild a VideoFrame, preserving timing information
-            new_frame = VideoFrame.from_ndarray(img, format="bgr24")
-            new_frame.pts = frame.pts
-            new_frame.time_base = frame.time_base
-            return new_frame
-
         else:
             return frame
-
 
 
 async def consumer(request):
@@ -159,8 +131,6 @@ async def consumer(request):
         )
 
     params = await request.json()
-    annotation = params["video_transform"]
-
     annotation = params["video_transform"]
 
     description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
@@ -239,7 +209,7 @@ async def broadcast(request):
             effects["skeleton"] = VideoTransformTrack(relay.subscribe(track), "skeleton")
             effects["cartoon"] = VideoTransformTrack(relay.subscribe(track), "cartoon")
             effects["edges"] = VideoTransformTrack(relay.subscribe(track), "edges")
-            effects["segmentation"] = VideoTransformTrack(relay.subscribe(track), "segmentation")
+            effects["rotate"] = VideoTransformTrack(relay.subscribe(track), "rotate")
 
         @track.on("ended")
         async def on_ended():
@@ -284,22 +254,8 @@ async def process_frame_for_skeleton(frame):
         mp_drawing.draw_landmarks(
             annotated_frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS
         )
-        mp_drawing.draw_landmarks(
-            annotated_frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS
-        )
 
     return annotated_frame
-
-async def process_frame_for_segmentation(frame):
-    # Convert the BGR frame to RGB
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-    # Process the frame
-    results = segmentation.process(frame_rgb)
-    condition = np.stack((results.segmentation_mask,) * 3, axis=-1) > 0.95
-    ouput_frame = np.where(condition, frame, 255).astype(np.uint8)
-
-    return ouput_frame
 
 
 if __name__ == "__main__":

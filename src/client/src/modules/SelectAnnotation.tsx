@@ -27,7 +27,6 @@ function SelectAnnotation(props: {
           <MenuItem value="skeleton">Skeleton</MenuItem>
           <MenuItem value="edges">Edges</MenuItem>
           <MenuItem value="cartoon">Cartoon</MenuItem>
-          <MenuItem value="segmentation">Segmentation</MenuItem>
         </Select>
       </FormControl>
 
