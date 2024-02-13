@@ -15,6 +15,12 @@ from aiortc import (
     RTCSessionDescription,
     VideoStreamTrack,
 )
+from aiortc import (
+    MediaStreamTrack,
+    RTCPeerConnection,
+    RTCSessionDescription,
+    VideoStreamTrack,
+)
 from aiortc.contrib.media import MediaRelay
 from av import VideoFrame
 
@@ -26,6 +32,7 @@ logger = logging.getLogger("pc")
 pcs = set()
 relay = MediaRelay()
 consumer_track = VideoStreamTrack()
+effects = dict()
 effects = dict()
 
 mp_pose = mp.solutions.pose
@@ -44,6 +51,7 @@ mp_drawing = mp.solutions.drawing_utils
 
 class VideoTransformTrack(MediaStreamTrack):
     """
+    A video stream track that transforms frames from another track.
     A video stream track that transforms frames from another track.
     """
 
@@ -139,6 +147,7 @@ class VideoTransformTrack(MediaStreamTrack):
             return frame
 
 
+
 async def consumer(request):
     if request.method == "OPTIONS":
         return web.Response(
@@ -147,9 +156,15 @@ async def consumer(request):
                      "Access-Control-Allow-Credentials": "true",
                      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
                      "Access-Control-Allow-Headers": "Content-Type"},
+            headers={"Access-Control-Allow-Origin": "*",
+                     "Access-Control-Allow-Credentials": "true",
+                     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+                     "Access-Control-Allow-Headers": "Content-Type"},
         )
 
     params = await request.json()
+    annotation = params["video_transform"]
+
     annotation = params["video_transform"]
 
     description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
@@ -162,6 +177,7 @@ async def consumer(request):
 
     log_info("Track %s sent", consumer_track.kind)
     pc.addTrack(
+        relay.subscribe(effects[annotation])
         relay.subscribe(effects[annotation])
     )
 
@@ -178,6 +194,10 @@ async def consumer(request):
                  "Access-Control-Allow-Credentials": "true",
                  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
                  "Access-Control-Allow-Headers": "Content-Type"},
+        headers={"Access-Control-Allow-Origin": "*",
+                 "Access-Control-Allow-Credentials": "true",
+                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+                 "Access-Control-Allow-Headers": "Content-Type"},
     )
 
 
@@ -185,6 +205,10 @@ async def broadcast(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
+            headers={"Access-Control-Allow-Origin": "*",
+                     "Access-Control-Allow-Credentials": "true",
+                     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+                     "Access-Control-Allow-Headers": "Content-Type"},
             headers={"Access-Control-Allow-Origin": "*",
                      "Access-Control-Allow-Credentials": "true",
                      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -250,6 +274,10 @@ async def broadcast(request):
                  "Access-Control-Allow-Credentials": "true",
                  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
                  "Access-Control-Allow-Headers": "Content-Type"},
+        headers={"Access-Control-Allow-Origin": "*",
+                 "Access-Control-Allow-Credentials": "true",
+                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+                 "Access-Control-Allow-Headers": "Content-Type"},
     )
 
 
@@ -270,6 +298,9 @@ async def process_frame_for_skeleton(frame):
     # Draw the pose annotations on the frame
     annotated_frame = frame.copy()
     if results.pose_landmarks:
+        mp_drawing.draw_landmarks(
+            annotated_frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS
+        )
         mp_drawing.draw_landmarks(
             annotated_frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS
         )
