@@ -21,6 +21,7 @@ logger = logging.getLogger("pc")
 pcs = set()
 relay = MediaRelay()
 consumer_track = VideoStreamTrack()
+annotation = None
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(static_image_mode=False, model_complexity=1, enable_segmentation=False, smooth_landmarks=True)
@@ -114,17 +115,14 @@ async def consumer(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": "true",
-                "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type",
-            },
+            headers={"Access-Control-Allow-Origin": "*", 
+                        "Access-Control-Allow-Credentials": "true", 
+                        "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+                        "Access-Control-Allow-Headers": "Content-Type"},
         )
 
     params = await request.json()
     description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
-    annotation = params["video_transform"]
 
     pc = RTCPeerConnection()
     pc_id = "PeerConnection(%s)" % uuid.uuid4()
@@ -148,12 +146,10 @@ async def consumer(request):
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-        },
+        headers={"Access-Control-Allow-Origin": "*", 
+            "Access-Control-Allow-Credentials": "true", 
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+            "Access-Control-Allow-Headers": "Content-Type"},
     )
 
 
@@ -161,12 +157,10 @@ async def broadcast(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": "true",
-                "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type",
-            },
+            headers={"Access-Control-Allow-Origin": "*", 
+                        "Access-Control-Allow-Credentials": "true", 
+                        "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+                        "Access-Control-Allow-Headers": "Content-Type"},
         )
 
     params = await request.json()
@@ -221,12 +215,10 @@ async def broadcast(request):
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-        },
+        headers={"Access-Control-Allow-Origin": "*", 
+            "Access-Control-Allow-Credentials": "true", 
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
+            "Access-Control-Allow-Headers": "Content-Type"},
     )
 
 
