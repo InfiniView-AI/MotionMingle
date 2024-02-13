@@ -156,10 +156,6 @@ async def consumer(request):
                      "Access-Control-Allow-Credentials": "true",
                      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
                      "Access-Control-Allow-Headers": "Content-Type"},
-            headers={"Access-Control-Allow-Origin": "*",
-                     "Access-Control-Allow-Credentials": "true",
-                     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                     "Access-Control-Allow-Headers": "Content-Type"},
         )
 
     params = await request.json()
@@ -178,7 +174,6 @@ async def consumer(request):
     log_info("Track %s sent", consumer_track.kind)
     pc.addTrack(
         relay.subscribe(effects[annotation])
-        relay.subscribe(effects[annotation])
     )
 
     await pc.setRemoteDescription(description)
@@ -194,10 +189,6 @@ async def consumer(request):
                  "Access-Control-Allow-Credentials": "true",
                  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
                  "Access-Control-Allow-Headers": "Content-Type"},
-        headers={"Access-Control-Allow-Origin": "*",
-                 "Access-Control-Allow-Credentials": "true",
-                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                 "Access-Control-Allow-Headers": "Content-Type"},
     )
 
 
@@ -205,10 +196,6 @@ async def broadcast(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={"Access-Control-Allow-Origin": "*",
-                     "Access-Control-Allow-Credentials": "true",
-                     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                     "Access-Control-Allow-Headers": "Content-Type"},
             headers={"Access-Control-Allow-Origin": "*",
                      "Access-Control-Allow-Credentials": "true",
                      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -270,10 +257,6 @@ async def broadcast(request):
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
-        headers={"Access-Control-Allow-Origin": "*",
-                 "Access-Control-Allow-Credentials": "true",
-                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                 "Access-Control-Allow-Headers": "Content-Type"},
         headers={"Access-Control-Allow-Origin": "*",
                  "Access-Control-Allow-Credentials": "true",
                  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
