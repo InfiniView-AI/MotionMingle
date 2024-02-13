@@ -18,6 +18,7 @@ google-crc32c==1.5.0
 idna==3.6
 ifaddr==0.2.0
 importlib-resources==6.1.1
+jsonschema==4.21.1
 kiwisolver==1.4.5
 matplotlib==3.8.2
 mediapipe==0.10.9
