@@ -1,11 +1,27 @@
 import React, { useRef, useState, useEffect } from 'react';
-import {
-  SelectChangeEvent,
+import { SelectChangeEvent,
   Button,
-} from '@mui/material';
+  Typography,
+  Box,
+  Container,
+  ThemeProvider,
+  createTheme } from '@mui/material';
 import MessageModal from './MessageModal';
 import SelectAnnotation from './SelectAnnotation';
 import { connectAsConsumer, createPeerConnection, connectAsBroadcaster } from './RTCControl';
+import logo from './logo.jpg';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#00a0b2',
+    },
+    secondary: {
+      main: '#E6F7FF',
+    },
+  },
+});
+
 
 function Instructor() {
   const selfVideoRef = useRef<HTMLVideoElement>(null);
@@ -92,16 +108,27 @@ function Instructor() {
 
   let consumer: RTCPeerConnection;
 
-  return (
-    <div className="App">
-      Instructor
-      <SelectAnnotation selectedAnnotation={selectedAnnotation} selectionHandler={selectNewAnnotation} />
-      <div className="camera">
-        <video ref={selfVideoRef} width="300" height="200" playsInline>
-          <track kind="captions" />
-        </video>
-      </div>
-      {isSelfVideoOn ? (
+return (
+  <ThemeProvider theme={theme}>
+    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
+        <img src={logo} alt="Motion Mingle Logo" style={{ height: 50 }} />
+        <Typography variant="h4" sx={{ ml: 2 }}>
+          Motion Mingle
+        </Typography>
+      </Box>
+      <Container maxWidth="md" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <Typography variant="h5" gutterBottom>
+            Instructor
+          </Typography>
+        <SelectAnnotation selectedAnnotation={selectedAnnotation} selectionHandler={selectNewAnnotation} />
+        <video
+          ref={selfVideoRef}
+          autoPlay
+          style={{ width: '100%', maxWidth: '600px', marginTop: '20px', borderRadius: '4px' }}
+          playsInline
+        />
+        {isSelfVideoOn ? (
         <Button
           variant="contained"
           color="error"
@@ -167,16 +194,18 @@ function Instructor() {
           <track kind="captions" />
         </video>
       </div>
-      <MessageModal
-        isModalOpen={isModalOpen}
-        handleClose={() => setIsModalOpen(false)}
-        handelStopVideo={() => {
-          closeRemote(brodcastPc!);
-          setIsModalOpen(false);
-        }}
-      />
-    </div>
-  );
+        <MessageModal
+          isModalOpen={isModalOpen}
+          handleClose={() => setIsModalOpen(false)}
+          handelStopVideo={() => {
+            closeRemote(brodcastPc!);
+            setIsModalOpen(false);
+          }}
+        />
+      </Container>
+    </Box>
+  </ThemeProvider>
+);
 }
 
 export default Instructor;
