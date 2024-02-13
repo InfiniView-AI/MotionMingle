@@ -18,6 +18,13 @@ from jsonschema import validate, ValidationError
 
 from videotransformtrack import VideoTransformTrack, UnsupportedTransform
 
+RESPONSE_HEADER = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type"
+}
+
 ROOT = os.path.dirname(__file__)
 
 logger = logging.getLogger("pc")
@@ -25,15 +32,15 @@ peer_connections = set()
 relay = MediaRelay()
 source_video = VideoStreamTrack()
 NO_TRANSFORM: str = "none"
-__transformed_tracks = dict()
+_transformed_tracks = dict()
 
 
 def apply_transform(track: MediaStreamTrack, transform: str) -> MediaStreamTrack:
     if transform == NO_TRANSFORM:
         return track
-    if transform not in __transformed_tracks:
-        __transformed_tracks[transform] = VideoTransformTrack(track, transform)
-    return __transformed_tracks[transform]
+    if transform not in _transformed_tracks:
+        _transformed_tracks[transform] = VideoTransformTrack(track, transform)
+    return _transformed_tracks[transform]
 
 
 consumer_schema = {
@@ -56,16 +63,11 @@ broadcast_schema = {
 }
 
 
-async def consumer(request):
+async def consume(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": "true",
-                "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type"
-            },
+            headers=RESPONSE_HEADER,
         )
 
     body = await request.json()
@@ -101,12 +103,7 @@ async def consumer(request):
             "sdp": pc.localDescription.sdp,
             "type": pc.localDescription.type
         }),
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type"
-        },
+        headers=RESPONSE_HEADER,
     )
 
 
@@ -114,12 +111,7 @@ async def broadcast(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": "true",
-                "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type"
-            },
+            headers=RESPONSE_HEADER,
         )
 
     body = await request.json()
@@ -178,12 +170,7 @@ async def broadcast(request):
             "sdp": pc.localDescription.sdp,
             "type": pc.localDescription.type
         }),
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type"
-        },
+        headers=RESPONSE_HEADER,
     )
 
 
@@ -218,6 +205,6 @@ if __name__ == "__main__":
     app.on_shutdown.append(on_shutdown)
     app.router.add_post("/broadcast", broadcast)
     app.router.add_options("/broadcast", broadcast)
-    app.router.add_post("/consumer", consumer)
-    app.router.add_options("/consumer", consumer)
+    app.router.add_post("/consumer", consume)
+    app.router.add_options("/consumer", consume)
     web.run_app(app, access_log=None, host=args.host, port=args.port, ssl_context=ssl_context)
