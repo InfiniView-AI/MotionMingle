@@ -14,13 +14,13 @@ from av import VideoFrame
 
 import mediapipe as mp
 
+
 ROOT = os.path.dirname(__file__)
 
 logger = logging.getLogger("pc")
 pcs = set()
 relay = MediaRelay()
 consumer_track = VideoStreamTrack()
-annotation = None
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(static_image_mode=False, model_complexity=1, enable_segmentation=False, smooth_landmarks=True)
@@ -31,7 +31,7 @@ mp_drawing = mp.solutions.drawing_utils
 
 class VideoTransformTrack(MediaStreamTrack):
     """
-    A video stream track that transforms frames from another track.
+    A video stream track that transforms frames from an another track.
     """
 
     kind = "video"
@@ -114,16 +114,18 @@ async def consumer(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={"Access-Control-Allow-Origin": "*", 
-                        "Access-Control-Allow-Credentials": "true", 
-                        "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
-                        "Access-Control-Allow-Headers": "Content-Type"},
+            headers={
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type",
+            },
         )
 
     params = await request.json()
     description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
+    annotation = params["video_transform"]
 
-    description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
     pc = RTCPeerConnection()
     pc_id = "PeerConnection(%s)" % uuid.uuid4()
     pcs.add(pc)
@@ -133,7 +135,8 @@ async def consumer(request):
 
     log_info("Track %s sent", consumer_track.kind)
     pc.addTrack(
-        relay.subscribe(effects[annotation])
+        # VideoTransformTrack(relay.subscribe(consumer_track), transform=params["video_transform"])
+        VideoTransformTrack(relay.subscribe(consumer_track), transform=annotation)
     )
 
     await pc.setRemoteDescription(description)
@@ -145,10 +148,12 @@ async def consumer(request):
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
-        headers={"Access-Control-Allow-Origin": "*", 
-            "Access-Control-Allow-Credentials": "true", 
-            "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
-            "Access-Control-Allow-Headers": "Content-Type"},
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+        },
     )
 
 
@@ -156,10 +161,12 @@ async def broadcast(request):
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
-            headers={"Access-Control-Allow-Origin": "*", 
-                        "Access-Control-Allow-Credentials": "true", 
-                        "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
-                        "Access-Control-Allow-Headers": "Content-Type"},
+            headers={
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type",
+            },
         )
 
     params = await request.json()
@@ -197,11 +204,6 @@ async def broadcast(request):
         if track.kind == "video":
             global consumer_track
             consumer_track = track
-            effects["source"] = relay.subscribe(track)
-            effects["skeleton"] = VideoTransformTrack(relay.subscribe(track), "skeleton")
-            effects["cartoon"] = VideoTransformTrack(relay.subscribe(track), "cartoon")
-            effects["edges"] = VideoTransformTrack(relay.subscribe(track), "edges")
-            effects["rotate"] = VideoTransformTrack(relay.subscribe(track), "rotate")
 
         @track.on("ended")
         async def on_ended():
@@ -219,10 +221,12 @@ async def broadcast(request):
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
-        headers={"Access-Control-Allow-Origin": "*", 
-            "Access-Control-Allow-Credentials": "true", 
-            "Access-Control-Allow-Methods": "POST, GET, OPTIONS", 
-            "Access-Control-Allow-Headers": "Content-Type"},
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+        },
     )
 
 
