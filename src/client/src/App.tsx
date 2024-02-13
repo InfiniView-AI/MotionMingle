@@ -1,18 +1,14 @@
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import NotFound from './modules/NotFound';
-import Instructor from './modules/Instructor';
-import Practitioner from './modules/Practitioner';
-import Auth from './modules/Auth';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Instructor from './pages/Instructor';
 
 export function App() {
   return (
     <Routes>
-      <Route path="/" element={<Auth />} />
-      <Route path="/instructor" element={<Instructor />} />
-      <Route path="/practitioner" element={<Practitioner />} />
-      <Route path="/auth" element={<Auth />} />
+      <Route path="/home" element={<Home />} />
       <Route path="*" element={<NotFound />} />
-      <Route path="/" element={<Auth />} />
+      <Route path="/" element={<Instructor />} />
     </Routes>
   );
 }
