@@ -15,12 +15,6 @@ from aiortc import (
     RTCSessionDescription,
     VideoStreamTrack,
 )
-from aiortc import (
-    MediaStreamTrack,
-    RTCPeerConnection,
-    RTCSessionDescription,
-    VideoStreamTrack,
-)
 from aiortc.contrib.media import MediaRelay
 from av import VideoFrame
 
@@ -135,7 +129,7 @@ class VideoTransformTrack(MediaStreamTrack):
 
             # Process the frame for skeleton
             # img = await process_frame_for_skeleton(img)
-            img = await process_frame_for_segmentation(img)
+            img = process_frame_for_segmentation(img)
 
             # Rebuild a VideoFrame, preserving timing information
             new_frame = VideoFrame.from_ndarray(img, format="bgr24")
@@ -159,8 +153,6 @@ async def consumer(request):
         )
 
     params = await request.json()
-    annotation = params["video_transform"]
-
     annotation = params["video_transform"]
 
     description = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
@@ -290,7 +282,7 @@ async def process_frame_for_skeleton(frame):
 
     return annotated_frame
 
-async def process_frame_for_segmentation(frame):
+def process_frame_for_segmentation(frame):
     # Convert the BGR frame to RGB
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
