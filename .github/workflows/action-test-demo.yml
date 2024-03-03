@@ -24,3 +24,21 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
+  Backend-Test:
+    name: Backend-Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: test
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pytest
+        env:
+          PYTHONPATH: src/back
