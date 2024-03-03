@@ -1,15 +1,14 @@
 import json
-
 from aiohttp import web
-from src.back.server import broadcast
+from server import broadcast
 import pytest
 
 @pytest.fixture
-def cli(loop, aiohttp_client):
+def cli(event_loop, aiohttp_client):
     app = web.Application()
     app.router.add_post('/broadcast', broadcast)
     app.router.add_options('/broadcast', broadcast)
-    return loop.run_until_complete(aiohttp_client(app))
+    return event_loop.run_until_complete(aiohttp_client(app))
 
 @pytest.mark.asyncio
 async def test_broadcast_options(cli):
