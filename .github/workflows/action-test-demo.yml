@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - 79-set-up-backend-test-and-github-action
     
 jobs:
   APP-Test:
