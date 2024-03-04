@@ -4,6 +4,7 @@ import cv2
 import mediapipe as mp
 from aiortc import MediaStreamTrack
 from av import VideoFrame
+import numpy as np
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(
@@ -12,6 +13,8 @@ pose = mp_pose.Pose(
     enable_segmentation=False,
     smooth_landmarks=True,
 )
+
+segmentation = mp.solutions.selfie_segmentation.SelfieSegmentation(model_selection=0)
 mp_drawing = mp.solutions.drawing_utils
 
 
@@ -111,12 +114,40 @@ class VideoTransformTrack(MediaStreamTrack):
         new_frame.pts = frame.pts
         new_frame.time_base = frame.time_base
         return new_frame
+    
+
+
+    @staticmethod
+    def _segmentation_transformer(frame: VideoFrame) -> VideoFrame:
+        # Convert the aiortc frame to an array
+
+        def process_frame_for_segmentation(frame):
+            # Convert the BGR frame to RGB
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+            # Process the frame
+            results = segmentation.process(frame_rgb)
+            condition = np.stack((results.segmentation_mask,) * 3, axis=-1) > 0.5
+            ouput_frame = np.where(condition, frame, frame_rgb * 0.3).astype(np.uint8)
+
+            return ouput_frame
+        
+        img = frame.to_ndarray(format="bgr24")
+        
+        annotated_frame = process_frame_for_segmentation(img)
+
+        # Rebuild a VideoFrame, preserving timing information
+        new_frame = VideoFrame.from_ndarray(annotated_frame, format="bgr24")
+        new_frame.pts = frame.pts
+        new_frame.time_base = frame.time_base
+        return new_frame
 
     __TRANSFORMERS: Dict[str, Callable[[VideoFrame], VideoFrame]] = {
         "cartoon": _cartoon_transformer,
         "edges": _edges_transformer,
         "rotate": _rotate_transformer,
-        "skeleton": _skeleton_transformer
+        "skeleton": _skeleton_transformer,
+        "segmentation": _segmentation_transformer,
     }
 
     supported_transforms = list(__TRANSFORMERS.keys())

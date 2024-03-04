@@ -199,6 +199,7 @@ sympy-plots-for-*.tex/
 *.pytxcode
 pythontex-files-*/
 venv/
+__pycache__/
 
 # tcolorbox
 *.listing

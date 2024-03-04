@@ -93,6 +93,7 @@ function Instructor() {
       video: true,
       audio: false,
     });
+    
     stream.getTracks().forEach((track) => {
       pc.addTrack(track, stream);
     });
