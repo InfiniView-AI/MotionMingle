@@ -126,9 +126,14 @@ return (
         <video
           ref={selfVideoRef}
           autoPlay
-          style={{ width: '100%', maxWidth: '600px', marginTop: '20px', borderRadius: '4px' }}
+          style={{ width: '100%', maxWidth: '600px', aspectRatio: '600/450', border: '3px solid', borderColor: 'primary.main', borderRadius: '4px', marginTop: '20px' }}
           playsInline
         />
+        {/* <div className="remote">
+        <video ref={remoteVideoRef} width="300" height="200" playsInline>
+          <track kind="captions" />
+        </video>
+      </div> */}
         {isSelfVideoOn ? (
         <Button
           variant="contained"
@@ -181,11 +186,6 @@ return (
         >
           Check Annotated Video
         </Button>
-      </div>
-      <div className="remote">
-        <video ref={remoteVideoRef} width="300" height="200" playsInline>
-          <track kind="captions" />
-        </video>
       </div>
         <MessageModal
           isModalOpen={isModalOpen}
