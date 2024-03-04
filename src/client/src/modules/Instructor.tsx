@@ -181,14 +181,6 @@ return (
         >
           Check Annotated Video
         </Button>
-        <Button
-          variant="contained"
-          color="error"
-          size="large"
-          onClick={() => console.log(brodcastPc)}
-        >
-          Mute
-        </Button>
       </div>
       <div className="remote">
         <video ref={remoteVideoRef} width="300" height="200" playsInline>
