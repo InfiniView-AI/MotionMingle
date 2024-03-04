@@ -205,6 +205,6 @@ if __name__ == "__main__":
     app.on_shutdown.append(on_shutdown)
     app.router.add_post("/broadcast", broadcast)
     app.router.add_options("/broadcast", broadcast)
-    app.router.add_post("/consumer", consume)
-    app.router.add_options("/consumer", consume)
+    app.router.add_post("/consume", consume)
+    app.router.add_options("/consume", consume)
     web.run_app(app, access_log=None, host=args.host, port=args.port, ssl_context=ssl_context)
