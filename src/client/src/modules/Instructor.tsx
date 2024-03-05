@@ -67,8 +67,8 @@ function Instructor() {
   const closeRemote = async (pc: RTCPeerConnection) => {
     console.log(pc);
     pc.close();
-    setBroadcastPc(undefined);
-    // const tracks = await remoteVideoRef.current!.srcObject.getTracks().map((track) => track.stop());
+    // Replace the original peerconnection to a new peerconnection candidate
+    setBroadcastPc(createPeerConnection());
     remoteVideoRef.current!.srcObject = null;
     setIsConnected(false);
   };
