@@ -2,15 +2,22 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
-    citecolor=black,
+    citecolor=blue,
     filecolor=black,
     linkcolor=red,
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{pdflscape}
+\usepackage{siunitx}
 
 \input{../Comments}
 \input{../Common}
@@ -65,6 +72,150 @@ Date 2 & 1.1 & Notes\\
 This document ...
 
 \section{Functional Requirements Evaluation}
+
+\begin{enumerate}[FR-T1]
+  \item \label{FRT1}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] Client application is running on the user's device, but the
+      user didn’t do any operations yet.
+    \item[Input/Condition] User clicks on the applicable
+      identity(instructor/practitioner) button
+    \item[Expected Output] The live stream video window pops out on the user's screen.
+    \item[Actual Output] The live stream video window shows on the instructor's screen, 
+    it doesn't show on the practitioner's screen.
+    \item[Result] Fail
+    \end{description}
+  \item \label{FRT2}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Manual
+    \item[Initial State] Application running on user’s computer, and the user has
+      clicked on “the instructor identity button” to indicate they are a TaiChi
+      instructor. A window asking for permission to use the camera on the
+      instructor's device popped out.
+    \item[Input/Condition] User allow/deny the webcam permission
+    \item[Expected Output] The webcam on the instructor’s device is turned on
+    \item[Actual Output] The webcam on the instructor’s device is turned on after 
+    allowing webcam permission, and the webcam is not turned on after denying permission.
+    \item[Result] Pass
+    \end{description}
+  \item \label{FRT3}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automatic
+    \item[Initial State] both client applications and the server are running.
+    \item[Input/Condition] The user clicks on the applicable identity button to
+      indicate they are an instructor or a practitioner.
+    \item[Expected Output] A log message indicates connection between the user’s device
+      and the server has been established.
+    \item[Actual Output] 
+    \item[Result] 
+    \end{description}
+  \item \label{FRT4}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The live stream Window for practitioners.
+    \item[Input/Condition] The user’s device has established a connection with the
+      server as a practitioner device.
+    \item[Expected Output] A request from the client device to the server for accessing
+      the list of available annotation configuration.
+    \item[Actual Output] 
+    \item[Result] 
+    \end{description}
+  \item \label{FRT5}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The selectable list of the type of annotations is
+      rendered on the user's screen.
+    \item[Input/Condition] Practitioner’s selection on the list of types of
+      annotations.
+    \item[Expected Output] A request(that reflects user’s annotation selection) from
+      the client device to the server for updating the annotation configuration,
+      with a log indicating the request is sent.
+    \item[Actual Output] 
+    \item[Result] 
+    \end{description}
+  \item \label{FRT6}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The system is running and actively connected to
+      practitioners.
+    \item[Input/Condition] Practitioners initiate updates to annotation
+      configurations.
+    \item[Expected Output] The system receives and processes the updated annotation
+      configurations.
+    \item[Actual Output] The server gets the request and user sees the annotation they selected.
+    \item[Result] Pass
+    \end{description}
+  \item \label{FRT7}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The server is running and actively receiving annotation
+      configuration updates.
+    \item[Input/Condition] In a controlled test environment, the practitioner-client
+      initiates the update of an annotation configuration. The update is sent to
+      the server for processing.
+    \item[Expected Output] The expected result is that the server correctly processes
+      the received annotation configuration from the practitioner-client.
+    \item[Actual Output] The server is not able to receive annotation
+    configuration updates while the connection has been established.
+    \item[Result] Fail
+    \end{description}
+  \item \label{FRT8}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The server has received and processed the annotation
+      configuration.
+    \item[Input/Condition] The server uses the received annotation configuration to
+      configure machine learning pipelines.
+    \item[Expected Output] The machine learning pipelines are arranged and configured
+      based on the annotation configuration.
+    \item[Actual Output] 
+    \item[Result] 
+    \end{description}
+  \item \label{FRT9}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The machine learning pipelines are configured and active.
+    \item[Input/Condition] The instructor's video stream is processed with the
+      annotation configuration.
+    \item[Expected Output] The instructor's video stream is rendered with accurate
+      annotations.
+    \item[Actual Output] 
+    \item[Result] 
+    \end{description}
+  \item \label{FRT10}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The server is actively connected to practitioner clients.
+    \item[Input/Condition] The annotated video stream is generated and ready for
+      transmission.
+    \item[Expected Output] The annotated video stream is transmitted to each
+      practitioner-client through their established connections.
+    \item[Actual Output] 
+    \item[Result] 
+    \end{description}
+  \item \label{FRT11}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The signaling server is running.
+    \item[Input/Condition] Signaling requests for WebRTC connections are initiated.
+    \item[Expected Output] The signaling server consistently responds to requests and
+      establishes WebRTC connections.
+    \item[Actual Output] 
+    \item[Result] 
+    \end{description}
+  \item \label{FRT12}
+    \begin{description}
+    \item[Type] Functional, Dynamic, Automated
+    \item[Initial State] The client application is running, but the user didn’t do
+      any operations yet
+    \item[Input/Condition] The user joining video stream session.
+    \item[Expected Output] A button to identify if a user is an instructor or a
+      practitioner is rendered.
+    \item[Actual Output] 
+    \item[Result] 
+    \end{description}
+  \end{enumerate}
 
 \section{Nonfunctional Requirements Evaluation}
 
