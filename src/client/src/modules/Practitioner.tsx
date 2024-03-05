@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   SelectChangeEvent,
   Button,
@@ -24,22 +24,6 @@ const theme = createTheme({
 });
 
 function Practitioner() {
-  const remoteVideoRef = useRef<HTMLVideoElement>(null);
-
-  const [selectedAnnotation, setSelectedAnnotation] = useState<string>('');
-  const [isConnected, setIsConnected] = useState<boolean>(false);
-
-  const selectNewAnnotation = (event: SelectChangeEvent) => {
-    setSelectedAnnotation(event.target.value);
-  };
-
-  const closeRemote = async (pc: RTCPeerConnection) => {
-    // pc.close();
-    // const tracks = await remoteVideoRef.current!.srcObject.getTracks().map((track) => track.stop());
-    remoteVideoRef.current!.srcObject = null;
-    setIsConnected(false);
-  };
-
   const createConsumerPeerConnection = () => {
     const pc = createPeerConnection();
     pc.addEventListener('track', (event) => {
@@ -55,13 +39,34 @@ function Practitioner() {
     return pc;
   };
 
-  const consume = async (pc: RTCPeerConnection) => {
-    await connectAsConsumer(pc, selectedAnnotation);
+  const remoteVideoRef = useRef<HTMLVideoElement>(null);
+  const [consumerPc, setConsumerPc] = useState<RTCPeerConnection>(createConsumerPeerConnection());
+  const [selectedAnnotation, setSelectedAnnotation] = useState<string>('');
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+
+  const closeRemote = async () => {
+    // consumerPc.close();
+    setConsumerPc(createConsumerPeerConnection());
+    remoteVideoRef.current!.srcObject = null;
+    setIsConnected(false);
+  };
+
+  const consume = async () => {
+    await connectAsConsumer(consumerPc, selectedAnnotation);
     remoteVideoRef.current?.play();
     setIsConnected(true);
   };
 
-  let consumer: RTCPeerConnection;
+  const selectNewAnnotationAndRefreshVideo = (event: SelectChangeEvent) => {
+    setSelectedAnnotation(event.target.value);
+  };
+
+  useEffect(() => {
+    if(isConnected) {
+      closeRemote();
+      consume();  
+    }
+  }, [selectedAnnotation])
 
   return (
     <ThemeProvider theme={theme}>
@@ -76,7 +81,7 @@ function Practitioner() {
           <Typography variant="h5" gutterBottom>
             Practitioner
           </Typography>
-          <SelectAnnotation selectedAnnotation={selectedAnnotation} selectionHandler={selectNewAnnotation} />
+          <SelectAnnotation selectedAnnotation={selectedAnnotation} selectionHandler={selectNewAnnotationAndRefreshVideo} />
           <video
             ref={remoteVideoRef}
             autoPlay
@@ -84,14 +89,11 @@ function Practitioner() {
             playsInline
           />
           {isConnected ? (
-            <Button variant="contained" color="error" size="large" onClick={() => closeRemote(consumer)}>
+            <Button variant="contained" color="error" size="large" onClick={closeRemote}>
               Disconnect
             </Button>
           ) : (
-            <Button variant="contained" color="primary" size="large" onClick={() => {
-              consumer = createConsumerPeerConnection();
-              consume(consumer);
-            }}>
+            <Button variant="contained" color="primary" size="large" onClick={consume}>
               Connect
             </Button>
           )}
