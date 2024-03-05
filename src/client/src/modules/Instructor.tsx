@@ -24,6 +24,21 @@ const theme = createTheme({
 
 
 function Instructor() {
+  const createConsumerPeerConnection = () => {
+    const pc = createPeerConnection();
+    pc.addEventListener('track', (event) => {
+      if (event.track.kind === 'video') {
+        const remoteVideo = remoteVideoRef.current;
+        let rest;
+        [remoteVideo!.srcObject, ...rest] = event.streams;
+        console.log('remoteVideo');
+      }
+    });
+    pc.addTransceiver('video', { direction: 'recvonly' });
+    pc.addTransceiver('audio', { direction: 'recvonly' });
+    return pc;
+  };
+
   const selfVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
@@ -31,7 +46,8 @@ function Instructor() {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [isSelfVideoOn, setIsSelfVideoOn] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [brodcastPc, setBroadcastPc] = useState<RTCPeerConnection>();
+  const [broadcasterPc, setBroadcasterPc] = useState<RTCPeerConnection>(createPeerConnection());
+  const [consumerPc, setConsumerPc] = useState<RTCPeerConnection>(createConsumerPeerConnection());
 
   const selectNewAnnotation = (event: SelectChangeEvent) => {
     setSelectedAnnotation(event.target.value);
@@ -61,31 +77,14 @@ function Instructor() {
 
   useEffect(() => {
     getSelfVideo();
-    setBroadcastPc(createPeerConnection());
   }, []);
 
-  const closeRemote = async (pc: RTCPeerConnection) => {
-    console.log(pc);
-    pc.close();
+  const stopBroadcasting = async () => {
+    broadcasterPc.close();
     // Replace the original peerconnection to a new peerconnection candidate
-    setBroadcastPc(createPeerConnection());
+    setBroadcasterPc(createPeerConnection());
     remoteVideoRef.current!.srcObject = null;
     setIsConnected(false);
-  };
-
-  const createConsumerPeerConnection = () => {
-    const pc = createPeerConnection();
-    pc.addEventListener('track', (event) => {
-      if (event.track.kind === 'video') {
-        const remoteVideo = remoteVideoRef.current;
-        let rest;
-        [remoteVideo!.srcObject, ...rest] = event.streams;
-        console.log('remoteVideo');
-      }
-    });
-    pc.addTransceiver('video', { direction: 'recvonly' });
-    pc.addTransceiver('audio', { direction: 'recvonly' });
-    return pc;
   };
 
   const broadcast = async (pc: RTCPeerConnection) => {
@@ -102,12 +101,17 @@ function Instructor() {
     setIsConnected(true);
   };
 
-  const consume = async (pc: RTCPeerConnection) => {
-    await connectAsConsumer(pc, selectedAnnotation);
+  const consume = async () => {
+    await connectAsConsumer(consumerPc, selectedAnnotation);
     remoteVideoRef.current?.play();
   };
 
-  let consumer: RTCPeerConnection;
+  useEffect(() => {
+    if(isConnected) {
+      // closeRemote();
+      consume();   
+    }
+  }, [selectedAnnotation])
 
 return (
   <ThemeProvider theme={theme}>
@@ -129,11 +133,14 @@ return (
           style={{ width: '100%', maxWidth: '600px', aspectRatio: '600/450', border: '3px solid', borderColor: 'primary.main', borderRadius: '4px', marginTop: '20px' }}
           playsInline
         />
-        {/* <div className="remote">
+        {isConnected ? (
+          <div className="remote">
         <video ref={remoteVideoRef} width="300" height="200" playsInline>
           <track kind="captions" />
         </video>
-      </div> */}
+        </div>
+        ) : null}
+        
         {isSelfVideoOn ? (
         <Button
           variant="contained"
@@ -169,7 +176,7 @@ return (
             color="primary"
             size="large"
             onClick={() => {
-              broadcast(brodcastPc!);
+              broadcast(broadcasterPc!);
             }}
           >
             Broadcast
@@ -180,8 +187,7 @@ return (
           color="primary"
           size="large"
           onClick={() => {
-            consumer = createConsumerPeerConnection();
-            consume(consumer);
+            consume();
           }}
         >
           Check Annotated Video
@@ -191,7 +197,7 @@ return (
           isModalOpen={isModalOpen}
           handleClose={() => setIsModalOpen(false)}
           handelStopVideo={() => {
-            closeRemote(brodcastPc!);
+            stopBroadcasting();
             setIsModalOpen(false);
           }}
         />
