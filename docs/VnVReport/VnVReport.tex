@@ -34,11 +34,10 @@
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+\begin{tabularx}{\textwidth}{llX}
+  \toprule {\bf Date} & {\bf Developer(s)} & {\bf Change} \\
+  \midrule  
+Mar 6 & Qi Shu & Add "Comparison to existing implementations section" and "Changes due to Testing" section.\\
 \bottomrule
 \end{tabularx}
 
@@ -227,7 +226,14 @@ This document ...
 	
 \section{Comparison to Existing Implementation}	
 
-This section will not be appropriate for every project.
+Our project shares similarities with two existing types of implementations. The first is a project developed by a group of researchers, focused on annotating Tai Chi videos with detailed features such as skeletal outlines and semantic segmentation. Like their summer Tai Chi annotation initiative, our project also annotates videos. However, ours operates in real-time, unlike the Tai Chi project which processes annotations offline, making ours more adept for live online learning contexts.
+
+Additionally, our project parallels certain aspects of video conferencing tools like Zoom, which offer live annotation capabilities. While Zoom boasts a broader set of features due to its maturity as a platform, our project distinguishes itself in several key areas:
+
+It is designed for one-directional streaming, in contrast to Zoom's multi-directional video conferencing.
+Unlike Zoom, where annotations are generated client-side, our project renders annotations server-side, minimizing the hardware demands on viewers' devices.
+Our system allows viewers the flexibility to choose their annotations, diverging from Zoom's model where annotations are unified for all viewers as determined by the video sender.
+These distinctions underscore our project's unique contributions to video annotation technology, especially in educational and collaborative online environments.
 
 \section{Unit Testing}
 \subsection{User Authentication Module}
@@ -448,10 +454,11 @@ This section will not be appropriate for every project.
 
 \section{Changes Due to Testing}
 
-\wss{This section should highlight how feedback from the users and from 
-the supervisor (when one exists) shaped the final product.  In particular 
-the feedback from the Rev 0 demo to the supervisor (or to potential users) 
-should be highlighted.}
+\subsection{Change due to supervisor's feedback}
+Andrew Mitchell, who is one of the supervisors of this project, has pointed out during the Revision 0 demo that the “check annotated video” button on the instructor page should appear after the instructor has started broadcasting instead of showing it directly, as clicking the check annotated video can’t show anything without input video stream. To follow the feedback from Andrew, the UI design will be changed so that the “check annotated video” button only shows up after the instructor starts broadcasting, and extra instructions will be added to the side of the instructor and practitioner view page.
+
+\subsection{Change due to reviewing the question in the usability survey}
+The VnV Plan, states that our group will review the questions in the usability survey as part of non-functional testing. One of the questions in the usability survey is: “Are there any specific content or learning materials you would like to see added to the application?” Some users state it is not convenient that they need to manually disconnect and reconnect to the server when selecting different annotations as a practitioner. The team decided to add an “auto-refresh” functionality to the system when an instructor or a practitioner changes their selected annotation would make the UI more intuitive and enhance user experiences.
 
 \section{Automated Testing}
 		
