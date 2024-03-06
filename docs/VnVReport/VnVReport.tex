@@ -999,8 +999,23 @@ This not only enhances test coverage but also significantly boosts efficiency, a
 
 \section{Code Coverage Metrics}
 
+\subsection*{Backend Code Coverage}
 \bibliographystyle{plainnat}
-\bibliography{../../refs/References}
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{@{}lcccc@{}}
+  \toprule
+  \textbf{Module}                   & \textbf{statements} & \textbf{missing} & \textbf{excluded} & \textbf{coverage} \\ \midrule
+  SFU Server Module                 & 118                 & 20               & 0                 & 83\%              \\
+  Video Transform Module            & 86                  & 51               & 0                 & 41\%              \\ \midrule
+  \textbf{Total}                    & 204                 & 71               & 0                 & 65\%              \\ \bottomrule
+  \end{tabular}
+  \caption{Code coverage report}
+  \label{tab:my-table}
+\end{table}
+The low code coverage for SFU Server Module can be attributed to the inherent complexity of testing asynchronous operations and external dependencies, such as WebRTC interactions(RTCPeerConnection and MediaStreamTrack), which are difficult to simulate in unit tests.
+
+For the VideoTransformTrack module, the low coverage is due to the challenges in automatically testing image processing and machine learning functionalities that require subjective visual verification and can exhibit non-deterministic behavior.
 
 \newpage{}
 \section*{Appendix --- Reflection}
