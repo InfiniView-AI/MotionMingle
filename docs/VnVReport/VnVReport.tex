@@ -768,6 +768,136 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
 \end{enumerate}
 
+\subsection{SFU Server Module}
+\begin{enumerate}[UT-S1]
+    \item \label{UT-S1}
+    \begin{description}
+    \item[Test Name] test\_broadcast\_options
+    \item[Initial State] Server is initialized and running with /broadcast endpoint available.
+    \item[Input/Condition] HTTP OPTIONS request to /broadcast.
+    \item[Expected Output] HTTP status code 200.
+    \item[Actual Output] HTTP status code 200.
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S2}
+    \begin{description}
+    \item[Test Name] test\_broadcast\_post
+    \item[Initial State] Server is initialized with the /broadcast endpoint ready to accept POST requests.
+    \item[Input/Condition] POST request to /broadcast with JSON body containing "sdp" and "type" fields.
+    \item[Expected Output] HTTP status code 200 and a JSON response containing "sdp" and "type".
+    \item[Actual Output] HTTP status code 200 and a JSON response containing "sdp" and "type".
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S3}
+    \begin{description}
+    \item[Test Name] test\_broadcast\_empty\_body\_post
+    \item[Initial State] Server is initialized with the /broadcast endpoint ready to accept POST requests.
+    \item[Input/Condition] POST request to /broadcast with an empty JSON body.
+    \item[Expected Output] HTTP status code 400
+    \item[Actual Output] HTTP status code 400
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S4}
+    \begin{description}
+    \item[Test Name] test\_broadcast\_post\_with\_invalid\_data\_types
+    \item[Initial State] Server is initialized with the /broadcast endpoint ready.
+    \item[Input/Condition] POST request to /broadcast with invalid data types for "sdp" and "type".
+    \item[Expected Output] HTTP status code 400
+    \item[Actual Output] HTTP status code 400
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S5}
+    \begin{description}
+    \item[Test Name] test\_broadcast\_post\_missing\_fields
+    \item[Initial State] Server is initialized with the /broadcast endpoint ready.
+    \item[Input/Condition] POST request to /broadcast with missing "type" field in the JSON body.
+    \item[Expected Output] HTTP status code 400
+    \item[Actual Output] HTTP status code 400
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S6}
+    \begin{description}
+    \item[Test Name] test\_invalid\_content\_type
+    \item[Initial State] Server is initialized and ready to handle requests.
+    \item[Input/Condition] POST request to /broadcast with a "Content-Type" of "text/plain".
+    \item[Expected Output] HTTP status code 500
+    \item[Actual Output] HTTP status code 500
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S7}
+    \begin{description}
+    \item[Test Name] test\_method\_not\_allowed
+    \item[Initial State] Server is initialized with the /broadcast endpoint not configured to accept GET requests.
+    \item[Input/Condition] GET request to /broadcast.
+    \item[Expected Output] HTTP status code 405
+    \item[Actual Output] HTTP status code 405
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S8}
+    \begin{description}
+    \item[Test Name] test\_response\_content\_type
+    \item[Initial State] Server is initialized and ready to respond to POST requests.
+    \item[Input/Condition] HTTP status code 200 and the "Content-Type" header is "application/json; charset=utf-8"
+    \item[Actual Output] HTTP status code 200 and the "Content-Type" header is "application/json; charset=utf-8"
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S9}
+    \begin{description}
+    \item[Test Name] test\_consume\_options
+    \item[Initial State] Server is initialized and running with /consumer endpoint available.
+    \item[Input/Condition] HTTP OPTIONS request to /consumer.
+    \item[Expected Output] HTTP status code 200
+    \item[Actual Output] HTTP status code 200
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S10}
+    \begin{description}
+    \item[Test Name] test\_consume\_post
+    \item[Initial State] Server is initialized with the /consumer endpoint ready to accept POST requests.
+    \item[Input/Condition] POST request to /consumer with JSON body containing "sdp", "type", and "video\_transform".
+    \item[Expected Output] HTTP status code 500
+    \item[Actual Output] HTTP status code 500
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S11}
+    \begin{description}
+    \item[Test Name] test\_consume\_empty\_body\_post
+    \item[Initial State] Server is initialized with the /consumer endpoint ready.
+    \item[Input/Condition] POST request to /consumer with an empty JSON body.
+    \item[Expected Output] HTTP status code 400
+    \item[Actual Output] HTTP status code 400
+    \item[Result] Pass
+    \end{description}
+
+    \item \label{UT-S12}
+    \begin{description}
+    \item[Test Name] test\_consume\_post\_unsupported\_video\_transform
+    \item[Initial State] Server is initialized with the /consumer endpoint ready.
+    \item[Input/Condition] POST request to /consumer with unsupported "video\_transform" value.
+    \item[Expected Output] HTTP status code 400
+    \item[Actual Output] HTTP status code 400
+    \item[Result] Pass
+    \end{description}
+\end{enumerate}
+
+\subsection{Video Transform Module}
+Unit testing the video transform module is particularly challenging due to the nature of its operations which involve real-time video stream manipulation using complex image processing and machine learning models. 
+These transformations, such as pose estimation and segmentation, rely on the input data's visual content, which can have near-infinite variability and require a visual context to determine correctness. 
+The output is highly dependent on the specific content of the video frame being processed and the environmental conditions at the time of capture. Furthermore, such processes are typically non-deterministic due to the internal state management within the machine learning models (like MediaPipe's pose detection) and can be affected by the hardware acceleration capabilities of the environment where the tests are run. \\
+Moreover, the transformations performed on video frames are designed to yield results that are subjectively evaluated visually, rather than through quantitative measures that could be programmatically asserted. 
+While some aspects of the module could be unit tested by mocking dependencies and checking if the correct methods are called with expected arguments, the actual verification of the transformation's quality requires manual inspection or more sophisticated automated image comparison techniques that go beyond the scope of traditional unit testing. 
+This inherent complexity and the need for a subjective assessment make the creation of automated unit tests for the video transform module both non-trivial and possibly less effective for ensuring the correctness of visual outputs.
+
 \section{Changes Due to Testing}
 
 \subsection{Change due to supervisor's feedback}
@@ -777,7 +907,17 @@ Andrew Mitchell, who is one of the supervisors of this project, has pointed out 
 The VnV Plan, states that our group will review the questions in the usability survey as part of non-functional testing. One of the questions in the usability survey is: “Are there any specific content or learning materials you would like to see added to the application?” Some users state it is not convenient that they need to manually disconnect and reconnect to the server when selecting different annotations as a practitioner. The team decided to add an “auto-refresh” functionality to the system when an instructor or a practitioner changes their selected annotation would make the UI more intuitive and enhance user experiences.
 
 \section{Automated Testing}
-		
+\subsection{Github Action}
+Github Action provides a seamless and efficient way to ensure code integrity with each push. 
+Tests are executed automatically on the latest commits to the main and develop branches, verifying that new changes do not break existing functionality. 
+\subsection{Pytest}
+PyTest is also used for the automatic testing. It is a robust and feature-rich Python library that streamlines the creation of test cases. 
+By design, PyTest simplifies test authoring, allowing developers to write test functions that are concise and readable. 
+It leverages the straightforward "assert" statement to check for expected outcomes, making test assertions both natural and easy to understand. 
+Furthermore, PyTest's powerful parameterization capability, facilitated by the pytest.mark.parametrize decorator, permits the execution of a single test function against a variety of input sets. 
+This not only enhances test coverage but also significantly boosts efficiency, as it allows for extensive testing without the need to write additional test cases.
+ Overall, PyTest's intuitive approach and its ability to facilitate detailed and comprehensive testing with minimal code make it an invaluable tool for automated testing, contributing to faster development cycles and more reliable software.
+
 \section{Trace to Requirements}
 
 \setlength{\tabcolsep}{2pt}
