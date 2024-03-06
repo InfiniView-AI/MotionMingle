@@ -779,7 +779,82 @@ The VnV Plan, states that our group will review the questions in the usability s
 \section{Automated Testing}
 		
 \section{Trace to Requirements}
-		
+
+\setlength{\tabcolsep}{2pt}
+\newgeometry{margin=2cm}
+\begin{landscape}
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+               & FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7 & FR8 & FR9 & FR10 & FR11 & FR12 & FR13 & FR14 & FR15 & FR16 \\ \hline
+      \ref{FRT1}  & X   & X   &     &     &     &     &     &     &     &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT2}  &     &     & X   &     &     &     &     &     &     &      &      &      &      &      &      & X    \\ \hline
+      \ref{FRT3}  &     &     &     & X   & X   &     &     &     &     &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT4}  &     &     &     &     &     & X   &     &     &     &      &      &      &      &      & X    &      \\ \hline
+      \ref{FRT5}  &     &     &     &     &     &     &     & X   &     &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT6}  &     &     &     &     &     &     & X   &     &     &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT7}  &     &     &     &     &     &     &     &     & X   &      &      &      &      &      &      &      \\ \hline
+      \ref{FRT8}  &     &     &     &     &     &     &     &     &     & X    &      &      &      &      &      &      \\ \hline
+      \ref{FRT9}  &     &     &     &     &     &     &     &     &     &      & X    &      &      &      &      &      \\ \hline
+      \ref{FRT10} &     &     &     &     &     &     &     &     &     &      &      & X    &      &      &      &      \\ \hline
+      \ref{FRT11} &     &     &     &     &     &     &     &     &     &      &      &      & X    &      &      &      \\ \hline
+      \ref{FRT12} &     &     &     &     &     &     &     &     &     &      &      &      &      & X    &      &      \\ \hline
+    \end{tabular}
+    \caption{Traceability matrix showing the connections between test cases
+      and functional requirements}
+    \label{tab:frt}
+  \end{table}
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+                & LF1 & UH1 & UH2 & PR1 & PR2 & PR3 & PR4 & PR5 & PR6 & PR7 & PR8 & PR9 & PR10 & PR11 & PR12 & PR13 \\ \hline
+      \ref{NFRT1}  & X   & X   & X   &     &     &     &     &     &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT2}  &     &     &     & X   & X   &     &     &     &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT3}  &     &     &     &     & X   & X   &     &     &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT4}  &     &     &     &     &     &     & X   &     &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT5}  &     &     &     &     &     &     &     & X   &     &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT6}  &     &     &     &     &     &     &     &     & X   &     &     &     &      &      &      &      \\ \hline
+      \ref{NFRT7}  &     &     &     &     &     &     &     &     &     & X   &     &     &      &      &      &      \\ \hline
+      \ref{NFRT8}  &     &     &     &     &     &     &     &     &     &     & X   &     &      &      &      &      \\ \hline
+      \ref{NFRT9}  &     &     &     &     &     &     &     &     &     &     &     & X   &      &      &      &      \\ \hline
+      \ref{NFRT10} &     &     &     &     &     &     &     &     &     &     &     &     & X    &      &      &      \\ \hline
+      \ref{NFRT11} &     &     &     &     &     &     &     &     &     &     &     &     &      & X    &      &      \\ \hline
+      \ref{NFRT12} &     &     &     &     &     &     &     &     &     &     &     &     &      &      & X    &      \\ \hline
+      \ref{NFRT13} &     &     &     &     &     &     &     &     &     &     &     &     &      &      &      & X    \\ \hline
+    \end{tabular}
+    \caption{Traceability matrix showing the connections between test cases
+      and non-functional requirements}
+    \label{tab:nfrt1}
+  \end{table}
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+                & PR14 & PR15 & OE1 & OE2 & OE3 & MS1 & MS2 & SR1 & SR2 & SR3 & SR4 & SR5 & SR6 & CR1 & LR1 & HS1 & HS2 \\ \hline
+      \ref{NFRT14} & X    &      &     &     &     &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT15} &      & X    &     &     &     &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT16} &      &      & X   &     &     &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT17} &      &      &     & X   &     &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT18} &      &      &     &     & X   &     &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT19} &      &      &     &     &     & X   &     &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT20} &      &      &     &     &     &     & X   &     &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT21} &      &      &     &     &     &     &     & X   &     &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT22} &      &      &     &     &     &     &     &     & X   &     &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT23} &      &      &     &     &     &     &     &     &     & X   &     &     &     &     &     &     &     \\ \hline
+      \ref{NFRT24} &      &      &     &     &     &     &     &     &     &     & X   &     &     &     &     &     &     \\ \hline
+      \ref{NFRT25} &      &      &     &     &     &     &     &     &     &     &     & X   &     &     &     &     &     \\ \hline
+      \ref{NFRT26} &      &      &     &     &     &     &     &     &     &     &     &     & X   &     &     &     &     \\ \hline
+      \ref{NFRT27} &      &      &     &     &     &     &     &     &     &     &     &     &     & X   &     &     &     \\ \hline
+      \ref{NFRT28} &      &      &     &     &     &     &     &     &     &     &     &     &     &     & X   &     &     \\ \hline
+      \ref{NFRT29} &      &      &     &     &     &     &     &     &     &     &     &     &     &     &     & X   &     \\ \hline
+      \ref{NFRT30} &      &      &     &     &     &     &     &     &     &     &     &     &     &     &     &     & X   \\ \hline
+    \end{tabular}
+    \caption{Traceability matrix showing the connections between test cases
+      and non-functional requirements continued}
+    \label{tab:nfrt2}
+  \end{table}
+\end{landscape}
+\restoregeometry
+
 \section{Trace to Modules}		
 
 \section{Code Coverage Metrics}
