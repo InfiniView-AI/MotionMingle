@@ -944,6 +944,17 @@ Andrew Mitchell, who is one of the supervisors of this project, has pointed out 
 \subsection{Change due to reviewing the question in the usability survey}
 The VnV Plan, states that our group will review the questions in the usability survey as part of non-functional testing. One of the questions in the usability survey is: “Are there any specific content or learning materials you would like to see added to the application?” Some users state it is not convenient that they need to manually disconnect and reconnect to the server when selecting different annotations as a practitioner. The team decided to add an “auto-refresh” functionality to the system when an instructor or a practitioner changes their selected annotation would make the UI more intuitive and enhance user experiences.
 
+\subsection{Change due to Functional and Nonfunctional Requirements}
+The VnV testing highlighted critical failures in server update processing and network resilience. Specifically, test case FR-T7 failed because the server could not receive annotation configuration updates while the connection was established. Additionally, the system did not handle network interruptions and resumptions as expected in test case NFR-T7, and it also failed to provide audio in the live video and audio streams in test case NFR-T14.
+
+In response to these failures, the team will prioritize the development of an 'auto-reconnect' feature that ensures the system maintains or promptly re-establishes its connection to allow continuous update processing. This functionality will be designed to automatically resume the session and process updates without user intervention in case of network disruptions.
+
+For the audio issue identified in test case NFR-T14, a feature addition is required. The team will integrate a reliable audio streaming capability to ensure both audio and video streams are consistently received and properly annotated in the practitioner client application.
+
+The necessity of displaying instructional messages as indicated by the failure of test case NFR-T15 will also be addressed. The system will be updated to show detailed instructions and cautions when starting the client application, thereby avoiding confusion and potential misuse.
+
+These enhancements are crucial for improving the robustness, user experience, and functional completeness of the system. The adjustments made from these test failures will be documented and incorporated into the VnV Plan for future reference and to guide subsequent development cycles. The team will establish a rigorous testing procedure for these new features to ensure their effectiveness before deployment.
+
 \section{Automated Testing}
 \subsection{Github Action}
 Github Action provides a seamless and efficient way to ensure code integrity with each push. 
