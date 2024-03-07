@@ -559,6 +559,7 @@ These distinctions underscore our project's unique contributions to video annota
 \begin{enumerate}[UT-UA1]
   \item \label{UT-UA1}
     \begin{description}
+    \item[Test Name] test\_renders\_auth\_component
     \item[Initial State] The system initializes the Auth component within a mock routing environment.
     \item[Input/Condition] N/A
     \item[Expected Output] The component should display the Motion Mingle banner and a logo image.
@@ -567,6 +568,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-UA2}
     \begin{description}
+    \item[Test Name] test\_instructor\_button
     \item[Initial State] The system initializes the "Auth" component within a mock routing environment.
     \item[Input/Condition] The user clicks on the Instructor button.
     \item[Expected Output] The user should be navigated to the '/instructor' path.
@@ -575,6 +577,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-UA3}
     \begin{description}
+    \item[Test Name] test\_practitioner\_button
     \item[Initial State] The system initializes the "Auth" component within a mock routing environment.
     \item[Input/Condition]  The user clicks on the Practitioner button.
     \item[Expected Output] The user should be navigated to the '/practitioner' path.
@@ -583,6 +586,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-UA4}
     \begin{description}
+    \item[Test Name] test\_slogan
     \item[Initial State]  The system initializes the "Auth" component within a mock routing environment.
     \item[Input/Condition] N/A
     \item[Expected Output] The slogan should be visible within the component with the correct text.
@@ -595,6 +599,7 @@ These distinctions underscore our project's unique contributions to video annota
 \begin{enumerate}[UT-M1]
   \item \label{UT-M1}
     \begin{description}
+    \item[Test Name] test\_renders\_instructor\_component
     \item[Initial State] The system is initialized with default state settings. The "Instructor" component is about to be rendered within a mock routing environment.
     \item[Input/Condition] N/A
     \item[Expected Output] The "Instructor" component should be rendered with the title "Motion Mingle".
@@ -603,6 +608,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-M2}
     \begin{description}
+    \item[Test Name] test\_select\_annotation
     \item[Initial State] The system has loaded the Instructor component, and the "SelectAnnotation" component is ready to receive user input.
     \item[Input/Condition] A user selects "Skeleton" annotation from the dropdown menu.
     \item[Expected Output] The dropdown menu should reflect that "Annotation 1" has been selected.
@@ -611,6 +617,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-M3}
     \begin{description}
+    \item[Test Name] test\_stop\_broadcast
     \item[Initial State] The Instructor component is rendered and operational, presumed to be in a state where broadcasting is occurring (mocked condition).
     \item[Input/Condition] The user clicks the "Broadcast" button to simulate starting a broadcast and then clicks "Stop" to simulate ending the broadcast.
     \item[Expected Output] The "MessageModal" mock should be displayed, indicating that the stopping of the video is to be confirmed.
@@ -619,6 +626,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-M4}
     \begin{description}
+    \item[Test Name] test\_start\_self\_video
     \item[Initial State] The Instructor component is rendered and operational. The self-video is initially off.
     \item[Input/Condition] The user clicks "Start self video" to initiate the video stream.
     \item[Expected Output] The system should transition to a state where the self-video is active.
@@ -627,6 +635,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-M5}
     \begin{description}
+    \item[Test Name] test\_close\_self\_video
     \item[Initial State] The Instructor component is rendered and operational. The self-video is active.
     \item[Input/Condition] The user clicks "Close self video".
     \item[Expected Output] The system should transition to a state where the self-video is inactive.
@@ -639,6 +648,7 @@ These distinctions underscore our project's unique contributions to video annota
 \begin{enumerate}[UT-PV1]
   \item \label{UT-PV1}
     \begin{description}
+    \item[Test Name] test\_renders\_practitioner\_component
     \item[Initial State] The system is initialized with default state settings. The "Practitioner" component is about to be rendered within a mock routing environment.
     \item[Input/Condition] N/A
     \item[Expected Output] The "Practitioner" component should be rendered with the title "Motion Mingle", a dropdown for selecting annotations initialized to "None", and a "Connect" button.
@@ -647,6 +657,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-PV2}
     \begin{description}
+    \item[Test Name] test\_select\_annotation
     \item[Initial State] The "Practitioner" component is rendered and displayed with the default selected annotation as "None".
     \item[Input/Condition] The user changes the annotation selection from "None" to "Skeleton" using the dropdown.
     \item[Expected Output] The dropdown menu for selecting annotations should reflect the change by displaying "Skeleton" as the current selection.
@@ -655,6 +666,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-PV3}
     \begin{description}
+    \item[Test Name] test\_start\_video\_stream
     \item[Initial State] The "Practitioner" component is rendered, displaying the "Connect" button while the video stream is not connected.
     \item[Input/Condition] The "Connect" button was clicked to start the video stream.
     \item[Expected Output] The "Connect" button should change to "Disconnect".
@@ -663,6 +675,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-PV4}
     \begin{description}
+    \item[Test Name] test\_stop\_video\_stream
     \item[Initial State] The "Practitioner" component is rendered, displaying the "Disconnect" button while the video stream is connected.
     \item[Input/Condition] The "Disconnect" button was clicked to stop the video stream.
     \item[Expected Output] The "Disconnect" button should change to "Connect".
@@ -675,6 +688,7 @@ These distinctions underscore our project's unique contributions to video annota
 \begin{enumerate}[UT-AC1]
   \item \label{UT-AC1}
     \begin{description}
+    \item[Test Name] test\_render\_select\_annotation\_component
     \item[Initial State] The "SelectAnnotation" component is initialized with default state settings.
     \item[Input/Condition] The component is rendered without any preselected value.
     \item[Expected Output] The component should display with the label "Annotation" and a dropdown button showing the default value "None".
@@ -683,6 +697,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-AC2}
     \begin{description}
+    \item[Test Name] test\_annotation\_options
     \item[Initial State] The "SelectAnnotation" component is rendered with default settings.
     \item[Input/Condition] The user clicks on the dropdown menu to view available options.
     \item[Expected Output] The dropdown menu should display four options: "None", "Skeleton", "Edges", and "Cartoon".
@@ -695,6 +710,7 @@ These distinctions underscore our project's unique contributions to video annota
 \begin{enumerate}[UT-RC1]
   \item \label{UT-RC1}
     \begin{description}
+    \item[Test Name] test\_create\_peer\_connection
     \item[Initial State] Before creating a new "RTCPeerConnection", no connection exists.
     \item[Input/Condition] The "createPeerConnection" function is called without any specific arguments since it uses predefined settings within its implementation.
     \item[Expected Output] A new "RTCPeerConnection" should be created with the configuration specified for unified-plan SDP semantics and the Google STUN server.
@@ -703,6 +719,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-RC2}
     \begin{description}
+    \item[Test Name] test\_connect\_as\_consumer
     \item[Initial State] A "RTCPeerConnection" instance exists but has not yet established a connection nor created any offers.
     \item[Input/Condition] The function "connectAsConsumer" is called with the created peer connection and "annotation" as arguments.
     \item[Expected Output] The function should asynchronously create an SDP offer, set it as the local description, send it to the server, and set the received SDP answer as the remote description.
@@ -711,6 +728,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-RC3}
     \begin{description}
+    \item[Test Name] test\_connect\_as\_broadcaster
     \item[Initial State]  A "RTCPeerConnection" instance is ready but not yet in a broadcasting state.
     \item[Input/Condition] The function "connectAsBroadcaster" is called with the peer connection object.
     \item[Expected Output] The function should asynchronously create an SDP offer for broadcasting, set it as the local description, send it to the server, and set the server's SDP answer as the remote description.
@@ -723,6 +741,7 @@ These distinctions underscore our project's unique contributions to video annota
 \begin{enumerate}[UT-OT1]
   \item \label{UT-OT1}
     \begin{description}
+    \item[Test Name] test\_display\_message
     \item[Initial State] The system initializes the "NotFound" component within a mock routing environment.
     \item[Input/Condition] The component is rendered without any user interaction.
     \item[Expected Output] The component should display the "Not Found" message.
@@ -731,6 +750,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-OT2}
     \begin{description}
+    \item[Test Name] test\_navigate\_to\_root
     \item[Initial State] The system initializes the "NotFound" component within a mock routing environment.
     \item[Input/Condition] The component is rendered, and the existence of a link is checked.
     \item[Expected Output] There should be a link that reads "GO HOME" and navigates to the root path '/' upon clicking.
@@ -739,6 +759,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-OT3}
     \begin{description}
+    \item[Test Name] test\_close\_message\_modal
     \item[Initial State] The "MessageModal" component is rendered with "isModalOpen" set to true.
     \item[Input/Condition]  The "Cancel" button was clicked.
     \item[Expected Output] The "handleClose" mock function should be called once.
@@ -747,6 +768,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-OT4}
     \begin{description}
+    \item[Test Name] test\_stop\_video
     \item[Initial State] The "MessageModal" component is rendered with "isModalOpen" set to true.
     \item[Input/Condition] The "Stop Video" button was clicked.
     \item[Expected Output] The "handelStopVideo" mock function should be called once.
@@ -755,6 +777,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-OT5}
     \begin{description}
+    \item[Test Name] test\_message\_visible
     \item[Initial State] The "MessageModal" component is initialized and rendered with "isModalOpen" set to true.
     \item[Input/Condition] N/A
     \item[Expected Output] The modal, including the warning message, should be visible.
@@ -763,6 +786,7 @@ These distinctions underscore our project's unique contributions to video annota
     \end{description}
   \item \label{UT-OT6}
     \begin{description}
+    \item[Test Name] test\_message\_invisible
     \item[Initial State] The "MessageModal" component is initialized and rendered with "isModalOpen" set to false.
     \item[Input/Condition] N/A
     \item[Expected Output] None of the modal's content should be present in the document.
