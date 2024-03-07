@@ -1230,6 +1230,80 @@ testing, contributing to faster development cycles and more reliable software.
 \restoregeometry
 
 \section{Trace to Modules}
+\begin{landscape}
+  \begin{table}[h!]
+    \centering
+    \label{tab:traceability_matrix}
+    \small 
+    \setlength\tabcolsep{4pt}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|c|*{10}{c|}}
+      \hline
+      & \rotatebox{90}{User Authentication Module} & \rotatebox{90}{Instructor View Module} & \rotatebox{90}{Practitioner View Module} & \rotatebox{90}{Annotation Configuration Module} & \rotatebox{90}{RTC Control Module} & \rotatebox{90}{STUN Server Module} & \rotatebox{90}{App Module} & \rotatebox{90}{Video Transform Module} & \rotatebox{90}{Human Pose Estimation Module} & \rotatebox{90}{SFU Server Module} \\ \hline
+      FR-T1 &   & X &   &   &   &   & X &   &   &   \\ \hline
+      FR-T2 & X & X &   &   &   &   &   &   &   &   \\ \hline
+      FR-T3 &   &   &   &   & X & X &   &   &   &   \\ \hline
+      FR-T4 &   &   & X & X &   &   &   &   &   &   \\ \hline
+      FR-T5 &   &   & X & X &   &   &   &   &   &   \\ \hline
+      FR-T6 &   &   & X & X &   &   &   &   &   &   \\ \hline
+      FR-T7 &   &   & X & X &   &   &   &   &   &   \\ \hline
+      FR-T8 &   &   &   & X &   &   &   &   & X &   \\ \hline
+      FR-T9 &   & X &   &   &   &   &   & X &   &   \\ \hline
+      FR-T10 &  &   & X &   &   &   &   & X &   & X \\ \hline
+      FR-T11 &  &   &   &   & X & X &   &   &   &   \\ \hline
+      FR-T12 & X & X & X &   &   &   & X &   &   &   \\ \hline
+      \end{tabular}
+    \caption{Traceability matrix showing the connections between functional requirement test cases and modules}
+  \end{table}
+
+  \begin{table}[ht]
+    \centering
+    \label{tab:traceability_nfr}
+    \begin{tabular}{|l|*{10}{c|}} % Adjust the number of columns as needed
+    \hline
+    & \rotatebox{90}{User Authentication Module} & \rotatebox{90}{Instructor View Module} & \rotatebox{90}{Practitioner View Module} & \rotatebox{90}{Annotation Configuration Module} & \rotatebox{90}{RTC Control Module} & \rotatebox{90}{STUN Server Module} & \rotatebox{90}{App Module} & \rotatebox{90}{Video Transform Module} & \rotatebox{90}{Human Pose Estimation Module} & \rotatebox{90}{SFU Server Module} \\ \hline
+    NFR-T1 & X & X & X &   &   &   & X &   &   &   \\ \hline
+    NFR-T2 &   &   &   &   & X & X &   &   &   &   \\ \hline
+    NFR-T3 &   &   &   &   & X & X &   &   &   & X \\ \hline
+    NFR-T4 & X & X & X & X & X & X & X & X & X & X \\ \hline
+    NFR-T6 &   &   &   &   &   &   &   &   &   & X \\ \hline
+    NFR-T7 &   &   &   &   & X & X &   &   &   &   \\ \hline
+    NFR-T8 &   &   &   &   & X & X &   &   &   &   \\ \hline
+    NFR-T9 &   &   &   &   & X & X &   &   &   &   \\ \hline
+    NFR-T10 &  &   &   &   &   &   & X & X &   &   \\ \hline
+    NFR-T11 &  &   &   &   &   &   & X & X &   &   \\ \hline
+    NFR-T12 &  &   &   &   &   &   &   & X & X &   \\ \hline
+    NFR-T13 &  &   &   &   &   &   & X &   &   &   \\ \hline
+    NFR-T14 &  &   &   &   &   &   &   & X &   &   \\ \hline
+    NFR-T15 &  &   &   &   &   &   & X &   &   &   \\ \hline
+    \end{tabular}
+    \caption{Traceability Matrix showing the connections between Non-Functional Requirements and Modules}
+  \end{table}
+  
+  \begin{table}[ht]
+    \centering
+    \label{tab:traceability_nfr}
+    \begin{tabular}{|l|*{10}{c|}} % Adjust the number of columns as needed
+    \hline
+    & \rotatebox{90}{User Authentication Module} & \rotatebox{90}{Instructor View Module} & \rotatebox{90}{Practitioner View Module} & \rotatebox{90}{Annotation Configuration Module} & \rotatebox{90}{RTC Control Module} & \rotatebox{90}{STUN Server Module} & \rotatebox{90}{App Module} & \rotatebox{90}{Video Transform Module} & \rotatebox{90}{Human Pose Estimation Module} & \rotatebox{90}{SFU Server Module} \\ \hline
+    NFR-T16 &  &   &   &   &   &   & X &   &   &   \\ \hline
+    NFR-T17 &  &   &   &   &   &   & X &   &   &   \\ \hline
+    NFR-T18 &  &   &   &   &   &   & X & X &   &   \\ \hline
+    NFR-T19 &  &   &   & X & X & X & X & X & X & X \\ \hline
+    NFR-T22 &  &   &   &   &   &   & X &   &   &   \\ \hline
+    NFR-T23 &  &   &   &   &   &   & X &   &   &   \\ \hline
+    NFR-T24 &  &   &   &   &   &   & X & X &   &   \\ \hline
+    NFR-T25 &  &   &   &   &   &   & X & X &   &   \\ \hline
+    NFR-T26 &  &   &   &   &   &   & X & X &   &   \\ \hline
+    NFR-T27 &  & X & X &   &   &   & X &   &   &   \\ \hline
+    NFR-T28 &  &   &   & X & X & X & X & X & X & X \\ \hline
+    NFR-T29 &  &   &   &   &   &   &   & X &   &   \\ \hline
+    NFR-T30 &  & X & X &   &   &   & X &   &   &   \\ \hline
+    \end{tabular}
+    \caption{Traceability Matrix showing the connections between Non-Functional Requirements and Modules}
+  \end{table}
+
+  \end{landscape}
 
 \section{Code Coverage Metrics}
 
