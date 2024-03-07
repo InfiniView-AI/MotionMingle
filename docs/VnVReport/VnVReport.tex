@@ -39,6 +39,9 @@
   \midrule  
 Mar 6 & Qi Shu & Add "Comparison to existing implementations section" and "Changes due to Testing" section.\\
 Mar 6 & Anhao Jiao, Xunzhou Ye & Add "FR Eval" and "NFR Eval" section.\\
+Mar 6 & Qianlin Chen & Add Unit Tesing for SFU Server Module and VideoTransformTrack Module;
+                      Add Automatic Tesing;
+                      Add Code Coverage for Backend Modules.\\
 \bottomrule
 \end{tabularx}
 
@@ -1025,11 +1028,10 @@ This not only enhances test coverage but also significantly boosts efficiency, a
   Video Transform Module            & 86                  & 51               & 0                 & 41\%              \\ \midrule
   \textbf{Total}                    & 204                 & 71               & 0                 & 65\%              \\ \bottomrule
   \end{tabular}
-  \caption{Code coverage report}
+  \caption{Backend Code coverage report}
   \label{tab:my-table}
 \end{table}
-The low code coverage for SFU Server Module can be attributed to the inherent complexity of testing asynchronous operations and external dependencies, such as WebRTC interactions(RTCPeerConnection and MediaStreamTrack), which are difficult to simulate in unit tests.
-
+The low code coverage for SFU Server Module can be attributed to the inherent complexity of testing asynchronous operations and external dependencies, such as WebRTC interactions(RTCPeerConnection and MediaStreamTrack), which are difficult to simulate in unit tests.\\
 For the VideoTransformTrack module, the low coverage is due to the challenges in automatically testing image processing and machine learning functionalities that require subjective visual verification and can exhibit non-deterministic behavior.
 
 \newpage{}
