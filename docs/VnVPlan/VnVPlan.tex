@@ -18,6 +18,7 @@
 \usepackage{geometry}
 \usepackage{pdflscape}
 \usepackage{siunitx}
+\usepackage[normalem]{ulem}
 
 \input{../Comments}
 \input{../Common}
@@ -38,6 +39,7 @@
 \toprule {\bf Date} & {\bf Developer(s)} & {\bf Change} \\
 \midrule
 November 3, 2023 & KH, QS, AJ, QC, XY & Initial Draft \\
+March 6, 2023 & KH, QS, AJ, QC, XY & Rev 0.1 \\
 \bottomrule
 \end{tabularx}
 
@@ -639,16 +641,16 @@ non-functional requirements.
   \end{description}
 \item \label{NFRT5}
   \begin{description}
-  \item[Type] Functional, Dynamic, Manual
-  \item[Initial State] The system is in a stable, operational state with the core
+  \item[\sout{Type}] \sout{Functional, Dynamic, Manual}
+  \item[\sout{Initial State}] \sout{The system is in a stable, operational state with the core
     functionalities running. No extensions are installed at the outset of the
-    test.
-  \item[Input/Condition] One or more sample extensions ready for installation
-  \item[Output/Result] Extensions are successfully installed on the system. The
+    test.}
+  \item[\sout{Input/Condition}] \sout{One or more sample extensions ready for installation}
+  \item[\sout{Output/Result}] \sout{Extensions are successfully installed on the system. The
     system recognizes and integrates new extensions' functionalities. System
     stability and core functionality remain uncompromised after the addition of
-    the extensions.
-  \item[How Test Will Be Performed] Identify or develop sample extensions for the
+    the extensions.}
+  \item[\sout{How Test Will Be Performed}] \sout{Identify or develop sample extensions for the
     test. These should be varied to represent different types of functionality
     users might add to the system. Ensure the system is running in a controlled
     test environment that replicates the end-user environment. Manually add the
@@ -657,7 +659,7 @@ non-functional requirements.
     the same time. After installation, verify that each extension is functioning
     within the system as intended. Check interoperability with existing features
     to ensure that there are no conflicts or issues. Test the system's core and
-    extended functionalities to ensure all operate correctly.
+    extended functionalities to ensure all operate correctly.}
   \end{description}
 \item \label{NFRT6}
   \begin{description}
@@ -977,17 +979,17 @@ non-functional requirements.
   \end{description}
 \item \label{NFRT20}
   \begin{description}
-  \item[Type] Structural, Dynamic, Manual
-  \item[Initial State] The system is fully operational, and a maintenance/update
+  \item[\sout{Type}] \sout{Structural, Dynamic, Manual}
+  \item[\sout{Initial State}] \sout{The system is fully operational, and a maintenance/update
     plan is ready, detailing the procedures to be followed. A stable pre-update
     version of the system is running, and a controlled environment is available
-    to simulate the maintenance process without affecting live users.
-  \item[Input/Condition] Tools and resources necessary for the maintenance task
-    (e.g., update packages, scripts, database migrations, etc.).
-  \item[Output/Result] The total time taken for the procedure is recorded, from
+    to simulate the maintenance process without affecting live users.}
+  \item[\sout{Input/Condition}] \sout{Tools and resources necessary for the maintenance task
+    (e.g., update packages, scripts, database migrations, etc.).}
+  \item[\sout{Output/Result}] \sout{The total time taken for the procedure is recorded, from
     initiation to completion, including the system being fully operational
-    post-update.
-  \item[How Test Will Be Performed] Prepare the test environment to match the
+    post-update.}
+  \item[\sout{How Test Will Be Performed}] \sout{Prepare the test environment to match the
     live system as closely as possible in terms of data, configurations, and
     system dependencies. Ready the maintenance/update package along with
     detailed procedures and any scripts or commands necessary for the process.
@@ -1006,22 +1008,22 @@ non-functional requirements.
     from the initial shutdown to the restoration of full functionality.If the
     process took longer than the specified 4-hour window, identify the stages
     that consumed more time than expected and analyze the reasons for this
-    delay.
+    delay.}
   \end{description}
 \item \label{NFRT21}
   \begin{description}
-  \item[Type] Structural, Dynamic, Automated
-  \item[Initial State] The system is fully operational, and user accounts
+  \item[\sout{Type}] \sout{Structural, Dynamic, Automated}
+  \item[\sout{Initial State}] \sout{The system is fully operational, and user accounts
     containing mock personal information are available for testing. Security
     measures, such as encryption protocols and compliance measures, are in
-    place.
-  \item[Input/Condition] Automated security testing tools or penetration testing
+    place.}
+  \item[\sout{Input/Condition}] \sout{Automated security testing tools or penetration testing
     tools for vulnerability scanning. Test scripts designed to simulate typical
-    user interactions, including data input and retrieval.
-  \item[Output/Result] Confirmation that stored data, especially personal
+    user interactions, including data input and retrieval.}
+  \item[\sout{Output/Result}] \sout{Confirmation that stored data, especially personal
     information, is encrypted or securely hashed within the database or storage
-    system.
-  \item[How Test Will Be Performed] Use network monitoring tools to capture the
+    system.}
+  \item[\sout{How Test Will Be Performed}] \sout{Use network monitoring tools to capture the
     data being transmitted during the test sessions. This activity might include
     creating user accounts, logging in, or transmitting personal information.
     Analyze the captured data to verify that it's encrypted and that sensitive
@@ -1035,7 +1037,7 @@ non-functional requirements.
     known vulnerabilities within the system components. Document all findings
     from the security tests, including any potential vulnerabilities identified,
     successful and failed breach attempts, and the security status of data
-    transmission and storage.
+    transmission and storage.}
   \end{description}
 \item \label{NFRT22}
   \begin{description}
