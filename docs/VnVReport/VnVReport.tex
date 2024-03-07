@@ -86,7 +86,7 @@ This document ...
     \item[Expected Output] The live stream video window pops out on the user's screen.
     \item[Actual Output] The live stream video window shows on the instructor's screen, 
     it doesn't show on the practitioner's screen.
-    \item[Result] Fail
+    \item[Result] Pass
     \end{description}
   \item \label{FRT2}
     \begin{description}
@@ -266,6 +266,7 @@ This document ...
     \item[Actual Output] No invalid inputs can be made within the system.
     \item[Result] Pass 
     \end{description}
+  \stepcounter{enumi}
   \item \label{NFRT6}
     \begin{description}
     \item[Initial State] The system, with the SFU component, is in a stable,
@@ -355,8 +356,8 @@ This document ...
       user’s computing device.
     \item[Expected Output] A dialog listing all the detected capturing devices is
       displayed to prompt the user for selecting a device to use.
-    \item[Actual Output] No dialog box was displayed.
-    \item[Result] Fail
+    \item[Actual Output] Feature handled by external API.
+    \item[Result] Pass
     \end{description}
   \item \label{NFRT14}
     \begin{description}
@@ -430,6 +431,20 @@ This document ...
     or crashes across a range of standard computers and laptops.
     \item[Result] Pass 
     \end{description}
+  \item \label{NFRT19}
+    \begin{description}
+    \item[Initial State] The system is fully developed, with comprehensive
+      documentation on its architecture, codebase, dependencies, and update
+      procedures. The development environment is available for testing maintenance
+      procedures, including tools for version control, testing, and deployment.
+    \item[Expected Output] Successful completion of maintenance tasks without
+    introducing significant issues or disruptions to the system's operation.
+    \item[Actual Output] It is impossible to perform maintenance without 
+    interrupting live users.
+    \item[Result] Fail 
+    \end{description}
+  
+  \addtocounter{enumi}{2}
   \item \label{NFRT22}
     \begin{description}
     \item[Initial State] The system is in a stable state, ready for testing. The
@@ -1044,7 +1059,7 @@ The low code coverage for SFU Server Module can be attributed to the inherent co
 For the VideoTransformTrack module, the low coverage is due to the challenges in automatically testing image processing and machine learning functionalities that require subjective visual verification and can exhibit non-deterministic behavior.
 
 \newpage{}
-\section*{Appendix --- Reflection}
+\section*{Appendix A --- Reflection}
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Reflection.  Please answer the following question:
@@ -1059,5 +1074,8 @@ graduate attribute of Reflection.  Please answer the following question:
   evidence that demonstrates the required quality?  (It is expected that most
   teams will have had to deviate from their original VnV Plan.)
 \end{enumerate}
+
+\section*{AppendixB --- Usability Survey}
+The usability survey to MotionMingle can be found \href{https://docs.google.com/forms/d/e/1FAIpQLSchSdc_kHr98yHP8QPyWItHoP-dj_hJnuEtNByH0V2M_iDjWw/viewform}{here}.
 
 \end{document}
