@@ -82,7 +82,8 @@ throughout this document.
 
 \pagenumbering{arabic}
 
-This document ...
+This document reports the results of the verification and validation process for
+MotionMingle.
 
 \section{Functional Requirements Evaluation}
 
@@ -1312,19 +1313,19 @@ testing, contributing to faster development cycles and more reliable software.
 \begin{table}[htbp]
   \centering
   \begin{tabular}{@{}lcccc@{}}
-  \toprule
-  \textbf{Module}                   & \textbf{\%Statements} & \textbf{\%Branches} & \textbf{\%Functions} & \textbf{\%Lines} \\ \midrule
-  User Authentication Module             & 100                 & 100              & 100              & 100             \\ 
-  Instructor View Module                 & 43.22               & 33.33            & 42.84           & 43.22              \\ 
-  Practitioner View Module               & 48.14               & 45               & 50               & 48.14              \\ 
-  RTC Control Module                     & 44.44               & 100              & 100              & 44.44             \\ 
-  Annotation Configuration Module        & 100                 & 100              & 100              & 100             \\ 
-  Other Modules                          & 100                 & 100              & 100              & 100              \\
-  \midrule
-  \textbf{Total}                         & 46.62               & 45               & 49.17                 & 46.62             \\ \bottomrule
+    \toprule
+    \textbf{Module}                       & \textbf{\%Statements} & \textbf{\%Branches} & \textbf{\%Functions} & \textbf{\%Lines} \\ \midrule
+    User Authentication Module      & 100             & 100           & 100            & 100        \\
+    Instructor View Module          & 43.22           & 33.33         & 42.84          & 43.22      \\
+    Practitioner View Module        & 48.14           & 45            & 50             & 48.14      \\
+    RTC Control Module              & 44.44           & 100           & 100            & 44.44      \\
+    Annotation Configuration Module & 100             & 100           & 100            & 100        \\
+    Other Modules                   & 100             & 100           & 100            & 100        \\
+    \midrule
+    \textbf{Total}                        & 46.62           & 45            & 49.17          & 46.62      \\ \bottomrule
   \end{tabular}
   \caption{Frontend Code coverage report}
-  \label{tab:my-table}
+  \label{tab:frontend-cov}
 \end{table}
 
 \subsection*{Backend Code Coverage}
@@ -1332,19 +1333,21 @@ testing, contributing to faster development cycles and more reliable software.
 \begin{table}[htbp]
   \centering
   \begin{tabular}{@{}lcccc@{}}
-  \toprule
-  \textbf{Module}                   & \textbf{statements} & \textbf{missing} & \textbf{excluded} & \textbf{coverage} \\ \midrule
-  SFU Server Module                 & 118                 & 20               & 0                 & 83\%              \\
-  Video Transform Module            & 86                  & 51               & 0                 & 41\%              \\ \midrule
-  \textbf{Total}                    & 204                 & 71               & 0                 & 65\%              \\ \bottomrule
+    \toprule
+    \textbf{Module}              & \textbf{statements} & \textbf{missing} & \textbf{excluded} & \textbf{coverage}       \\ \midrule
+    SFU Server Module      & 118           & 20         & 0           & \SI{83}{\percent} \\
+    Video Transform Module & 86            & 51         & 0           & \SI{41}{\percent} \\ \midrule
+    \textbf{Total}               & 204           & 71         & 0           & \SI{65}{\percent} \\ \bottomrule
   \end{tabular}
   \caption{Backend Code coverage report}
-  \label{tab:my-table}
+  \label{tab:backend-cov}
 \end{table}
-The low code coverage for SFU Server, Instructor View Module, Practitioner View Module and RTC Control Module can be attributed to the inherent
-complexity of testing asynchronous operations and external dependencies, such as
-WebRTC interactions(RTCPeerConnection and MediaStreamTrack), which are difficult
-to simulate in unit tests.
+
+The low code coverage for SFU Server, Instructor View Module, Practitioner View
+Module and RTC Control Module can be attributed to the inherent complexity of
+testing asynchronous operations and external dependencies, such as WebRTC
+interactions (RTCPeerConnection and MediaStreamTrack), which are difficult to
+simulate in unit tests.
 
 For the VideoTransformTrack module, the low coverage is due to the challenges in
 automatically testing image processing and machine learning functionalities that
@@ -1368,22 +1371,23 @@ graduate attribute of Reflection.  Please answer the following question:
   teams will have had to deviate from their original VnV Plan.)
 \end{enumerate}
 
-(a) One change we made to the VnV plan was in selecting the group for our 
-usability survey. Initially, we intended to engage a focus group of Tai Chi learners 
-to evaluate our system and provide feedback. However, due to our supervisor's 
-research leave and the difficulty in assembling the specified focus group, we 
-shifted our approach. Instead, we opted for a diverse group of test users, 
-including those without Tai Chi experience, a PhD student conducting Tai 
-Chi-related research, and senior citizens, to gain insights into the system's 
-user experience. They were also able to provide valuable feedback on the system 
-user experiences. In the future, we will make sure to conduct sessions to connect 
-with our target user group early in the development phase. \\\\
-(b) Another change we made to the VnV plan was we removed some test cases due 
-to the evolving project changes. The differences between the VnV plan and the 
-test cases are mainly due to the dynamic nature of software development and the 
-challenges that come with it. In the future, we will make sure to conduct regular 
-reviews of the VnV plan and update it as needed to reflect changes in the project 
-scope, requirements, and constraints.
+(a) One change we made to the VnV plan was in selecting the group for our
+usability survey. Initially, we intended to engage a focus group of Tai Chi
+learners to evaluate our system and provide feedback. However, due to our
+supervisor's research leave and the difficulty in assembling the specified focus
+group, we shifted our approach. Instead, we opted for a diverse group of test
+users, including those without Tai Chi experience, a PhD student conducting Tai
+Chi-related research, and senior citizens, to gain insights into the system's
+user experience. They were also able to provide valuable feedback on the system
+user experiences. In the future, we will make sure to conduct sessions to
+connect with our target user group early in the development phase.
+
+(b) Another change we made to the VnV plan was we removed some test cases due to
+the evolving project changes. The differences between the VnV plan and the test
+cases are mainly due to the dynamic nature of software development and the
+challenges that come with it. In the future, we will make sure to conduct
+regular reviews of the VnV plan and update it as needed to reflect changes in
+the project scope, requirements, and constraints.
 
 \section*{AppendixB --- Usability Survey}
 The usability survey to MotionMingle can be found \href{https://docs.google.com/forms/d/e/1FAIpQLSchSdc_kHr98yHP8QPyWItHoP-dj_hJnuEtNByH0V2M_iDjWw/viewform}{here}.
