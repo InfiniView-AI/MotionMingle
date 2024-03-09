@@ -11,7 +11,7 @@ export const connectAsConsumer = async (pc: RTCPeerConnection, selectedAnnotatio
   const offer = await pc?.createOffer();
   await pc?.setLocalDescription(offer);
   const requestSdp = pc.localDescription;
-  const sdp = await fetch('http://127.0.0.1:8080/consumer', {
+  const sdp = await fetch('http://127.0.0.1:8080/consume', {
     body: JSON.stringify({
       sdp: requestSdp?.sdp,
       type: requestSdp?.type,
