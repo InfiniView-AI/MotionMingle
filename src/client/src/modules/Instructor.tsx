@@ -10,6 +10,7 @@ import MessageModal from './MessageModal';
 import SelectAnnotation from './SelectAnnotation';
 import { connectAsConsumer, createPeerConnection, connectAsBroadcaster } from './RTCControl';
 import logo from './logo.jpg';
+import video from './11_forms_demo_4min.mp4';
 
 const theme = createTheme({
   palette: {
@@ -140,6 +141,11 @@ return (
         </video>
         </div>
         ) : null}
+
+                {/* <video src="11_forms_demo_4min.mp4" controls playsInline/> */}
+        <video width="750" height="500" controls >
+          <source src={video} type="video/mp4"/>
+        </video>
         
         {isSelfVideoOn ? (
         <Button
