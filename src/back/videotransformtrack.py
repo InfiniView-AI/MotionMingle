@@ -5,6 +5,11 @@ import mediapipe as mp
 from aiortc import MediaStreamTrack
 from av import VideoFrame
 import numpy as np
+import COM
+
+from mediapipe.framework.formats import landmark_pb2
+
+solutions = mp.solutions
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(
@@ -16,6 +21,13 @@ pose = mp_pose.Pose(
 
 segmentation = mp.solutions.selfie_segmentation.SelfieSegmentation(model_selection=0)
 mp_drawing = mp.solutions.drawing_utils
+
+BaseOptions = mp.tasks.BaseOptions
+PoseLandmarker = mp.tasks.vision.PoseLandmarker
+PoseLandmarkerOptions = mp.tasks.vision.PoseLandmarkerOptions
+PoseLandmarkerResult = mp.tasks.vision.PoseLandmarkerResult
+VisionRunningMode = mp.tasks.vision.RunningMode
+
 
 
 class VideoTransformTrack(MediaStreamTrack):
@@ -32,8 +44,10 @@ class VideoTransformTrack(MediaStreamTrack):
         self.track = track
         self.transform = transform
 
+
     async def recv(self) -> VideoFrame:
         frame = await self.track.recv()
+
         return VideoTransformTrack.__TRANSFORMERS[self.transform](frame)
 
     @staticmethod
@@ -141,6 +155,52 @@ class VideoTransformTrack(MediaStreamTrack):
         new_frame.pts = frame.pts
         new_frame.time_base = frame.time_base
         return new_frame
+    
+    @staticmethod
+    def _center_of_mass_transformer(frame: VideoFrame) -> VideoFrame:
+        VideoTransformTrack.timestamp += 1
+        img = frame.to_ndarray(format="bgr24")
+
+        img = mp.Image(image_format=mp.ImageFormat.SRGB, data=img)
+
+        VideoTransformTrack.landmarker.detect_async(img, VideoTransformTrack.timestamp)
+        if (not(VideoTransformTrack.COM_result is None)):
+            new_frame = VideoTransformTrack.__draw_landmarks_on_image(img.numpy_view(), VideoTransformTrack.COM_result)
+            new_frame = VideoFrame.from_ndarray(new_frame, format="bgr24")
+            new_frame.pts = frame.pts
+            new_frame.time_base = frame.time_base
+            return new_frame
+
+        return frame
+
+    @staticmethod
+    def __draw_landmarks_on_image(rgb_image, detection_result):
+        pose_landmarks_list = detection_result.pose_landmarks
+        annotated_image = np.copy(rgb_image)
+
+        # Loop through the detected poses to visualize.
+        for idx in range(len(pose_landmarks_list)):
+            # length is 33
+            # check this guide to see what each index represents: https://developers.google.com/mediapipe/solutions/vision/pose_landmarker
+            pose_landmarks = pose_landmarks_list[idx]
+
+            # Draw the pose landmarks.
+            pose_landmarks_proto = landmark_pb2.NormalizedLandmarkList()
+            pose_landmarks_proto.landmark.extend([
+            landmark_pb2.NormalizedLandmark(x=landmark.x, y=landmark.y, z=landmark.z) for landmark in pose_landmarks
+            ])
+            solutions.drawing_utils.draw_landmarks(
+            annotated_image,
+            pose_landmarks_proto,
+            solutions.pose.POSE_CONNECTIONS,
+            solutions.drawing_styles.get_default_pose_landmarks_style())
+
+        return annotated_image
+
+    @staticmethod
+    def _set_COM_result(result: PoseLandmarkerResult, *args):
+        VideoTransformTrack.COM_result = result
+
 
     __TRANSFORMERS: Dict[str, Callable[[VideoFrame], VideoFrame]] = {
         "cartoon": _cartoon_transformer,
@@ -148,10 +208,19 @@ class VideoTransformTrack(MediaStreamTrack):
         "rotate": _rotate_transformer,
         "skeleton": _skeleton_transformer,
         "segmentation": _segmentation_transformer,
+        "com": _center_of_mass_transformer
     }
 
     supported_transforms = list(__TRANSFORMERS.keys())
 
+    COM_result = None
+    landmarker = PoseLandmarker.create_from_options(PoseLandmarkerOptions(
+    base_options=BaseOptions(model_asset_path='pose_landmarker_lite.task'),
+    running_mode=VisionRunningMode.LIVE_STREAM,
+    result_callback=_set_COM_result,
+    output_segmentation_masks=True,
+))
+    timestamp = 0
 
 class UnsupportedTransform(Exception):
     def __init__(self, message: str):

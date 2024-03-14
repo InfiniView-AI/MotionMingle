@@ -28,6 +28,7 @@ function SelectAnnotation(props: {
           <MenuItem value="edges">Edges</MenuItem>
           <MenuItem value="cartoon">Cartoon</MenuItem>
           <MenuItem value="segmentation">Segmentation</MenuItem>
+          <MenuItem value="com">Center of Mass</MenuItem>
         </Select>
       </FormControl>
 
