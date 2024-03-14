@@ -11,7 +11,7 @@ export const connectAsConsumer = async (pc: RTCPeerConnection, selectedAnnotatio
   const offer = await pc?.createOffer();
   await pc?.setLocalDescription(offer);
   const requestSdp = pc.localDescription;
-  const sdp = await fetch('http://192.168.40.85:5173/consume', {
+  const sdp = await fetch('http://192.168.40.85:8080/consume', {
     body: JSON.stringify({
       sdp: requestSdp?.sdp,
       type: requestSdp?.type,
@@ -30,7 +30,7 @@ export const connectAsBroadcaster = async (pc: RTCPeerConnection) => {
   const offer = await pc?.createOffer();
   await pc?.setLocalDescription(offer);
   const requestSdp = pc.localDescription;
-  const sdp = await fetch('http://192.168.40.85:5173/broadcast', {
+  const sdp = await fetch('http://192.168.40.85:8080/broadcast', {
     body: JSON.stringify({
       sdp: requestSdp?.sdp,
       type: requestSdp?.type,
