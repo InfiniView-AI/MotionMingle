@@ -156,6 +156,7 @@ async def broadcast(request):
         @track.on("ended")
         async def on_ended():
             log_info("Track %s ended", track.kind)
+            _transformed_tracks.clear()
 
     # handle offer
     await pc.setRemoteDescription(offer)
