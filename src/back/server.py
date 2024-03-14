@@ -5,6 +5,7 @@ import logging
 import os
 import ssl
 import uuid
+from aiohttp.web_exceptions import HTTPForbidden
 
 from aiohttp import web
 from aiortc import (
@@ -33,6 +34,7 @@ relay = MediaRelay()
 source_video = VideoStreamTrack()
 NO_TRANSFORM: str = "none"
 _transformed_tracks = dict()
+current_broadcaster = None
 
 
 def apply_transform(track: MediaStreamTrack, transform: str) -> MediaStreamTrack:
@@ -108,6 +110,12 @@ async def consume(request):
 
 
 async def broadcast(request):
+    global current_broadcaster
+    requester_id = request.remote_ip
+
+    if current_broadcaster is not None and current_broadcaster != requester_id:
+        raise HTTPForbidden(reason="Another broadcaster is already active.")
+
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
@@ -120,8 +128,9 @@ async def broadcast(request):
     except ValidationError as error:
         raise web.HTTPBadRequest(reason=error.message)
 
-    offer = RTCSessionDescription(sdp=body["sdp"], type=body["type"])
+    current_broadcaster = requester_id
 
+    offer = RTCSessionDescription(sdp=body["sdp"], type=body["type"])
     pc = RTCPeerConnection()
     pc_id = "PeerConnection(%s)" % uuid.uuid4()
     peer_connections.add(pc)
