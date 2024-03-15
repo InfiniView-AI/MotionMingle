@@ -126,7 +126,7 @@ return (
         <video
           ref={selfVideoRef}
           autoPlay
-          style={{ width: '100%', maxWidth: '600px', marginTop: '20px', borderRadius: '4px' }}
+          style={{ width: '100%', maxWidth: '800px', marginTop: '20px', borderRadius: '4px' }}
           playsInline
         />
         {isSelfVideoOn ? (
