@@ -260,6 +260,7 @@ return (
               maxWidth: '500px',
               maxHeight: '600px',
               overflowY: 'auto',
+              border: '2px solid #000',
             }}
           >
             <Typography variant="h6" gutterBottom>

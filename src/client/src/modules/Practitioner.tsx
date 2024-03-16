@@ -43,6 +43,7 @@ function Practitioner() {
   const [consumerPc, setConsumerPc] = useState<RTCPeerConnection>(createConsumerPeerConnection());
   const [selectedAnnotation, setSelectedAnnotation] = useState<string>('');
   const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   const closeRemote = async () => {
     // consumerPc.close();
@@ -70,13 +71,26 @@ function Practitioner() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
+    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
+        <Box sx={{ flex: 1 }} /> {/* Empty box for spacing */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', flex: 1 }}>
           <img src={logo} alt="Motion Mingle Logo" style={{ height: 50 }} />
           <Typography variant="h4" sx={{ ml: 2 }}>
             Motion Mingle
           </Typography>
         </Box>
+        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            onClick={() => setShowInstructions(true)}
+          >
+            Instructions
+          </Button>
+        </Box>
+      </Box>
         <Container maxWidth="md" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <Typography variant="h5" gutterBottom>
             Practitioner
@@ -97,6 +111,37 @@ function Practitioner() {
               Connect
             </Button>
           )}
+          {showInstructions && (
+          <Box
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: 'white',
+              padding: '20px',
+              zIndex: 1000,
+              maxWidth: '500px',
+              maxHeight: '600px',
+              overflowY: 'auto',
+              border: '2px solid #000',
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              App Instructions
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Instructions Placeholder.....
+            </Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => setShowInstructions(false)}
+            >
+              Close
+            </Button>
+          </Box>
+        )}
         </Container>
       </Box>
     </ThemeProvider>
