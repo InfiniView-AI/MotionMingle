@@ -49,6 +49,7 @@ function Instructor() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [broadcasterPc, setBroadcasterPc] = useState<RTCPeerConnection>(createPeerConnection());
   const [consumerPc, setConsumerPc] = useState<RTCPeerConnection>(createConsumerPeerConnection());
+  const [showInstructions, setShowInstructions] = useState(false);
 
   const selectNewAnnotation = (event: SelectChangeEvent) => {
     setSelectedAnnotation(event.target.value);
@@ -102,6 +103,24 @@ function Instructor() {
     setIsConnected(true);
   };
 
+  const broadcastLocalVideo = async () => {
+    const videoElement = document.createElement('video');
+    videoElement.src = './11_forms_demo_4min.mp4';
+    videoElement.onloadedmetadata = async () => {
+      const stream = (videoElement as any).captureStream();
+      broadcasterPc.getSenders().forEach(sender => {
+        broadcasterPc.removeTrack(sender);
+      });
+      stream.getTracks().forEach((track: MediaStreamTrack) => {
+        broadcasterPc.addTrack(track, stream);
+      });
+      await connectAsBroadcaster(broadcasterPc);
+      if (remoteVideoRef.current) remoteVideoRef.current.srcObject = stream;
+      setIsConnected(true);
+    };
+    videoElement.load();
+  };
+
   const consume = async () => {
     await connectAsConsumer(consumerPc, selectedAnnotation);
     remoteVideoRef.current?.play();
@@ -117,11 +136,24 @@ function Instructor() {
 return (
   <ThemeProvider theme={theme}>
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
-        <img src={logo} alt="Motion Mingle Logo" style={{ height: 50 }} />
-        <Typography variant="h4" sx={{ ml: 2 }}>
-          Motion Mingle
-        </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
+        <Box sx={{ flex: 1 }} /> {/* Empty box for spacing */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', flex: 1 }}>
+          <img src={logo} alt="Motion Mingle Logo" style={{ height: 50 }} />
+          <Typography variant="h4" sx={{ ml: 2 }}>
+            Motion Mingle
+          </Typography>
+        </Box>
+        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            onClick={() => setShowInstructions(true)}
+          >
+            Instructions
+          </Button>
+        </Box>
       </Box>
       <Container maxWidth="md" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <Typography variant="h5" gutterBottom>
@@ -198,6 +230,14 @@ return (
         >
           Check Annotated Video
         </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          onClick={broadcastLocalVideo}
+        >
+          Broadcast Local Video
+        </Button>
       </div>
         <MessageModal
           isModalOpen={isModalOpen}
@@ -207,6 +247,36 @@ return (
             setIsModalOpen(false);
           }}
         />
+        {showInstructions && (
+          <Box
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: 'white',
+              padding: '20px',
+              zIndex: 1000,
+              maxWidth: '500px',
+              maxHeight: '600px',
+              overflowY: 'auto',
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              App Instructions
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Instructions Placeholder.....
+            </Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => setShowInstructions(false)}
+            >
+              Close
+            </Button>
+          </Box>
+        )}
       </Container>
     </Box>
   </ThemeProvider>
