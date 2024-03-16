@@ -252,11 +252,11 @@ class VideoTransformTrack(MediaStreamTrack):
         left_footprint = rotateImage(left_footprint, left_foot_angle)
 
         right_foot_x_offset = math.ceil((right_heel.x + right_toe.x) / 2 * scale)
-        right_foot_y_offset = math.ceil((right_heel.y + right_toe.y) / 2 * scale)
+        right_foot_y_offset = math.ceil((right_heel.z + right_toe.z) / 2 * scale)
         right_foot_z_offset = math.ceil((right_heel.z + right_toe.z) / 2 * scale)
 
         left_foot_x_offset = math.ceil((left_heel.x + left_toe.x) / 2 * scale) # feet width adjustment
-        left_foot_y_offset = math.ceil((left_heel.y + left_toe.y) / 2 * scale)
+        left_foot_y_offset = math.ceil((left_heel.z + left_toe.z) / 2 * scale)
         left_foot_z_offset = math.ceil((left_heel.z + left_toe.z) / 2 * scale)
 
         lifted_threshold = 0.035
