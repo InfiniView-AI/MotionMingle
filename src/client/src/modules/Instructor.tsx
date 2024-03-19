@@ -48,6 +48,7 @@ function Instructor() {
 
   const [selectedAnnotation, setSelectedAnnotation] = useState<string>('');
   const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isPlayingRemoteVideo, setIsPlayingRemoteVideo] = useState<boolean>(false);
   const [isSelfVideoOn, setIsSelfVideoOn] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [broadcasterPc, setBroadcasterPc] = useState<RTCPeerConnection>(createPeerConnection());
@@ -132,7 +133,13 @@ function Instructor() {
   const consume = async () => {
     await connectAsConsumer(consumerPc, selectedAnnotation);
     remoteVideoRef.current?.play();
+    setIsPlayingRemoteVideo(true);
   };
+
+  const closeRemoteVideo = () => {
+    remoteVideoRef.current!.srcObject = null;
+    setIsPlayingRemoteVideo(false);
+  }
 
   useEffect(() => {
     if(isConnected) {
@@ -174,7 +181,7 @@ return (
           style={{ width: '100%', maxWidth: '600px', aspectRatio: '600/450', border: '3px solid', borderColor: 'primary.main', borderRadius: '4px', marginTop: '20px' }}
           playsInline
         />
-        {isConnected ? (
+        {isPlayingRemoteVideo ? (
           <div className="remote">
         <video ref={remoteVideoRef} width="300" height="200" playsInline>
           <track kind="captions" />
@@ -232,6 +239,18 @@ return (
             Broadcast
           </Button>
         )}
+
+        {isPlayingRemoteVideo ? (
+        <Button
+          variant="contained"
+          color="error"
+          size="large"
+          onClick={() => closeRemoteVideo()}
+        >
+          Close Annotated Video
+        </Button>
+        
+        ): (
         <Button
           variant="contained"
           color="primary"
@@ -243,6 +262,7 @@ return (
         >
           Check Annotated Video
         </Button>
+        )}
         {/*
         <Button
           variant="contained"
