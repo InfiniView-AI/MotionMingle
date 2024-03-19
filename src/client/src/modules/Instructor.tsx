@@ -178,9 +178,13 @@ return (
         ) : null}
 
                 {/* <video src="11_forms_demo_4min.mp4" controls playsInline/> */}
-        <video width="750" height="500" controls >
-          <source src={video} type="video/mp4"/>
-        </video>
+        {
+          /*
+          <video width="750" height="500" controls >
+            <source src={video} type="video/mp4"/>
+          </video>
+          */
+        }
         
         {isSelfVideoOn ? (
         <Button
