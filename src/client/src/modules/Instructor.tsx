@@ -238,6 +238,7 @@ return (
         >
           Check Annotated Video
         </Button>
+        {/*
         <Button
           variant="contained"
           color="secondary"
@@ -246,6 +247,7 @@ return (
         >
           Broadcast Local Video
         </Button>
+         */}
       </div>
         <MessageModal
           isModalOpen={isModalOpen}
