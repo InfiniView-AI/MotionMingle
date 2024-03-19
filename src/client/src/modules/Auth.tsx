@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Typography, Container, Box, ThemeProvider, createTheme } from '@mui/material';
+import { Button, Typography, Tooltip, Container, Box, ThemeProvider, createTheme } from '@mui/material';
 import { styled, keyframes } from '@mui/system';
 import logo from './logo.jpg';
 
@@ -77,17 +77,21 @@ function Auth() {
           <Typography variant="h4" gutterBottom>
             Harmony in Motion, Unity in Practice
           </Typography>
-          <StyledButton variant="contained" color="primary">
-            <Link to="/instructor" style={{ color: '#FFF', textDecoration: 'none' }}>
-              Instructor
-            </Link>
-          </StyledButton>
+          <Tooltip title="Start a streaming session as the instructor">
+            <StyledButton variant="contained" color="primary" size="large">
+              <Link to="/instructor" style={{ color: '#FFF', textDecoration: 'none' }}>
+                Instructor
+              </Link>
+            </StyledButton>
+          </Tooltip>
           <Typography variant="h5">or</Typography>
-          <StyledButton variant="contained" color="primary">
-            <Link to="/practitioner" style={{ color: '#FFF', textDecoration: 'none' }}>
-              Practitioner
-            </Link>
-          </StyledButton>
+          <Tooltip title="Join a streaming session to learn Tai Chi">
+            <StyledButton variant="contained" color="primary" size="large">
+              <Link to="/practitioner" style={{ color: '#FFF', textDecoration: 'none' }}>
+                Practitioner
+              </Link>
+            </StyledButton>
+          </Tooltip>
         </Box>
       </Container>
     </ThemeProvider>
