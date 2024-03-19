@@ -10,7 +10,7 @@ import MessageModal from './MessageModal';
 import SelectAnnotation from './SelectAnnotation';
 import { connectAsConsumer, createPeerConnection, connectAsBroadcaster } from './RTCControl';
 import logo from './logo.jpg';
-import video from './11_forms_demo_4min.mp4';
+import tai_chi_video from './11_forms_demo_4min.mp4';
 
 const theme = createTheme({
   palette: {
@@ -108,12 +108,16 @@ function Instructor() {
 
   const broadcastLocalVideo = async () => {
     const videoElement = document.createElement('video');
-    videoElement.src = './11_forms_demo_4min.mp4';
+
+    videoElement.src = tai_chi_video;
+
     videoElement.onloadedmetadata = async () => {
+
       const stream = (videoElement as any).captureStream();
-      broadcasterPc.getSenders().forEach(sender => {
-        broadcasterPc.removeTrack(sender);
-      });
+      // broadcasterPc.getSenders().forEach(sender => {
+      //   broadcasterPc.removeTrack(sender);
+      // });
+
       stream.getTracks().forEach((track: MediaStreamTrack) => {
         broadcasterPc.addTrack(track, stream);
       });
@@ -121,6 +125,7 @@ function Instructor() {
       if (remoteVideoRef.current) remoteVideoRef.current.srcObject = stream;
       setIsConnected(true);
     };
+
     videoElement.load();
   };
 
