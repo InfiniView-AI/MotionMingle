@@ -20,6 +20,9 @@ const theme = createTheme({
     secondary: {
       main: '#E6F7FF',
     },
+    background: {
+      default: '#E6F7FF', 
+    },
   },
 });
 
@@ -121,17 +124,19 @@ function Practitioner() {
               backgroundColor: 'white',
               padding: '20px',
               zIndex: 1000,
-              maxWidth: '500px',
+              maxWidth: '900px',
               maxHeight: '600px',
               overflowY: 'auto',
               border: '2px solid #000',
             }}
           >
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" style={{ fontSize: '30px', lineHeight: '2' }} gutterBottom>
               App Instructions
             </Typography>
-            <Typography variant="body1" gutterBottom>
-              Instructions Placeholder.....
+            <Typography variant="body1" style={{ fontSize: '25px', lineHeight: '2' }} gutterBottom>
+              To join a streaming session, click the "CONNECT" button.<br />
+              To exit a streaming session, click the "DISCONNECT" button.<br />
+              To select a type of annotation, click the "Annotation" dropdown menu and select an item.
             </Typography>
             <Button
               variant="contained"

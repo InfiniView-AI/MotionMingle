@@ -20,6 +20,9 @@ const theme = createTheme({
     secondary: {
       main: '#E6F7FF',
     },
+    background: {
+      default: '#E6F7FF', 
+    },
   },
 });
 
@@ -227,6 +230,7 @@ return (
           onClick={() => {
             consume();
           }}
+          disabled={!isConnected}
         >
           Check Annotated Video
         </Button>
@@ -257,17 +261,20 @@ return (
               backgroundColor: 'white',
               padding: '20px',
               zIndex: 1000,
-              maxWidth: '500px',
+              maxWidth: '900px',
               maxHeight: '600px',
               overflowY: 'auto',
               border: '2px solid #000',
             }}
           >
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" style={{ fontSize: '30px', lineHeight: '2' }} gutterBottom>
               App Instructions
             </Typography>
-            <Typography variant="body1" gutterBottom>
-              Instructions Placeholder.....
+            <Typography variant="body1" style={{ fontSize: '25px', lineHeight: '2' }} gutterBottom >
+              To start a streaming session, click the "BROADCAST" button.<br />
+              To end an ongoing streaming session, click the "STOP" button.<br />
+              To turn on/off the self video, click "START SELF VIDEO" or "CLOSE SELF VIDEO" button.<br />
+              To check annotated video, ensure you are broadcasting, select your desired type of annotation from the "ANNOTATION" dropdown menu, then click "CHECK ANNOTATED VIDEO" button.<br />
             </Typography>
             <Button
               variant="contained"
