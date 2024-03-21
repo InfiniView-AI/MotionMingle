@@ -89,7 +89,6 @@ function Instructor() {
     broadcasterPc.close();
     // Replace the original peerconnection to a new peerconnection candidate
     setBroadcasterPc(createPeerConnection());
-    remoteVideoRef.current!.srcObject = null;
     setIsConnected(false);
   };
 
