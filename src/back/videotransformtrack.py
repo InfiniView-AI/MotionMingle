@@ -121,6 +121,8 @@ class VideoTransformTrack(MediaStreamTrack):
     def __draw_landmarks_on_image(rgb_image, detection_result):
         pose_landmarks_list = detection_result.pose_landmarks
         annotated_image = np.copy(rgb_image)
+        
+        cv2.rectangle(annotated_image,(0,0),(200,200),(255,255,255),-1)
 
         # Loop through the detected poses to visualize.
         for idx in range(len(pose_landmarks_list)):
@@ -139,7 +141,6 @@ class VideoTransformTrack(MediaStreamTrack):
             solutions.pose.POSE_CONNECTIONS,
             solutions.drawing_styles.get_default_pose_landmarks_style())
 
-            cv2.rectangle(annotated_image,(0,0),(200,200),(255,255,255),-1)
 
             VideoTransformTrack.draw_COM(annotated_image, pose_landmarks, 1)
 
@@ -419,10 +420,8 @@ class VideoTransformTrack(MediaStreamTrack):
             face_alpha_inv = 1.0 - face_alpha_mask
 
 
-            # TODO: feet position is back side
             # Split the background and overlay in 3 channels
             for c in range(0, 3):
-                # TODO: diff dimension
                 right_bool = img[right_y1:right_y2, right_x1:right_x2, c].shape[0] != pic_scale or img[right_y1:right_y2, right_x1:right_x2, c].shape[1] != pic_scale
                 left_bool = img[left_y1:left_y2, left_x1:left_x2, c].shape[0] != pic_scale or img[left_y1:left_y2, left_x1:left_x2, c].shape[1] != pic_scale
                 face_bool = img[face_y1:face_y2, face_x1:face_x2, c].shape[0] != pic_scale or img[face_y1:face_y2, face_x1:face_x2, c].shape[1] != pic_scale
