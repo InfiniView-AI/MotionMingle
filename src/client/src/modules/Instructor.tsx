@@ -302,10 +302,50 @@ return (
               App Instructions
             </Typography>
             <Typography variant="body1" style={{ fontSize: '25px', lineHeight: '2' }} gutterBottom >
-              To start a streaming session, click the "BROADCAST" button.<br />
-              To end an ongoing streaming session, click the "STOP" button.<br />
-              To turn on/off the self video, click "START SELF VIDEO" or "CLOSE SELF VIDEO" button.<br />
-              To check annotated video, ensure you are broadcasting, select your desired type of annotation from the "ANNOTATION" dropdown menu, then click "CHECK ANNOTATED VIDEO" button.<br />
+            To start a streaming session, click the
+              <span>
+                &nbsp;
+                <Button variant="contained" color="primary" size="large">
+                  Broadcast
+                </Button>
+                &nbsp;
+              </span> 
+              button.<br />
+              To end an ongoing streaming session, click the 
+              <span>
+                &nbsp;
+                <Button variant="contained" color="error" size="large">
+                  Stop
+                </Button>
+                &nbsp;
+              </span>
+               button.<br />
+              To turn on/off the self video, click 
+              <span>
+                &nbsp;
+                <Button variant="contained" color="primary" size="large">
+                  Start self video
+                </Button>
+                &nbsp;
+              </span>
+              or
+              <span>
+                &nbsp;
+                <Button variant="contained" color="error" size="large">
+                  Close self video
+                </Button>
+                &nbsp;
+              </span>
+              button.<br />
+              To check annotated video, ensure you are broadcasting, select your desired type of annotation from the "Annotation" dropdown menu, then click the
+              <span>
+                &nbsp;
+                <Button variant="contained" color="primary" size="large">
+                  Check Annotated Video
+                </Button>
+                &nbsp;
+              </span>
+               button.<br />
             </Typography>
             <Button
               variant="contained"
