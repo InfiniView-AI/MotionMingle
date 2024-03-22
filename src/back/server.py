@@ -5,7 +5,6 @@ import logging
 import os
 import ssl
 import uuid
-from aiohttp.web_exceptions import HTTPForbidden
 
 from aiohttp import web
 from aiortc import (
@@ -32,9 +31,9 @@ logger = logging.getLogger("pc")
 peer_connections = set()
 relay = MediaRelay()
 source_video = VideoStreamTrack()
+broadcaster_active = False
 NO_TRANSFORM: str = "none"
 _transformed_tracks = dict()
-current_broadcaster = None
 
 
 def apply_transform(track: MediaStreamTrack, transform: str) -> MediaStreamTrack:
@@ -110,12 +109,6 @@ async def consume(request):
 
 
 async def broadcast(request):
-    global current_broadcaster
-    requester_id = request.remote_ip
-
-    if current_broadcaster is not None and current_broadcaster != requester_id:
-        raise HTTPForbidden(reason="Another broadcaster is already active.")
-
     if request.method == "OPTIONS":
         return web.Response(
             content_type="application/json",
@@ -128,7 +121,9 @@ async def broadcast(request):
     except ValidationError as error:
         raise web.HTTPBadRequest(reason=error.message)
 
-    current_broadcaster = requester_id
+    # global broadcaster_active
+    # if broadcaster_active:
+    #     raise web.HTTPForbidden(reason="Another broadcaster is already active.")
 
     offer = RTCSessionDescription(sdp=body["sdp"], type=body["type"])
     pc = RTCPeerConnection()
@@ -159,12 +154,16 @@ async def broadcast(request):
         log_info("Track %s received", track.kind)
 
         if track.kind == "video":
-            global source_video
+            global source_video, broadcaster_active
             source_video = track
+            broadcaster_active = True
 
         @track.on("ended")
         async def on_ended():
             log_info("Track %s ended", track.kind)
+            global broadcaster_active
+            broadcaster_active = False
+            print("broadcast ended")
 
     # handle offer
     await pc.setRemoteDescription(offer)
