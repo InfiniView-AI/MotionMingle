@@ -121,9 +121,9 @@ async def broadcast(request):
     except ValidationError as error:
         raise web.HTTPBadRequest(reason=error.message)
 
-    # global broadcaster_active
-    # if broadcaster_active:
-    #     raise web.HTTPForbidden(reason="Another broadcaster is already active.")
+    global broadcaster_active
+    if broadcaster_active:
+        raise web.HTTPForbidden(reason="Another broadcaster is already active.")
 
     offer = RTCSessionDescription(sdp=body["sdp"], type=body["type"])
 
@@ -165,7 +165,6 @@ async def broadcast(request):
             _transformed_tracks.clear()
             global broadcaster_active
             broadcaster_active = False
-            print("broadcast ended")
 
     # handle offer
     await pc.setRemoteDescription(offer)
