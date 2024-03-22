@@ -10,6 +10,7 @@
 \usepackage{ulem}
 \usepackage{gensymb}
 
+
 \addbibresource{reference.bib}
 \graphicspath{./}
 \hypersetup{
@@ -36,7 +37,7 @@
 
 ~\newpage
 
-\pagenumbering{roman}
+\pagenumbering{arabic}
 
 \tableofcontents
 
@@ -50,6 +51,7 @@
     \midrule
     25 September 2023 & AJ, KH, QC, QS, XY & Initial draft \\
     02 February 2024 & AJ, KH, QC, QS, XY & rev 0.1 \\
+    22 March 2024 & AJ, KH, QC, QS, XY & rev 1 \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -174,7 +176,7 @@ Please refer to \ref*{Glossary} Glossary
 \subsubsection{Hardware Components}
 \begin{description}
     \item[Webcam] A Webcam is required for the instructor's client.
-    \item[Microphone] Microphone is optional for both the instructors and the practitioners.
+    \item[\sout{Microphone}] \sout{Microphone is optional for both the instructors and the practitioners.}
     \item[Monitor] A monitor is required for practitioners.
     \item[Host Server] A host server is required for routing, processing video streams and annotation generation.
     \item[Network Connection] Having access to the internet is required for both instructors and practitioners.
@@ -417,6 +419,14 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
         \item Priority: Critical
     \end{itemize}
 \end{itemize}
+\begin{itemize}
+    \color{red}
+        \item[FR17] The system shall provide center of mass annotation.  \label{FR17}
+        \begin{itemize}
+            \item Rationale: To identify the instructor's supporting foot and increase Tai Chi learning experience.
+            \item Priority: Critical
+        \end{itemize}
+    \end{itemize}
 \subsection{Non-Functional Requirements}
 
 \subsubsection{Look and Reel Requirement}
@@ -522,7 +532,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item[OE3] The system shall run smoothly on standard personal computers or laptops equipped with a camera and optionally a microphone. \label{OE3}
+    \item[OE3] The system shall run smoothly on standard personal computers or laptops equipped with a camera \sout{and optionally a microphone}. \label{OE3}
     \begin{itemize}
         \item Rationale: To minimize hardware-related barriers to using the platform.
         \item Fit Criteria: Users with standard personal computers or laptops can use the platform \sout{without significant performance issues}
@@ -616,7 +626,7 @@ made and reviewed by the development team.
 \end{description}
 \subsubsection{Hardware Interfaces}
 \begin{description}
-    \item[Camera and Microphone] To capture video and audio from users’ sides, the system interfaces with hardware drivers and OS-level APIs.
+    \item[Camera \sout{and Microphone}] To capture video \sout{and audio} from users’ sides, the system interfaces with hardware drivers and OS-level APIs.
     \item[Network] For managing connections, the system might interact with the underlying operating system’s networking stack.
 \end{description}
 \subsection{Detailed Usage Scenarios}
