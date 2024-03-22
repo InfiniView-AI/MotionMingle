@@ -126,6 +126,7 @@ async def broadcast(request):
     #     raise web.HTTPForbidden(reason="Another broadcaster is already active.")
 
     offer = RTCSessionDescription(sdp=body["sdp"], type=body["type"])
+
     pc = RTCPeerConnection()
     pc_id = "PeerConnection(%s)" % uuid.uuid4()
     peer_connections.add(pc)
@@ -161,6 +162,7 @@ async def broadcast(request):
         @track.on("ended")
         async def on_ended():
             log_info("Track %s ended", track.kind)
+            _transformed_tracks.clear()
             global broadcaster_active
             broadcaster_active = False
             print("broadcast ended")
