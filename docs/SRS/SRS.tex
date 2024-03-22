@@ -258,9 +258,9 @@ The system is tailored with specific guidelines in mind. It's worth noting that 
 \subsubsection{Stakeholders}
 \begin{description}
     \item[Tai Chi Practitioners] Individuals who practice Tai Chi and can benefit from real-time instruction video after model rendering.
-    \item[Tai Chi instructors] Professionals who teach Tai Chi and can utilize the system for synchronous teaching sessions.
-    \item[Tai Chi potential practitioners] Individuals who are learning Tai Chi and can use the system to improve their practice.
-    \item[Capstone project supervisor] A supervisor who supervises the progress of the project.
+    \item[Tai Chi Instructors] Professionals who teach Tai Chi and can utilize the system for synchronous teaching sessions.
+    \item[Tai Chi Potential Practitioners] Individuals who are learning Tai Chi and can use the system to improve their practice.
+    \item[Capstone Project Supervisor] A supervisor who supervises the progress of the project.
 \end{description}
 \subsubsection{People Other Than Stakeholders}
 \begin{description}
@@ -421,9 +421,9 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
 \end{itemize}
 \begin{itemize}
     \color{red}
-        \item[FR17] The system shall provide center of mass annotation.  \label{FR17}
+        \item[FR17] The system shall provide footwork annotation.  \label{FR17}
         \begin{itemize}
-            \item Rationale: To identify the instructor's supporting foot and increase Tai Chi learning experience.
+            \item Rationale: To identify the instructor's footwork annotation and increase Tai Chi learning experience.
             \item Priority: Critical
         \end{itemize}
     \end{itemize}
@@ -499,11 +499,11 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
 \end{itemize}
 \textbf{Scalability of Extensibility Requirement}
 \begin{itemize}
-    \item[PR5] The system shall be able to add new extensions. \label{PR5}
+    \item[\sout{PR5}] \sout{The system shall be able to add new extensions.} \label{PR5}
     \begin{itemize}
-        \item Rationale: Further improvements and extensions of the system are needed.
-        \item Fit Criteria: Not applicable.
-        \item Priority: Medium
+        \item \sout{Rationale: Further improvements and extensions of the system are needed.}
+        \item \sout{Fit Criteria: Not applicable.}
+        \item \sout{Priority: Medium}
     \end{itemize}
 \end{itemize}
 \begin{itemize}
@@ -550,20 +550,20 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item[MS2] The system shall take no longer than 4 hours to be maintained/updated. \label{MS2}
+    \item[\sout{MS2}] \sout{The system shall take no longer than 4 hours to be maintained/updated.} \label{MS2}
     \begin{itemize}
-        \item Rationale: To ensure the availability of the system.
-        \item Fit Criteria: Updates can be done within 4 hours.
-        \item Priority: Low
+        \item \sout{Rationale: To ensure the availability of the system.}
+        \item \sout{Fit Criteria: Updates can be done within 4 hours.}
+        \item \sout{Priority: Low}
     \end{itemize}
 \end{itemize}
 \subsubsection{Security Requirements}
 \begin{itemize}
-    \item[SR1] The system shall securely transmit and store user data, including personal information. \label{SR1}
+    \item[\sout{SR1}] \sout{The system shall securely transmit and store user data, including personal information.} \label{SR1}
     \begin{itemize}
-        \item Rationale: To protect user privacy and data integrity.
-        \item Fit Criteria: User data is encrypted both in transit and at rest, and security protocols follow industry best practices.
-        \item Priority: Critical
+        \item \sout{Rationale: To protect user privacy and data integrity.}
+        \item \sout{Fit Criteria: User data is encrypted both in transit and at rest, and security protocols follow industry best practices.}
+        \item \sout{Priority: Critical}
     \end{itemize}
 \end{itemize}
 \begin{itemize}
@@ -822,6 +822,25 @@ Please refer to \ref{TblTrace_1} and \ref{TblTrace_2}.
   \item The application is intended to operate on Windows, Linux and MacOS platforms, but not limited to running on these systems natively.
   \item Secure data transmission and storage will be implemented to safeguard user data and mitigate data leakage risks.
 \end{itemize}
+
+\section{Appdendix}
+
+\subsection{Reflection}
+
+Writing the Software Requirements Specification was a crucial phase that laid the foundational blueprint for our 
+entire development process. During this stage, we delved deeply into understanding and defining the core functionalities, 
+non-functional requirements, and the overall scope of our WebRTC-based video streaming application tailored for Tai Chi 
+instruction. We collaboratively identified the key features necessary for a successful implementation, such as real-time 
+video streaming, user-centred design, and machine learning integration for annotations. In doing so, we faced the challenge 
+of translating broad concepts and goals into clear, detailed specifications that could guide our development efforts effectively.
+
+One of the most significant aspects of this phase was the risk and mitigation analysis. We identified potential 
+risks, such as insufficient technical knowledge in specific areas like WebRTC and real-time streaming protocols, and the 
+challenge of integrating machine learning models for real-time annotations. As a team, we not only pinpointed these risks 
+but also developed strategies to mitigate them, which included allocating time for learning and experimentation. Moreover, 
+the process of creating the SRS reinforced the importance of clear communication and collaboration amongst ourselves. We learned 
+to articulate our thoughts and ideas precisely, ensuring that every team member had a unified understanding of the project's 
+objectives and requirements.
 
 \printbibliography
 
