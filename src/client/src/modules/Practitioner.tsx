@@ -134,9 +134,25 @@ function Practitioner() {
               App Instructions
             </Typography>
             <Typography variant="body1" style={{ fontSize: '25px', lineHeight: '2' }} gutterBottom>
-              To join a streaming session, click the "CONNECT" button.<br />
-              To exit a streaming session, click the "DISCONNECT" button.<br />
-              To select a type of annotation, click the "Annotation" dropdown menu and select an item.
+              To join a streaming session, click the
+              <span>
+                &nbsp;
+                <Button variant="contained" color="primary" size="large">
+                  Connect
+                </Button>
+                &nbsp;
+              </span>
+              button.<br />
+              To exit a streaming session, click the
+              <span>
+                &nbsp;
+              <Button variant="contained" color="error" size="large">
+                Disconnect
+              </Button>
+                &nbsp;
+              </span>
+              button.<br />
+              To select a type of annotation, click the "Annotation" dropdown menu and select an annotation.
             </Typography>
             <Button
               variant="contained"
