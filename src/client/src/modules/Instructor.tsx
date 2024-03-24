@@ -10,7 +10,6 @@ import MessageModal from './MessageModal';
 import SelectAnnotation from './SelectAnnotation';
 import { connectAsConsumer, createPeerConnection, connectAsBroadcaster } from './RTCControl';
 import logo from './logo.jpg';
-import tai_chi_video from './11_forms_demo_4min.mp4';
 
 const theme = createTheme({
   palette: {
