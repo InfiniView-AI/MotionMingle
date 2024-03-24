@@ -25,7 +25,7 @@ export default function MessageModal(props: {
           Warning
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Are you sure you want to turn stop your video? Practitioner in this
+          Are you sure you want to stop your video stream? Practitioner in this
           room can not see your live stream after you stop the video.
         </Typography>
         <Button variant="contained" color="primary" onClick={handelStopVideo}>
