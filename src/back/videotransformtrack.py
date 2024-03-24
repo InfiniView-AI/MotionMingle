@@ -85,8 +85,8 @@ class VideoTransformTrack(MediaStreamTrack):
 
             # Process the frame
             results = segmentation.process(frame_rgb)
-            condition = np.stack((results.segmentation_mask,) * 3, axis=-1) > 0.5
-            ouput_frame = np.where(condition, frame, frame_rgb * 0.3).astype(np.uint8)
+            condition = np.stack((results.segmentation_mask,) * 3, axis=-1) > 0.4
+            ouput_frame = np.where(condition, frame, frame_rgb * 0.4).astype(np.uint8)
 
             return ouput_frame
         
