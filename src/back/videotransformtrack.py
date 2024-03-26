@@ -250,35 +250,63 @@ class VideoTransformTrack(MediaStreamTrack):
         "m": (0.0129 + 0.0137) / 2
     }
 }
-        def getCOM(pose_landmarks):
+        
+        def average_position(pose_landmarks, indices):
+            if isinstance(indices, tuple):
+                x = sum(pose_landmarks[i].x for i in indices) / len(indices)
+                y = sum(pose_landmarks[i].y for i in indices) / len(indices)
+                z = sum(pose_landmarks[i].z for i in indices) / len(indices)
+                return x, y, z
+            else:
+                return pose_landmarks[indices].x, pose_landmarks[indices].y, pose_landmarks[indices].z
+
+        def interpolate_segment(origin, other, l):
+            return (np.interp(l, [0, 1], [origin[i], other[i]]) for i in range(3))
+
+        def get_segment_mass(segment, pose_landmarks, BSP):
+            origin = average_position(pose_landmarks, BSP[segment]['origin'])
+            other = average_position(pose_landmarks, BSP[segment]['other'])
+            segment_position = interpolate_segment(origin, other, BSP[segment]['l'])
+            return tuple(pos * BSP[segment]['m'] for pos in segment_position)
+
+        def getCOM(pose_landmarks, BSP, screen_scale):
             com_x, com_y, com_z = 0.0, 0.0, 0.0
             for segment in BSP:
-                origin_x, origin_y, origin_z = 0.0, 0.0, 0.0
-                other_x, other_y, other_z = 0.0, 0.0, 0.0
-                segment_x, segment_y, segment_z = 0.0, 0.0, 0.0
-                if isinstance(BSP[segment]['origin'], tuple):
-                    origin_x = sum([pose_landmarks[i].x for i in BSP[segment]['origin']]) / len(BSP[segment]['origin'])
-                    origin_y = sum([pose_landmarks[i].y for i in BSP[segment]['origin']]) / len(BSP[segment]['origin'])
-                    origin_z = sum([pose_landmarks[i].z for i in BSP[segment]['origin']]) / len(BSP[segment]['origin'])
-                else:
-                    origin_x = pose_landmarks[BSP[segment]['origin']].x
-                    origin_y = pose_landmarks[BSP[segment]['origin']].y
-                    origin_z = pose_landmarks[BSP[segment]['origin']].z
-                if isinstance(BSP[segment]['other'], tuple):
-                    other_x = sum([pose_landmarks[i].x for i in BSP[segment]['other']]) / len(BSP[segment]['other'])
-                    other_y = sum([pose_landmarks[i].y for i in BSP[segment]['other']]) / len(BSP[segment]['other'])
-                    other_z = sum([pose_landmarks[i].z for i in BSP[segment]['other']]) / len(BSP[segment]['other'])
-                else:
-                    other_x = pose_landmarks[BSP[segment]['other']].x
-                    other_y = pose_landmarks[BSP[segment]['other']].y
-                    other_z = pose_landmarks[BSP[segment]['other']].z
-                segment_x = np.interp(BSP[segment]['l'], [0, 1], [origin_x, other_x])
-                segment_y = np.interp(BSP[segment]['l'], [0, 1], [origin_y, other_y])
-                segment_z = np.interp(BSP[segment]['l'], [0, 1], [origin_z, other_z])
-                com_x += segment_x * BSP[segment]['m']
-                com_y += segment_y * BSP[segment]['m']
-                com_z += segment_z * BSP[segment]['m']
-            return (com_x*screen_scale, com_y*screen_scale, com_z*screen_scale)
+                segment_mass = get_segment_mass(segment, pose_landmarks, BSP)
+                com_x += segment_mass[0]
+                com_y += segment_mass[1]
+                com_z += segment_mass[2]
+            return com_x * screen_scale, com_y * screen_scale, com_z * screen_scale
+
+        # def getCOM(pose_landmarks):
+        #     com_x, com_y, com_z = 0.0, 0.0, 0.0
+        #     for segment in BSP:
+        #         origin_x, origin_y, origin_z = 0.0, 0.0, 0.0
+        #         other_x, other_y, other_z = 0.0, 0.0, 0.0
+        #         segment_x, segment_y, segment_z = 0.0, 0.0, 0.0
+        #         if isinstance(BSP[segment]['origin'], tuple):
+        #             origin_x = sum([pose_landmarks[i].x for i in BSP[segment]['origin']]) / len(BSP[segment]['origin'])
+        #             origin_y = sum([pose_landmarks[i].y for i in BSP[segment]['origin']]) / len(BSP[segment]['origin'])
+        #             origin_z = sum([pose_landmarks[i].z for i in BSP[segment]['origin']]) / len(BSP[segment]['origin'])
+        #         else:
+        #             origin_x = pose_landmarks[BSP[segment]['origin']].x
+        #             origin_y = pose_landmarks[BSP[segment]['origin']].y
+        #             origin_z = pose_landmarks[BSP[segment]['origin']].z
+        #         if isinstance(BSP[segment]['other'], tuple):
+        #             other_x = sum([pose_landmarks[i].x for i in BSP[segment]['other']]) / len(BSP[segment]['other'])
+        #             other_y = sum([pose_landmarks[i].y for i in BSP[segment]['other']]) / len(BSP[segment]['other'])
+        #             other_z = sum([pose_landmarks[i].z for i in BSP[segment]['other']]) / len(BSP[segment]['other'])
+        #         else:
+        #             other_x = pose_landmarks[BSP[segment]['other']].x
+        #             other_y = pose_landmarks[BSP[segment]['other']].y
+        #             other_z = pose_landmarks[BSP[segment]['other']].z
+        #         segment_x = np.interp(BSP[segment]['l'], [0, 1], [origin_x, other_x])
+        #         segment_y = np.interp(BSP[segment]['l'], [0, 1], [origin_y, other_y])
+        #         segment_z = np.interp(BSP[segment]['l'], [0, 1], [origin_z, other_z])
+        #         com_x += segment_x * BSP[segment]['m']
+        #         com_y += segment_y * BSP[segment]['m']
+        #         com_z += segment_z * BSP[segment]['m']
+        #     return (com_x*screen_scale, com_y*screen_scale, com_z*screen_scale)
 
             
         def rotateImage(image, angle):
@@ -358,7 +386,7 @@ class VideoTransformTrack(MediaStreamTrack):
         left_foot_y_offset = -math.ceil((left_heel.z + left_toe.z) / 2 * screen_scale) + int(screen_scale / 2)
         left_foot_z_offset = math.ceil((left_heel.z + left_toe.z) / 2 * screen_scale)
 
-        com = getCOM(pose_landmarks) # correct
+        com = getCOM(pose_landmarks, BSP, screen_scale) # correct
 
         face_x_offset, _, face_z_offset = com
         face_x_offset = int(face_x_offset)
