@@ -99,9 +99,9 @@ completion of the capstone project.
 
 \subsection{Meeting Details and Rules}
 
-\subsubsection{Github Issues}
+\subsubsection{GitHub Issues}
 
-Each meeting is planned and documented in the form of a Github issue. The detail
+Each meeting is planned and documented in the form of a GitHub issue. The detail
 of the issue (the title or the description) shall include the date, time,
 location, agenda, and records of attendance. The meeting agenda shall be
 prepared ahead of time, either done collaboratively at the end of the previous
@@ -117,7 +117,7 @@ issue.
 
 In case a team member is unable to attend a meeting, the member must inform the
 team \emph{at least 1 hour before the meeting}. Notice of absence shall be
-reported in the form of comments under the Github issue corresponds to the
+reported in the form of comments under the GitHub issue corresponds to the
 missed meeting. Absence without an ahead-of-time notice counts as a no-show.
 
 No-show in meetings shall be recorded and, as a result, will be reflected in the
@@ -194,19 +194,19 @@ will be taken:}
 
 \sout{We are committed to a typical git workflow in modern production environments.
 There is one centralized git repository for the codebase of the project hosted
-on Github. The main branch in the repository is where all functioning and tested
+on GitHub. The main branch in the repository is where all functioning and tested
 codes located. Tags on commits in the main branch will be used to indicate
 snapshots of the repository for deliverables grading.
 
 Relevant product features will be brought up and discussed in team meetings. The
 implementation of features will be decomposed into subtasks and then assigned to
-a team member. A Github issue labeled ``feature'' will be created for tracking
+a team member. A GitHub issue labeled ``feature'' will be created for tracking
 the progress of implementation and any feedback or discussion related to the
-subtask. If a member encounters unexpected errors or behaviors outside the scope
+subtask. If a member encounters unexpected errors or behaviours outside the scope
 of their work during development or testing, they should file an issue with a
 ``bug'' label. The issue will be discussed in the next meeting to determine the
 owner of the bug fix. Regression tests shall be created following a close of bug
-issue for documentation purposes. The Github Project board will be used to
+issue for documentation purposes. The GitHub Project board will be used to
 manage and organize all the issues.
 
 Following the creation of an issue, a git branch off from main will be created
@@ -218,12 +218,12 @@ and the deletion of the dedicated branch.
 The main branch is protected. Pull request and code review are require to merge
 changes into main. Approvals from \emph{at least two} other team members are
 required to pass the review. Continuous Integration/Continuous Development
-(CI/CD) in the form of automated Github actions is used to perform coding
+(CI/CD) in the form of automated GitHub actions is used to perform coding
 standard checks, unit tests, comprehensive regression tests upon each pull
 request. Successful execution of the actions listed above is also required for
 merging into main.
 
-A Github issue shall be opened for each deliverable. Equal contribution to the
+A GitHub issue shall be opened for each deliverable. Equal contribution to the
 written part of deliverables is assumed by default. Each team member shall
 upload the draft of their parts to a shared Google Doc with minimal formatting.
 The use of Google Doc is intended for easy collaborations and synchronous
@@ -253,7 +253,7 @@ efficient collaboration and high-quality output.}
   followed by the creation of a corresponding GitHub issue labeled as "feature." 
   Team members are assigned subtasks within these features.}
 \subsubsection{\textcolor{red}{Bug Tracking}}
-  \textcolor{red}{Any unexpected behavior or bugs are tracked through GitHub issues 
+  \textcolor{red}{Any unexpected behaviour or bugs are tracked through GitHub issues 
   tagged as "bug." These issues are prioritized and addressed in subsequent team 
   meetings.}
 
@@ -346,15 +346,37 @@ and used on any device.
 
 \section{Technology}
 
+\textcolor{red}{The selected technologies and tools for the project have been chosen 
+for their suitability for our needs. Below are the technologies we will be using, 
+accompanied by the rationale behind each choice:}
+
 \begin{description}
-\item[Programming Language] Python, JavaScript/TypeScript
-\item[Linter Tool] Flake8, ESlint
-\item[Testing Framework] pytest, jest
-\item[Code Coverage] pytest-cov, jest
-\item[Version Control] git
-\item[CI/CD] Github Actions
-\item[Libraries] WebRTC, PyTorch
-\item[Tools] Visual Studio Codes, Emacs, Google Doc, JetBrains IDEs
+
+\item[Programming Language] Python, \sout{JavaScript/}TypeScript\\
+\textcolor{red}{Python is chosen for its simplicity and readability, making it ideal for rapid development and prototyping.\\ 
+ TypeScript is used for its static typing features, enhancing maintainability and reducing runtime errors.}
+\item[Linter Tool] Flake8 \sout{, ESlint}\\
+\textcolor{red}{Flake8 is selected for its comprehensive integration with Python's idioms, despite its strict formatting rules.}
+\item[Testing Framework] pytest, jest\\
+\textcolor{red}{pytest offers a powerful and flexible testing suite for Python.\\
+ Jest is utilized for JavaScript/TypeScript due to its zero-configuration setup and built-in mock support.}
+\item[Code Coverage] pytest-cov, jest\\
+\textcolor{red}{pytest-cov is integrated with pytest for Python code coverage.\\
+ Jest is used alongside Jest for JavaScript/TypeScript to automatically collect coverage data.}
+\item[Version Control] git\\
+\textcolor{red}{git is the chosen distributed version control system, enabling effective collaboration among team members.}
+\item[CI/CD] GitHub Actions\\
+\textcolor{red}{GitHub Actions provide a robust platform for automation within the GitHub ecosystem.}
+\item[Libraries] WebRTC, PyTorch, aioRTC, MediaPipe\\
+\textcolor{red}{WebRTC is used for real-time communication capabilities.\\
+ PyTorch for its developer-friendly machine learning framework.\\
+ aioRTC for asynchronous WebRTC in Python.\\
+ MediaPipe for media processing machine learning solutions.}
+\item[Tools] Visual Studio Codes, Emacs, Google Doc, JetBrains IDEs\\
+\textcolor{red}{Visual Studio Code is chosen for its user-friendly interface and extensive plugin support.\\
+ Emacs for its customizability.\\
+  Google Docs for ease of collaborative editing.\\
+  JetBrains IDEs for their powerful features and integrations.}
 \end{description}
 
 \section{Coding Standard}
@@ -363,7 +385,7 @@ and used on any device.
 \item For the Python portion of the codebase, we will loosely follow the
   \href{https://peps.python.org/pep-0008/}{PEP 8 Python Style Guide}.
 \item For the JavaScript/TypeScript portion of the codebase, we will loosely follow
-  the \href{https://google.github.io/styleguide/jsguide.html}{Google JavaScript
+  the \href{https://google.GitHub.io/styleguide/jsguide.html}{Google JavaScript
     Style Guide}.
 \item Snakecase with all capital letters shall be used exclusively for constants.
 \item Adequate documentation and comments in codes is sufficient. Full
