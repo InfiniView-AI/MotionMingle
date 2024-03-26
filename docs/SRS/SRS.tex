@@ -73,7 +73,7 @@ This document serves as a comprehensive requirements specification for a \sout{W
     \item[Practitioner] A person who learns Tai Chi through an online conference system.
     \item[Skeleton Annotation] A type of annotation that the system can generate. This type of annotation looks like a human skeleton.
     \item\sout{\textbf{Clock Annotation}} A type of annotation that the system can generate. This type of annotation looks like a physical clock surrounding the instructor.
-    \item[Center of Mass Visualization] A type of annotation that the application generates. This type of annotation shows the instructor’s center of mass with the instructor's face and feet's direction.
+    \item[\textcolor{red}{Center of Mass Visualization}] \textcolor{red}{A type of annotation that the application generates. This type of annotation shows the instructor’s center of mass with the instructor's face and feet's direction.}
     \item[Semantic Segmentation] The process of linking each pixel in an image to a class label. It is a pixel-wise classification task that assigns a semantic label like “person”, “car”, “road”, etc. To every pixel in the image.
     \item[Pose Estimation/Extraction] The process of using machine learning models to estimate the pose of a person from an image or a video by estimating the spatial locations of the person’s key body joints.
     \item[2D Pose Estimation] The process of estimating the 2D position and orientation of a person or object in an image or video. This involves identifying the key points on the body or object, such as the head, shoulders, knees, etc. then estimating their position in  2D space.
@@ -128,23 +128,26 @@ Other technical choices include the choice of programming language, Python, for 
 \newpage
 \subsection{Schedule and Milestones}
 Please refer to table \ref{TblMilestones}
+
+\textcolor{red}{ Items with "High" priority will be addressed first, with subsequent focus shifting to "Medium" and "Low" priorities as the project progresses. This approach ensures that resources and efforts are allocated according to the importance and impact of each milestone on the project's overall success.}
+
 \begin{table}
     \caption{Milestones and Scheduled Due Dates} \label{TblMilestones}
-    \begin{tabularx}{1.0\linewidth}[h]{p{7cm}|p{6cm}}
+    \begin{tabularx}{1.0\linewidth}[h]{p{5cm}|p{5cm}|p{2cm}}
     \toprule
-    \textbf{Milestone}        & \textbf{Scheduled Due Date} \\ \hline
+    \textbf{Milestone}        & \textbf{Scheduled Due Date}      & \textcolor{red}{\textbf{Priority}} \\ \hline
     \midrule
-    Team Formed, Project Selected                                  &   18 September 2023 \\ \hline
-    Problem Statement, Proof of Concept Plan, Development Plan     &   25 September 2023 \\ \hline
-    Requirements Documents Revision 0                              &   06 October 2023   \\ \hline
-    Hazard Analysis Revision 0                                     &   20 October 2023   \\ \hline
-    Verification and Validation Plan Revision 0                    &   03 November 2023  \\ \hline
-    Proof of Concept Demonstration                                 &   Week of 17 November 2023 \\ \hline
-    Design Document Revision 0                                     &   17 January 2024   \\ \hline
-    Project Demonstration Revision 0                               &   Two weeks starting 05 February 2024 \\ \hline
-    Verification and Validation Report Revision 0                  &   06 March 2024     \\ \hline
-    Project Demonstration Revision 1 (Final)                       &   Two weeks starting 18 March 2024 \\ \hline
-    Full Project Documentation Revision 1 (Final)                  &   04 April 2024 \\ \hline
+    Team Formed, Project Selected                                  &   18 September 2023 & \textcolor{red}{Low} \\ \hline
+    Problem Statement, Proof of Concept Plan, Development Plan     &   25 September 2023 & \textcolor{red}{Medium} \\ \hline
+    Requirements Documents Revision 0                              &   06 October 2023   & \textcolor{red}{High} \\ \hline
+    Hazard Analysis Revision 0                                     &   20 October 2023   & \textcolor{red}{Medium} \\ \hline
+    Verification and Validation Plan Revision 0                    &   03 November 2023  & \textcolor{red}{Medium} \\ \hline
+    Proof of Concept Demonstration                                 &   Week of 17 November 2023 & \textcolor{red}{High} \\ \hline
+    Design Document Revision 0                                     &   17 January 2024   & \textcolor{red}{High} \\ \hline
+    Project Demonstration Revision 0                               &   Two weeks starting 05 February 2024 & \textcolor{red}{Medium} \\ \hline
+    Verification and Validation Report Revision 0                  &   06 March 2024     & \textcolor{red}{Medium} \\ \hline
+    Project Demonstration Revision 1 (Final)                       &   Two weeks starting 18 March 2024 & \textcolor{red}{High} \\ \hline
+    Full Project Documentation Revision 1 (Final)                  &   04 April 2024 & \textcolor{red}{High} \\ \hline
     \bottomrule
     \end{tabularx}
 \end{table}
