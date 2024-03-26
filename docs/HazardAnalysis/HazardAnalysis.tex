@@ -192,24 +192,55 @@ accountable, and adaptable to changing circumstances, the following assumptions
 are made:
 
 \begin{enumerate}
-\item \sout{The user does not intentionally attempt to break the system, such as
-providing deceptive inputs that aim to trick machine learning models
-(adversarial attacks).}
 \item \textcolor{red}{While the system is designed to mitigate and handle unintentional 
   user errors and common misuse scenarios, it may not be fully resilient against 
   sophisticated, intentionally malicious activities designed to exploit system 
   vulnerabilities or deceive advanced machine learning algorithms.}
-\item Only legal content is shared on the conferencing platform. The user does not
+\item \textcolor{red}{It is anticipated that users will share only legal content on 
+the conferencing platform. Nevertheless, it is understood that there may be attempts 
+to share abusive, criminal, or pornographic content, and measures should be considered 
+to detect and prevent the dissemination of such materials.}
+\item \textcolor{red}{It is assumed that users have the physical capability to interact 
+with and operate the system. This does not preclude the exploration of accessibility 
+options to ensure that the system is inclusive and accommodating of users with physical 
+disabilities.}
+\item \textcolor{red}{Hazard analysis for the media capturing device component is 
+scoped to consider typical use cases, excluding extreme conditions outside the intended 
+use of the platform.}
+\item \sout{The user does not intentionally attempt to break the system, such as
+providing deceptive inputs that aim to trick machine learning models
+(adversarial attacks).}
+\item \sout{Only legal content is shared on the conferencing platform. The user does not
   deliberately exploit the system to spread abusive, criminal, pornographic
-  content.
-\item The user has no physical disability, meaning that users are presumed to have
+  content.}
+\item \sout{The user has no physical disability, meaning that users are presumed to have
   the physical capability to interact with and operate the system without
-  encountering any limitations related to physical disabilities.
-\item Hazard analysis for the media capturing device component only applies to
-  instructors.
+  encountering any limitations related to physical disabilities.}
+\item \sout{Hazard analysis for the media capturing device component only applies to
+  instructors.}
 \end{enumerate}
 
-
+\subsection{\textcolor{red}{Potential Mitigation Strategies}}
+\textcolor{red}{The landscape of cybersecurity and system integrity presents a multitude of challenges 
+that require diligent anticipation and proactive management. Recognizing that no system 
+can be entirely immune to adversarial actions, the following potential mitigation strategies 
+have been identified. These strategies are designed to enhance the resilience of the platform, 
+reduce the likelihood of malicious exploitation, and ensure the integrity and continuity 
+of the service provided. While some may extend beyond the current scope of the capstone 
+project, they are integral to a comprehensive approach to system security and user safety. 
+The subsequent list delineates methods and practices that could be implemented to safeguard 
+the platform against a range of adversarial threats.}
+\begin{enumerate}
+\item \textcolor{red}{Implement Robust Input Validation: Use strong input validation 
+checks to ensure that only expected types of data are processed by the system. This 
+can help prevent a variety of injection attacks.}
+\item \textcolor{red}{Employ Anomaly Detection: Utilize machine learning models for 
+anomaly detection to identify unusual patterns that may indicate adversarial behavior.}
+\item \textcolor{red}{Rate Limiting and CAPTCHA: Implement rate limiting to prevent 
+automated attacks and CAPTCHA challenges to distinguish between human and automated access.}
+\item \textcolor{red}{User Behavior Analytics: Analyze user behavior to identify 
+potentially malicious actions and have measures in place for a quick response.}
+\end{enumerate}
 \section{Failure Mode and Effect Analysis}
 
 In the Failure Mode and Effect Analysis (FMEA) section, we employ a structured
@@ -477,11 +508,15 @@ New requirements identifiers are highlighted in bold.
     detected, and put the user on hold if the issue persists.
 	\item[Priority] Medium
   \end{description}
-\item The system shall be running when the primary signaling server is
-  down. \label{PR9}
+\item \sout{The system shall be running when the primary signaling server is
+  down.}\textcolor{red}{The core functionalities of the system(starting the session, 
+  joining the session, getting annotated video) shall remain operational in the 
+  event that the primary signaling server is down.} \label{PR9}
 	\begin{description}
-  \item[Rationale] To enhance system resilience and reliability and reduce system
-    downtime.
+  \item[Rationale] \sout{To enhance system resilience and reliability and reduce system
+    downtime.} \textcolor{red}{This requirement is to enhance system resilience 
+    and reliability by ensuring that essential services can continue without 
+    interruption, thereby reducing system downtime.}
 	\item[Fit Criteria] A redundant signaling server shall be maintained alongside
     the primary signaling server, and shall be deployed when the primary
     signaling server is down.
