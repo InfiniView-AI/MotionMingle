@@ -90,6 +90,7 @@ This document serves as a comprehensive requirements specification for a \sout{W
     that routes and selectively forwards audio and video streams from one participant to others}
     \item[\textcolor{red}{STUN/TURN servers}] \textcolor{red}{A component in real-time communication systems that is responsible for
     establishing and maintaining connections.}
+    \item[\textcolor{red}{Elder User}] \textcolor{red}{Individuals who are aged 65 years and older}
 \end{description}
 
 \subsection{\textcolor{red}{Symbolic Constants}}\label{sec:symbolic-constants}
@@ -217,8 +218,10 @@ Please refer to \ref*{Glossary} Glossary
 \begin{description}
     \item[Internet Access] Users of the system are assumed to have \textcolor{red}{access to }a \sout{reliable} internet connection. Packet loss and interruptions resulting from poor network connections are \sout{generally not} accounted for.
     \item[Device Capability and Compatibility] The system is assumed to run on modern portable/non-portable computing devices with adequate computational power and basic networking and real-time data streaming capabilities. The software runtime environment on top of the capable hardware is also assumed to be up-to-date. Extensive backward compatibility with outdated, deprecated hardware or software is not required.
-    \item[Understanding of the Annotation] After adding annotations to the instructor’s streaming video, practitioners are assumed to understand these annotations.
-    \item[Cognitive Ability] Assume users are able to understand and use the interface of the system, presuppose that users can navigate, process information, and make informed decisions within the interface without struggling.
+    \item[\sout{Understanding of the Annotation}] \sout{After adding annotations to the instructor’s streaming video, practitioners are assumed to understand these annotations.}
+    \item[\textcolor{red}{Usability and Annotation Clarity}] \textcolor{red}{Rather than assuming users inherently understand the provided annotations, the design will undergo user testing to validate the effectiveness of annotations in conveying the intended information. Continuous improvement will be guided by user feedback to ensure clarity and comprehensiveness.}
+    \item[\sout{Cognitive Ability}] \sout{Assume users are able to understand and use the interface of the system, presuppose that users can navigate, process information, and make informed decisions within the interface without struggling.}
+    \item[\textcolor{red}{User Interaction}] \textcolor{red}{The interface will be designed for intuitive navigation and interaction, with the aim to accommodate a broad range of cognitive abilities. Usability testing will be conducted to ensure that users can effectively navigate, understand presented information, and make informed decisions within the system.}
     \item[Supported Video Resolutions] Most users’ built-in webcams in laptops and phones are assumed to support video resolution\\ \hyperref[sec:symbolic-constants]{\textcolor{red}{LOWEST\_RESOLUTION\_SUPPORTED}} \sout{up} to \\\sout{1080p}\hyperref[sec:symbolic-constants]{\textcolor{red}{HIGHEST\_RESOLUTION\_SUPPORTED}}, which is commonly used for streaming and daily uses.
     \item[Scalability of the System] The system will be designed with scalability in mind, assuming a growing user base.
 \end{description}
@@ -356,7 +359,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item[FR6] The system shall allow practitioners to configure the type of annotations. \label{FR6}
+    \item[FR6] The system shall allow practitioners to \sout{configure the type of annotations}\textcolor{red}{choose annotation from Skeleton, Center of Mass Visualization and Semantic Segmentation}. \label{FR6}
     \begin{itemize}
         \item Rationale: The system needs user configuration details from practitioners as parameters to arrange the corresponding machine-learning pipeline.
         \item Priority: Critical
@@ -461,7 +464,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \textcolor{red}{At least \sout{90\%} \textcolor{red}{USER\_SATISFACTION\_PERCENTAGE} of the users can complete all operations and nevigation without assistance} \label{UH1}
     \begin{itemize}
         \item Rationale: To minimize user frustration and ensure a positive user experience.
-        \item Fit Criteria: Users can complete common tasks within the system without extensive assistance.
+        \item Fit Criteria: \hyperref[sec:symbolic-constants]{\textcolor{red}{USER\_SATISFACTION\_PERCENTAGE}} of the users can complete common tasks within the system without extensive assistance.
         \item Priority: Medium
     \end{itemize}
 \end{itemize}
@@ -470,7 +473,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \item[UH2] The system shall be easy to learn for users of all age groups and experience levels. \label{UH2}
     \begin{itemize}
         \item Rationale: To accommodate a diverse user base, including older individuals who may be less familiar with technology.
-        \item Fit Criteria: Elder users can perform basic tasks and navigate the system effectively \sout{after a short learning period}
+        \item Fit Criteria: Elder users\textcolor{red}{individuals who are aged 65 years and older} can perform basic tasks and navigate the system effectively \sout{after a short learning period}
         \textcolor{red}{within 10 minutes}.
         \item Priority: Medium
     \end{itemize}
