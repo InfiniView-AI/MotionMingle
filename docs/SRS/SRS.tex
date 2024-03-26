@@ -100,6 +100,7 @@ This document serves as a comprehensive requirements specification for a \sout{W
     \item[\textcolor{red}{COMPATIBILITY\_PERCENTAGE =}] \textcolor{red}{\%95}
     \item[\textcolor{red}{LOWEST\_RESOLUTION\_SUPPORTED =}] \textcolor{red}{480P}
     \item[\textcolor{red}{HIGHEST\_RESOLUTION\_SUPPORTED =}] \textcolor{red}{1080P}
+    \item[\textcolor{red}{WORKING\_TEMPERATURE =}] \textcolor{red}{65\degree C}
 \end{description}
 
 \section{Project}
@@ -621,7 +622,7 @@ made and reviewed by the development team.
     \item[HS1] The system shall not cause the computers to overload. \label{HS1}
     \begin{itemize}
         \item Rationale: The system should not overload the users’ computers.
-        \item Fit Criteria: The hardware running the system is under normal temperature \textcolor{red}{65\degree C}.
+        \item Fit Criteria: The hardware running the system is under normal temperature \hyperref[sec:symbolic-constants]{\textcolor{red}{WORKING\_TEMPERATURE}}.
         \item Priority: Medium
     \end{itemize}
 \end{itemize}
@@ -629,7 +630,7 @@ made and reviewed by the development team.
     \item[HS2] The system shall not affect users’ physical and mental health. \label{HS2}
     \begin{itemize}
         \item Rationale: The system must not harm users’ health and safety.
-        \item Fit Criteria: \textcolor{red}{99\% of the} users feel comfortable using the system in various situations.
+        \item Fit Criteria: \hyperref[sec:symbolic-constants]{\textcolor{red}{USER\_SATISFACTION\_PERCENTAGE}} users feel comfortable using the system in various situations.
         \item Priority: Critical
     \end{itemize}
 \end{itemize}
