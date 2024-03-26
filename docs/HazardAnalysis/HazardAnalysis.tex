@@ -24,9 +24,10 @@
 \usepackage{geometry}
 \usepackage{siunitx}
 \usepackage{longtable}
+\usepackage{ulem}
 \usepackage[style=ieee]{biblatex}
-\addbibresource{/home/joe/Documents/McMaster/SFWRENG 4G06 Capstone Design Project (ft. Spencer)/MotionMingle/refs/References.bib}
-%\addbibresource{../../refs/References.bib}
+\addbibresource{../../refs/References.bib}
+
 
 \title{Hazard Analysis\\\progname}
 
@@ -68,6 +69,8 @@
     \midrule
     & QC & Introduction,\\
     & & Scope and Purpose of Hazard Analysis\\
+    \midrule\\
+    25 March 2024 & AJ, KH, QC, QS, XY & Rev1 \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -92,6 +95,34 @@ functionality, particularly when interacting with various environmental factors.
 This document is dedicated to a comprehensive hazard analysis of our innovative
 Tai Chi video conferencing application, identifying the hazards and emphasizing
 the appropriate actions for the hazards.
+
+\subsection{Glossary}
+
+\begin{description}
+\item[Tai Chi] A classical Chinese martial art system practiced for health
+  promotion and rehabilitation.
+\item[Instructor] A person who teaches a Tai Chi class through an online conference
+  system.
+\item[Practitioner] A person who learns Tai Chi through an online conference
+  system.
+\item[Machine Learning Model] A mathematical model designed to find patterns and make predictions or decisions based on data
+\item[Annotation Pipeline] A sequence of processing elements connected in series, which are responsible for generating annotations
+\item[SFU] Selective Forwarding Unit, a component in real-time communication systems like WebRTC that routes and selectively forwards audio and video streams from one participant to others
+\end{description}
+
+\subsection{Symbolic Constants}
+
+\begin{table}[h]
+  \caption{Symbolic constants in Hazard Analysis}
+  \begin{tabularx}{1.0\linewidth}[h]{ll} \toprule
+    \textbf{Symbol} & \textbf{Value} \\ \midrule
+    MAX\_DELAY \label{const:delay} & \SI{500}{\milli\second} \\
+    MIN\_RES \label{const:res} & 720p \\ \bottomrule
+  \end{tabularx}
+  \label{tab:syms}
+\end{table}
+
+
 
 \section{Scope and Purpose of Hazard Analysis}
 
@@ -586,34 +617,6 @@ capstone project. Other requirements with lower priorities could be met by
 future implementations. This roadmap will serve as a guide to ensure that our
 Tai Chi video conferencing application evolves in a way that aligns with our
 commitment to safety, security and user satisfaction.
-
-\section{Appendix}
-
-\subsection{Glossary}
-
-\begin{description}
-\item[Tai Chi] A classical Chinese martial art system practiced for health
-  promotion and rehabilitation.
-\item[Instructor] A person who teaches a Tai Chi class through an online conference
-  system.
-\item[Practitioner] A person who learns Tai Chi through an online conference
-  system.
-\item[Machine Learning Model] A mathematical model designed to find patterns and make predictions or decisions based on data
-\item[Annotation Pipeline] A sequence of processing elements connected in series, which are responsible for generating annotations
-\item[SFU] Selective Forwarding Unit, a component in real-time communication systems like WebRTC that routes and selectively forwards audio and video streams from one participant to others
-\end{description}
-
-\subsection{Symbolic Constants}
-
-\begin{table}[h]
-  \caption{Symbolic constants in Hazard Analysis}
-  \begin{tabularx}{1.0\linewidth}[h]{ll} \toprule
-    \textbf{Symbol} & \textbf{Value} \\ \midrule
-    MAX\_DELAY \label{const:delay} & \SI{500}{\milli\second} \\
-    MIN\_RES \label{const:res} & 720p \\ \bottomrule
-  \end{tabularx}
-  \label{tab:syms}
-\end{table}
 
 \printbibliography[heading=bibnumbered]{}
 
