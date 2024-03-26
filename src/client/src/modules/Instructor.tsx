@@ -108,8 +108,6 @@ function Instructor() {
   const broadcastLocalVideo = async () => {
     const videoElement = document.createElement('video');
 
-    videoElement.src = tai_chi_video;
-
     videoElement.onloadedmetadata = async () => {
 
       const stream = (videoElement as any).captureStream();
