@@ -85,7 +85,21 @@ This document serves as a comprehensive requirements specification for a \sout{W
     \item[UI] User Interface
     \item[UX] User Experience
     \item[AI] Artificial Intelligence
-    \item[OS] Operating System 
+    \item[OS] Operating System
+    \item[\textcolor{red}{SFU}] \textcolor{red}{Selective Forwarding Unit, a component in real-time communication systems like WebRTC
+    that routes and selectively forwards audio and video streams from one participant to others}
+    \item[\textcolor{red}{STUN/TURN servers}] \textcolor{red}{A component in real-time communication systems that is responsible for
+    establishing and maintaining connections.}
+\end{description}
+
+\subsection{\textcolor{red}{Symbolic Constants}}\label{sec:symbolic-constants}
+\begin{description}
+    \item[\textcolor{red}{USER\_SATISFACTION\_PERCENTAGE =}] \textcolor{red}{\%95}
+    \item[\textcolor{red}{INTERNET\_UPLOAD\_SPEED =}] \textcolor{red}{5Mbps} 
+    \item[\textcolor{red}{INTERNET\_DOWNLOAD\_SPEED =}] \textcolor{red}{25Mbps} 
+    \item[\textcolor{red}{COMPATIBILITY\_PERCENTAGE =}] \textcolor{red}{\%95}
+    \item[\textcolor{red}{LOWEST\_RESOLUTION\_SUPPORTED =}] \textcolor{red}{480P}
+    \item[\textcolor{red}{HIGHEST\_RESOLUTION\_SUPPORTED =}] \textcolor{red}{1080P}
 \end{description}
 
 \section{Project}
@@ -190,8 +204,9 @@ Please refer to \ref*{Glossary} Glossary
 
 \subsection{Constraints}
 \begin{description}
-    \item[Bandwidth] The Application must not occupy more than 20MB/s download speed\cite{downloadSpeed2018} and 5 MB/s upload speed\cite{uploadSpeed2021}, as these two numbers are the most common home internet speeds for Canadian families.
-    \item[Compatibility] The product must be able to operate on all Windows, Mac OS and Linux platforms because over 95\% of the computers run on these three systems\cite{OSMarketShare}.
+    \item[Bandwidth] The Application must not occupy more than\\ \sout{20MB/s}\hyperref[sec:symbolic-constants]{\textcolor{red}{INTERNET\_DOWNLOAD\_SPEED}} download speed\cite{downloadSpeed2018} and \sout{5 MB/s}\hyperref[sec:symbolic-constants]{\textcolor{red}{INTERNET\_UPLOAD\_SPEED}} upload speed\cite{uploadSpeed2021}, as these two numbers are the most common home internet speeds for Canadian families.
+    \item[Compatibility] The product must be able to operate on all Windows, Mac OS and Linux platforms because over \sout{95\%} 
+    \hyperref[sec:symbolic-constants]{\textcolor{red}{COMPATIBILITY\_PERCENTAGE}} of the computers run on these three systems\cite{OSMarketShare}.
     \item[Security] Data leak in any video conference system is not permitted, according to the Personal Information Protection and Electronic Documents Act\cite{Law1}.
     \item[Ease of Learning] One of the target audiences of our system is senior people. This user group usually has some difficulties in using software as they have lower technical device adoption\cite{olderAdultsTechUse}. The UI interaction must be clear and intuitive enough for senior people to learn all the features without further instructions.
     \item[Compliance] The application is required to comply with all applicable laws\cite{Law1}\cite{Law2}\cite{Law3} and regulations.
@@ -203,7 +218,7 @@ Please refer to \ref*{Glossary} Glossary
     \item[Device Capability and Compatibility] The system is assumed to run on modern portable/non-portable computing devices with adequate computational power and basic networking and real-time data streaming capabilities. The software runtime environment on top of the capable hardware is also assumed to be up-to-date. Extensive backward compatibility with outdated, deprecated hardware or software is not required.
     \item[Understanding of the Annotation] After adding annotations to the instructor’s streaming video, practitioners are assumed to understand these annotations.
     \item[Cognitive Ability] Assume users are able to understand and use the interface of the system, presuppose that users can navigate, process information, and make informed decisions within the interface without struggling.
-    \item[Supported Video Resolutions] Most users’ built-in webcams in laptops and phones are assumed to support video resolution \textcolor{red}{from 480p} \sout{up} to 1080p, which is commonly used for streaming and daily uses.
+    \item[Supported Video Resolutions] Most users’ built-in webcams in laptops and phones are assumed to support video resolution\\ \hyperref[sec:symbolic-constants]{\textcolor{red}{LOWEST\_RESOLUTION\_SUPPORTED}} \sout{up} to \\\sout{1080p}\hyperref[sec:symbolic-constants]{\textcolor{red}{HIGHEST\_RESOLUTION\_SUPPORTED}}, which is commonly used for streaming and daily uses.
     \item[Scalability of the System] The system will be designed with scalability in mind, assuming a growing user base.
 \end{description}
 
@@ -434,7 +449,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \item[LF1] The system shall have a user interface design that prioritizes clear and logically organized menus \label{LF1}
     \begin{itemize}
         \item Rationale: To ensure that users can comfortably use the system.
-        \item Fit Criteria: 95\% of users are satisfied with the appearance of the UI interface.
+        \item Fit Criteria: \sout{95\%} \hyperref[sec:symbolic-constants]{\textcolor{red}{USER\_SATISFACTION\_PERCENTAGE}} of users are satisfied with the appearance of the UI interface.
         \item Priority: Medium
     \end{itemize}
 \end{itemize}
@@ -442,7 +457,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
 \textbf{Ease of Use Requirement:}
 \begin{itemize}
     \item[UH1] \sout{The system shall have a straightforward and intuitive user interface design.}
-    \textcolor{red}{At least 90\% of the users can complete all operations and nevigation without assistance} \label{UH1}
+    \textcolor{red}{At least \sout{90\%} \textcolor{red}{USER\_SATISFACTION\_PERCENTAGE} of the users can complete all operations and nevigation without assistance} \label{UH1}
     \begin{itemize}
         \item Rationale: To minimize user frustration and ensure a positive user experience.
         \item Fit Criteria: Users can complete common tasks within the system without extensive assistance.
