@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{ulem}
 \newcommand{\rt}[1]{\textcolor{red}{#1}}
 \hypersetup{
     colorlinks,
@@ -151,8 +152,10 @@ require changing the one module that hides the associated decision. The approach
 adopted here is called design for change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum :] Video stream sharing by practitioners might be allowed for better user communications.
-\item[\refstepcounter{acnum} \actheacnum :] Audio stream sharing by practitioners might be allowed for better user communications.
+\item[\refstepcounter{acnum} \actheacnum :] \sout{Video stream sharing by practitioners might be allowed for better user communications.}\\
+    \rt{The application shall enable the streaming of video content from instructors to practitioners, ensuring clear visual communication for instructional purposes.}
+\item[\refstepcounter{acnum} \actheacnum :] \sout{Audio stream sharing by practitioners might be allowed for better user communications.}
+    \rt{The application shall support audio streaming capabilities for practitioners to facilitate auditory communication without the necessity for video transmission from their end.}
 \item[\refstepcounter{acnum} \actheacnum :] The number of annotation types available for users to choose from might change as discovered through the development process.
 
 \item[\refstepcounter{acnum} \actheacnum :] The initial release of the application has a limited load capacity, which will need to be expanded as the application's popularity grows to accommodate a growing number of users.
