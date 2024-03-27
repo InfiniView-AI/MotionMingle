@@ -419,23 +419,22 @@ User's devices have a functioning screen, camera and microphone.
 \begin{itemize}
 \item transition: isMicEnabled := isEnabled
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{DeviceAccessError --- thrown if the microphone cannot be accessed or permissions are not granted.}
 \end{itemize}
 
 \noindent setCameraEnabled(isEnabled: Boolean):
 \begin{itemize}
 \item transition: isCameraEnabled := isEnabled
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{DeviceAccessError --- thrown if the microphone cannot be accessed or permissions are not granted.}
 \end{itemize}
-
 
 \noindent getStream():
 \begin{itemize}
 \item transition: N/A
 \item output: returns the user media stream based on the state value
   isCameraEnabled and isMicEnabled
-\item exception: N/A
+\item exception: \sout{N/A} \rt{DeviceAccessError --- thrown if the microphone cannot be accessed or permissions are not granted.}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -503,7 +502,7 @@ User's devices have a functioning screen, camera and microphone.
 \begin{itemize}
 \item transition: N/A
 \item output: renders a react component of the instructor view page
-\item exception: N/A
+\item exception: \sout{N/A} \rt{RenderError --- thrown if the component fails to render.}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -512,7 +511,7 @@ User's devices have a functioning screen, camera and microphone.
 \begin{itemize}
 \item transition: peerConnection := pc
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{ConnectionError --- thrown if the peer connection cannot be established.}
 \end{itemize}
 
 \noindent getSelfVideo():
@@ -523,14 +522,14 @@ User's devices have a functioning screen, camera and microphone.
 
   render video stream from the local camera to screen
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{VideoStreamError --- thrown if the local video stream cannot be accessed or is not available.}
 \end{itemize}
 
 \noindent startRemoteSharing():
 \begin{itemize}
 \item transition: peerConnection.addTrack := MediaControl.getStream()
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{ShareStartError --- thrown if the stream cannot be added to the peer connection or sharing cannot be initiated.}
 \end{itemize}
 
 \noindent stopRemoteSharing():
@@ -543,7 +542,7 @@ User's devices have a functioning screen, camera and microphone.
 
   stops the remote video on the user’s screen and close the RTCPeerConnection
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{ShareStopError --- thrown if stopping the remote sharing fails or the connection cannot be closed.}
 \end{itemize}
 
 \noindent getRemoteVideo():
@@ -551,7 +550,7 @@ User's devices have a functioning screen, camera and microphone.
 \item transition: get remote video coming from the SFU server and render it on the
   user's screen.
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{RemoteVideoError --- thrown if the remote video cannot be retrieved or displayed.}
 \end{itemize}
 
 
@@ -617,7 +616,7 @@ N/A
 \begin{itemize}
 \item transition: peerConnection := pc
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \noindent getRemoteVideo():
@@ -625,7 +624,7 @@ N/A
 \item transition: get remote video coming from the SFU server and render it on the
   user's screen.
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 
@@ -684,28 +683,28 @@ N/A
 \begin{itemize}
 \item transition: isSkeletonEnabled := isEnabled
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \noindent setIsCOMEnabled(isEnabled: Boolean):
 \begin{itemize}
 \item transition: isCOMEnabled := isEnabled
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \noindent getIsSkeletonEnabled():
 \begin{itemize}
 \item transition: N/A
 \item output: isSkeletonEnabled
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \noindent getIsCOMEnabled():
 \begin{itemize}
 \item transition: N/A
 \item output: isCOMEnabled
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 
@@ -768,7 +767,7 @@ N/A
 
   starts React App and render it on the user's device
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -824,7 +823,7 @@ N/A
   the user clicks on the practitioner button, jumps to the practitioner view
   page.
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -835,7 +834,7 @@ N/A
 \begin{itemize}
   \item transition: isUserInstructor := isEnabled
   \item output: N/A
-  \item exception: N/A
+  \item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \section{MIS of Video Transform Module} \label{sec:videotransform}
@@ -884,7 +883,7 @@ N/A
 \begin{itemize}
   \item transition: initiated by track and transform, self.track = track, self.transform = transform
   \item output: out := self
-  \item exception: N/A
+  \item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \noindent recv(self):
@@ -902,7 +901,7 @@ N/A
 \item output: Returns a new VideoFrame object (new\_frame) that has undergone the
   specified transformation, preserving the original frames timing information
   (timestamps and time base).
-  \item exception: N/A
+  \item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -964,7 +963,7 @@ N/A
   \end{itemize}
 \item output: Returns a web response in JSON format. This response contains the SDP
   data and the type of the local description set on the peer connection.
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \noindent broadcast(request):
@@ -990,7 +989,7 @@ N/A
   \end{itemize}
 \item output: Returns a web response in JSON format, containing the SDP data and
   the type of the local description set on the peer connection.
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -1051,7 +1050,7 @@ External libraries are functioning as expected
   returns them ordered by length.
 \item output: Returns a tuple with the first element being the keypoints set with
   the longer spine.
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \noindent matchKpts(mirror\_img):
@@ -1059,7 +1058,7 @@ External libraries are functioning as expected
 \item transition: Reflects the keypoints from the mirror image to match the real
   image.
 \item output: Returns the adjusted keypoints for the mirrored image.
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \noindent get3D(real\_kpts, mirror\_kpts):
@@ -1067,7 +1066,7 @@ External libraries are functioning as expected
 \item transition: Uses the keypoints from the real and mirror images to triangulate
   3D points.
 \item output: Returns the 3D coordinates of the keypoints.
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -1126,7 +1125,7 @@ reliable.
 \item transition: Calculates the center of mass based on the 3D points of body
   joints.
 \item output: Returns the 3D coordinates of the bodys center of mass.
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \noindent feetStates(CoM, points\_3D):
@@ -1137,7 +1136,7 @@ reliable.
 \item output: Returns a tuple containing two dictionaries, left\_foot and
   right\_foot, each indicating whether the respective foot is on the ground and
   whether it is supporting body weight.
-\item exception: N/A
+\item exception: \sout{N/A} \rt{}
 \end{itemize}
 
 \subsubsection{Local Functions}
