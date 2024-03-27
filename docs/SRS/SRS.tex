@@ -9,7 +9,7 @@
 \usepackage{xcolor}
 \usepackage{ulem}
 \usepackage{gensymb}
-
+\usepackage{tikz}
 
 \addbibresource{reference.bib}
 \graphicspath{./}
@@ -323,9 +323,19 @@ This section provides a detailed breakdown of the system’s desired functionali
 For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video streaming} application using an SFU architecture, participants initiate sessions through a user interface. The \sout{WebRTC} \textcolor{red}{Real-Time Communication} Client, aided by STUN and TURN servers, manages connection establishment and multi-media stream transmissions. Real-time Communication Engine establishes, maintains, and terminates the real-time sessions. Session setup details, communicated via the Signaling Server using the Session Description Protocol (SDP), determine the following media rendering. During the video conference, the Selective Forwarding Unit (SFU) routes and optimizes media stream distribution to participants. The video streams will be extracted from the SFU server,  and transferred to the API server by the socket. Then the API server will assign its integrated Machine Learning Models to render the video and send it back to the client side. The underlying infrastructure ensures efficient data transmission, maintaining overall application performance.
 
 \subsection{Finite State Machine}
-\includegraphics[width=15cm, height=7cm]{FSM.png}
+\begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=13cm, height=5cm]{FSM.png}};
+    \draw[black, line width=2pt] (image.south west) -- (image.north east);
+    \draw[black, line width=2pt] (image.north west) -- (image.south east);
+    \end{tikzpicture}
 
-\subsection{Functional Requirements}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=15cm, height=7cm]{FSM_Updated.png}
+\caption{\textcolor{red}{Updated Finite State Machine Diagram}}
+\label{fig:fsm_updated}
+\end{figure}
+
 \begin{itemize}
     \item[FR1] The system shall provide a real-time video streaming interface for Tai Chi instructors to conduct live sessions. \label{FR1}
     \begin{itemize}
