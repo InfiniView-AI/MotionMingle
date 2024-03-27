@@ -143,7 +143,7 @@ class VideoTransformTrack(MediaStreamTrack):
             solutions.drawing_styles.get_default_pose_landmarks_style())
 
 
-            VideoTransformTrack.draw_COM(annotated_image, pose_landmarks)
+            VideoTransformTrack.draw_COM(annotated_image, pose_landmarks, BSP)
 
 
         return annotated_image
@@ -154,7 +154,7 @@ class VideoTransformTrack(MediaStreamTrack):
 
     
     @staticmethod
-    def draw_COM(img, pose_landmarks):
+    def draw_COM(img, pose_landmarks, BSP):
         screen_scale = 200
         pic_scale = 40
         lifted_threshold = 0.025
@@ -208,17 +208,23 @@ class VideoTransformTrack(MediaStreamTrack):
             return abs((x - com[0]) ** 2 + (z - com[2]) ** 2)
     
         def set_footprint_colour(footprint, colour):
-            """Set the colour of a footprint."""
-            colours = {
-                "blue": (255, 0, 255),
+            """Map colour names to BGR values"""
+            colour_map = {
+                "blue": (255, 255, 0),
                 "orange": (0, 165, 255),
                 "red": (0, 0, 255),
                 "dark_red": (0, 0, 122),
             }
-            r, g, b = colours.get(colour, (0, 0, 0))
-            footprint[:, :, 0] = r
-            footprint[:, :, 1] = g
-            footprint[:, :, 2] = b
+
+            # Check if the colour is in the map
+            if colour in colour_map:
+                b, g, r = colour_map[colour]
+                footprint[:, :, 0] = b
+                footprint[:, :, 1] = g
+                footprint[:, :, 2] = r
+            else:
+                print("Colour not recognized. Please add it to the colour_map.")
+
             return footprint
 
         def get_foot_to_com_distance(x, z, com):
@@ -301,15 +307,6 @@ class VideoTransformTrack(MediaStreamTrack):
 
         face_y1, face_y2 = face_y_offset , face_y_offset + face.shape[0]
         face_x1, face_x2 = face_x_offset , face_x_offset + face.shape[1]
-
-
-        if right_footprint.shape[2] == 4:
-            # Extract the alpha mask
-            right_alpha_mask = right_footprint[:, :, 3] / 255.0
-            right_alpha_inv = 1.0 - right_alpha_mask
-
-            left_alpha_mask = left_footprint[:, :, 3] / 255.0
-            left_alpha_inv = 1.0 - left_alpha_mask
 
 
         if right_footprint.shape[2] == 4:
