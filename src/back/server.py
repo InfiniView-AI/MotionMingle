@@ -31,6 +31,7 @@ logger = logging.getLogger("pc")
 peer_connections = set()
 relay = MediaRelay()
 source_video = VideoStreamTrack()
+broadcaster_active = False
 NO_TRANSFORM: str = "none"
 _transformed_tracks = dict()
 
@@ -120,6 +121,10 @@ async def broadcast(request):
     except ValidationError as error:
         raise web.HTTPBadRequest(reason=error.message)
 
+    global broadcaster_active
+    if broadcaster_active:
+        raise web.HTTPForbidden(reason="Another broadcaster is already active.")
+
     offer = RTCSessionDescription(sdp=body["sdp"], type=body["type"])
 
     pc = RTCPeerConnection()
@@ -150,13 +155,16 @@ async def broadcast(request):
         log_info("Track %s received", track.kind)
 
         if track.kind == "video":
-            global source_video
+            global source_video, broadcaster_active
             source_video = track
+            broadcaster_active = True
 
         @track.on("ended")
         async def on_ended():
             log_info("Track %s ended", track.kind)
             _transformed_tracks.clear()
+            global broadcaster_active
+            broadcaster_active = False
 
     # handle offer
     await pc.setRemoteDescription(offer)
