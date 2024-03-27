@@ -10,7 +10,6 @@ import MessageModal from './MessageModal';
 import SelectAnnotation from './SelectAnnotation';
 import { connectAsConsumer, createPeerConnection, connectAsBroadcaster } from './RTCControl';
 import logo from './logo.jpg';
-import tai_chi_video from './11_forms_demo_4min.mp4';
 
 const theme = createTheme({
   palette: {
@@ -109,8 +108,6 @@ function Instructor() {
   const broadcastLocalVideo = async () => {
     const videoElement = document.createElement('video');
 
-    videoElement.src = tai_chi_video;
-
     videoElement.onloadedmetadata = async () => {
 
       const stream = (videoElement as any).captureStream();
@@ -177,7 +174,7 @@ return (
         <video
           ref={selfVideoRef}
           autoPlay
-          style={{ width: '100%', maxWidth: '600px', aspectRatio: '600/450', border: '3px solid', borderColor: 'primary.main', borderRadius: '4px', marginTop: '20px' }}
+          style={{ width: '100%', maxWidth: '800px', aspectRatio: '600/450', border: '3px solid', borderColor: 'primary.main', borderRadius: '4px', marginTop: '20px' }}
           playsInline
         />
         {isPlayingRemoteVideo ? (
