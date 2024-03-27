@@ -767,7 +767,7 @@ N/A
 
   starts React App and render it on the user's device
 \item output: N/A
-\item exception: \sout{N/A} \rt{}
+\item exception: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -823,7 +823,7 @@ N/A
   the user clicks on the practitioner button, jumps to the practitioner view
   page.
 \item output: N/A
-\item exception: \sout{N/A} \rt{}
+\item exception: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -834,7 +834,7 @@ N/A
 \begin{itemize}
   \item transition: isUserInstructor := isEnabled
   \item output: N/A
-  \item exception: \sout{N/A} \rt{}
+  \item exception: N/A
 \end{itemize}
 
 \section{MIS of Video Transform Module} \label{sec:videotransform}
@@ -883,7 +883,7 @@ N/A
 \begin{itemize}
   \item transition: initiated by track and transform, self.track = track, self.transform = transform
   \item output: out := self
-  \item exception: \sout{N/A} \rt{}
+  \item exception: \sout{N/A} \rt{TransformationError --- thrown if the transform type is unrecognized or if the transformation process fails.}
 \end{itemize}
 
 \noindent recv(self):
@@ -901,7 +901,7 @@ N/A
 \item output: Returns a new VideoFrame object (new\_frame) that has undergone the
   specified transformation, preserving the original frames timing information
   (timestamps and time base).
-  \item exception: \sout{N/A} \rt{}
+  \item exception: \sout{N/A} \rt{InvalidFrameError --- thrown if the frame is null or corrupted; TransformNotAppliedError --- thrown if the transformation cannot be applied.}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -963,7 +963,7 @@ N/A
   \end{itemize}
 \item output: Returns a web response in JSON format. This response contains the SDP
   data and the type of the local description set on the peer connection.
-\item exception: \sout{N/A} \rt{}
+\item exception: \sout{N/A} \rt{ConnectionSetupError --- thrown if the RTCPeerConnection cannot be established; OfferProcessingError --- thrown if the offer cannot be processed or if setting the local/remote description fails.}
 \end{itemize}
 
 \noindent broadcast(request):
@@ -989,7 +989,7 @@ N/A
   \end{itemize}
 \item output: Returns a web response in JSON format, containing the SDP data and
   the type of the local description set on the peer connection.
-\item exception: \sout{N/A} \rt{}
+\item exception: \sout{N/A} \rt{ConnectionSetupError --- thrown if the RTCPeerConnection cannot be established; OfferProcessingError --- thrown if the offer cannot be processed or if setting the local/remote description fails.}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -1050,7 +1050,7 @@ External libraries are functioning as expected
   returns them ordered by length.
 \item output: Returns a tuple with the first element being the keypoints set with
   the longer spine.
-\item exception: \sout{N/A} \rt{}
+\item exception: \sout{N/A} \rt{KeyPointError --- thrown if keypoints are invalid or insufficient to compute the spine length.}
 \end{itemize}
 
 \noindent matchKpts(mirror\_img):
@@ -1058,7 +1058,7 @@ External libraries are functioning as expected
 \item transition: Reflects the keypoints from the mirror image to match the real
   image.
 \item output: Returns the adjusted keypoints for the mirrored image.
-\item exception: \sout{N/A} \rt{}
+\item exception: \sout{N/A} \rt{ReflectionError --- thrown if keypoints cannot be reflected properly due to incorrect format or data corruption.}
 \end{itemize}
 
 \noindent get3D(real\_kpts, mirror\_kpts):
@@ -1066,7 +1066,7 @@ External libraries are functioning as expected
 \item transition: Uses the keypoints from the real and mirror images to triangulate
   3D points.
 \item output: Returns the 3D coordinates of the keypoints.
-\item exception: \sout{N/A} \rt{}
+\item exception: \sout{N/A} \rt{TriangulationError --- thrown if 3D triangulation cannot be performed due to invalid or mismatched keypoints.}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -1125,7 +1125,7 @@ reliable.
 \item transition: Calculates the center of mass based on the 3D points of body
   joints.
 \item output: Returns the 3D coordinates of the bodys center of mass.
-\item exception: \sout{N/A} \rt{}
+\item exception: \sout{N/A} \rt{CalculationError --- thrown if the center of mass cannot be calculated, possibly due to invalid or insufficient 3D points.}
 \end{itemize}
 
 \noindent feetStates(CoM, points\_3D):
@@ -1136,7 +1136,7 @@ reliable.
 \item output: Returns a tuple containing two dictionaries, left\_foot and
   right\_foot, each indicating whether the respective foot is on the ground and
   whether it is supporting body weight.
-\item exception: \sout{N/A} \rt{}
+\item exception: \sout{N/A} \rt{StateDeterminationError --- thrown if the states of the feet cannot be determined, perhaps due to invalid center of mass or 3D points data.}
 \end{itemize}
 
 \subsubsection{Local Functions}
