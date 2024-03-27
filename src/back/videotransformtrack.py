@@ -143,7 +143,7 @@ class VideoTransformTrack(MediaStreamTrack):
             solutions.drawing_styles.get_default_pose_landmarks_style())
 
 
-            VideoTransformTrack.draw_COM(annotated_image, pose_landmarks, 1)
+            VideoTransformTrack.draw_COM(annotated_image, pose_landmarks)
 
 
         return annotated_image
@@ -154,11 +154,14 @@ class VideoTransformTrack(MediaStreamTrack):
 
     
     @staticmethod
-    def draw_COM(img, pose_landmarks, t):
+    def draw_COM(img, pose_landmarks):
         screen_scale = 200
         pic_scale = 40
+        lifted_threshold = 0.025
+
         
         def average_position(pose_landmarks, indices):
+            """Calculate the average position of specified landmarks."""
             if isinstance(indices, tuple):
                 x = sum(pose_landmarks[i].x for i in indices) / len(indices)
                 y = sum(pose_landmarks[i].y for i in indices) / len(indices)
@@ -168,15 +171,18 @@ class VideoTransformTrack(MediaStreamTrack):
                 return pose_landmarks[indices].x, pose_landmarks[indices].y, pose_landmarks[indices].z
 
         def interpolate_segment(origin, other, l):
+            """Interpolate a segment between two points."""
             return (np.interp(l, [0, 1], [origin[i], other[i]]) for i in range(3))
 
         def get_segment_mass(segment, pose_landmarks, BSP):
+            """Calculate the mass for a body segment."""
             origin = average_position(pose_landmarks, BSP[segment]['origin'])
             other = average_position(pose_landmarks, BSP[segment]['other'])
             segment_position = interpolate_segment(origin, other, BSP[segment]['l'])
             return tuple(pos * BSP[segment]['m'] for pos in segment_position)
 
         def getCOM(pose_landmarks, BSP, screen_scale):
+            """Calculate the Center of Mass (COM) for the pose."""
             com_x, com_y, com_z = 0.0, 0.0, 0.0
             for segment in BSP:
                 segment_mass = get_segment_mass(segment, pose_landmarks, BSP)
@@ -186,41 +192,37 @@ class VideoTransformTrack(MediaStreamTrack):
             return com_x * screen_scale, com_y * screen_scale, com_z * screen_scale
             
         def rotateImage(image, angle):
-            row = image.shape[0]
-            col = image.shape[1]
-            center=tuple(np.array([row,col])/2)
-            rot_mat = cv2.getRotationMatrix2D(center,angle,1.0)
-            new_image = cv2.warpAffine(image, rot_mat, (col,row))
-            return new_image
+            """Rotate an image by a specific angle."""
+            row, col = image.shape[:2]
+            center = tuple(np.array([row, col]) / 2)
+            rot_mat = cv2.getRotationMatrix2D(center, angle, 1.0)
+            return cv2.warpAffine(image, rot_mat, (col, row))
 
         def get_foot_angle(foot_heel, foot_toe):
+            """Calculate the angle for a foot."""
             return math.degrees(math.atan2(foot_heel.z - foot_toe.z, foot_heel.x - foot_toe.x)) + 90
 
         
         def get_foot_to_com_distance(x, z, com):
-            return (x - com[0]) **2 + (z - com[2]) ** 2
+            """Calculate the distance from a foot to the COM."""
+            return abs((x - com[0]) ** 2 + (z - com[2]) ** 2)
     
         def set_footprint_colour(footprint, colour):
-            if colour == "blue":
-                footprint[:, :, 0] = 255
-                footprint[:, :, 1] = 255
-                footprint[:, :, 2] = 0
-            elif colour == "orange":
-                footprint[:, :, 0] = 0
-                footprint[:, :, 1] = 165
-                footprint[:, :, 2] = 255
-            elif colour == "red":
-                footprint[:, :, 1] = 0
-                footprint[:, :, 0] = 0
-                footprint[:, :, 2] = 255
-            elif colour == "dark_red":
-                footprint[:, :, 1] = 0
-                footprint[:, :, 0] = 0
-                footprint[:, :, 2] = 122
-
+            """Set the colour of a footprint."""
+            colours = {
+                "blue": (255, 0, 255),
+                "orange": (0, 165, 255),
+                "red": (0, 0, 255),
+                "dark_red": (0, 0, 122),
+            }
+            r, g, b = colours.get(colour, (0, 0, 0))
+            footprint[:, :, 0] = r
+            footprint[:, :, 1] = g
+            footprint[:, :, 2] = b
             return footprint
 
         def get_foot_to_com_distance(x, z, com):
+            """Calculate the distance from a foot to the COM."""
             return abs((x - com[0]) **2 + (z - com[2]) ** 2)
 
 
@@ -268,7 +270,6 @@ class VideoTransformTrack(MediaStreamTrack):
         face_x_offset = int(face_x_offset)
         face_y_offset = -int(face_z_offset) + 50
 
-        lifted_threshold = 0.025
 
         l_com_dist = get_foot_to_com_distance(left_foot_x_offset, left_foot_z_offset, com)
         r_com_dist = get_foot_to_com_distance(right_foot_x_offset, right_foot_z_offset, com)
@@ -281,7 +282,6 @@ class VideoTransformTrack(MediaStreamTrack):
         # right heel lifted
         elif left_toe.y - right_toe.y > lifted_threshold:
             left_footprint = set_footprint_colour(left_footprint, "red")
-
         
         #com calculation have issue due to z axis
         # com to right
