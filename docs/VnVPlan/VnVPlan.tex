@@ -12,7 +12,7 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
-
+\usepackage[table]{xcolor}
 \usepackage[shortlabels]{enumitem}
 \usepackage{float}
 \usepackage{geometry}
@@ -82,6 +82,31 @@ throughout this document.
   \caption{List of symbols, abbreviations, and acronyms}
   \label{tab:abbrv}
 \end{table}
+
+\subsection{Symbolic Constants}\label{sec:symbolic-constants}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{lX} 
+    \toprule
+    \textbf{Symbolic Constant} & \textbf{Value} \\
+    \midrule
+    \rt{MAX\_RESPONSE\_TIME} & \rt{2 seconds}\\
+    \rt{TEST\_ITERATIONS} & \rt{100}\\
+    \rt{TEST\_ACCOUNTS\_NUMBERS} & \rt{5}\\
+    \rt{MIN\_NUM\_USER\_SUPPORTED} & \rt{5}\\
+    \rt{TEST\_DISCONNECT\_DURATION} & \rt{30 seconds}\\
+
+    \rt{MAX\_DELAY}  & \rt{\SI{500}{\milli\second}} \\
+    \rt{MAX\_TEMP}  & \rt{\SI{65}{\degreeCelsius}} \\
+    \rt{MIN\_RES}  & \rt{720p} \\
+    \rt{TARGET\_FACTOR}  & \rt{\SI{85}{\percent}} \\
+
+    \bottomrule
+  \end{tabularx}
+  \caption{List of Symbolic Constants}
+  \label{tab:symbolic-constants}
+\end{table}
+
 \newpage
 \pagenumbering{arabic}
 
@@ -405,7 +430,7 @@ non-functional requirements.
     testing framework in the CI pipeline. The test code will simulate a user's
     click on the screen and click on the applicable identity button, then assert
     the live stream video window showed up on the user's screen within the next
-    2 seconds.
+    \sout{2 seconds}\rt{MAX\_RESPONSE\_TIME}.
   \end{description}
 \item \label{FRT2}
   \begin{description}
@@ -420,7 +445,7 @@ non-functional requirements.
     running the prototype. The developer will make sure the on-device camera
     should be turned on after allowing the webcam permission, or the on-device
     camera should not be turned on after denying the webcam permission. The test
-    should be done at least 100 times to ensure the webcam on the instructor’s
+    should be done at least \sout{100}\rt{TEST\_ITERATIONS} times to ensure the webcam on the instructor’s
     device is turned on properly.
   \end{description}
 \item \label{FRT3}
@@ -574,7 +599,7 @@ non-functional requirements.
     testing framework in the CI pipeline. The test code will simulate a user's
     clicks to join a video stream session, then assert the button to identify if
     a user is an instructor or a practitioner showed up on the user's screen
-    within the next 1 second.
+    within the next \sout{1 second}\rt{MAX\_RESPONSE\_TIME}.
   \end{description}
 \end{enumerate}
 
@@ -616,18 +641,18 @@ non-functional requirements.
     A test scenario should be designed for each use case to cover all possible
     interactions within that use case. Use performance monitoring tools to
     record the response time for each interaction. Repeat each test scenario at
-    least 5 times for each use case under different system loads to account for
+    least \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} times for each use case under different system loads to account for
     variability. Compare the recorded response times against the 1-second
     requirement. If the system consistently responds within this timeframe for
     all test scenarios, the test is considered successful. Any deviations beyond
-    1 second will be considered a failure.
+    \sout{1 second}\rt{MAX\_RESPONSE\_TIME} will be considered a failure.
   \end{description}
 \item \label{NFRT3}
   \begin{description}
   \item[Type] Structural, Dynamic, Manual
   \item[Initial State] The system is in a stable operational state with necessary
     services and components active. No users are currently logged in.
-  \item[Input/Condition] 5 test accounts (or more) for users. Predefined user
+  \item[Input/Condition] \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} test accounts (or more) for users. Predefined user
     actions/scripts (relevant to normal system interactions during peak
     periods).
   \item[Output/Result] The system remains stable and responsive. All user
@@ -637,7 +662,7 @@ non-functional requirements.
   \item[How Test Will Be Performed] Set up an automated load testing tool and
     create test scripts mimicking typical user actions during peak periods. This
     might include logging in, accessing services, executing standard operations,
-    and logging out. Initiate the test by having 5 users (controlled by the load
+    and logging out. Initiate the test by having \sout{5}\rt{MIN\_NUM\_USER\_SUPPORTED} users (controlled by the load
     testing software) log into the system simultaneously, executing the
     predefined scripts that mimic peak load activities. Gradually increase the
     system load by adding more users (if applicable) to ensure it can handle
@@ -645,7 +670,7 @@ non-functional requirements.
     performance indicators, focusing on metrics like transaction success rate,
     response times, \rt{and} CPU/memory usage. Continuously record system metrics
     throughout the testing duration. After completing the test, analyze the data
-    to assess whether the system could sustain \sout{the} a minimum of 5 users during
+    to assess whether the system could sustain \sout{the} a minimum of \sout{5}\rt{MIN\_NUM\_USER\_SUPPORTED} users during
     simulated peak conditions without performance degradation.
   \end{description}
 \item \label{NFRT4}
@@ -727,12 +752,12 @@ non-functional requirements.
     running the system. Testers will join a live session from either the
     instructor\rt{-}client application or the practitioner\rt{-}client application. Tester
     will intentionally disrupt the internet connection on the device that the
-    system is running on, wait for 30 seconds, and resume the internet
+    system is running on, wait for \sout{30 seconds}\rt{TEST\_DISCONNECT\_DURATION}, and resume the internet
     connection on the device to simulate an application crash or internet
     interruption. The tester shall restart the application and then manually
     inspect the system UI to see if the user is able to automatically rejoin the
     previous live session after the network resumption. The test will be
-    repeated \sout{for} 5 times on both the instructor\rt{-}client application and the
+    repeated \sout{for} \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} times on both the instructor\rt{-}client application and the
     practitioner\rt{-}client application under different system loads. The test is
     considered successful if the user automatically joins the previous live
     session after application restart when \rt{the} network resumes. The test will be
@@ -753,7 +778,7 @@ non-functional requirements.
     tester will produce network fluctuation/instability on the internet that the
     system has access to. The tester shall monitor the system UI to inspect for
     the appearance of network instability warning. The test will be repeated \sout{for}
-    5 times on both the instructor\rt{-}client application and the practitioner
+    \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} times on both the instructor\rt{-}client application and the practitioner
     client application under different system loads. The test is considered
     successful if a pop\rt{-}up window for network instability warning is displayed
     after the network fluctuation/instability is created. Otherwise, if no pop
@@ -797,7 +822,7 @@ non-functional requirements.
     from the capturing device. The tester will proceed to unplug the media
     capturing device from the computer. The tester shall monitor the client
     application and look for any pop up warnings. This test shall be repeated
-    for 5 times. The test is considered successful if a pop up warning about
+    for \sout{text}\rt{TEST\_ACCOUNTS\_NUMBERS} times. The test is considered successful if a pop up warning about
     media\rt{-}capturing devices being disconnected is displayed every time the media
     capturing device is disconnected. Otherwise, if no pop up warning is
     displayed, the test is considered a failure.
@@ -877,7 +902,7 @@ non-functional requirements.
     create a live session, and start streaming using media\rt{-}capturing devices for
     30 minutes. User performance monitoring tools to measure and record the
     delay between the video stream frames and annotation frames. The test will
-    be repeated \sout{for} at least 5 times under different system loads. The test is
+    be repeated \sout{for} at least \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} times under different system loads. The test is
     considered successful if the recorded delay remains under MAX\_DELAY
     through each live session. Any deviations beyond MAX\_DELAY will be
     considered a failure.
@@ -1198,7 +1223,7 @@ non-functional requirements.
   \item[Output/Result] A determination of whether the system and its associated
     processes, documentation, and activities comply with the ISO/IEC 12207
     standards.
-  \item[How Test Will Be Performed] Test will be performed by:1. Testers
+  \item[How Test Will Be Performed] Test will be performed by: 1. Testers
     carefully review all project documentation, including software development
     processes, design documentation\sout{s}, coding standards and testing plans to
     ensure they all align with the ISO/IEC 12207 standards. 2. Testers examine
@@ -1356,20 +1381,6 @@ All the parts that are not out of scope for testing should be unit\rt{-}tested.
 \newpage
 
 \section{Appendix}
-
-\subsection{Symbolic Parameters}
-
-\begin{table}[h]
-  \caption{Symbolic constants in Verification and Validation Plan}
-  \begin{tabularx}{1.0\linewidth}[h]{XX} \toprule
-    \textbf{Symbol} & \textbf{Value} \\ \midrule
-    MAX\_DELAY \label{const:delay} & \SI{500}{\milli\second} \\
-    MAX\_TEMP \label{const:temp} & \SI{65}{\degreeCelsius} \\
-    MIN\_RES \label{const:res} & 720p \\
-    TARGET\_FACTOR \label{const:target} & \SI{85}{\percent} \\ \bottomrule
-  \end{tabularx}
-  \label{tab:syms}
-\end{table}
 
 \subsection{Usability Survey Questions}
 \label{sec:survey}
