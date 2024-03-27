@@ -5,7 +5,6 @@ import mediapipe as mp
 from aiortc import MediaStreamTrack
 from av import VideoFrame
 import numpy as np
-import COM
 
 from mediapipe.framework.formats import landmark_pb2
 import math
