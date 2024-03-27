@@ -1,4 +1,4 @@
-from typing import Dict, Callable
+from typing import Dict, Callable, List
 
 import cv2
 import mediapipe as mp
@@ -119,7 +119,7 @@ class VideoTransformTrack(MediaStreamTrack):
         return frame
 
     @staticmethod
-    def __draw_landmarks_on_image(rgb_image, detection_result):
+    def __draw_landmarks_on_image(rgb_image: np.ndarray, detection_result) -> np.ndarray:
         pose_landmarks_list = detection_result.pose_landmarks
         annotated_image = np.copy(rgb_image)
         
@@ -143,21 +143,22 @@ class VideoTransformTrack(MediaStreamTrack):
             solutions.drawing_styles.get_default_pose_landmarks_style())
 
 
-            VideoTransformTrack.draw_COM(annotated_image, pose_landmarks, BSP)
+            VideoTransformTrack.__draw_COM(annotated_image, pose_landmarks, BSP)
 
 
         return annotated_image
 
     @staticmethod
-    def _set_COM_result(result: PoseLandmarkerResult, *args):
+    def __set_COM_result(result: PoseLandmarkerResult, *args) -> None:
         VideoTransformTrack.COM_result = result
 
     
     @staticmethod
-    def draw_COM(img, pose_landmarks, BSP):
+    def __draw_COM(img: np.ndarray, pose_landmarks: List[landmark_pb2.NormalizedLandmark], BSP: Dict[str, float]):
         SCREEN_SCALE = 200
         PIC_SCALE = 40
         LIFTED_THRESHOLD = 0.025
+        COM_DISTANCE_THRESHOLD = 0.7
         
         def average_position(pose_landmarks, indices):
             """Calculate the average position of specified landmarks."""
@@ -231,9 +232,11 @@ class VideoTransformTrack(MediaStreamTrack):
             return abs((x - com[0]) **2 + (z - com[2]) ** 2)
         
         def check_dimensions(crop, pic_scale):
+            """Check the if picture dimension matches"""
             return crop.shape[0] != pic_scale or crop.shape[1] != pic_scale
 
         def overlay_image(alpha_mask, alpha_inv, src_img, overlay_img, y1, y2, x1, x2, channel):
+            """Overlay image to frame"""
             src_img[y1:y2, x1:x2, channel] = (alpha_mask * overlay_img[:, :, channel] +
                                             alpha_inv * src_img[y1:y2, x1:x2, channel])
 
@@ -248,8 +251,6 @@ class VideoTransformTrack(MediaStreamTrack):
             y1, y2 = offset_y, offset_y + shape[0]
             x1, x2 = offset_x, offset_x + shape[1]
             return y1, y2, x1, x2
-
-
 
         left_heel = pose_landmarks[29] # left heel
         left_toe = pose_landmarks[31] # left toe
@@ -309,11 +310,11 @@ class VideoTransformTrack(MediaStreamTrack):
         
         #com calculation have issue due to z axis
         # com to right
-        elif l_com_dist * 0.7 > r_com_dist:
+        elif l_com_dist * COM_DISTANCE_THRESHOLD > r_com_dist:
             right_footprint = set_footprint_colour(right_footprint, "red")
 
         # # com to left
-        elif r_com_dist * 0.7 > l_com_dist:            
+        elif r_com_dist * COM_DISTANCE_THRESHOLD > l_com_dist:            
             left_footprint = set_footprint_colour(left_footprint, "red")
         
         # offset on screen
@@ -353,7 +354,6 @@ class VideoTransformTrack(MediaStreamTrack):
                 overlay_image(face_alpha_mask, face_alpha_inv, img, face, face_y1, face_y2, face_x1, face_x2, c)
 
 
-
     __TRANSFORMERS: Dict[str, Callable[[VideoFrame], VideoFrame]] = {
         "skeleton": _skeleton_transformer,
         "segmentation": _segmentation_transformer,
@@ -366,7 +366,7 @@ class VideoTransformTrack(MediaStreamTrack):
     landmarker = PoseLandmarker.create_from_options(PoseLandmarkerOptions(
     base_options=BaseOptions(model_asset_path='pose_landmarker_lite.task'),
     running_mode=VisionRunningMode.LIVE_STREAM,
-    result_callback=_set_COM_result,
+    result_callback=__set_COM_result,
     output_segmentation_masks=True,
 ))
     timestamp = 0
