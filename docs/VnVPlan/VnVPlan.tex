@@ -19,6 +19,7 @@
 \usepackage{pdflscape}
 \usepackage{siunitx}
 \usepackage[normalem]{ulem}
+\newcommand{\rt}[1]{\textcolor{red}{#1}}
 
 \input{../Comments}
 \input{../Common}
@@ -39,7 +40,8 @@
 \toprule {\bf Date} & {\bf Developer(s)} & {\bf Change} \\
 \midrule
 November 3, 2023 & KH, QS, AJ, QC, XY & Initial Draft \\
-March 6, 2023 & KH, QS, AJ, QC, XY & Rev 0.1 \\
+March 6, 2024 & KH, QS, AJ, QC, XY & Rev 0.1 \\
+March 27, 2024 & KH, QS, AJ, QC, XY & Rev 1 \\
 \bottomrule
 \end{tabularx}
 
@@ -85,7 +87,7 @@ throughout this document.
 \section{General Information}
 
 This section introduces some general information about the present document,
-including a summary, objectives of the document, and related documentations that
+including a summary, objectives of the document, and related documentation\sout{s} that
 were mentioned or referred to in the present document.
 
 \subsection{Summary}
@@ -94,7 +96,7 @@ This document describes the testing, validation, and verification procedures
 that will be implemented for the “Real-time Digital Annotation Solution for
 Online Exercise Lessons” project. The general functionality of this project is
 to set up a live stream call streaming online TaiChi exercising class, while
-practitioners can configure the annotation they like to be added on to the
+practitioners can configure the annotation they like to be added \sout{on} to the
 instructor’s video stream. The test cases specified in this document were
 conceived prior to the majority of the implementation and are intended to be
 used by the project team for future reference during project development,
@@ -102,7 +104,7 @@ testing, and maintenance.
 
 \subsection{Objectives}
 
-The objectives of the validation and verification document for this project is
+The objectives of the validation and verification document for this project \sout{is}\rt{are}
 to serve as a comprehensive guideline for validating project requirements,
 ensuring the correctness of code, and establishing metrics to enhance user
 satisfaction. As all developers working on this project also have other life
@@ -110,7 +112,7 @@ priorities, we don’t have the resources to test out all aspects of the project
 Some parts of the project will be considered out of scope. For instance, we will
 not be testing the machine learning model utilized in the project, and we assume
 the machine learning model has already been verified by its implementation team.
-And our tests specified in this document will prioritize the functionalities and
+\sout{And} Our tests specified in this document will prioritize the functionalities and
 connections between components.
 
 \subsection{Relevant Documentation}
@@ -220,7 +222,7 @@ be taken by the testing team during the verification process:
 
 \subsection{Implementation Verification Plan}
 
-For ensuring the accuracy and effectiveness of our code implementation, we will
+\sout{For ensuring}\rt{To ensure} the accuracy and effectiveness of our code implementation, we will
 employ a multi-faceted verification approach.
 \begin{description}
 \item[System Testing] The primary means of validating the functionality and
@@ -242,12 +244,12 @@ employ a multi-faceted verification approach.
   \begin{enumerate}
   \item Highlight any deviations from the accepted coding standards and
     conventions.
-  \item Unearth potential logical inconsistencies or oversight in our
+  \item Unearth potential logical inconsistencies or oversight\rt{s} in our
     coding that automated tests might miss.
   \end{enumerate}
 \end{description}
 By integrating these multifaceted testing and verification techniques, we aim to
-ensure our code is both robust and aligned with the both functional and
+ensure our code is both robust and aligned with \sout{the} both functional and
 non-functional requirements. This plan will not only verify that the
 implementation meets the designated specifications but will also foster code
 quality, readability, and maintainability.
@@ -287,7 +289,7 @@ relevant testing tools. For the client-side components:
   monitoring, functional and load testing of the WebRTC services.
 \item[Real-Time Communication Engine] The RTCPeerConnection API will be used to
   inspect the properties and performance of a WebRTC peer connection. The WebRTC
-  Internals tool offers deeper insights into the client-side WebRTC status.
+  \sout{I}\rt{i}nternals tool offers deeper insights into the client-side WebRTC status.
 \end{description}
 
 On the server-side:
@@ -319,11 +321,11 @@ evaluation and validation study will be conducted with volunteers from each of
 the intended user groups. Specifically, at least one Tai Chi instructor and at
 least one Tai Chi practitioner or potential Tai Chi student should be invited to
 evaluate the software product. The process will be broken down into two main
-components. The first one being an observation study. Study participants will be
+components. The first one \sout{being}\rt{is} an observation study. Study participants will be
 asked to perform specific tasks as identified and described as use case
 scenarios in SRS. For the instructor, tasks include:
 \begin{itemize}
-\item Launch the application and set up appropriate peripherals, such as webcams,
+\item Launch the application and set up appropriate peripherals, such as webcams\sout{,} \rt{and}
   microphones, to create an environment ready for online instructional Tai Chi
   demonstrations.
 \item Navigate through the application interfaces and initiate a video conferencing
@@ -334,15 +336,16 @@ For the practitioner, tasks include:
 \item Navigate through the application interfaces and join an existing video
   conferencing session. Attempt to follow along the instructor’s movements.
 \end{itemize}
+
 Developments will observe and note how well the participants can complete the
-given tasks, making connections to the fit criterias of the non-functional
+given tasks, making connections to the fit criteria\sout{s} of the non-functional
 requirements. The second component will be a user satisfaction survey (refer to
 Appendix \ref{sec:survey}) conducted after the observation study. Participants
 will be asked to take a survey to rate their experience in using the
-application, in the scale of 1 (unsatisfied) to 5 (satisfied). The targeted
+application, \sout{in the}\rt{on a} scale of 1 (unsatisfied) to 5 (satisfied). The targeted
 satisfactory factor is set to TARGET\_FACTOR. The survey also includes questions
 about difficulties the user has encountered, and potential future improvements
-can be done to the application.
+can be \sout{done}\rt{made} to the application.
 
 For future developments beyond the capstone timeline, the development team will
 continue to conduct review sessions and presentations with stakeholder
@@ -392,7 +395,7 @@ non-functional requirements.
 \item \label{FRT3}
   \begin{description}
   \item[Type] Functional, Dynamic, Automatic
-  \item[Initial State] both client applications and the server are running.
+  \item[Initial State] \sout{b}\rt{B}oth client applications and the server are running.
   \item[Input/Condition] The user clicks on the applicable identity button to
     indicate they are an instructor or a practitioner.
   \item[Output/Result] A log message indicates connection between the user’s device
@@ -410,13 +413,13 @@ non-functional requirements.
   \item[Input/Condition] The user’s device has established a connection with the
     server as a practitioner device.
   \item[Output/Result] A request from the client device to the server for accessing
-    the list of available annotation configuration.
+    the list of available annotation configuration\rt{s}.
   \item[How Test Will Be Performed] Test will be done automatically by the Cypress
-    testing framework. The test code will first establish connection with a
+    testing framework. The test code will first establish \rt{a} connection with a
     server as a practitioner device. Once the connection is established, the
     server will send a list of available annotations to the client device, and
-    the client device should render the list into a selectable list of type of
-    annotation on the user's screen.The test for the client application will
+    the client device should render the list into a selectable list of type\rt{s} of
+    annotation on the user's screen. The test for the client application will
     assert the list of available annotations from the server is received and
     rendered as a selectable list.
   \end{description}
@@ -431,11 +434,11 @@ non-functional requirements.
     the client device to the server for updating the annotation configuration,
     with a log indicating the request is sent.
   \item[How Test Will Be Performed] Test will be done automatically by the
-    Cypress testing framework.The unit test code will first establish connection
+    Cypress testing framework. The unit test code will first establish connection
     with a server as a practitioner device. The testing framework will then
     simulate a user's click to configure annotation selections on the rendered
     selectable list. After that, the testing framework will assert a request
-    that reflects the annotation configuration is received by the server. As
+    that reflects the annotation configuration \sout{is} received by the server. As
     well, assert a log is shown on the client device console indicating the
     request has been sent.
   \end{description}
@@ -531,9 +534,9 @@ non-functional requirements.
 \item \label{FRT12}
   \begin{description}
   \item[Type] Functional, Dynamic, Automated
-  \item[Initial State] The client application is running, but the user didn’t do
+  \item[Initial State] The client application is running, but the user \sout{didn’t do}\rt{hasn’t done}
     any operations yet
-  \item[Input/Condition] The user joining video stream session.
+  \item[Input/Condition] The user joining \rt{the} video stream session.
   \item[Output/Result] A button to identify if a user is an instructor or a
     practitioner is rendered.
   \item[How Test Will Be Performed] Test will be done automatically by unit
