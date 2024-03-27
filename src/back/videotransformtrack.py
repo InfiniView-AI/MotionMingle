@@ -155,10 +155,9 @@ class VideoTransformTrack(MediaStreamTrack):
     
     @staticmethod
     def draw_COM(img, pose_landmarks, BSP):
-        screen_scale = 200
-        pic_scale = 40
-        lifted_threshold = 0.025
-
+        SCREEN_SCALE = 200
+        PIC_SCALE = 40
+        LIFTED_THRESHOLD = 0.025
         
         def average_position(pose_landmarks, indices):
             """Calculate the average position of specified landmarks."""
@@ -181,7 +180,7 @@ class VideoTransformTrack(MediaStreamTrack):
             segment_position = interpolate_segment(origin, other, BSP[segment]['l'])
             return tuple(pos * BSP[segment]['m'] for pos in segment_position)
 
-        def getCOM(pose_landmarks, BSP, screen_scale):
+        def get_COM(pose_landmarks, BSP, SCREEN_SCALE):
             """Calculate the Center of Mass (COM) for the pose."""
             com_x, com_y, com_z = 0.0, 0.0, 0.0
             for segment in BSP:
@@ -189,9 +188,9 @@ class VideoTransformTrack(MediaStreamTrack):
                 com_x += segment_mass[0]
                 com_y += segment_mass[1]
                 com_z += segment_mass[2]
-            return com_x * screen_scale, com_y * screen_scale, com_z * screen_scale
+            return com_x * SCREEN_SCALE, com_y * SCREEN_SCALE, com_z * SCREEN_SCALE
             
-        def rotateImage(image, angle):
+        def rotate_image(image, angle):
             """Rotate an image by a specific angle."""
             row, col = image.shape[:2]
             center = tuple(np.array([row, col]) / 2)
@@ -230,6 +229,25 @@ class VideoTransformTrack(MediaStreamTrack):
         def get_foot_to_com_distance(x, z, com):
             """Calculate the distance from a foot to the COM."""
             return abs((x - com[0]) **2 + (z - com[2]) ** 2)
+        
+        def check_dimensions(crop, pic_scale):
+            return crop.shape[0] != pic_scale or crop.shape[1] != pic_scale
+
+        def overlay_image(alpha_mask, alpha_inv, src_img, overlay_img, y1, y2, x1, x2, channel):
+            src_img[y1:y2, x1:x2, channel] = (alpha_mask * overlay_img[:, :, channel] +
+                                            alpha_inv * src_img[y1:y2, x1:x2, channel])
+
+        def extract_alpha_masks(image):
+            """Extracts the alpha mask and its inverse from an image."""
+            alpha_mask = image[:, :, 3] / 255.0
+            alpha_inv = 1.0 - alpha_mask
+            return alpha_mask, alpha_inv
+        
+        def calculate_positions(offset_x, offset_y, shape):
+            """Calculate the y1, y2, x1, x2 positions based on offsets and image shape."""
+            y1, y2 = offset_y, offset_y + shape[0]
+            x1, x2 = offset_x, offset_x + shape[1]
+            return y1, y2, x1, x2
 
 
 
@@ -249,28 +267,28 @@ class VideoTransformTrack(MediaStreamTrack):
         # load pics
         right_footprint = cv2.imread("right_footprint.png", -1)
         left_footprint = cv2.imread("left_footprint.png", -1)
-        face = cv2.resize(cv2.imread("face.png", -1), (pic_scale, pic_scale))
-        face = rotateImage(face, shoulder_angle + 90)
+        face = cv2.resize(cv2.imread("face.png", -1), (PIC_SCALE, PIC_SCALE))
+        face = rotate_image(face, shoulder_angle + 90)
         
         # resize, change colour and rotate
-        right_footprint = cv2.resize(right_footprint, (pic_scale, pic_scale))
+        right_footprint = cv2.resize(right_footprint, (PIC_SCALE, PIC_SCALE))
         right_footprint = set_footprint_colour(right_footprint, "blue")
-        right_footprint = rotateImage(right_footprint, right_foot_angle)
+        right_footprint = rotate_image(right_footprint, right_foot_angle)
 
-        left_footprint = cv2.resize(left_footprint, (pic_scale, pic_scale))
-        left_footprint = rotateImage(left_footprint, left_foot_angle)
+        left_footprint = cv2.resize(left_footprint, (PIC_SCALE, PIC_SCALE))
+        left_footprint = rotate_image(left_footprint, left_foot_angle)
         left_footprint = set_footprint_colour(left_footprint, "orange")
 
         # calculate offset
-        right_foot_x_offset = math.ceil((right_heel.x + right_toe.x) / 2 * screen_scale)
-        right_foot_y_offset = -math.ceil((right_heel.z + right_toe.z) / 2 * screen_scale) + int(screen_scale / 2)
-        right_foot_z_offset = math.ceil((right_heel.z + right_toe.z) / 2 * screen_scale)
+        right_foot_x_offset = math.ceil((right_heel.x + right_toe.x) / 2 * SCREEN_SCALE)
+        right_foot_y_offset = -math.ceil((right_heel.z + right_toe.z) / 2 * SCREEN_SCALE) + int(SCREEN_SCALE / 2)
+        right_foot_z_offset = math.ceil((right_heel.z + right_toe.z) / 2 * SCREEN_SCALE)
 
-        left_foot_x_offset = math.ceil((left_heel.x + left_toe.x) / 2 * screen_scale) # feet width adjustment
-        left_foot_y_offset = -math.ceil((left_heel.z + left_toe.z) / 2 * screen_scale) + int(screen_scale / 2)
-        left_foot_z_offset = math.ceil((left_heel.z + left_toe.z) / 2 * screen_scale)
+        left_foot_x_offset = math.ceil((left_heel.x + left_toe.x) / 2 * SCREEN_SCALE) # feet width adjustment
+        left_foot_y_offset = -math.ceil((left_heel.z + left_toe.z) / 2 * SCREEN_SCALE) + int(SCREEN_SCALE / 2)
+        left_foot_z_offset = math.ceil((left_heel.z + left_toe.z) / 2 * SCREEN_SCALE)
 
-        com = getCOM(pose_landmarks, BSP, screen_scale) # correct
+        com = get_COM(pose_landmarks, BSP, SCREEN_SCALE) # correct
 
         face_x_offset, _, face_z_offset = com
         face_x_offset = int(face_x_offset)
@@ -281,12 +299,12 @@ class VideoTransformTrack(MediaStreamTrack):
         r_com_dist = get_foot_to_com_distance(right_foot_x_offset, right_foot_z_offset, com)
 
         # left heel lifted
-        if right_toe.y - left_toe.y > lifted_threshold:
+        if right_toe.y - left_toe.y > LIFTED_THRESHOLD:
             right_footprint = set_footprint_colour(right_footprint, "red")
 
         # heel higher, number lower
         # right heel lifted
-        elif left_toe.y - right_toe.y > lifted_threshold:
+        elif left_toe.y - right_toe.y > LIFTED_THRESHOLD:
             left_footprint = set_footprint_colour(left_footprint, "red")
         
         #com calculation have issue due to z axis
@@ -299,51 +317,41 @@ class VideoTransformTrack(MediaStreamTrack):
             left_footprint = set_footprint_colour(left_footprint, "red")
         
         # offset on screen
-        right_y1, right_y2 = right_foot_y_offset, right_foot_y_offset + right_footprint.shape[0]
-        right_x1, right_x2 = right_foot_x_offset, right_foot_x_offset + right_footprint.shape[1]
+        right_y1, right_y2, right_x1, right_x2 = calculate_positions(right_foot_x_offset, right_foot_y_offset, right_footprint.shape)
+        left_y1, left_y2, left_x1, left_x2 = calculate_positions(left_foot_x_offset, left_foot_y_offset, left_footprint.shape)
+        face_y1, face_y2, face_x1, face_x2 = calculate_positions(face_x_offset, face_y_offset, face.shape)
 
-        left_y1, left_y2 = left_foot_y_offset , left_foot_y_offset + left_footprint.shape[0]
-        left_x1, left_x2 = left_foot_x_offset , left_foot_x_offset + left_footprint.shape[1]
-
-        face_y1, face_y2 = face_y_offset , face_y_offset + face.shape[0]
-        face_x1, face_x2 = face_x_offset , face_x_offset + face.shape[1]
-
-
+        # Check if the right_footprint image has an alpha channel
         if right_footprint.shape[2] == 4:
-            # Extract the alpha mask
-            right_alpha_mask = right_footprint[:, :, 3] / 255.0
-            right_alpha_inv = 1.0 - right_alpha_mask
+            right_alpha_mask, right_alpha_inv = extract_alpha_masks(right_footprint)
+            left_alpha_mask, left_alpha_inv = extract_alpha_masks(left_footprint)
+            face_alpha_mask, face_alpha_inv = extract_alpha_masks(face)
 
-            left_alpha_mask = left_footprint[:, :, 3] / 255.0
-            left_alpha_inv = 1.0 - left_alpha_mask
-
-            face_alpha_mask = face[:, :, 3] / 255.0
-            face_alpha_inv = 1.0 - face_alpha_mask
-
-
-            # Split the background and overlay in 3 channels
-            for c in range(0, 3):
-                right_bool = img[right_y1:right_y2, right_x1:right_x2, c].shape[0] != pic_scale or img[right_y1:right_y2, right_x1:right_x2, c].shape[1] != pic_scale
-                left_bool = img[left_y1:left_y2, left_x1:left_x2, c].shape[0] != pic_scale or img[left_y1:left_y2, left_x1:left_x2, c].shape[1] != pic_scale
-                face_bool = img[face_y1:face_y2, face_x1:face_x2, c].shape[0] != pic_scale or img[face_y1:face_y2, face_x1:face_x2, c].shape[1] != pic_scale
-                right_out_of_range = right_y2 > screen_scale
-                left_out_of_range = left_y2 > screen_scale
-                if right_bool or left_bool or face_bool or right_out_of_range or left_out_of_range:
-                    cv2.putText(img, "Please stand inside the camera", (int(screen_scale/2), int(screen_scale/2)), cv2.FONT_HERSHEY_SIMPLEX, 
-                        1, (0, 0, 255), 2, cv2.LINE_AA)
+            for c in range(3):
+                right_crop = img[right_y1:right_y2, right_x1:right_x2, c]
+                left_crop = img[left_y1:left_y2, left_x1:left_x2, c]
+                face_crop = img[face_y1:face_y2, face_x1:face_x2, c]
+                
+                dimension_mismatch = any([
+                    check_dimensions(right_crop, PIC_SCALE),
+                    check_dimensions(left_crop, PIC_SCALE),
+                    check_dimensions(face_crop, PIC_SCALE)
+                ])
+                
+                out_of_range = right_y2 > SCREEN_SCALE or left_y2 > SCREEN_SCALE
+                
+                if dimension_mismatch or out_of_range:
+                    cv2.putText(img, "Please stand inside the camera", (0, int(SCREEN_SCALE / 2)), cv2.FONT_HERSHEY_SIMPLEX, 
+                                1, (0, 0, 255), 4, cv2.LINE_AA)
                     return
 
-                # print(right_alpha_inv * img[right_y1:right_y2, right_x1:right_x2, c])
-                # right foot
-                img[right_y1:right_y2, right_x1:right_x2, c] = (right_alpha_mask * right_footprint[:, :, c] +
-                                          right_alpha_inv * img[right_y1:right_y2, right_x1:right_x2, c])
-                # left foot
-                img[left_y1:left_y2, left_x1:left_x2, c] = (left_alpha_mask * left_footprint[:, :, c] +
-                                          left_alpha_inv * img[left_y1:left_y2, left_x1:left_x2, c])
-                
-        
-                img[face_y1:face_y2, face_x1:face_x2, c] = (face_alpha_mask * face[:, :, c] + 
-                                        face_alpha_inv * img[face_y1: face_y2, face_x1: face_x2, c])
+                # Right foot overlay
+                overlay_image(right_alpha_mask, right_alpha_inv, img, right_footprint, right_y1, right_y2, right_x1, right_x2, c)
+                # Left foot overlay
+                overlay_image(left_alpha_mask, left_alpha_inv, img, left_footprint, left_y1, left_y2, left_x1, left_x2, c)
+                # Face overlay
+                overlay_image(face_alpha_mask, face_alpha_inv, img, face, face_y1, face_y2, face_x1, face_x2, c)
+
 
 
     __TRANSFORMERS: Dict[str, Callable[[VideoFrame], VideoFrame]] = {
