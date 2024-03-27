@@ -19,6 +19,8 @@
 \usepackage[section]{placeins}
 \usepackage{caption}
 \usepackage{fullpage}
+\usepackage{ulem}
+\newcommand{\rt}[1]{\textcolor{red}{#1}}
 
 \hypersetup{
 bookmarks=true,     % show bookmarks bar?
@@ -58,6 +60,7 @@ urlcolor=cyan          % color of external links
   Jan 13     & Add MIS for Media Control components, RTC Control components \\
   Jan 14     & Add MIS for Backend components                               \\
   Jan 17     & Revise before submission                                     \\
+  Mar 27     & Rev1                                                         \\
   \bottomrule
 \end{tabularx}
 
@@ -260,7 +263,7 @@ SFU server and STUN servers are running in normal conditions.
 \item transition: N/A
 \item output: pc := RTCPeerConnection --- initializes a new RTCPeerConnection based
   on the given configuration.
-\item exception: N/A
+\item exception: \sout{N/A} \rt{ConfigurationError --- thrown if the configuration is invalid or missing required information.}
 \end{itemize}
 
 
@@ -269,7 +272,7 @@ SFU server and STUN servers are running in normal conditions.
 \item transition: pc.signalingState := closed --- closes peer connection and send a
   signal to the connected peer connection.
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{InvalidStateError --- thrown if the connection is already closed or not in a valid state to be closed.}
 \end{itemize}
 
 
@@ -285,7 +288,7 @@ SFU server and STUN servers are running in normal conditions.
   set the remote description of the peer connection to its received SDP from
   SFU\_BROADCAST\_API.
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{NegotiationError --- thrown if the negotiation fails due to invalid SDP or connection state.}
 \end{itemize}
 
 
@@ -293,7 +296,7 @@ SFU server and STUN servers are running in normal conditions.
 \begin{itemize}
 \item transition: pc.event := getRemoteEvent(pc).streams
 \item output: N/A
-\item exception: N/A
+\item exception: \sout{N/A} \rt{StreamNotFoundError --- thrown if the remote stream cannot be found or is not accessible.}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -302,7 +305,7 @@ SFU server and STUN servers are running in normal conditions.
 \begin{itemize}
 \item transition: N/A
 \item output: pc.event := RTCTrackEvent
-\item exception: N/A
+\item exception: \sout{N/A} \rt{EventNotFoundError --- thrown if the event related to the remote track is not found or is not triggered.}
 \end{itemize}
 
 \section{MIS of Media Control Module} \label{sec:mediactrl}
