@@ -55,6 +55,7 @@ March 27, 2024 & KH, QS, AJ, QC, XY & Rev 1 \\
 
 \section{Symbols, Abbreviations, and Acronyms}
 
+\subsection{Symbols}
 Table \ref{tab:abbrv} lists all the symbols, abbreviations, and acronyms used
 throughout this document.
 \begin{table}[H]
@@ -104,7 +105,7 @@ testing, and maintenance.
 
 \subsection{Objectives}
 
-The objectives of the validation and verification document for this project \sout{is}\rt{are}
+\sout{The objectives of the validation and verification document for this project \sout{is}\rt{are}
 to serve as a comprehensive guideline for validating project requirements,
 ensuring the correctness of code, and establishing metrics to enhance user
 satisfaction. As all developers working on this project also have other life
@@ -113,7 +114,16 @@ Some parts of the project will be considered out of scope. For instance, we will
 not be testing the machine learning model utilized in the project, and we assume
 the machine learning model has already been verified by its implementation team.
 \sout{And} Our tests specified in this document will prioritize the functionalities and
-connections between components.
+connections between components.}\\
+\rt{The objectives of the validation and verification document for this project are to provide 
+a comprehensive guide for validating project requirements, ensuring the correctness of code, 
+and establishing metrics to enhance user satisfaction. Given the scope of the project and the 
+time constraints, certain aspects will be prioritized to ensure effective use of resources. For 
+example, this document will not cover the testing of the machine learning model utilized in the 
+project, as it is presumed to have undergone verification by its dedicated implementation team. 
+The focus of the testing will be on critical functionalities and the interconnectivity between 
+components, to ensure a robust and seamless user experience.}
+
 
 \subsection{Relevant Documentation}
 
@@ -152,7 +162,7 @@ the team, with each member actively participating.
 
 \subsection{SRS Verification Plan}
 
-Our SRS (Software Requirements Specification) will be subject to verification
+\sout{Our SRS (Software Requirements Specification) will be subject to verification
 through a flexible and collaborative feedback process involving our classmates
 and Teaching Assistants (TAs). Given that the individuals involved in reviewing
 our VnV (Verification and Validation) plan and our TAs possess in-depth
@@ -168,7 +178,28 @@ identify possible behavioural bugs and anomalies within the application. This
 approach leverages the diverse perspectives and problem-solving abilities of our
 reviewers, helping us ensure that our SRS is thorough, accurate, and aligned
 with the project's objectives, ultimately contributing to the success of our
-project.
+project.}\\
+\rt{The Software Requirements Specification (SRS) is crucial for defining the project 
+scope and guiding its implementation. To ensure the SRS meets the project's standards 
+and objectives, a rigorous verification plan involving iterative feedback from peers 
+and Teaching Assistants (TAs) will be employed. This process begins with an initial 
+review where the SRS will be scrutinized for clarity, completeness, and alignment with 
+the project's goals. Feedback will be systematically gathered and categorized to 
+identify areas needing refinement. Additionally, exploratory assessment techniques 
+will be utilized, enabling reviewers to interact with the application's prototype 
+or review design mockups, thereby ensuring requirements are realistically translated 
+into application features.}\\
+
+\rt{Subsequent to the exploratory phase, functional testing based on the SRS will be 
+performed to validate the behavior of the application. This testing will be geared 
+toward verifying that each function of the application performs according to the 
+specified requirements. The feedback gathered will be carefully integrated into the 
+SRS, with the development team revising any sections as necessary to improve clarity 
+and accuracy. The final step of the verification plan involves a comprehensive review 
+to confirm that all feedback has been effectively addressed, solidifying the SRS as 
+a true reflection of the intended system. By leveraging the diverse insights from 
+our reviewers, the SRS will be refined to a state that facilitates a smooth transition 
+into the development phase, setting a strong foundation for the project's success.}
 
 \subsection{Design Verification Plan}
 
