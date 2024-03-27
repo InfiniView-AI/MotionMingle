@@ -9,6 +9,7 @@ import COM
 
 from mediapipe.framework.formats import landmark_pb2
 import math
+from BSP import BSP
 
 solutions = mp.solutions
 
@@ -156,100 +157,6 @@ class VideoTransformTrack(MediaStreamTrack):
     def draw_COM(img, pose_landmarks, t):
         screen_scale = 200
         pic_scale = 40
-        # def getCOM(pose_landmarks):
-        #     left_waist = pose_landmarks[23]
-        #     right_waist = pose_landmarks[24]
-        #     mean_x = (left_waist.x + right_waist.x) / 2 * screen_scale
-        #     mean_y = (left_waist.y + right_waist.y) / 2 * screen_scale
-        #     mean_z = (left_waist.z + right_waist.z) / 2 * screen_scale
-
-        #     return (mean_x, mean_y, mean_z)
-        BSP = {
-    "head": {
-        "origin": 7,
-        "other": 8,
-        "l": 0.5,
-        "m": (0.0668 + 0.0694) / 2
-    },
-    "trunk": {
-        "origin": (11, 12),
-        "other": (23, 24),
-        "l": (0.4151 + 0.4486) / 2,
-        "m": (0.4257 + 0.4346) / 2
-    },
-    "left_upper_arm": {
-        "origin": 11,
-        "other": 13,
-        "l": (0.5754 + 0.5772) / 2,
-        "m": (0.0255 + 0.0271) / 2
-    },
-    "right_upper_arm": {
-        "origin": 12,
-        "other": 14,
-        "l": (0.5754 + 0.5772) / 2,
-        "m": (0.0255 + 0.0271) / 2
-    },
-    "left_forearm": {
-        "origin": 13,
-        "other": 15,
-        "l": (0.4559 + 0.4574) / 2, # length (man + woman)
-        "m": (0.0138 + 0.0162) / 2
-    },
-    "right_forearm": {
-        "origin": 14,
-        "other": 16,
-        "l": (0.4559 + 0.4574) / 2,
-        "m": (0.0138 + 0.0162) / 2
-    },
-    "left_hand": {
-        "origin": 15,
-        "other": (17, 19),
-        "l": (0.7474 + 0.7900) / 2,
-        "m": (0.0056 + 0.0061) / 2
-    },
-    "right_hand": {
-        "origin": 16,
-        "other": (18, 20),
-        "l": (0.7474 + 0.7900) / 2,
-        "m": (0.0056 + 0.0061) / 2
-    },
-    "left_thigh": {
-        "origin": 23,
-        "other": 25,
-        "l": (0.3612 + 0.4095) / 2,
-        "m": (0.1478 + 0.1416) / 2
-    },
-    "right_thigh": {
-        "origin": 24,
-        "other": 26,
-        "l": (0.3612 + 0.4095) / 2,
-        "m": (0.1478 + 0.1416) / 2
-    },
-    "left_shank": {
-        "origin": 25,
-        "other": 27,
-        "l": (0.4416 + 0.4459) / 2,
-        "m": (0.0481 + 0.0433) / 2
-    },
-    "right_shank": {
-        "origin": 26,
-        "other": 28,
-        "l": (0.4416 + 0.4459) / 2,
-        "m": (0.0481 + 0.0433) / 2
-    },
-    "left_foot": {
-        "origin": 29,
-        "other": 31,
-        "l": (0.4014 + 0.4415) / 2,
-        "m": (0.0129 + 0.0137) / 2
-    },
-    "right_foot": {
-        "origin": 30,
-        "other": 32,
-        "l": (0.4014 + 0.4415) / 2,
-        "m": (0.0129 + 0.0137) / 2
-    }
-}
         
         def average_position(pose_landmarks, indices):
             if isinstance(indices, tuple):
@@ -277,37 +184,6 @@ class VideoTransformTrack(MediaStreamTrack):
                 com_y += segment_mass[1]
                 com_z += segment_mass[2]
             return com_x * screen_scale, com_y * screen_scale, com_z * screen_scale
-
-        # def getCOM(pose_landmarks):
-        #     com_x, com_y, com_z = 0.0, 0.0, 0.0
-        #     for segment in BSP:
-        #         origin_x, origin_y, origin_z = 0.0, 0.0, 0.0
-        #         other_x, other_y, other_z = 0.0, 0.0, 0.0
-        #         segment_x, segment_y, segment_z = 0.0, 0.0, 0.0
-        #         if isinstance(BSP[segment]['origin'], tuple):
-        #             origin_x = sum([pose_landmarks[i].x for i in BSP[segment]['origin']]) / len(BSP[segment]['origin'])
-        #             origin_y = sum([pose_landmarks[i].y for i in BSP[segment]['origin']]) / len(BSP[segment]['origin'])
-        #             origin_z = sum([pose_landmarks[i].z for i in BSP[segment]['origin']]) / len(BSP[segment]['origin'])
-        #         else:
-        #             origin_x = pose_landmarks[BSP[segment]['origin']].x
-        #             origin_y = pose_landmarks[BSP[segment]['origin']].y
-        #             origin_z = pose_landmarks[BSP[segment]['origin']].z
-        #         if isinstance(BSP[segment]['other'], tuple):
-        #             other_x = sum([pose_landmarks[i].x for i in BSP[segment]['other']]) / len(BSP[segment]['other'])
-        #             other_y = sum([pose_landmarks[i].y for i in BSP[segment]['other']]) / len(BSP[segment]['other'])
-        #             other_z = sum([pose_landmarks[i].z for i in BSP[segment]['other']]) / len(BSP[segment]['other'])
-        #         else:
-        #             other_x = pose_landmarks[BSP[segment]['other']].x
-        #             other_y = pose_landmarks[BSP[segment]['other']].y
-        #             other_z = pose_landmarks[BSP[segment]['other']].z
-        #         segment_x = np.interp(BSP[segment]['l'], [0, 1], [origin_x, other_x])
-        #         segment_y = np.interp(BSP[segment]['l'], [0, 1], [origin_y, other_y])
-        #         segment_z = np.interp(BSP[segment]['l'], [0, 1], [origin_z, other_z])
-        #         com_x += segment_x * BSP[segment]['m']
-        #         com_y += segment_y * BSP[segment]['m']
-        #         com_z += segment_z * BSP[segment]['m']
-        #     return (com_x*screen_scale, com_y*screen_scale, com_z*screen_scale)
-
             
         def rotateImage(image, angle):
             row = image.shape[0]
