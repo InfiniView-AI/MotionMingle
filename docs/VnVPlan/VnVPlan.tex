@@ -101,6 +101,9 @@ throughout this document.
     \rt{MIN\_RES}  & \rt{720p} \\
     \rt{TARGET\_FACTOR}  & \rt{\SI{85}{\percent}} \\
 
+    \rt{MAX\_ACCEPTABLE\_DELAY}  & \rt{2 seconds} \\
+    \rt{MAX\_ERROR\_RATE}  & \rt{\SI{1}{\percent}} \\
+    \rt{MIN\_OPERATIONAL\_PERIOD}  & \rt{8 hours} \\
     \bottomrule
   \end{tabularx}
   \caption{List of Symbolic Constants}
@@ -1007,8 +1010,10 @@ non-functional requirements.
     specifications, but all within the commonly accepted 'standard' range for
     current users. Devices have functional cameras and optional microphones.
     Test script detailing system operation tasks.
-  \item[Output/Result] The system operates without significant delays, errors,
-    or crashes.
+  \item[Output/Result] \sout{The system operates without significant delays, errors,
+  or crashes.}\rt{The system operates with delays not exceeding\\ MAX\_ACCEPTABLE\_DELAY, 
+  error rates below MAX\_ERROR\_RATE, and without system crashes over a continuous 
+  operational period of\\ MIN\_OPERATIONAL\_PERIOD.}
   \item[How Test Will Be Performed] Identify a range of standard personal
     computers and laptops that reflect the typical user base's hardware. This
     range should include variations in processor speed, memory, age, and
