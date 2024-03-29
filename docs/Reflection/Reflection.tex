@@ -44,9 +44,30 @@ supervisor's response to your Rev 0 demonstration to them.}
 
 \subsection{Hazard Analysis}
 \subsubsection{Changes in Response to TA Feedback}
-
+\begin{enumerate}
+        \item Move the definitions section to the beginning.\\
+                Changes: Move the Glossary to the beginning of the document.
+        \item The introduction section is unclear and confusing to read.\\
+                Changes: Revise the introduction.
+        \item Some things like STUN and TURN are never defined.\\
+                Changes: Add undefined terms to the Glossary.
+        \item There are existing "magic" numbers instead of constants.\\
+                Changes:Add undefined numbers to the Symbolic Constants table
+        \item Some assumptions are too big and ambiguous.\\
+                Changes: Revised all the assumptions and implemented a series of measurements to mitigate them.
+        \item PR9 is not clearly defined.\\
+                Changes: Revised PR9 and adjusted the rationale behind this requirement.
+\end{enumerate}
 \subsubsection{Changes in Response to Peer Review}
-
+\begin{enumerate}
+        \item Add STUN/TURN server to glossary and change the glossary location to the beginning.\\
+                Changes: Reorganized the document from TA's feedback
+        \item Ambiguous effects of failure for ML annotation pipeline.\\
+                Changes: Clearly stated effects of failure for both failure mode: Inaccurate Annotation Produced and Latency in
+                Annotation.
+        \item Ambiguity of Critical Assumption.\\
+                Chnages: Issues was addressed from TA's feedback.        
+\end{enumerate}
 \subsection{Design and Design Documentation}
 \subsubsection{Changes in Response to TA Feedback}
 
