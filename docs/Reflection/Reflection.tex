@@ -35,13 +35,90 @@ supervisor's response to your Rev 0 demonstration to them.}
 \subsection{SRS}
 \subsubsection{Changes in Response to TA Feedback}
 \begin{enumerate}
-    \item TA review: Python, JavaScript, etc are not really imposed technical choices.\newline
-            Changes: Eliminate the mandated technical choices, as our project does not require the specified technology.
-    \item TA review:  Unclear what unit you're using for your upload and download speed.\newline
-            Changes: Include the speed unit in the Symbolic Constants section. For example: USER\_SATISFACTION\_PERCENTAGE = 
+    \item Feedbacks and related changes on Document Content:
+    \begin{itemize}
+        \item Feedback: The choice of programming languages like Python and JavaScript is not inherently a technical imposition. \\
+                Change: We changed the Imposed Technical Choice to N/A.
+        \item Feedback: Assuming that "Understanding of the Annotation" without proper user testing is considered a weak foundation for the product's design. \\
+                Change: The document content has been revised to include user testing for validating the effectiveness of annotations and to incorporate continuous user feedback for improving clarity and comprehensiveness.
+        \item Feedback: The cognitive abilities of the user base may vary, and this needs to be taken into account when designing the product. \\
+                Change: The section on Cognitive Ability has been updated to the interface will be designed to be intuitive across a spectrum of cognitive abilities and will be refined through usability testing.
+        \item Feedback: Many laptops, including MacBooks, only have 720p cameras, so expecting users to have 1080p cameras might be unreasonable. \\
+                Change: The Supported Video Resolutions section has been modified to clarify that the system supports video resolutions from 480p as the minimum to 1080p as the maximum, 
+                addressing a broader range of webcam capabilities for user devices.
+        \end{itemize}
+    \item Feedbacks and related changes on Document Organization:
+    \begin{itemize}
+        \item Feedback: Clarify the units used for upload and download speeds, indicating whether they are in megabits or megabytes and defining these symbolic constants.\\
+                Change: We add the unit for upload and download speeds and define symbolic constants with their respective values at the start of the document.
+        \item Feedback: Include definitions and explanations of acronyms like STUN, TURN, SFU, etc., not just what they stand for.\\
+                Change: We added the explanations of acronyms in the Glossary section.
+    \end{itemize}
+    \item Feedbacks and related changes on Formatting and Style:
+    \begin{itemize}
+        \item Feedback: Missing hyperlinks in some cases.\\
+                Change: We added the missing hyperlinks(e.g. traceability matrix).
+    \end{itemize}
+    \item Feedbacks and related changes on Notation and Conventions:
+    \begin{itemize}
+        \item Feedback: Define everything at the start - and for acronyms define them, don't just give the expanded meaning.\\
+                Change: Defined all the constant at the beginning under Glossary and Symbolic Constants sections.
+    \end{itemize}
+    \item Feedbacks and related changes on What not How (Abstract):
+    \begin{itemize}
+        \item Feedback: Some things like WebRTC don't need to be mentioned at this point. Any realtime protocol could theoretically be used.\\
+                Change: We changed WebRTC to Real-Time video streaming or Real-Time Communoication.
+    \end{itemize}
+    \item Feedbacks and related changes on Complete, Correct and Unambiguous:
+    \begin{itemize}
+        \item Feedback: Some functional requirements feel a little "big", and some NFRs in particular are ambiguous.\\
+                Change: The document will be revised to remove ambiguities and ensure that requirements are specific, measurable, and testable.
+                (e.g. FR6 has been updated to specify the types of annotations that users can configure, providing clear options and addressing the previous feedback for more detailed information.)
+    \end{itemize}
+    \item Feedbacks and related changes on Verifiable Requirements:
+    \begin{itemize}
+        \item Feedback: Fit criteria are sometimes ambiguous.\\
+                Change: Fit criteria ambiguity has been addressed by adding specific range(e.g. USER SATISFACTION PERCENTAGE for UH1).
+    \end{itemize}
+    \item Feedbacks and related changes on Focus on Users (Part of Enterprise Design Thinking):
+    \begin{itemize}
+        \item Feedback: Not completely clear who the users are.\\
+                Change: We defined the term elderly people by specifing their aged 65 years and older. 
+    \end{itemize}
+    \item Feedbacks and related changes on Phase In Plan:
+    \begin{itemize}
+        \item Feedback: Does not include timeline for when things of different priorities will be phased in.\\
+                Change: We included the outlining a clear priority and schedule for project milestones.
+    \end{itemize}
+    \item Feedbacks and related changes on Basis for Design:
+    \begin{itemize}
+        \item Feedback: Haven't given any indication as to the types of annotations you will provide.\\
+                Change: We included the specific annotations used in our project.
+    \end{itemize}
+    \item Feedbacks and related changes on LO\_Reflect:
+    \begin{itemize}
+        \item Feedback: Reflection Appendix is missing.\\
+                Change: We added the missing Relection at the end of document.
+    \end{itemize}
+    \item Feedbacks and related changes on LO\_SpecMath:
+    \begin{itemize}
+        \item Feedback: The state diagram feels a bit small; does not capture the system very fully.\\
+                Change: We broadered the diagram, and include more states in the diagram.
+    \end{itemize}
 \end{enumerate}
 \subsubsection{Changes in Response to Peer Review}
-
+\begin{itemize}
+        \item Feedback: Need a stronger fit criterias for FR and NFR.\\
+                Change: Enhanced fit criterias by adding some specific range and definitions for the ambiguous FR and NFR 
+                (UH1, UH2, OE2, OE3, MS1, HS1, HS2, SR1, and SR2).
+        \item Feedback: Missing FR for Audio Capability.\\
+                Change: Added the FR for Audio Capability.
+\end{itemize}
+\subsubsection{Changes in Response to Supervisor Feedback}
+\begin{itemize}
+        \item Feedback: Should include the new annotation, Center of Mass Visulization.\\
+                Change: We changed the Clock Annotation to Center of Mass Visualization and defined it in Glossary.
+\end{itemize}
 \subsection{Hazard Analysis}
 \subsubsection{Changes in Response to TA Feedback}
 \begin{enumerate}
