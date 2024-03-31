@@ -16,21 +16,7 @@
 
 \maketitle
 
-\plt{Reflection is an important component of getting the full benefits from a
-learning experience.  Besides the intrinsic benefits of reflection, this
-document will be used to help the TAs grade how well your team responded to
-feedback.  In addition, several CEAB (Canadian Engineering Accreditation Board)
-Learning Outcomes (LOs) will be assessed based on your reflections.}
-
 \section{Changes in Response to Feedback}
-
-\plt{Summarize the changes made over the course of the project in response to
-feedback from TAs, the instructor, teammates, other teams, the project
-supervisor (if present), and from user testers.}
-
-\plt{For those teams with an external supervisor, please highlight how the feedback 
-from the supervisor shaped your project.  In particular, you should highlight the 
-supervisor's response to your Rev 0 demonstration to them.}
 
 \subsection{SRS}
 \subsubsection{Changes in Response to TA Feedback}
@@ -215,45 +201,120 @@ supervisor's response to your Rev 0 demonstration to them.}
 
 
 \section{Design Iteration (LO11)}
+At the commencement of our capstone project, our initial foray into the technological landscape was with WebRTC. 
+Our collective endeavor was to comprehend and implement a peer-to-peer (P2P) connection within our group. 
+This exploration was foundational, setting the stage for our subsequent design choices. 
+However, while we successfully enabled a one-to-many call feature, a limitation became apparent; the inability to process video streams since WebRTC's P2P nature meant that data did not traverse through a server. 
+This hurdle was our project's proof of concept, demonstrating both our potential and the gaps yet to be bridged.
 
-\plt{Explain how you arrived at your final design and implementation.  How did
-the design evolve from the first version to the final version?} 
+To enhance our application's functionality, we delved into Selective Forwarding Units (SFUs), which allowed us to route video streams efficiently. 
+This was a pivotal moment in our project, as it opened the avenue to integrate a machine-learning model into our server. 
+The integration was not without its challenges, but it resulted in the SFU dispatching processed video streams to viewers. 
+Initially, our ML model could only annotate video with a skeletal representation of human pose estimation, a feature we proudly showcased in our 'Rev0' demonstration.
+
+Simultaneously, we became acutely aware of our User Interface's shortcomings. The design was rudimentary, with undersized buttons and a lack of guidance for users, hindering the intuitiveness of the application. 
+Post 'Rev0', we embraced a user-centric approach, refining our `UI to enhance usability and aesthetic appeal. 
+Critiques and suggestions from our supervisor, teaching assistant, and course instructor were instrumental, driving us to broaden our feature set to support better learning of Tai Chi.
+
+Acting on the feedback, we introduced an additional ML model capable of calculating the center of mass and projecting supportive foot diagrams. 
+This feature was designed to enrich the learning experience by visually guiding users on foot placement, a critical aspect of mastering Tai Chi. 
+It was this iterative feedback loop that truly honed our application's instructional potential.
+
+As we neared the completion of our project, a comprehensive redesign of the UI was undertaken. 
+We aimed not only to improve visual appeal but also to cater to a broader demographic, including the elderly. 
+Button sizes were increased, and clear instructions were incorporated to elucidate the functionality of each control. 
+This final iteration of our design was a testament to the iterative process—grounded in user feedback and analytical reflection.
+
+Throughout this journey, the constant was changed, and adaptability became our team's hallmark. 
+Each iteration brought us closer to a fusion of technology and user experience, ultimately culminating in a software solution that was not only functional but also empathetic to the needs of its users.
+
+This iterative design process—punctuated by technical enhancements and user-centric refinements—has been an extraordinary learning curve. 
+It taught us the value of perseverance, the insight gained from constructive criticism, and the impact of meticulous design on user engagement.
 
 \section{Design Decisions (LO12)}
+Each design decision was a response to these factors, balancing the ideal with the practical. 
+For instance, our choice of SFU architecture over the classical mesh network for P2P communication was a design preference and a strategic response to bandwidth constraints, allowing us to implement ML features that enhanced the application's instructional capability.
 
-\plt{Reflect and justify your design decisions.  How did limitations,
- assumptions, and constraints influence your decisions?}
+Moreover, our assumptions regarding user capabilities and device performance underscored the importance of user testing. 
+It was this iterative cycle of hypothesizing, implementing, and verifying that kept our design decisions aligned with user needs and practical realities.
+
+In conclusion, our design decisions were not made in isolation. They were influenced by a matrix of constraints and assumptions, some that defined our scope narrowly, and others that broadened our understanding of user needs. 
+Our reflective practice in navigating these constraints and assumptions ultimately led to a robust, user-friendly, and compliant software solution.
 
 \section{Economic Considerations (LO23)}
-
-\plt{Is there a market for your product? What would be involved in marketing your 
-product? What is your estimate of the cost to produce a version that you could 
-sell?  What would you charge for your product?  How many units would you have to 
-sell to make money? If your product isn't something that would be sold, like an 
-open source project, how would you go about attracting users?  How many potential 
-users currently exist?}
+Motion Mingle's economic considerations revolve around creating a product that addresses the specific needs of a niche market, doing so with an open-source ethos that encourages community participation, collaboration, and a potential pathway to sustainability through community contributions and partnerships.
+This can be concluded from Market Analysis, Marketing and User Acquisition, Cost and Revenue Model, Economic Feasibility, Value Proposition, and Future Potential. 
+\subsection{Market Analysis}
+The demand for specialized video conferencing solutions, such as Motion Mingle, which caters to the Tai Chi community, presents a unique market niche. 
+Unlike generic platforms like Zoom or Microsoft Teams, our product offers annotations tailored for Tai Chi that significantly enhance the learning experience. 
+This specialization may not reach a mass market but holds value for dedicated users, suggesting a viable market exists.
+\subsection{Marketing and User Acquisition}
+The demand for specialized video conferencing solutions, such as Motion Mingle, which caters to the Tai Chi community, presents a unique market niche.
+Unlike generic platforms like Zoom or Microsoft Teams, our product offers annotations tailored for Tai Chi that significantly enhance the learning experience. 
+This specialization may not reach a mass market but holds value for dedicated users, suggesting a viable market exists.
+\subsection{Cost and Revenue Model}
+Open-source projects typically don't follow a traditional revenue mode.
+\subsection{Economic Feasibility}
+Given the specialized nature of the software, we aim to create a high-quality product that requires minimal resources to maintain. 
+Keeping the project lean will help ensure its sustainability. Furthermore, the flexible and scalable architecture means that the product can adapt to various user demands and technological advancements without incurring significant additional costs.
+\subsection{Value Proposition}
+Motion Mingle's unique position and the value it provides with its targeted functionality make it an attractive proposition for Tai Chi practitioners and instructors. 
+This user-centric focus, along with the scalability and ease of use, not only justifies its existence but also highlights the potential for widespread adoption within its target demographic. 
+\subsection{Future Potential}
+Considering future potentials like enhanced annotations and interactive call rooms, Motion Mingle could become the go-to solution for remote Tai Chi instruction. 
+The open-source nature of the project invites continuous improvement and innovation, which can lead to unexpected avenues for growth and value creation.
 
 \section{Reflection on Project Management (LO24)}
-
-\plt{This question focuses on processes and tools used for project management.}
-
 \subsection{How Does Your Project Management Compare to Your Development Plan}
+\subsubsection{Meeting and Communication Plan}
+Our team held full attendance at scheduled meetings. This consistent engagement facilitated a synchronous understanding of project goals and ongoing tasks.
 
-\plt{Did you follow your Development plan, with respect to the team meeting plan, 
-team communication plan, team member roles and workflow plan.  Did you use the 
-technology you planned on using?}
+Throughout the project, team members adhered to the established communication plan while maintaining flexibility in deliverable planning, progress reporting, and documenting work results.
+Such discipline in communication not only helped streamline the development process but also ensured that all team members were aware of each other's progress and challenges. 
+\subsubsection{Role and Workflow Adherence}
+The roles assigned to team members were well respected, with each individual contributing to their tasks effectively. This adherence to defined roles allowed team members to specialize and focus, which in turn improved the quality and efficiency of their work.
+
+Our development unfolded as envisioned in the plan. This was largely due to the proactive approach of the team in addressing potential roadblocks and pivoting when necessary while remaining aligned with the original goals.
+\subsubsection{Technology and Tools}
+The technology tools for communications and management, such as GitHub and Google Docs, we initially decided on were not only used but also capitalized upon. Our GitHub workflow was particularly impactful. By breaking down larger features into manageable tasks and assigning them to relevant developers, we maximized our use of GitHub's capabilities for version control and issue tracking. This approach not only facilitated a smooth development flow but also allowed us to monitor progress effectively and integrate changes incrementally.
+
+Moreover, this methodology enabled us to maintain high standards of code integration and review. It encouraged frequent commits and peer reviews, which are vital for maintaining code quality and for early detection of any issues.
 
 \subsection{What Went Well?}
+In reflecting on our project management journey, it's clear that several key processes and technologies have played pivotal roles in driving our success. The decision to hold all our meetings online was a cornerstone of our strategy, granting us the flexibility needed to bridge the physical distances between team members. This approach not only saved time but also ensured that every voice could be heard, regardless of location.
 
-\plt{What went well for your project management in terms of processes and 
-technology?}
+Our technological strategy was anchored by a commitment to efficiency and effectiveness. We found existing technologies that perfectly met our project requirements, allowing us to focus our energies on application and development rather than unnecessary innovation. This strategic selection of tools enabled us to allocate our resources wisely, leveraging robust, proven solutions to meet our project's needs without the need to "reinvent the wheel."
+
+Despite the pressures of tight deadlines, particularly evident when preparing for demonstrations to course instructors and supervisors, our development process culminated successfully. The team's dedication to the project timeline was commendable, with members often going the extra mile to ensure milestones were met and objectives were achieved on schedule.
+
+The role-based task completion strategy was another testament to our project's triumphs. Team members took ownership of their responsibilities, delivering on their commitments which were crucial to the seamless progression of our project. This sense of responsibility and accountability was reflected in the quality of work produced and the timelines met.
+
+Finally, our collaborative efforts were significantly bolstered by the use of the GitHub project board and Google Docs. These tools facilitated real-time collaboration, transparent communication, and effective project tracking. The GitHub project board was instrumental in visualizing our workflow and monitoring task completion, while Google Docs allowed for dynamic document sharing and editing, keeping everyone in sync and informed.
 
 \subsection{What Went Wrong?}
+Throughout our project's development, we faced several challenges that impacted our progress. A primary issue was the integration of third-party libraries into our technology stack. While there was no shortage of available libraries, the difficulty lay in selecting ones that not only fit our current needs but would also be sustainable in the long term. We needed libraries that offered precise feature compatibility and dependable support, but filtering through the myriad of options to find the perfect match proved to be a more complex task than anticipated.
 
-\plt{What went wrong in terms of processes and technology?}
+Additionally, the project was hindered by the challenge of coordinating communication among team members who operated on different schedules. This disparity in availability led to gaps in synchronous interaction, which over time contributed to weaker team bonding and a less cohesive unit. The lack of regular, real-time communication created barriers to forming the strong collaborative relationships that are so crucial to team success.
+
+The complexities of interdisciplinary collaboration also became evident as we tried to align our team’s diverse domain knowledge with the supervisor's expert guidance. The supervisor brought a wealth of knowledge from a specialized field, which, while invaluable, initially seemed foreign and was difficult for the team to fully grasp. This gap in understanding slowed our progress as we struggled to assimilate these new concepts with our existing knowledge base.
+
+Task estimation was another area where our processes fell short. Enthusiasm for the project led us to set ambitious deadlines, but these often didn't hold up against the reality of the tasks' demands. The initial underestimation of the time needed to complete various tasks left us scrambling to adjust schedules and workloads, which was an eye-opener to the intricacies involved in our work and the need for a more detailed approach to managing our time.
+
+Finally, the distribution of tasks among team members was not always even, leading to imbalances in workload. Some team members found themselves overwhelmed, while others were underutilized, an inconsistency that pointed to a need for more careful planning in our assignment of responsibilities. The realization that not all tasks were being allocated fairly was a challenge we had to acknowledge if we were to work as a truly unified team.
 
 \subsection{What Would you Do Differently Next Time?}
+For our future project, we will take a proactive approach to mitigate the issues encountered in the Capstone project.
 
-\plt{What will you do differently for your next project?}
+To address the difficulty in selecting third-party libraries, we will implement a comprehensive selection framework. This will involve clearly defining our technical requirements and evaluating potential libraries against these criteria. We will also establish a review process that considers long-term support and compatibility, ensuring that the choices we make are sustainable and align with our project’s future direction.
+
+For the synchronization of team communications, we will introduce more flexible scheduling options and leverage asynchronous communication tools to accommodate different schedules. This will ensure that all team members can contribute effectively, and help to strengthen team cohesion and understanding.
+
+To bridge the gap between the team’s domain knowledge and the supervisory guidance, we will create more meetings to learn knowledge for the project. These meetings will include regular workshops and briefing sessions led by the supervisor to ensure that all team members have a clear understanding of the interdisciplinary aspects of the project. This will also provide an opportunity for team members to ask questions and gain clarity on complex subjects.
+
+In terms of project time management, we will adopt a more realistic approach to task estimation. This will involve using data from past projects to better predict task durations, splitting tasks into smaller and easier-to-predict pieces, incorporating buffer times to manage unexpected delays, and continuously monitoring and adjusting timelines as the project progresses.
+
+Finally, to ensure equitable task distribution, we will use a more systematic approach to task assignment. This will include developing a clear understanding of each team member’s skills and availability, using project management tools to track workload distribution, and regularly reviewing task assignments to prevent any imbalances.
+
+By implementing these strategies, we aim to create a more efficient, cohesive, and productive project environment for our next venture.
 
 \end{document}
