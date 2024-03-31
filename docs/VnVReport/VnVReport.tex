@@ -19,6 +19,7 @@
 \usepackage{pdflscape}
 \usepackage{siunitx}
 \usepackage{graphicx}
+\usepackage[normalem]{ulem}
 
 \newcommand{\rt}[1]{\textcolor{red}{#1}}
 
@@ -94,144 +95,144 @@ MotionMingle.
 \begin{enumerate}[FR-T1]
   \item \label{FRT1}
     \begin{description}
-    \item[Initial State] Client application is running on the user's device, but
+    \item[\sout{Initial State}]\sout{ Client application is running on the user's device, but
       the user didn’t do any operations yet.
-    \item[Input/Condition] User clicks on the applicable
+    }\item[\sout{Input/Condition}]\sout{ User clicks on the applicable
       identity(instructor/practitioner) button
-    \item[Expected Output] The live stream video window pops out on the user's
+    }\item[\sout{Expected Output}]\sout{ The live stream video window pops out on the user's
       screen.
-    \item[Actual Output] The live stream video window shows on the instructor's
+    }\item[Actual Output] The live stream video window shows on the instructor's
       screen, it doesn't show on the practitioner's screen.
     \item[Result] Pass
     \end{description}
   \item \label{FRT2}
     \begin{description}
-    \item[Initial State] Application running on user’s computer, and the user has
+    \item[\sout{Initial State}]\sout{ Application running on user’s computer, and the user has
       clicked on “the instructor identity button” to indicate they are a TaiChi
       instructor. A window asking for permission to use the camera on the
       instructor's device popped out.
-    \item[Input/Condition] User allow/deny the webcam permission
-    \item[Expected Output] The webcam on the instructor’s device is turned on
-    \item[Actual Output] The webcam on the instructor’s device is turned on after
+    }\item[\sout{Input/Condition}]\sout{ User allow/deny the webcam permission
+    }\item[\sout{Expected Output}]\sout{ The webcam on the instructor’s device is turned on
+    }\item[Actual Output] The webcam on the instructor’s device is turned on after
       allowing webcam permission, and the webcam is not turned on after denying
       permission.
     \item[Result] Pass
     \end{description}
   \item \label{FRT3}
     \begin{description}
-    \item[Initial State] both client applications and the server are running.
-    \item[Input/Condition] The user clicks on the applicable identity button to
+    \item[\sout{Initial State}]\sout{ both client applications and the server are running.
+    }\item[\sout{Input/Condition}]\sout{ The user clicks on the applicable identity button to
       indicate they are an instructor or a practitioner.
-    \item[Expected Output] A log message indicates connection between the user’s
+    }\item[\sout{Expected Output}]\sout{ A log message indicates connection between the user’s
       device and the server has been established.
-    \item[Actual Output] Log message confirms a successful connection between the
+    }\item[Actual Output] Log message confirms a successful connection between the
       user’s device and the server for both instructor and practitioner.
     \item[Result] Pass
     \end{description}
   \item \label{FRT4}
     \begin{description}
     \item[Type] Functional, Dynamic, Automated
-    \item[Initial State] The live stream Window for practitioners.
-    \item[Input/Condition] The user’s device has established a connection with the
+    \item[\sout{Initial State}]\sout{ The live stream Window for practitioners.
+    }\item[\sout{Input/Condition}]\sout{ The user’s device has established a connection with the
       server as a practitioner device.
-    \item[Expected Output] A request from the client device to the server for
+    }\item[\sout{Expected Output}]\sout{ A request from the client device to the server for
       accessing the list of available annotation configuration.
-    \item[Actual Output] The client device sends a request to the server for the
+    }\item[Actual Output] The client device sends a request to the server for the
       list of available annotation configurations.
     \item[Result] Pass
     \end{description}
   \item \label{FRT5}
     \begin{description}
-    \item[Initial State] The selectable list of the type of annotations is
+    \item[\sout{Initial State}]\sout{ The selectable list of the type of annotations is
       rendered on the user's screen.
-    \item[Input/Condition] Practitioner’s selection on the list of types of
+    }\item[\sout{Input/Condition}]\sout{ Practitioner’s selection on the list of types of
       annotations.
-    \item[Expected Output] A request(that reflects user’s annotation selection)
+    }\item[\sout{Expected Output}]\sout{ A request(that reflects user’s annotation selection)
       from the client device to the server for updating the annotation
       configuration, with a log indicating the request is sent.
-    \item[Actual Output] The client device sends the selected annotation
+    }\item[Actual Output] The client device sends the selected annotation
       configuration update to the server, and a log entry confirms the request
       was sent.
     \item[Result] Pass
     \end{description}
   \item \label{FRT6}
     \begin{description}
-    \item[Initial State] The system is running and actively connected to
+    \item[\sout{Initial State}]\sout{ The system is running and actively connected to
       practitioners.
-    \item[Input/Condition] Practitioners initiate updates to annotation
+    }\item[\sout{Input/Condition}]\sout{ Practitioners initiate updates to annotation
       configurations.
-    \item[Expected Output] The system receives and processes the updated annotation
+    }\item[\sout{Expected Output}]\sout{ The system receives and processes the updated annotation
       configurations.
-    \item[Actual Output] The server gets the request and user sees the annotation
+    }\item[Actual Output] The server gets the request and user sees the annotation
       they selected.
     \item[Result] Pass
     \end{description}
   \item \label{FRT7}
     \begin{description}
-    \item[Initial State] The server is running and actively receiving annotation
+    \item[\sout{Initial State}]\sout{ The server is running and actively receiving annotation
       configuration updates.
-    \item[Input/Condition] In a controlled test environment, the
+    }\item[\sout{Input/Condition}]\sout{ In a controlled test environment, the
       practitioner-client initiates the update of an annotation configuration.
       The update is sent to the server for processing.
-    \item[Expected Output] The expected result is that the server correctly
+    }\item[\sout{Expected Output}]\sout{ The expected result is that the server correctly
       processes the received annotation configuration from the
       practitioner-client.
-    \item[Actual Output] The server is not able to receive annotation configuration
+    }\item[Actual Output] The server is not able to receive annotation configuration
       updates while the connection has been established.
     \item[Result] Fail
     \end{description}
   \item \label{FRT8}
     \begin{description}
-    \item[Initial State] The server has received and processed the annotation
+    \item[\sout{Initial State}]\sout{ The server has received and processed the annotation
       configuration.
-    \item[Input/Condition] The server uses the received annotation configuration to
+    }\item[\sout{Input/Condition}]\sout{ The server uses the received annotation configuration to
       configure machine learning pipelines.
-    \item[Expected Output] The machine learning pipelines are arranged and
+    }\item[\sout{Expected Output}]\sout{ The machine learning pipelines are arranged and
       configured based on the annotation configuration.
-    \item[Actual Output] The server successfully arranges and configures machine
+    }\item[Actual Output] The server successfully arranges and configures machine
       learning pipelines according to the received annotation configuration.
     \item[Result] Pass
     \end{description}
   \item \label{FRT9}
     \begin{description}
-    \item[Initial State] The machine learning pipelines are configured and active.
-    \item[Input/Condition] The instructor's video stream is processed with the
+    \item[\sout{Initial State}]\sout{ The machine learning pipelines are configured and active.
+    }\item[\sout{Input/Condition}]\sout{ The instructor's video stream is processed with the
       annotation configuration.
-    \item[Expected Output] The instructor's video stream is rendered with
+    }\item[\sout{Expected Output}]\sout{ The instructor's video stream is rendered with
       annotations.
-    \item[Actual Output] The instructor's video stream is processed with the
+    }\item[Actual Output] The instructor's video stream is processed with the
       annotations.
     \item[Result] Pass
     \end{description}
   \item \label{FRT10}
     \begin{description}
-    \item[Initial State] The server is actively connected to practitioner clients.
-    \item[Input/Condition] The annotated video stream is generated and ready for
+    \item[\sout{Initial State}]\sout{ The server is actively connected to practitioner clients.
+    }\item[\sout{Input/Condition}]\sout{ The annotated video stream is generated and ready for
       transmission.
-    \item[Expected Output] The annotated video stream is transmitted to each
+    }\item[\sout{Expected Output}]\sout{ The annotated video stream is transmitted to each
       practitioner-client through their established connections.
-    \item[Actual Output] The annotated video stream is transmitted to practitioner
+    }\item[Actual Output] The annotated video stream is transmitted to practitioner
       clients.
     \item[Result] Pass
     \end{description}
   \item \label{FRT11}
     \begin{description}
-    \item[Initial State] The signaling server is running.
-    \item[Input/Condition] Signaling requests for WebRTC connections are initiated.
-    \item[Expected Output] The signaling server consistently responds to requests
+    \item[\sout{Initial State}]\sout{ The signaling server is running.
+    }\item[\sout{Input/Condition}]\sout{ Signaling requests for WebRTC connections are initiated.
+    }\item[\sout{Expected Output}]\sout{ The signaling server consistently responds to requests
       and establishes WebRTC connections.
-    \item[Actual Output] The signaling server responds to most requests and
+    }\item[Actual Output] The signaling server responds to most requests and
       establishes WebRTC connections
     \item[Result] Pass
     \end{description}
   \item \label{FRT12}
     \begin{description}
-    \item[Initial State] The client application is running, but the user didn’t do
+    \item[\sout{Initial State}]\sout{ The client application is running, but the user didn’t do
       any operations yet
-    \item[Input/Condition] The user joining video stream session.
-    \item[Expected Output] A button to identify if a user is an instructor or a
+    }\item[\sout{Input/Condition}]\sout{ The user joining video stream session.
+    }\item[\sout{Expected Output}]\sout{ A button to identify if a user is an instructor or a
       practitioner is rendered.
-    \item[Actual Output] The button to identify a user as an instructor or a
+    }\item[Actual Output] The button to identify a user as an instructor or a
       practitioner is rendered without issues
     \item[Result] Pass
     \end{description}
@@ -242,270 +243,270 @@ MotionMingle.
 \begin{enumerate}[NFR-T1]
   \item \label{NFRT1}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running, including the user interface.
-    \item[Input/Condition] User interactions such as button clicks and menu
+    }\item[\sout{Input/Condition}]\sout{ User interactions such as button clicks and menu
       selections.
-    \item[Expected Output] The user is able to interact with the client application
+    }\item[\sout{Expected Output}]\sout{ The user is able to interact with the client application
       and understand the response from and results yielded by the system.
-    \item[Actual Output] All 5 users are able to successfully interact with the
+    }\item[Actual Output] All 5 users are able to successfully interact with the
       application with understandable responses and results from the system.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT2}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running, including the user interface.
-    \item[Input/Condition] User interactions such as button clicks and menu
+    }\item[\sout{Input/Condition}]\sout{ User interactions such as button clicks and menu
       selections.
-    \item[Expected Output] System response to user interactions.
-    \item[Actual Output] The system responds to user interactions promptly and
+    }\item[\sout{Expected Output}]\sout{ System response to user interactions.
+    }\item[Actual Output] The system responds to user interactions promptly and
       correctly.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT3}
     \begin{description}
-    \item[Initial State] The system is in a stable operational state with necessary
+    \item[\sout{Initial State}]\sout{ The system is in a stable operational state with necessary
       services and components active. No users are currently logged in.
-    \item[Input/Condition] 5 test accounts (or more) for users. Predefined user
+    }\item[\sout{Input/Condition}]\sout{ 5 test accounts (or more) for users. Predefined user
       actions/scripts (relevant to normal system interactions during peak
       periods).
-    \item[Expected Output] The system remains stable and responsive. All user
+    }\item[\sout{Expected Output}]\sout{ The system remains stable and responsive. All user
       transactions are processed successfully.
-    \item[Actual Output] The system remains stable and responsive with all user
+    }\item[Actual Output] The system remains stable and responsive with all user
       transactions processed successfully. This is evident in the survey result
       part 3 in figure \ref{fig:surveyp3}.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT4}
     \begin{description}
-    \item[Initial State] The system is operational, with all services and
+    \item[\sout{Initial State}]\sout{ The system is operational, with all services and
       components running. User accounts for test are set up, and no tasks are
       being performed.
-    \item[Input/Condition] Erroneous user input data. Improper user actions.
-    \item[Expected Output] The system detects and rejects invalid inputs or
+    }\item[\sout{Input/Condition}]\sout{ Erroneous user input data. Improper user actions.
+    }\item[\sout{Expected Output}]\sout{ The system detects and rejects invalid inputs or
       actions, providing clear and helpful error messages to the user.
       Transactions or actions are either rolled back safely or do not proceed
       until valid input is provided.
-    \item[Actual Output] No invalid inputs can be made within the system.
+    }\item[Actual Output] No invalid inputs can be made within the system.
     \item[Result] Pass
     \end{description}
   \stepcounter{enumi}
   \item \label{NFRT6}
     \begin{description}
-    \item[Initial State] The system, with the SFU component, is in a stable,
+    \item[\sout{Initial State}]\sout{ The system, with the SFU component, is in a stable,
       operational state. Initially, there is a base number of video streams
       being processed, which is within the SFU's current capacity.
-    \item[Input/Condition] A load testing tool or custom script capable of
+    }\item[\sout{Input/Condition}]\sout{ A load testing tool or custom script capable of
       simulating multiple, simultaneous video streams.
-    \item[Expected Output] The SFU successfully processes an increasing number of
+    }\item[\sout{Expected Output}]\sout{ The SFU successfully processes an increasing number of
       video streams.
-    \item[Actual Output] The SFU processes an increased number of video streams,
+    }\item[Actual Output] The SFU processes an increased number of video streams,
       which was up to 5 users without significant issues.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT7}
     \begin{description}
-    \item[Initial State] This system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ This system is in a typical operational state with all
       components and services running, the user is in a live session.
-    \item[Input/Condition] Network Interruption/Network Resumption
-    \item[Expected Output] The system attempts to resume the previous session.
-    \item[Actual Output] The system did not resume to the previous session.
+    }\item[\sout{Input/Condition}]\sout{ Network Interruption/Network Resumption
+    }\item[\sout{Expected Output}]\sout{ The system attempts to resume the previous session.
+    }\item[Actual Output] The system did not resume to the previous session.
     \item[Result] Fail
     \end{description}
   \item \label{NFRT8}
     \begin{description}
-    \item[Initial State] This system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ This system is in a typical operational state with all
       components and services running, the user is in a live session.
-    \item[Input/Condition] Network instability
-    \item[Expected Output] A pop up window for network instability warning.
-    \item[Actual Output] There was no pop up window for network instability
+    }\item[\sout{Input/Condition}]\sout{ Network instability
+    }\item[\sout{Expected Output}]\sout{ A pop up window for network instability warning.
+    }\item[Actual Output] There was no pop up window for network instability
       warning.
     \item[Result] Fail
     \end{description}
   \item \label{NFRT9}
     \begin{description}
-    \item[Initial State] This system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ This system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] Turn down the primary signaling server.
-    \item[Expected Output] The redundant server takes over until the primary server
+    }\item[\sout{Input/Condition}]\sout{ Turn down the primary signaling server.
+    }\item[\sout{Expected Output}]\sout{ The redundant server takes over until the primary server
       resumes.
-    \item[Actual Output] Connections were able to be established without the
+    }\item[Actual Output] Connections were able to be established without the
       primary signaling server.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT10}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running. The user is in a live session with a
       media capturing device plugged in.
-    \item[Input/Condition] Disconnect the media capturing device from the user’s
+    }\item[\sout{Input/Condition}]\sout{ Disconnect the media capturing device from the user’s
       computing device.
-    \item[Expected Output] A pop up window which warns the user that the client
+    }\item[\sout{Expected Output}]\sout{ A pop up window which warns the user that the client
       application has lost connection to the media capturing device and prompts
       the user to reconnect the device to resume the live session.
-    \item[Actual Output] When the media capturing device is disconnected, a pop-up
+    }\item[Actual Output] When the media capturing device is disconnected, a pop-up
       window alerts the user and prompts for reconnection.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT11}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] Connect a media capturing device to the user’s computing
+    }\item[\sout{Input/Condition}]\sout{ Connect a media capturing device to the user’s computing
       device.
-    \item[Expected Output] A pop up window which warns the user that the video
+    }\item[\sout{Expected Output}]\sout{ A pop up window which warns the user that the video
       capturing device does not meet required specification if the client
       application detects that the video input stream has a resolution lower
       than \hyperref[const:res]{MIN\_RES}.
-    \item[Actual Output] The system was not able to check the specification of the
+    }\item[Actual Output] The system was not able to check the specification of the
       capturing device
     \item[Result] Fail
     \end{description}
   \item \label{NFRT12}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] the user starts a live session and begins streaming.
-    \item[Expected Output] Accurate instructional annotations are rendered and
+    }\item[\sout{Input/Condition}]\sout{ the user starts a live session and begins streaming.
+    }\item[\sout{Expected Output}]\sout{ Accurate instructional annotations are rendered and
       overlaid on the instructor’s video stream.
-    \item[Actual Output] The system renders accurate instructional annotations on
+    }\item[Actual Output] The system renders accurate instructional annotations on
       the instructor’s video stream.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT13}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] Connect more than one media capturing device to the
+    }\item[\sout{Input/Condition}]\sout{ Connect more than one media capturing device to the
       user’s computing device.
-    \item[Expected Output] A dialog listing all the detected capturing devices is
+    }\item[\sout{Expected Output}]\sout{ A dialog listing all the detected capturing devices is
       displayed to prompt the user for selecting a device to use.
-    \item[Actual Output] Feature handled by external API.
+    }\item[Actual Output] Feature handled by external API.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT14}
     \begin{description}
-    \item[Initial State] This system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ This system is in a typical operational state with all
       components and services running, with a live session created.
-    \item[Input/Condition] The live video and audio stream from instructor client
+    }\item[\sout{Input/Condition}]\sout{ The live video and audio stream from instructor client
       application.
-    \item[Expected Output] Audio stream and video stream with annotations on
+    }\item[\sout{Expected Output}]\sout{ Audio stream and video stream with annotations on
       practitioner client application.
-    \item[Actual Output] The practitioner client application receives only video
+    }\item[Actual Output] The practitioner client application receives only video
       streams with annotations.
     \item[Result] Fail
     \end{description}
   \item \label{NFRT15}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] The user starts the client application for instructors.
-    \item[Expected Output] A message with detailed instruction to set up a media
+    }\item[\sout{Input/Condition}]\sout{ The user starts the client application for instructors.
+    }\item[\sout{Expected Output}]\sout{ A message with detailed instruction to set up a media
       capturing device and a list of cautions is displayed.
-    \item[Actual Output] No message was displayed.
+    }\item[Actual Output] No message was displayed.
     \item[Result] Fail
     \end{description}
   \item \label{NFRT16}
     \begin{description}
-    \item[Initial State] The software system is fully developed, stable, and ready
+    \item[\sout{Initial State}]\sout{ The software system is fully developed, stable, and ready
       for testing. The different test environments for the latest versions of
       Windows, Linux, and macOS are set up, each with default settings.
-    \item[Input/Condition] The latest stable versions of Windows, Linux, and
+    }\item[\sout{Input/Condition}]\sout{ The latest stable versions of Windows, Linux, and
       macOS. Test cases designed to cover all the main functionalities of the
       system.
-    \item[Expected Output] The system functions correctly on all mentioned
+    }\item[\sout{Expected Output}]\sout{ The system functions correctly on all mentioned
       operating systems without crashes, unexpected behaviour, or significant
       performance issues.
-    \item[Actual Output] The system functions correctly on all mentioned operating
+    }\item[Actual Output] The system functions correctly on all mentioned operating
       systems without any significant issues.
     \item[Result] Pass \\
     \rt{ Evidence to support this result is in Survey Result \ref{fig:surveyp3}, 7 out of 10 users rated the speed and responsiveness are 5. }
     \end{description}
   \item \label{NFRT17}
     \begin{description}
-    \item[Initial State] The system is fully developed, with all features
+    \item[\sout{Initial State}]\sout{ The system is fully developed, with all features
       operational, and is hosted in a stable environment accessible via the web.
       Test environments with the latest versions of Chrome, Firefox, Safari, and
       Edge are established, each configured with default browser settings.
-    \item[Input/Condition] Latest stable versions of Chrome, Firefox, Safari, and
+    }\item[\sout{Input/Condition}]\sout{ Latest stable versions of Chrome, Firefox, Safari, and
       Edge. A series of test cases designed to fully evaluate the
       functionalities and features of the system.
-    \item[Expected Output] The system operates as intended on all tested web
+    }\item[\sout{Expected Output}]\sout{ The system operates as intended on all tested web
       browsers without significant functionality issues, crashes, or severe
       performance degradation. Features and visual elements are consistent across
       all browsers.
-    \item[Actual Output] The system operates as intended across all tested web
+    }\item[Actual Output] The system operates as intended across all tested web
       browsers with consistent features and visual elements.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT18}
     \begin{description}
-    \item[Initial State] The system is fully developed and operational. The testing
+    \item[\sout{Initial State}]\sout{ The system is fully developed and operational. The testing
       environments represent a range of standard personal computer and laptop
       configurations (covering various manufacturers, system specifications, and
       age of devices) equipped with cameras and, where applicable, microphones.
       The devices are running compatible operating systems with the necessary
       drivers installed.
-    \item[Input/Condition] Range of standard computers or laptops with various
+    }\item[\sout{Input/Condition}]\sout{ Range of standard computers or laptops with various
       specifications, but all within the commonly accepted 'standard' range for
       current users. Devices have functional cameras and optional microphones.
       Test script detailing system operation tasks.
-    \item[Expected Output] The system operates without significant delays, errors,
+    }\item[\sout{Expected Output}]\sout{ The system operates without significant delays, errors,
       or crashes.
-    \item[Actual Output] The system operates without significant delays, errors, or
+    }\item[Actual Output] The system operates without significant delays, errors, or
       crashes across a range of standard computers and laptops.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT19}
     \begin{description}
-    \item[Initial State] The system is fully developed, with comprehensive
+    \item[\sout{Initial State}]\sout{ The system is fully developed, with comprehensive
       documentation on its architecture, codebase, dependencies, and update
       procedures. The development environment is available for testing
       maintenance procedures, including tools for version control, testing, and
       deployment.
-    \item[Expected Output] Successful completion of maintenance tasks without
+    }\item[\sout{Expected Output}]\sout{ Successful completion of maintenance tasks without
       introducing significant issues or disruptions to the system's operation.
-    \item[Actual Output] It is impossible to perform maintenance without
+    }\item[Actual Output] It is impossible to perform maintenance without
       interrupting live users.
     \item[Result] Fail
     \end{description}
   \addtocounter{enumi}{2}
   \item \label{NFRT22}
     \begin{description}
-    \item[Initial State] The system is in a stable state, ready for testing. The
+    \item[\sout{Initial State}]\sout{ The system is in a stable state, ready for testing. The
       user interface for account creation or any other information input is
       accessible, and documentation related to data handling is available.
-    \item[Input/Condition] Guidelines or criteria specifying what constitutes
+    }\item[\sout{Input/Condition}]\sout{ Guidelines or criteria specifying what constitutes
       "essential" versus "nonessential" information for the system’s purpose.
       Access to the system's user interfaces (UI) where data submission forms
       are present.
-    \item[Expected Output] Comparison of requested data against the criteria for
+    }\item[\sout{Expected Output}]\sout{ Comparison of requested data against the criteria for
       essential information.
-    \item[Actual Output] The system requests only essential information from users.
+    }\item[Actual Output] The system requests only essential information from users.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT23}
     \begin{description}
-    \item[Initial State] This system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ This system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] Attempted unauthorized modifications to the system
+    }\item[\sout{Input/Condition}]\sout{ Attempted unauthorized modifications to the system
       including access to system files and modifications to system
       configurations.
-    \item[Expected Output] A determination of whether the system are able to
+    }\item[\sout{Expected Output}]\sout{ A determination of whether the system are able to
       prevent access or modifications from unauthorized users.
-    \item[Actual Output] The system prevents all unauthorized access and
+    }\item[Actual Output] The system prevents all unauthorized access and
       modifications during the test.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT24}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] The user starts a live session and begins streaming.
-    \item[Expected Output] A prompt for granting access to use the media capturing
+    }\item[\sout{Input/Condition}]\sout{ The user starts a live session and begins streaming.
+    }\item[\sout{Expected Output}]\sout{ A prompt for granting access to use the media capturing
       devices is displayed.
-    \item[Actual Output] A prompt appears for granting access to media capturing
+    }\item[Actual Output] A prompt appears for granting access to media capturing
       devices during a live session. This is evident in the survey result
       part 4 in figure \ref{fig:surveyp4}.
     \item[Result] Pass \\
@@ -513,67 +514,67 @@ MotionMingle.
     \end{description}
   \item \label{NFRT25}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] The user starts a live session and begins streaming.
-    \item[Expected Output] An indicator that the media capturing device is in use
+    }\item[\sout{Input/Condition}]\sout{ The user starts a live session and begins streaming.
+    }\item[\sout{Expected Output}]\sout{ An indicator that the media capturing device is in use
       and that the user is being recorded is visible in the client application.
-    \item[Actual Output] An indicator is visible in the client application when the
+    }\item[Actual Output] An indicator is visible in the client application when the
       media capturing device is in use.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT26}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] The user ends a live session and stops streaming.
-    \item[Expected Output] The indicator that the media capturing device is in use
+    }\item[\sout{Input/Condition}]\sout{ The user ends a live session and stops streaming.
+    }\item[\sout{Expected Output}]\sout{ The indicator that the media capturing device is in use
       disappears. The media stream from the capturing device is no longer
       displayed on the screen.
-    \item[Actual Output] The indicator disappears, and the media stream is no
+    }\item[Actual Output] The indicator disappears, and the media stream is no
       longer displayed once the session ends.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT27}
     \begin{description}
-    \item[Initial State] This system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ This system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] User inputs
-    \item[Expected Output] System response to user inputs
-    \item[Actual Output] The system responds effectively to user inputs.
+    }\item[\sout{Input/Condition}]\sout{ User inputs
+    }\item[\sout{Expected Output}]\sout{ System response to user inputs
+    }\item[Actual Output] The system responds effectively to user inputs.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT28}
     \begin{description}
-    \item[Initial State] The system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ The system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] A set of ISO/IEC 12207 standards.
-    \item[Expected Output] A determination of whether the system and its associated
+    }\item[\sout{Input/Condition}]\sout{ A set of ISO/IEC 12207 standards.
+    }\item[\sout{Expected Output}]\sout{ A determination of whether the system and its associated
       processes, documentation, and activities comply with the ISO/IEC 12207
       standards.
-    \item[Actual Output] The system and its processes comply with ISO/IEC 12207
+    }\item[Actual Output] The system and its processes comply with ISO/IEC 12207
       standards as determined through evaluation.
     \item[Result] Pass
     \end{description}
   \item \label{NFRT29}
     \begin{description}
-    \item[Initial State] This system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ This system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] Various user interactions.
-    \item[Expected Output] The computers continue to function within acceptable
+    }\item[\sout{Input/Condition}]\sout{ Various user interactions.
+    }\item[\sout{Expected Output}]\sout{ The computers continue to function within acceptable
       performance parameters throughout the test.
-    \item[Actual Output] The computer's function is not affected throughout various
+    }\item[Actual Output] The computer's function is not affected throughout various
       user interactions.
     \item[Result] Pass \\
     \rt{ Evidence to support this result is in Survey Result \ref{fig:surveyp3}, 7 out of 10 users rated the speed and responsiveness are 5. }
     \end{description}
   \item \label{NFRT30}
     \begin{description}
-    \item[Initial State] This system is in a typical operational state with all
+    \item[\sout{Initial State}]\sout{ This system is in a typical operational state with all
       components and services running.
-    \item[Input/Condition] User inputs
-    \item[Expected Output] System response from user inputs
-    \item[Actual Output] The system responds appropriately and efficiently to user
+    }\item[\sout{Input/Condition}]\sout{ User inputs
+    }\item[\sout{Expected Output}]\sout{ System response from user inputs
+    }\item[Actual Output] The system responds appropriately and efficiently to user
       inputs.
     \item[Result] Pass
     \end{description}
@@ -609,45 +610,45 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-UA1}
   \begin{description}
   \item[Test Name] test\_renders\_auth\_component
-  \item[Initial State] The system initializes the Auth component within a mock
+  \item[\sout{Initial State}]\sout{ The system initializes the Auth component within a mock
     routing environment.
-  \item[Input/Condition] N/A
-  \item[Expected Output] The component should display the Motion Mingle banner
+  }\item[\sout{Input/Condition}]\sout{ N/A
+  }\item[\sout{Expected Output}]\sout{ The component should display the Motion Mingle banner
     and a logo image.
-  \item[Actual Output] The component displayed the Motion Mingle banner and a
+  }\item[Actual Output] The component displayed the Motion Mingle banner and a
     logo image.
   \item[Result] Pass
   \end{description}
 \item \label{UT-UA2}
   \begin{description}
   \item[Test Name] test\_instructor\_button
-  \item[Initial State] The system initializes the "Auth" component within a mock
+  \item[\sout{Initial State}]\sout{ The system initializes the "Auth" component within a mock
     routing environment.
-  \item[Input/Condition] The user clicks on the Instructor button.
-  \item[Expected Output] The user should be navigated to the '/instructor' path.
-  \item[Actual Output] The user was navigated to the '/instructor' path.
+  }\item[\sout{Input/Condition}]\sout{ The user clicks on the Instructor button.
+  }\item[\sout{Expected Output}]\sout{ The user should be navigated to the '/instructor' path.
+  }\item[Actual Output] The user was navigated to the '/instructor' path.
   \item[Result] Pass
   \end{description}
 \item \label{UT-UA3}
   \begin{description}
   \item[Test Name] test\_practitioner\_button
-  \item[Initial State] The system initializes the "Auth" component within a mock
+  \item[\sout{Initial State}]\sout{ The system initializes the "Auth" component within a mock
     routing environment.
-  \item[Input/Condition] The user clicks on the Practitioner button.
-  \item[Expected Output] The user should be navigated to the '/practitioner'
+  }\item[\sout{Input/Condition}]\sout{ The user clicks on the Practitioner button.
+  }\item[\sout{Expected Output}]\sout{ The user should be navigated to the '/practitioner'
     path.
-  \item[Actual Output] The user was navigated to the '/practitioner' path.
+  }\item[Actual Output] The user was navigated to the '/practitioner' path.
   \item[Result] Pass
   \end{description}
 \item \label{UT-UA4}
   \begin{description}
   \item[Test Name] test\_slogan
-  \item[Initial State] The system initializes the "Auth" component within a mock
+  \item[\sout{Initial State}]\sout{ The system initializes the "Auth" component within a mock
     routing environment.
-  \item[Input/Condition] N/A
-  \item[Expected Output] The slogan should be visible within the component with
+  }\item[\sout{Input/Condition}]\sout{ N/A
+  }\item[\sout{Expected Output}]\sout{ The slogan should be visible within the component with
     the correct text.
-  \item[Actual Output] The slogan was displayed within the component with the
+  }\item[Actual Output] The slogan was displayed within the component with the
     correct text.
   \item[Result] Pass
   \end{description}
@@ -658,64 +659,64 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-M1}
   \begin{description}
   \item[Test Name] test\_renders\_instructor\_component
-  \item[Initial State] The system is initialized with default state settings.
+  \item[\sout{Initial State}]\sout{ The system is initialized with default state settings.
     The "Instructor" component is about to be rendered within a mock routing
     environment.
-  \item[Input/Condition] N/A
-  \item[Expected Output] The "Instructor" component should be rendered with the
+  }\item[\sout{Input/Condition}]\sout{ N/A
+  }\item[\sout{Expected Output}]\sout{ The "Instructor" component should be rendered with the
     title "Motion Mingle".
-  \item[Actual Output] The "Instructor" component was rendered with the title
+  }\item[Actual Output] The "Instructor" component was rendered with the title
     "Motion Mingle".
   \item[Result] Pass
   \end{description}
 \item \label{UT-M2}
   \begin{description}
   \item[Test Name] test\_select\_annotation
-  \item[Initial State] The system has loaded the Instructor component, and the
+  \item[\sout{Initial State}]\sout{ The system has loaded the Instructor component, and the
     "SelectAnnotation" component is ready to receive user input.
-  \item[Input/Condition] A user selects "Skeleton" annotation from the dropdown
+  }\item[\sout{Input/Condition}]\sout{ A user selects "Skeleton" annotation from the dropdown
     menu.
-  \item[Expected Output] The dropdown menu should reflect that "Annotation 1"
+  }\item[\sout{Expected Output}]\sout{ The dropdown menu should reflect that "Annotation 1"
     has been selected.
-  \item[Actual Output] "Skeleton" has been selected from the dropdown menu.
+  }\item[Actual Output] "Skeleton" has been selected from the dropdown menu.
   \item[Result] Pass
   \end{description}
 \item \label{UT-M3}
   \begin{description}
   \item[Test Name] test\_stop\_broadcast
-  \item[Initial State] The Instructor component is rendered and operational,
+  \item[\sout{Initial State}]\sout{ The Instructor component is rendered and operational,
     presumed to be in a state where broadcasting is occurring (mocked
     condition).
-  \item[Input/Condition] The user clicks the "Broadcast" button to simulate
+  }\item[\sout{Input/Condition}]\sout{ The user clicks the "Broadcast" button to simulate
     starting a broadcast and then clicks "Stop" to simulate ending the
     broadcast.
-  \item[Expected Output] The "MessageModal" mock should be displayed, indicating
+  }\item[\sout{Expected Output}]\sout{ The "MessageModal" mock should be displayed, indicating
     that the stopping of the video is to be confirmed.
-  \item[Actual Output] The "MessageModal" mock was displayed.
+  }\item[Actual Output] The "MessageModal" mock was displayed.
   \item[Result] Pass
   \end{description}
 \item \label{UT-M4}
   \begin{description}
   \item[Test Name] test\_start\_self\_video
-  \item[Initial State] The Instructor component is rendered and operational. The
+  \item[\sout{Initial State}]\sout{ The Instructor component is rendered and operational. The
     self-video is initially off.
-  \item[Input/Condition] The user clicks "Start self video" to initiate the
+  }\item[\sout{Input/Condition}]\sout{ The user clicks "Start self video" to initiate the
     video stream.
-  \item[Expected Output] The system should transition to a state where the
+  }\item[\sout{Expected Output}]\sout{ The system should transition to a state where the
     self-video is active.
-  \item[Actual Output] The system transitioned to a state where the self-video
+  }\item[Actual Output] The system transitioned to a state where the self-video
     is active.
   \item[Result] Pass
   \end{description}
 \item \label{UT-M5}
   \begin{description}
   \item[Test Name] test\_close\_self\_video
-  \item[Initial State] The Instructor component is rendered and operational. The
+  \item[\sout{Initial State}]\sout{ The Instructor component is rendered and operational. The
     self-video is active.
-  \item[Input/Condition] The user clicks "Close self video".
-  \item[Expected Output] The system should transition to a state where the
+  }\item[\sout{Input/Condition}]\sout{ The user clicks "Close self video".
+  }\item[\sout{Expected Output}]\sout{ The system should transition to a state where the
     self-video is inactive.
-  \item[Actual Output] The system transitioned to a state where the self-video
+  }\item[Actual Output] The system transitioned to a state where the self-video
     is inactive.
   \item[Result] Pass
   \end{description}
@@ -726,50 +727,50 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-PV1}
   \begin{description}
   \item[Test Name] test\_renders\_practitioner\_component
-  \item[Initial State] The system is initialized with default state settings.
+  \item[\sout{Initial State}]\sout{ The system is initialized with default state settings.
     The "Practitioner" component is about to be rendered within a mock routing
     environment.
-  \item[Input/Condition] N/A
-  \item[Expected Output] The "Practitioner" component should be rendered with
+  }\item[\sout{Input/Condition}]\sout{ N/A
+  }\item[\sout{Expected Output}]\sout{ The "Practitioner" component should be rendered with
     the title "Motion Mingle", a dropdown for selecting annotations initialized
     to "None", and a "Connect" button.
-  \item[Actual Output] The "Practitioner" component was rendered with the title
+  }\item[Actual Output] The "Practitioner" component was rendered with the title
     "Motion Mingle".
   \item[Result] Pass
   \end{description}
 \item \label{UT-PV2}
   \begin{description}
   \item[Test Name] test\_select\_annotation
-  \item[Initial State] The "Practitioner" component is rendered and displayed
+  \item[\sout{Initial State}]\sout{ The "Practitioner" component is rendered and displayed
     with the default selected annotation as "None".
-  \item[Input/Condition] The user changes the annotation selection from "None"
+  }\item[\sout{Input/Condition}]\sout{ The user changes the annotation selection from "None"
     to "Skeleton" using the dropdown.
-  \item[Expected Output] The dropdown menu for selecting annotations should
+  }\item[\sout{Expected Output}]\sout{ The dropdown menu for selecting annotations should
     reflect the change by displaying "Skeleton" as the current selection.
-  \item[Actual Output] "Skeleton" was displayed as selected in the dropdown
+  }\item[Actual Output] "Skeleton" was displayed as selected in the dropdown
     menu.
   \item[Result] Pass
   \end{description}
 \item \label{UT-PV3}
   \begin{description}
   \item[Test Name] test\_start\_video\_stream
-  \item[Initial State] The "Practitioner" component is rendered, displaying the
+  \item[\sout{Initial State}]\sout{ The "Practitioner" component is rendered, displaying the
     "Connect" button while the video stream is not connected.
-  \item[Input/Condition] The "Connect" button was clicked to start the video
+  }\item[\sout{Input/Condition}]\sout{ The "Connect" button was clicked to start the video
     stream.
-  \item[Expected Output] The "Connect" button should change to "Disconnect".
-  \item[Actual Output] The "Connect" button changed to "Disconnect".
+  }\item[\sout{Expected Output}]\sout{ The "Connect" button should change to "Disconnect".
+  }\item[Actual Output] The "Connect" button changed to "Disconnect".
   \item[Result] Pass
   \end{description}
 \item \label{UT-PV4}
   \begin{description}
   \item[Test Name] test\_stop\_video\_stream
-  \item[Initial State] The "Practitioner" component is rendered, displaying the
+  \item[\sout{Initial State}]\sout{ The "Practitioner" component is rendered, displaying the
     "Disconnect" button while the video stream is connected.
-  \item[Input/Condition] The "Disconnect" button was clicked to stop the video
+  }\item[\sout{Input/Condition}]\sout{ The "Disconnect" button was clicked to stop the video
     stream.
-  \item[Expected Output] The "Disconnect" button should change to "Connect".
-  \item[Actual Output] The "Disconnect" button changed to "Connect".
+  }\item[\sout{Expected Output}]\sout{ The "Disconnect" button should change to "Connect".
+  }\item[Actual Output] The "Disconnect" button changed to "Connect".
   \item[Result] Pass
   \end{description}
 \end{enumerate}
@@ -779,26 +780,26 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-AC1}
   \begin{description}
   \item[Test Name] test\_render\_select\_annotation\_component
-  \item[Initial State] The "SelectAnnotation" component is initialized with
+  \item[\sout{Initial State}]\sout{ The "SelectAnnotation" component is initialized with
     default state settings.
-  \item[Input/Condition] The component is rendered without any preselected
+  }\item[\sout{Input/Condition}]\sout{ The component is rendered without any preselected
     value.
-  \item[Expected Output] The component should display with the label
+  }\item[\sout{Expected Output}]\sout{ The component should display with the label
     "Annotation" and a dropdown button showing the default value "None".
-  \item[Actual Output] The component was rendered with the label "Annotation"
+  }\item[Actual Output] The component was rendered with the label "Annotation"
     and a dropdown button showing the default value "None".
   \item[Result] Pass
   \end{description}
 \item \label{UT-AC2}
   \begin{description}
   \item[Test Name] test\_annotation\_options
-  \item[Initial State] The "SelectAnnotation" component is rendered with default
+  \item[\sout{Initial State}]\sout{ The "SelectAnnotation" component is rendered with default
     settings.
-  \item[Input/Condition] The user clicks on the dropdown menu to view available
+  }\item[\sout{Input/Condition}]\sout{ The user clicks on the dropdown menu to view available
     options.
-  \item[Expected Output] The dropdown menu should display four options: "None",
+  }\item[\sout{Expected Output}]\sout{ The dropdown menu should display four options: "None",
     "Skeleton", "Edges", and "Cartoon".
-  \item[Actual Output] The dropdown menu displayed four options: "None",
+  }\item[Actual Output] The dropdown menu displayed four options: "None",
     "Skeleton", "Edges", and "Cartoon".
   \item[Result] Pass
   \end{description}
@@ -809,15 +810,15 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-RC1}
   \begin{description}
   \item[Test Name] test\_create\_peer\_connection
-  \item[Initial State] Before creating a new "RTCPeerConnection", no connection
+  \item[\sout{Initial State}]\sout{ Before creating a new "RTCPeerConnection", no connection
     exists.
-  \item[Input/Condition] The "createPeerConnection" function is called without
+  }\item[\sout{Input/Condition}]\sout{ The "createPeerConnection" function is called without
     any specific arguments since it uses predefined settings within its
     implementation.
-  \item[Expected Output] A new "RTCPeerConnection" should be created with the
+  }\item[\sout{Expected Output}]\sout{ A new "RTCPeerConnection" should be created with the
     configuration specified for unified-plan SDP semantics and the Google STUN
     server.
-  \item[Actual Output] A new "RTCPeerConnection" was created with the
+  }\item[Actual Output] A new "RTCPeerConnection" was created with the
     configuration specified for unified-plan SDP semantics and the Google STUN
     server.
   \item[Result] Pass
@@ -825,27 +826,27 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-RC2}
   \begin{description}
   \item[Test Name] test\_connect\_as\_consumer
-  \item[Initial State] A "RTCPeerConnection" instance exists but has not yet
+  \item[\sout{Initial State}]\sout{ A "RTCPeerConnection" instance exists but has not yet
     established a connection nor created any offers.
-  \item[Input/Condition] The function "connectAsConsumer" is called with the
+  }\item[\sout{Input/Condition}]\sout{ The function "connectAsConsumer" is called with the
     created peer connection and "annotation" as arguments.
-  \item[Expected Output] The function should asynchronously create an SDP offer,
+  }\item[\sout{Expected Output}]\sout{ The function should asynchronously create an SDP offer,
     set it as the local description, send it to the server, and set the received
     SDP answer as the remote description.
-  \item[Actual Output] Same as expected output.
+  }\item[Actual Output] Same as expected output.
   \item[Result] Pass
   \end{description}
 \item \label{UT-RC3}
   \begin{description}
   \item[Test Name] test\_connect\_as\_broadcaster
-  \item[Initial State] A "RTCPeerConnection" instance is ready but not yet in a
+  \item[\sout{Initial State}]\sout{ A "RTCPeerConnection" instance is ready but not yet in a
     broadcasting state.
-  \item[Input/Condition] The function "connectAsBroadcaster" is called with the
+  }\item[\sout{Input/Condition}]\sout{ The function "connectAsBroadcaster" is called with the
     peer connection object.
-  \item[Expected Output] The function should asynchronously create an SDP offer
+  }\item[\sout{Expected Output}]\sout{ The function should asynchronously create an SDP offer
     for broadcasting, set it as the local description, send it to the server,
     and set the server's SDP answer as the remote description.
-  \item[Actual Output] Same as expected.
+  }\item[Actual Output] Same as expected.
   \item[Result] Pass
   \end{description}
 \end{enumerate}
@@ -855,66 +856,66 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-OT1}
   \begin{description}
   \item[Test Name] test\_display\_message
-  \item[Initial State] The system initializes the "NotFound" component within a
+  \item[\sout{Initial State}]\sout{ The system initializes the "NotFound" component within a
     mock routing environment.
-  \item[Input/Condition] The component is rendered without any user interaction.
-  \item[Expected Output] The component should display the "Not Found" message.
-  \item[Actual Output] The component displayed the "Not Found" message.
+  }\item[\sout{Input/Condition}]\sout{ The component is rendered without any user interaction.
+  }\item[\sout{Expected Output}]\sout{ The component should display the "Not Found" message.
+  }\item[Actual Output] The component displayed the "Not Found" message.
   \item[Result] Pass
   \end{description}
 \item \label{UT-OT2}
   \begin{description}
   \item[Test Name] test\_navigate\_to\_root
-  \item[Initial State] The system initializes the "NotFound" component within a
+  \item[\sout{Initial State}]\sout{ The system initializes the "NotFound" component within a
     mock routing environment.
-  \item[Input/Condition] The component is rendered, and the existence of a link
+  }\item[\sout{Input/Condition}]\sout{ The component is rendered, and the existence of a link
     is checked.
-  \item[Expected Output] There should be a link that reads "GO HOME" and
+  }\item[\sout{Expected Output}]\sout{ There should be a link that reads "GO HOME" and
     navigates to the root path '/' upon clicking.
-  \item[Actual Output] Same as expected.
+  }\item[Actual Output] Same as expected.
   \item[Result] Pass
   \end{description}
 \item \label{UT-OT3}
   \begin{description}
   \item[Test Name] test\_close\_message\_modal
-  \item[Initial State] The "MessageModal" component is rendered with
+  \item[\sout{Initial State}]\sout{ The "MessageModal" component is rendered with
     "isModalOpen" set to true.
-  \item[Input/Condition] The "Cancel" button was clicked.
-  \item[Expected Output] The "handleClose" mock function should be called once.
-  \item[Actual Output] The "handleClose" mock function was called once.
+  }\item[\sout{Input/Condition}]\sout{ The "Cancel" button was clicked.
+  }\item[\sout{Expected Output}]\sout{ The "handleClose" mock function should be called once.
+  }\item[Actual Output] The "handleClose" mock function was called once.
   \item[Result] Pass
   \end{description}
 \item \label{UT-OT4}
   \begin{description}
   \item[Test Name] test\_stop\_video
-  \item[Initial State] The "MessageModal" component is rendered with
+  \item[\sout{Initial State}]\sout{ The "MessageModal" component is rendered with
     "isModalOpen" set to true.
-  \item[Input/Condition] The "Stop Video" button was clicked.
-  \item[Expected Output] The "handelStopVideo" mock function should be called
+  }\item[\sout{Input/Condition}]\sout{ The "Stop Video" button was clicked.
+  }\item[\sout{Expected Output}]\sout{ The "handelStopVideo" mock function should be called
     once.
-  \item[Actual Output] The "handelStopVideo" mock function was called once.
+  }\item[Actual Output] The "handelStopVideo" mock function was called once.
   \item[Result] Pass
   \end{description}
 \item \label{UT-OT5}
   \begin{description}
   \item[Test Name] test\_message\_visible
-  \item[Initial State] The "MessageModal" component is initialized and rendered
+  \item[\sout{Initial State}]\sout{ The "MessageModal" component is initialized and rendered
     with "isModalOpen" set to true.
-  \item[Input/Condition] N/A
-  \item[Expected Output] The modal, including the warning message, should be
+  }\item[\sout{Input/Condition}]\sout{ N/A
+  }\item[\sout{Expected Output}]\sout{ The modal, including the warning message, should be
     visible.
-  \item[Actual Output] The modal, including the warning message, was visible.
+  }\item[Actual Output] The modal, including the warning message, was visible.
   \item[Result] Pass
   \end{description}
 \item \label{UT-OT6}
   \begin{description}
   \item[Test Name] test\_message\_invisible
-  \item[Initial State] The "MessageModal" component is initialized and rendered
+  \item[\sout{Initial State}]\sout{ The "MessageModal" component is initialized and rendered
     with "isModalOpen" set to false.
-  \item[Input/Condition] N/A
-  \item[Expected Output] None of the modal's content should be present in the
+  }\item[\sout{Input/Condition}]\sout{ N/A
+  }\item[\sout{Expected Output}]\sout{ None of the modal's content should be present in the
     document.
-  \item[Actual Output] None of the modal's content was present in the document.
+  }\item[Actual Output] None of the modal's content was present in the document.
   \item[Result] Pass
   \end{description}
 \end{enumerate}
@@ -924,24 +925,24 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-S1}
   \begin{description}
   \item[Test Name] test\_broadcast\_options
-  \item[Initial State] Server is initialized and running with /broadcast
+  \item[\sout{Initial State}]\sout{ Server is initialized and running with /broadcast
     endpoint available.
-  \item[Input/Condition] HTTP OPTIONS request to /broadcast.
-  \item[Expected Output] HTTP status code 200.
-  \item[Actual Output] HTTP status code 200.
+  }\item[\sout{Input/Condition}]\sout{ HTTP OPTIONS request to /broadcast.
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 200.
+  }\item[Actual Output] HTTP status code 200.
   \item[Result] Pass
   \end{description}
 
 \item \label{UT-S2}
   \begin{description}
   \item[Test Name] test\_broadcast\_post
-  \item[Initial State] Server is initialized with the /broadcast endpoint ready
+  \item[\sout{Initial State}]\sout{ Server is initialized with the /broadcast endpoint ready
     to accept POST requests.
-  \item[Input/Condition] POST request to /broadcast with JSON body containing
+  }\item[\sout{Input/Condition}]\sout{ POST request to /broadcast with JSON body containing
     "sdp" and "type" fields.
-  \item[Expected Output] HTTP status code 200 and a JSON response containing
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 200 and a JSON response containing
     "sdp" and "type".
-  \item[Actual Output] HTTP status code 200 and a JSON response containing "sdp"
+  }\item[Actual Output] HTTP status code 200 and a JSON response containing "sdp"
     and "type".
   \item[Result] Pass
   \end{description}
@@ -949,66 +950,66 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-S3}
   \begin{description}
   \item[Test Name] test\_broadcast\_empty\_body\_post
-  \item[Initial State] Server is initialized with the /broadcast endpoint ready
+  \item[\sout{Initial State}]\sout{ Server is initialized with the /broadcast endpoint ready
     to accept POST requests.
-  \item[Input/Condition] POST request to /broadcast with an empty JSON body.
-  \item[Expected Output] HTTP status code 400
-  \item[Actual Output] HTTP status code 400
+  }\item[\sout{Input/Condition}]\sout{ POST request to /broadcast with an empty JSON body.
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 400
+  }\item[Actual Output] HTTP status code 400
   \item[Result] Pass
   \end{description}
 
 \item \label{UT-S4}
   \begin{description}
   \item[Test Name] test\_broadcast\_post\_with\_invalid\_data\_types
-  \item[Initial State] Server is initialized with the /broadcast endpoint ready.
-  \item[Input/Condition] POST request to /broadcast with invalid data types for
+  \item[\sout{Initial State}]\sout{ Server is initialized with the /broadcast endpoint ready.
+  }\item[\sout{Input/Condition}]\sout{ POST request to /broadcast with invalid data types for
     "sdp" and "type".
-  \item[Expected Output] HTTP status code 400
-  \item[Actual Output] HTTP status code 400
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 400
+  }\item[Actual Output] HTTP status code 400
   \item[Result] Pass
   \end{description}
 
 \item \label{UT-S5}
   \begin{description}
   \item[Test Name] test\_broadcast\_post\_missing\_fields
-  \item[Initial State] Server is initialized with the /broadcast endpoint ready.
-  \item[Input/Condition] POST request to /broadcast with missing "type" field in
+  \item[\sout{Initial State}]\sout{ Server is initialized with the /broadcast endpoint ready.
+  }\item[\sout{Input/Condition}]\sout{ POST request to /broadcast with missing "type" field in
     the JSON body.
-  \item[Expected Output] HTTP status code 400
-  \item[Actual Output] HTTP status code 400
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 400
+  }\item[Actual Output] HTTP status code 400
   \item[Result] Pass
   \end{description}
 
 \item \label{UT-S6}
   \begin{description}
   \item[Test Name] test\_invalid\_content\_type
-  \item[Initial State] Server is initialized and ready to handle requests.
-  \item[Input/Condition] POST request to /broadcast with a "Content-Type" of
+  \item[\sout{Initial State}]\sout{ Server is initialized and ready to handle requests.
+  }\item[\sout{Input/Condition}]\sout{ POST request to /broadcast with a "Content-Type" of
     "text/plain".
-  \item[Expected Output] HTTP status code 500
-  \item[Actual Output] HTTP status code 500
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 500
+  }\item[Actual Output] HTTP status code 500
   \item[Result] Pass
   \end{description}
 
 \item \label{UT-S7}
   \begin{description}
   \item[Test Name] test\_method\_not\_allowed
-  \item[Initial State] Server is initialized with the /broadcast endpoint not
+  \item[\sout{Initial State}]\sout{ Server is initialized with the /broadcast endpoint not
     configured to accept GET requests.
-  \item[Input/Condition] GET request to /broadcast.
-  \item[Expected Output] HTTP status code 405
-  \item[Actual Output] HTTP status code 405
+  }\item[\sout{Input/Condition}]\sout{ GET request to /broadcast.
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 405
+  }\item[Actual Output] HTTP status code 405
   \item[Result] Pass
   \end{description}
 
 \item \label{UT-S8}
   \begin{description}
   \item[Test Name] test\_response\_content\_type
-  \item[Initial State] Server is initialized and ready to respond to POST
+  \item[\sout{Initial State}]\sout{ Server is initialized and ready to respond to POST
     requests.
-  \item[Input/Condition] HTTP status code 200 and the "Content-Type" header is
+  }\item[\sout{Input/Condition}]\sout{ HTTP status code 200 and the "Content-Type" header is
     "application/json; charset=utf-8"
-  \item[Actual Output] HTTP status code 200 and the "Content-Type" header is
+  }\item[Actual Output] HTTP status code 200 and the "Content-Type" header is
     "application/json; charset=utf-8"
   \item[Result] Pass
   \end{description}
@@ -1016,44 +1017,44 @@ technology, especially in educational and collaborative online environments.
 \item \label{UT-S9}
   \begin{description}
   \item[Test Name] test\_consume\_options
-  \item[Initial State] Server is initialized and running with /consumer endpoint
+  \item[\sout{Initial State}]\sout{ Server is initialized and running with /consumer endpoint
     available.
-  \item[Input/Condition] HTTP OPTIONS request to /consumer.
-  \item[Expected Output] HTTP status code 200
-  \item[Actual Output] HTTP status code 200
+  }\item[\sout{Input/Condition}]\sout{ HTTP OPTIONS request to /consumer.
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 200
+  }\item[Actual Output] HTTP status code 200
   \item[Result] Pass
   \end{description}
 
 \item \label{UT-S10}
   \begin{description}
   \item[Test Name] test\_consume\_post
-  \item[Initial State] Server is initialized with the /consumer endpoint ready
+  \item[\sout{Initial State}]\sout{ Server is initialized with the /consumer endpoint ready
     to accept POST requests.
-  \item[Input/Condition] POST request to /consumer with JSON body containing
+  }\item[\sout{Input/Condition}]\sout{ POST request to /consumer with JSON body containing
     "sdp", "type", and "video\_transform".
-  \item[Expected Output] HTTP status code 500
-  \item[Actual Output] HTTP status code 500
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 500
+  }\item[Actual Output] HTTP status code 500
   \item[Result] Pass
   \end{description}
 
 \item \label{UT-S11}
   \begin{description}
   \item[Test Name] test\_consume\_empty\_body\_post
-  \item[Initial State] Server is initialized with the /consumer endpoint ready.
-  \item[Input/Condition] POST request to /consumer with an empty JSON body.
-  \item[Expected Output] HTTP status code 400
-  \item[Actual Output] HTTP status code 400
+  \item[\sout{Initial State}]\sout{ Server is initialized with the /consumer endpoint ready.
+  }\item[\sout{Input/Condition}]\sout{ POST request to /consumer with an empty JSON body.
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 400
+  }\item[Actual Output] HTTP status code 400
   \item[Result] Pass
   \end{description}
 
 \item \label{UT-S12}
   \begin{description}
   \item[Test Name] test\_consume\_post\_unsupported\_video\_transform
-  \item[Initial State] Server is initialized with the /consumer endpoint ready.
-  \item[Input/Condition] POST request to /consumer with unsupported
+  \item[\sout{Initial State}]\sout{ Server is initialized with the /consumer endpoint ready.
+  }\item[\sout{Input/Condition}]\sout{ POST request to /consumer with unsupported
     "video\_transform" value.
-  \item[Expected Output] HTTP status code 400
-  \item[Actual Output] HTTP status code 400
+  }\item[\sout{Expected Output}]\sout{ HTTP status code 400
+  }\item[Actual Output] HTTP status code 400
   \item[Result] Pass
   \end{description}
 \end{enumerate}
