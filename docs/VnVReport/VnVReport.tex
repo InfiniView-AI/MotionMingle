@@ -55,7 +55,7 @@ throughout this document.
 \begin{table}[H]
   \centering
   \begin{tabular}{L{0.25\linewidth}L{0.8\linewidth}} \toprule
-    \textbf{Symbol}                  & \textbf{Description}                                                                                                                                                                     \\ \midrule
+    \textbf{Symbol}                  & \textbf{Description}                                                                                                                                                                    \\ \midrule
     Instructor                 & A person who teaches a Tai Chi class through an online conference system.                                                                                                          \\
     Performance test           & Testing the performance(includes different metrics) of a system.                                                                                                                   \\
     Pipeline                   & A sequence of processing elements connected in series, which are responsible for generating annotations.                                                                           \\
@@ -419,7 +419,8 @@ MotionMingle.
       performance issues.
     \item[Actual Output] The system functions correctly on all mentioned operating
       systems without any significant issues.
-    \item[Result] Pass
+    \item[Result] Pass \\
+    \rt{ Evidence to support this result is in Survey Result \ref{fig:surveyp3}, 7 out of 10 users rated the speed and responsiveness are 5. }
     \end{description}
   \item \label{NFRT17}
     \begin{description}
@@ -507,7 +508,8 @@ MotionMingle.
     \item[Actual Output] A prompt appears for granting access to media capturing
       devices during a live session. This is evident in the survey result
       part 4 in figure \ref{fig:surveyp4}.
-    \item[Result] Pass
+    \item[Result] Pass \\
+    \rt{ evidence to support this result is in \ref{fig:surveyp4}, prompts appears for granting access to media captureing devices and when the instructor stops broadcasting}
     \end{description}
   \item \label{NFRT25}
     \begin{description}
@@ -562,7 +564,8 @@ MotionMingle.
       performance parameters throughout the test.
     \item[Actual Output] The computer's function is not affected throughout various
       user interactions.
-    \item[Result] Pass
+    \item[Result] Pass \\
+    \rt{ Evidence to support this result is in Survey Result \ref{fig:surveyp3}, 7 out of 10 users rated the speed and responsiveness are 5. }
     \end{description}
   \item \label{NFRT30}
     \begin{description}
@@ -1101,10 +1104,20 @@ survey as part of non-functional testing. One of the questions in the usability
 survey is: “Are there any specific content or learning materials you would like
 to see added to the application?” Some users state it is not convenient that
 they need to manually disconnect and reconnect to the server when selecting
-different annotations as a practitioner. The team decided to add an
-“auto-refresh” functionality to the system when an instructor or a practitioner
-changes their selected annotation would make the UI more intuitive and enhance
-user experiences.
+different annotations as a practitioner. \rt{This is stated in the question in Usability 
+Survey part \ref{fig:surveyp2}: ``Are there any specific issues or challenges you've 
+encountered while using the application?" The team decided to add an “auto-refresh” 
+functionality to the system when an instructor or a practitioner changes their 
+selected annotation. This change would make the UI more intuitive and enhance
+user experiences. Another issue we observed but user didn't state in the survey: some 
+users accidentally clicked the check annotated video button before starting broadcasting, 
+and it led to their confusion as the remote video stream did not show. We think having 
+the Check annotated video button disabled before the instructor starts broadcasting is 
+a good way to avoid this confusion. To make things more clear, we also plan to add an 
+instruction for users to navigate. Furthermore, we got some requests to add an annotation 
+to indicate the instructor's motion on their feet in Usability Survey part \ref{fig:surveyp5}. 
+We decided this is a "good to have" feature for user experience enhancement, but this 
+is truly something that can make our product unique. }
 
 \subsection{Change due to failed tests}
 
