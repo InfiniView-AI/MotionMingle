@@ -4,7 +4,7 @@
 
 **Date of project start:** 2023-09-16
 
-**This project is the McMaster University Software Engineering 2023-2024 Capstone Project.**
+**McMaster University Software Engineering 2023-2024 Capstone Project.**
 
 MontionMingle is an innovative online Tai Chi learning platform. It provides a real-time 
 video streaming platform as a web application for both Tai-chi instructors and practitioners. 
