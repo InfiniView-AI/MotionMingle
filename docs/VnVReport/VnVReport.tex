@@ -60,6 +60,7 @@ throughout this document.
     Instructor                 & A person who teaches a Tai Chi class through an online conference system.                                                                                                          \\
     Pipeline                   & A sequence of processing elements connected in series, which are responsible for generating annotations.                                                                           \\
     POC                        & proof of concept.                                                                                                                                                                  \\
+    Performance test           & Testing the performance (includes different metrics) of a system.                                                                                                                   \\
     Practitioner               & A person who learns Tai Chi through an online conference system.                                                                                                                   \\
     SFU                        & Selective Forwarding Unit, a component in real-time communication systems like WebRTC that routes and selectively forwards audio and video streams from one participant to others. \\
     SRS                        & The Software Requirements Specification document.                                                                                                                                  \\
@@ -258,7 +259,7 @@ MotionMingle.
   \item[Actual Output] All users are able to successfully interact with the
     application with understandable responses and results from the system.
   \item[Result] Pass \\
-    \rt{Evidence to support this result is in Survey Result \ref{fig:surveyp1},
+    \rt{Evidence to support this result is in Survey Result part listed in Figure \ref{fig:surveyp1},
       7 out of 10 users rated the experience in reading the in-app
       instructions and navigating through are beyond expectation.}
   \end{description}
@@ -323,7 +324,9 @@ MotionMingle.
       increasing number of video streams.}
   \item[Actual Output] The SFU processes an increased number of video streams,
     which was up to 5 users without significant issues.
-  \item[Result] Pass
+  \item[Result] Pass \\
+  \rt{Evidence to support this result is in the Performance Test Result listed in Figure \ref{fig:performance},
+  all the testers rated the system delay mets the delay expectation with up to 5 practitioners (6 users including the instructor).}
   \end{description}
 \item \label{NFRT7}
   \begin{description}
@@ -455,7 +458,7 @@ MotionMingle.
   \item[Actual Output] The system functions correctly on all mentioned operating
     systems without any significant issues.
   \item[Result] Pass \\
-    \rt{Evidence to support this result is in Survey Result
+    \rt{Evidence to support this result is in Survey Result part listed in Figure
       \ref{fig:surveyp3}, 7 out of 10 users rated the speed and
       responsiveness are 5.}
   \end{description}
@@ -495,7 +498,9 @@ MotionMingle.
       delays, errors, or crashes.}
   \item[Actual Output] The system operates without significant delays, errors, or
     crashes across a range of standard computers and laptops.
-  \item[Result] Pass
+  \item[Result] Pass \\
+  \rt{Part of evidence to support this result is in the Performance Test Result listed in Figure \ref{fig:performance},
+  all the testers rated the system delay mets the delay expectation with up to 5+ practitioners.}
   \end{description}
 \end{enumerate}
 
@@ -560,7 +565,7 @@ MotionMingle.
     devices during a live session. This is evident in the survey result
     part 4 in figure \ref{fig:surveyp4}.
   \item[Result] Pass \\
-    \rt{Evidence to support this result is in \ref{fig:surveyp4}, prompts
+    \rt{Evidence to support this result is in Survey Result part listed in Figure \ref{fig:surveyp4}, prompts
       appears for granting access to media captureing devices and when the
       instructor stops broadcasting}
   \end{description}
@@ -633,7 +638,7 @@ MotionMingle.
   \item[Actual Output] The computer's function is not affected throughout various
     user interactions.
   \item[Result] Pass \\
-    \rt{Evidence to support this result is in Survey Result \ref{fig:surveyp3},
+    \rt{Evidence to support this result is in Survey Result part listed in Figure \ref{fig:surveyp3},
       7 out of 10 users rated the speed and responsiveness are 5.}
   \end{description}
 \item \label{NFRT30}
@@ -1188,7 +1193,7 @@ survey is: “Are there any specific content or learning materials you would lik
 to see added to the application?” Some users state it is not convenient that
 they need to manually disconnect and reconnect to the server when selecting
 different annotations as a practitioner. \rt{This is stated in the question in
-  Usability Survey part \ref{fig:surveyp2}: ``Are there any specific issues or
+  Survey Result part listed in Figure \ref{fig:surveyp2}: ``Are there any specific issues or
   challenges you've encountered while using the application?" The team decided
   to add an “auto-refresh” functionality to the system when an instructor or a
   practitioner changes their selected annotation. This change would make the UI
@@ -1200,7 +1205,7 @@ different annotations as a practitioner. \rt{This is stated in the question in
   good way to avoid this confusion. To make things more clear, we also plan to
   add an instruction for users to navigate. Furthermore, we got some requests to
   add an annotation to indicate the instructor's motion on their feet in
-  Usability Survey part \ref{fig:surveyp5}. We decided this is a "good to have"
+  Survey Result part listed in Figure \ref{fig:surveyp5}. We decided this is a "good to have"
   feature for user experience enhancement, but this is truly something that can
   make our product unique. }
 
@@ -1492,10 +1497,10 @@ challenges that come with it. In the future, we will make sure to conduct
 regular reviews of the VnV plan and update it as needed to reflect changes in
 the project scope, requirements, and constraints.
 
-\section*{Appendix B --- Usability Survey}
+\section*{Appendix B --- Survey Result}
 The usability survey to MotionMingle can be found \href{https://docs.google.com/forms/d/e/1FAIpQLSchSdc_kHr98yHP8QPyWItHoP-dj_hJnuEtNByH0V2M_iDjWw/viewform}{here}.
 
-\section*{Appendix C --- Usability Survey Results}
+\section*{Appendix C --- Survey Result part listed in Figures}
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.0\linewidth]{surveyp1.png}
@@ -1529,6 +1534,14 @@ The usability survey to MotionMingle can be found \href{https://docs.google.com/
   \includegraphics[width=1.0\linewidth]{surveyp5.png}
   \caption{Survey results part 5}
   \label{fig:surveyp5}
+\end{figure}
+
+\section*{Appendix D --- Performance Test Result}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\linewidth]{performance.png}
+  \caption{Performance Test Result}
+  \label{fig:performance}
 \end{figure}
 
 
