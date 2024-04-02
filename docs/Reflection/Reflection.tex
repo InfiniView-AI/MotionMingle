@@ -16,68 +16,325 @@
 
 \maketitle
 
-\plt{Reflection is an important component of getting the full benefits from a
-learning experience.  Besides the intrinsic benefits of reflection, this
-document will be used to help the TAs grade how well your team responded to
-feedback.  In addition, several CEAB (Canadian Engineering Accreditation Board)
-Learning Outcomes (LOs) will be assessed based on your reflections.}
-
 \section{Changes in Response to Feedback}
 
-\plt{Summarize the changes made over the course of the project in response to
-feedback from TAs, the instructor, teammates, other teams, the project
-supervisor (if present), and from user testers.}
-
-\plt{For those teams with an external supervisor, please highlight how the feedback 
-from the supervisor shaped your project.  In particular, you should highlight the 
-supervisor's response to your Rev 0 demonstration to them.}
-
-\subsection{SRS and Hazard Analysis}
+\subsection{SRS}
+\subsubsection{Changes in Response to TA Feedback}
+\begin{enumerate}
+    \item Feedbacks and related changes on Document Content:
+    \begin{itemize}
+        \item Feedback: The choice of programming languages like Python and JavaScript is not inherently a technical imposition. \\
+                Change: We changed the Imposed Technical Choice to N/A.
+        \item Feedback: Assuming that "Understanding of the Annotation" without proper user testing is considered a weak foundation for the product's design. \\
+                Change: The document content has been revised to include user testing for validating the effectiveness of annotations and to incorporate continuous user feedback for improving clarity and comprehensiveness.
+        \item Feedback: The cognitive abilities of the user base may vary, and this needs to be taken into account when designing the product. \\
+                Change: The section on Cognitive Ability has been updated to the interface will be designed to be intuitive across a spectrum of cognitive abilities and will be refined through usability testing.
+        \item Feedback: Many laptops, including MacBooks, only have 720p cameras, so expecting users to have 1080p cameras might be unreasonable. \\
+                Change: The Supported Video Resolutions section has been modified to clarify that the system supports video resolutions from 480p as the minimum to 1080p as the maximum, 
+                addressing a broader range of webcam capabilities for user devices.
+        \end{itemize}
+    \item Feedbacks and related changes on Document Organization:
+    \begin{itemize}
+        \item Feedback: Clarify the units used for upload and download speeds, indicating whether they are in megabits or megabytes and defining these symbolic constants.\\
+                Change: We add the unit for upload and download speeds and define symbolic constants with their respective values at the start of the document.
+        \item Feedback: Include definitions and explanations of acronyms like STUN, TURN, SFU, etc., not just what they stand for.\\
+                Change: We added the explanations of acronyms in the Glossary section.
+    \end{itemize}
+    \item Feedbacks and related changes on Formatting and Style:
+    \begin{itemize}
+        \item Feedback: Missing hyperlinks in some cases.\\
+                Change: We added the missing hyperlinks(e.g. traceability matrix).
+    \end{itemize}
+    \item Feedbacks and related changes on Notation and Conventions:
+    \begin{itemize}
+        \item Feedback: Define everything at the start - and for acronyms define them, don't just give the expanded meaning.\\
+                Change: Defined all the constant at the beginning under Glossary and Symbolic Constants sections.
+    \end{itemize}
+    \item Feedbacks and related changes on What not How (Abstract):
+    \begin{itemize}
+        \item Feedback: Some things like WebRTC don't need to be mentioned at this point. Any realtime protocol could theoretically be used.\\
+                Change: We changed WebRTC to Real-Time video streaming or Real-Time Communoication.
+    \end{itemize}
+    \item Feedbacks and related changes on Complete, Correct and Unambiguous:
+    \begin{itemize}
+        \item Feedback: Some functional requirements feel a little "big", and some NFRs in particular are ambiguous.\\
+                Change: The document will be revised to remove ambiguities and ensure that requirements are specific, measurable, and testable.
+                (e.g. FR6 has been updated to specify the types of annotations that users can configure, providing clear options and addressing the previous feedback for more detailed information.)
+    \end{itemize}
+    \item Feedbacks and related changes on Verifiable Requirements:
+    \begin{itemize}
+        \item Feedback: Fit criteria are sometimes ambiguous.\\
+                Change: Fit criteria ambiguity has been addressed by adding specific range(e.g. USER SATISFACTION PERCENTAGE for UH1).
+    \end{itemize}
+    \item Feedbacks and related changes on Focus on Users (Part of Enterprise Design Thinking):
+    \begin{itemize}
+        \item Feedback: Not completely clear who the users are.\\
+                Change: We defined the term elderly people by specifing their aged 65 years and older. 
+    \end{itemize}
+    \item Feedbacks and related changes on Phase In Plan:
+    \begin{itemize}
+        \item Feedback: Does not include timeline for when things of different priorities will be phased in.\\
+                Change: We included the outlining a clear priority and schedule for project milestones.
+    \end{itemize}
+    \item Feedbacks and related changes on Basis for Design:
+    \begin{itemize}
+        \item Feedback: Haven't given any indication as to the types of annotations you will provide.\\
+                Change: We included the specific annotations used in our project.
+    \end{itemize}
+    \item Feedbacks and related changes on LO\_Reflect:
+    \begin{itemize}
+        \item Feedback: Reflection Appendix is missing.\\
+                Change: We added the missing Relection at the end of document.
+    \end{itemize}
+    \item Feedbacks and related changes on LO\_SpecMath:
+    \begin{itemize}
+        \item Feedback: The state diagram feels a bit small; does not capture the system very fully.\\
+                Change: We broadered the diagram, and include more states in the diagram.
+    \end{itemize}
+\end{enumerate}
+\subsubsection{Changes in Response to Peer Review}
+\begin{itemize}
+        \item Feedback: Need a stronger fit criterias for FR and NFR.\\
+                Change: Enhanced fit criterias by adding some specific range and definitions for the ambiguous FR and NFR 
+                (UH1, UH2, OE2, OE3, MS1, HS1, HS2, SR1, and SR2).
+        \item Feedback: Missing FR for Audio Capability.\\
+                Change: Added the FR for Audio Capability.
+\end{itemize}
+\subsubsection{Changes in Response to Supervisor Feedback}
+\begin{itemize}
+        \item Feedback: Should include the new annotation, Center of Mass Visulization.\\
+                Change: We changed the Clock Annotation to Center of Mass Visualization and defined it in Glossary.
+\end{itemize}
+\subsection{Hazard Analysis}
+\subsubsection{Changes in Response to TA Feedback}
+\begin{enumerate}
+        \item Move the definitions section to the beginning.\\
+                Changes: Move the Glossary to the beginning of the document.
+        \item The introduction section is unclear and confusing to read.\\
+                Changes: Revise the introduction.
+        \item Some things like STUN and TURN are never defined.\\
+                Changes: Add undefined terms to the Glossary.
+        \item There are existing "magic" numbers instead of constants.\\
+                Changes:Add undefined numbers to the Symbolic Constants table
+        \item Some assumptions are too big and ambiguous.\\
+                Changes: Revised all the assumptions and implemented a series of measurements to mitigate them.
+        \item PR9 is not clearly defined.\\
+                Changes: Revised PR9 and adjusted the rationale behind this requirement.
+\end{enumerate}
+\subsubsection{Changes in Response to Peer Review}
+\begin{enumerate}
+        \item Add STUN/TURN server to glossary and change the glossary location to the beginning.\\
+                Changes: Reorganized the document from TA's feedback
+        \item Ambiguous effects of failure for ML annotation pipeline.\\
+                Changes: Clearly stated effects of failure for both failure mode: Inaccurate Annotation Produced and Latency in
+                Annotation.
+        \item Ambiguity of Critical Assumption.\\
+                Chnages: Issues was addressed from TA's feedback.        
+\end{enumerate}
 
 \subsection{Design and Design Documentation}
 
+\subsubsection{Changes in Response to TA Feedback}
+
+\begin{enumerate}
+        \item Be specific about dates in the timeline.\\
+        Changes: Updated the project timeline with specific dates for 
+                all milestones and deliverables, ensuring clear expectations for project progression.
+        \item AC1 \& 2 are very confusing.\\
+        Changes: Clarified Acceptance Criteria 1 and 2 by redefining the terms 
+                and objectives, ensuring they are succinct and unambiguous.
+        \item UC10: laws can change, how will you be able to adapt to conform to 
+        new/updated laws?\\
+        Changes: Incorporated a regulatory review process into the project plan to ensure compliance with current and future laws.
+        \item UC11: you should be writing these as if they're for a "real" product 
+        and not just a Capstone project. The client is definitely not an unanticipated change.\\
+        Changes: Revise to ensure the product remains viable and adaptable for broader 
+        deployment beyond the scope of the initial capstone project.
+        \item UC13: this is more of a "meta" level idea about the project, rather 
+        than about the project (product) itself - isn't really necessary to include here.\\
+        Changes: Removed this unlikely change.
+\end{enumerate}    
+
+\subsubsection{Changes in Response to Peer Review}
+\begin{enumerate}
+        \item Module Guide Section 3.1 missing Links to relevent documents\\
+        Changes: Updated Section 3.1 of the Module Guide to include hyperlinks to all pertinent documents, providing easy access and navigation for readers.
+        \item MIS lack of Exceptions.\\
+        Changes: Enhanced the Module Interface Specification (MIS) by defining exception handling procedures and including them in the corresponding sections, ensuring robust system behavior under error conditions.
+\end{enumerate}    
+
 \subsection{VnV Plan and Report}
+\subsubsection{VnVplan: Changes in Response to TA Feedback}
+\begin{enumerate}
+        \item Some minor grammatical errors. \\
+        Changes: Conducted a comprehensive proofreading of the VnV Plan and corrected all grammatical errors to enhance the document's clarity and professionalism.
+        \item Write the document much more professionally, should never explicitly 
+        reference anything about the team being the "weak link".\\
+        Changes: Revised the language throughout the document to maintain a professional tone, removing any self-referential comments about the team's shortcomings.
+        \item Some things in the plan are not explained.\\
+        Changes: Expanded the explanations for all elements within the plan, ensuring that the document is self-explanatory and comprehensive.
+        \item Make better use of your symbolic constants section.\\
+        Changes: Refactored the symbolic constants section to improve readability and accessibility, and integrated these constants throughout the document for consistent reference.
+        \item Be more clear about your 1 to 5 scale in the testing plan.\\
+        Changes: Defined the 1 to 5 scale in the testing plan with explicit criteria for each level, ensuring a clear understanding of the test result expectations.
+\end{enumerate}   
+\subsubsection{VnVplan: Changes in Response to Peer Review}
+\begin{enumerate}
+        \item Relevant documents should include design documents (even if they 
+        haven't been written yet), such as the Module Guide and Module Interface 
+        Specification.\\
+        Changes: Listed all anticipated design documents in the VnV Plan with provisional titles and descriptions, outlining their purpose and interrelations.
+        \item Specify what kinds of testing strategies your teammates will employ 
+        for specific modules of the project.\\
+        Changes: Detailed individual testing strategies tailored for each module, assigned to specific team members, with clear objectives and methodologies.
+        \item NFR-T1 specifies functional interaction to test but LF-1 is purely 
+        non functional and does not specify any functionality. Consider adding 
+        in another functional requirement to specify this functionality or alter 
+        the NFR-T1 appropriately.\\
+        Changes: Modified NFR-T1 to delineate the boundary between functional and non-functional requirements clearly
+        \item NFR-T18 fit criteria not specific\\
+        Changes: Elaborated on the fit criteria for NFR-T18, providing measurable and observable conditions for successful implementation.
+\end{enumerate} 
+\subsubsection{VnV Report: Changes in Response to TA Feedback}
+\begin{enumerate}
+        \item Should order the abbreviations table alphabetically for better searching. \\
+        Changes: Re-ordered the abbreviations table alphabetically and removed unused abbreviations.
+        \item Information should not be unnecessarily repeated. The traceability between the two documents VnV plan and VnV report by referencing test IDs or name should be sufficient. Short paragraphs could be used to add additional context to test results. \\
+        Changes: Removed all the unnecessarily repeated information like test descriptions, initial states, etc. Added short paragraphs to refer usability survey result and performance test result with more context.
+        \item Should add text refence to the usability result and say what we are going to do with it. \\
+        Changes: Modified the change due to usability survey section and added reference text in to discuss the use of survey result, and what was the plan to improve user experience.
+        \item Should provide data to back up performance test result, and organize NFR tests in various categories. \\
+        Changes: Add the performance test result and categoired NFR tests.
+        \item Should reference survey data and show why we thought changes were necessary and which question we hope to improve by improving the app.\\
+        Changes: Modified the change due to usability survey section and added reference text in to discuss the use of survey result, and what was the plan to improve user experience.
+        \item Should try to use data to support our conclusions better.\\
+        Changes: Added multiple references to the survey result and performance test result to support test results/conclusions.
+        \item Should reflect a bit more on how these changes might have helped you during the project.\\
+        Changes: Modified the reflection section and added content of how our changes can help us in during the project.
+\end{enumerate} 
+
+\subsubsection{VnV Report: Changes in Response to Peer Review}
+\begin{enumerate}
+        \item Information should not be unnecessarily repeated. The traceability between the two documents VnV plan and VnV report by referencing test IDs or name should be sufficient. \\
+        Changes: Removed all the unnecessarily repeated information like test descriptions, initial states, etc.
+\end{enumerate} 
+
 
 \section{Design Iteration (LO11)}
+At the commencement of our capstone project, our initial foray into the technological landscape was with WebRTC. 
+Our collective endeavor was to comprehend and implement a peer-to-peer (P2P) connection within our group. 
+This exploration was foundational, setting the stage for our subsequent design choices. 
+However, while we successfully enabled a one-to-many call feature, a limitation became apparent; the inability to process video streams since WebRTC's P2P nature meant that data did not traverse through a server. 
+This hurdle was our project's proof of concept, demonstrating both our potential and the gaps yet to be bridged.
 
-\plt{Explain how you arrived at your final design and implementation.  How did
-the design evolve from the first version to the final version?} 
+To enhance our application's functionality, we delved into Selective Forwarding Units (SFUs), which allowed us to route video streams efficiently. 
+This was a pivotal moment in our project, as it opened the avenue to integrate a machine-learning model into our server. 
+The integration was not without its challenges, but it resulted in the SFU dispatching processed video streams to viewers. 
+Initially, our ML model could only annotate video with a skeletal representation of human pose estimation, a feature we proudly showcased in our 'Rev0' demonstration.
+
+Simultaneously, we became acutely aware of our User Interface's shortcomings. The design was rudimentary, with undersized buttons and a lack of guidance for users, hindering the intuitiveness of the application. 
+Post 'Rev0', we embraced a user-centric approach, refining our `UI to enhance usability and aesthetic appeal. 
+Critiques and suggestions from our supervisor, teaching assistant, and course instructor were instrumental, driving us to broaden our feature set to support better learning of Tai Chi.
+
+Acting on the feedback, we introduced an additional ML model capable of calculating the center of mass and projecting supportive foot diagrams. 
+This feature was designed to enrich the learning experience by visually guiding users on foot placement, a critical aspect of mastering Tai Chi. 
+It was this iterative feedback loop that truly honed our application's instructional potential.
+
+As we neared the completion of our project, a comprehensive redesign of the UI was undertaken. 
+We aimed not only to improve visual appeal but also to cater to a broader demographic, including the elderly. 
+Button sizes were increased, and clear instructions were incorporated to elucidate the functionality of each control. 
+This final iteration of our design was a testament to the iterative process—grounded in user feedback and analytical reflection.
+
+Throughout this journey, the constant was changed, and adaptability became our team's hallmark. 
+Each iteration brought us closer to a fusion of technology and user experience, ultimately culminating in a software solution that was not only functional but also empathetic to the needs of its users.
+
+This iterative design process—punctuated by technical enhancements and user-centric refinements—has been an extraordinary learning curve. 
+It taught us the value of perseverance, the insight gained from constructive criticism, and the impact of meticulous design on user engagement.
 
 \section{Design Decisions (LO12)}
+Each design decision was a response to these factors, balancing the ideal with the practical. 
+For instance, our choice of SFU architecture over the classical mesh network for P2P communication was a design preference and a strategic response to bandwidth constraints, allowing us to implement ML features that enhanced the application's instructional capability.
 
-\plt{Reflect and justify your design decisions.  How did limitations,
- assumptions, and constraints influence your decisions?}
+Moreover, our assumptions regarding user capabilities and device performance underscored the importance of user testing. 
+It was this iterative cycle of hypothesizing, implementing, and verifying that kept our design decisions aligned with user needs and practical realities.
+
+In conclusion, our design decisions were not made in isolation. They were influenced by a matrix of constraints and assumptions, some that defined our scope narrowly, and others that broadened our understanding of user needs. 
+Our reflective practice in navigating these constraints and assumptions ultimately led to a robust, user-friendly, and compliant software solution.
 
 \section{Economic Considerations (LO23)}
-
-\plt{Is there a market for your product? What would be involved in marketing your 
-product? What is your estimate of the cost to produce a version that you could 
-sell?  What would you charge for your product?  How many units would you have to 
-sell to make money? If your product isn't something that would be sold, like an 
-open source project, how would you go about attracting users?  How many potential 
-users currently exist?}
+Motion Mingle's economic considerations revolve around creating a product that addresses the specific needs of a niche market, doing so with an open-source ethos that encourages community participation, collaboration, and a potential pathway to sustainability through community contributions and partnerships.
+This can be concluded from Market Analysis, Marketing and User Acquisition, Cost and Revenue Model, Economic Feasibility, Value Proposition, and Future Potential. 
+\subsection{Market Analysis}
+The demand for specialized video conferencing solutions, such as Motion Mingle, which caters to the Tai Chi community, presents a unique market niche. 
+Unlike generic platforms like Zoom or Microsoft Teams, our product offers annotations tailored for Tai Chi that significantly enhance the learning experience. 
+This specialization may not reach a mass market but holds value for dedicated users, suggesting a viable market exists.
+\subsection{Marketing and User Acquisition}
+The demand for specialized video conferencing solutions, such as Motion Mingle, which caters to the Tai Chi community, presents a unique market niche.
+Unlike generic platforms like Zoom or Microsoft Teams, our product offers annotations tailored for Tai Chi that significantly enhance the learning experience. 
+This specialization may not reach a mass market but holds value for dedicated users, suggesting a viable market exists.
+\subsection{Cost and Revenue Model}
+Open-source projects typically don't follow a traditional revenue mode.
+\subsection{Economic Feasibility}
+Given the specialized nature of the software, we aim to create a high-quality product that requires minimal resources to maintain. 
+Keeping the project lean will help ensure its sustainability. Furthermore, the flexible and scalable architecture means that the product can adapt to various user demands and technological advancements without incurring significant additional costs.
+\subsection{Value Proposition}
+Motion Mingle's unique position and the value it provides with its targeted functionality make it an attractive proposition for Tai Chi practitioners and instructors. 
+This user-centric focus, along with the scalability and ease of use, not only justifies its existence but also highlights the potential for widespread adoption within its target demographic. 
+\subsection{Future Potential}
+Considering future potentials like enhanced annotations and interactive call rooms, Motion Mingle could become the go-to solution for remote Tai Chi instruction. 
+The open-source nature of the project invites continuous improvement and innovation, which can lead to unexpected avenues for growth and value creation.
 
 \section{Reflection on Project Management (LO24)}
-
-\plt{This question focuses on processes and tools used for project management.}
-
 \subsection{How Does Your Project Management Compare to Your Development Plan}
+\subsubsection{Meeting and Communication Plan}
+Our team held full attendance at scheduled meetings. This consistent engagement facilitated a synchronous understanding of project goals and ongoing tasks.
 
-\plt{Did you follow your Development plan, with respect to the team meeting plan, 
-team communication plan, team member roles and workflow plan.  Did you use the 
-technology you planned on using?}
+Throughout the project, team members adhered to the established communication plan while maintaining flexibility in deliverable planning, progress reporting, and documenting work results.
+Such discipline in communication not only helped streamline the development process but also ensured that all team members were aware of each other's progress and challenges. 
+\subsubsection{Role and Workflow Adherence}
+The roles assigned to team members were well respected, with each individual contributing to their tasks effectively. This adherence to defined roles allowed team members to specialize and focus, which in turn improved the quality and efficiency of their work.
+
+Our development unfolded as envisioned in the plan. This was largely due to the proactive approach of the team in addressing potential roadblocks and pivoting when necessary while remaining aligned with the original goals.
+\subsubsection{Technology and Tools}
+The technology tools for communications and management, such as GitHub and Google Docs, we initially decided on were not only used but also capitalized upon. Our GitHub workflow was particularly impactful. By breaking down larger features into manageable tasks and assigning them to relevant developers, we maximized our use of GitHub's capabilities for version control and issue tracking. This approach not only facilitated a smooth development flow but also allowed us to monitor progress effectively and integrate changes incrementally.
+
+Moreover, this methodology enabled us to maintain high standards of code integration and review. It encouraged frequent commits and peer reviews, which are vital for maintaining code quality and for early detection of any issues.
 
 \subsection{What Went Well?}
+In reflecting on our project management journey, it's clear that several key processes and technologies have played pivotal roles in driving our success. The decision to hold all our meetings online was a cornerstone of our strategy, granting us the flexibility needed to bridge the physical distances between team members. This approach not only saved time but also ensured that every voice could be heard, regardless of location.
 
-\plt{What went well for your project management in terms of processes and 
-technology?}
+Our technological strategy was anchored by a commitment to efficiency and effectiveness. We found existing technologies that perfectly met our project requirements, allowing us to focus our energies on application and development rather than unnecessary innovation. This strategic selection of tools enabled us to allocate our resources wisely, leveraging robust, proven solutions to meet our project's needs without the need to "reinvent the wheel."
+
+Despite the pressures of tight deadlines, particularly evident when preparing for demonstrations to course instructors and supervisors, our development process culminated successfully. The team's dedication to the project timeline was commendable, with members often going the extra mile to ensure milestones were met and objectives were achieved on schedule.
+
+The role-based task completion strategy was another testament to our project's triumphs. Team members took ownership of their responsibilities, delivering on their commitments which were crucial to the seamless progression of our project. This sense of responsibility and accountability was reflected in the quality of work produced and the timelines met.
+
+Finally, our collaborative efforts were significantly bolstered by the use of the GitHub project board and Google Docs. These tools facilitated real-time collaboration, transparent communication, and effective project tracking. The GitHub project board was instrumental in visualizing our workflow and monitoring task completion, while Google Docs allowed for dynamic document sharing and editing, keeping everyone in sync and informed.
 
 \subsection{What Went Wrong?}
+Throughout our project's development, we faced several challenges that impacted our progress. A primary issue was the integration of third-party libraries into our technology stack. While there was no shortage of available libraries, the difficulty lay in selecting ones that not only fit our current needs but would also be sustainable in the long term. We needed libraries that offered precise feature compatibility and dependable support, but filtering through the myriad of options to find the perfect match proved to be a more complex task than anticipated.
 
-\plt{What went wrong in terms of processes and technology?}
+Additionally, the project was hindered by the challenge of coordinating communication among team members who operated on different schedules. This disparity in availability led to gaps in synchronous interaction, which over time contributed to weaker team bonding and a less cohesive unit. The lack of regular, real-time communication created barriers to forming the strong collaborative relationships that are so crucial to team success.
+
+The complexities of interdisciplinary collaboration also became evident as we tried to align our team’s diverse domain knowledge with the supervisor's expert guidance. The supervisor brought a wealth of knowledge from a specialized field, which, while invaluable, initially seemed foreign and was difficult for the team to fully grasp. This gap in understanding slowed our progress as we struggled to assimilate these new concepts with our existing knowledge base.
+
+Task estimation was another area where our processes fell short. Enthusiasm for the project led us to set ambitious deadlines, but these often didn't hold up against the reality of the tasks' demands. The initial underestimation of the time needed to complete various tasks left us scrambling to adjust schedules and workloads, which was an eye-opener to the intricacies involved in our work and the need for a more detailed approach to managing our time.
+
+Finally, the distribution of tasks among team members was not always even, leading to imbalances in workload. Some team members found themselves overwhelmed, while others were underutilized, an inconsistency that pointed to a need for more careful planning in our assignment of responsibilities. The realization that not all tasks were being allocated fairly was a challenge we had to acknowledge if we were to work as a truly unified team.
 
 \subsection{What Would you Do Differently Next Time?}
+For our future project, we will take a proactive approach to mitigate the issues encountered in the Capstone project.
 
-\plt{What will you do differently for your next project?}
+To address the difficulty in selecting third-party libraries, we will implement a comprehensive selection framework. This will involve clearly defining our technical requirements and evaluating potential libraries against these criteria. We will also establish a review process that considers long-term support and compatibility, ensuring that the choices we make are sustainable and align with our project’s future direction.
+
+For the synchronization of team communications, we will introduce more flexible scheduling options and leverage asynchronous communication tools to accommodate different schedules. This will ensure that all team members can contribute effectively, and help to strengthen team cohesion and understanding.
+
+To bridge the gap between the team’s domain knowledge and the supervisory guidance, we will create more meetings to learn knowledge for the project. These meetings will include regular workshops and briefing sessions led by the supervisor to ensure that all team members have a clear understanding of the interdisciplinary aspects of the project. This will also provide an opportunity for team members to ask questions and gain clarity on complex subjects.
+
+In terms of project time management, we will adopt a more realistic approach to task estimation. This will involve using data from past projects to better predict task durations, splitting tasks into smaller and easier-to-predict pieces, incorporating buffer times to manage unexpected delays, and continuously monitoring and adjusting timelines as the project progresses.
+
+Finally, to ensure equitable task distribution, we will use a more systematic approach to task assignment. This will include developing a clear understanding of each team member’s skills and availability, using project management tools to track workload distribution, and regularly reviewing task assignments to prevent any imbalances.
+
+By implementing these strategies, we aim to create a more efficient, cohesive, and productive project environment for our next venture.
 
 \end{document}
