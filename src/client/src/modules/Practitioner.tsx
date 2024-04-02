@@ -102,7 +102,7 @@ function Practitioner() {
           <video
             ref={remoteVideoRef}
             autoPlay
-            style={{ width: '100%', maxWidth: '600px', aspectRatio: '600/450', border: '3px solid', borderColor: 'primary.main', borderRadius: '4px', marginTop: '20px' }}
+            style={{ width: '100%', maxWidth: '800px', aspectRatio: '600/450', border: '3px solid', borderColor: 'primary.main', borderRadius: '4px', marginTop: '20px' }}
             playsInline
           />
           {isConnected ? (
