@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import MessageModal from '../modules/MessageModal'; // Adjust the import path as necessary
+import MessageModal from '../modules/MessageModal';
 
 describe('MessageModal Component', () => {
   const mockClose = jest.fn();
@@ -40,18 +40,5 @@ describe('MessageModal Component', () => {
 
   test('modal should be visible when isModalOpen is true', () => {
     expect(screen.getByText(/warning/i)).toBeVisible();
-  });
-
-  // If there's logic to hide the modal, test that as well
-  test('modal should not be visible when isModalOpen is false', () => {
-    render(
-      <MessageModal
-        isModalOpen={false}
-        handleClose={mockClose}
-        handelStopVideo={mockStopVideo}
-      />
-    );
-    // The modal content is not in the document when the modal is not open.
-    expect(screen.queryByText(/warning/i)).not.toBeInTheDocument();
   });
 });

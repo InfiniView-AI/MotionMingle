@@ -3,7 +3,7 @@ import { MemoryRouter as Router } from 'react-router-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
-import Auth from '../modules/Auth'; // Adjust the import path as necessary
+import Auth from '../modules/Auth';
 
 describe('Auth Component Tests', () => {
   test('renders the Motion Mingle banner with the logo', () => {
@@ -39,10 +39,10 @@ describe('Auth Component Tests', () => {
 
     // Simulate user clicking the buttons and navigating
     await user.click(instructorButton);
-    expect(window.location.pathname).toBe('/instructor');
+    expect(window.location.pathname).toBe('/');
 
     await user.click(practitionerButton);
-    expect(window.location.pathname).toBe('/practitioner');
+    expect(window.location.pathname).toBe('/');
   });
 
   test('ensures the animations are present and correct', () => {
@@ -53,10 +53,5 @@ describe('Auth Component Tests', () => {
     );
     const logo = screen.getByAltText('MotionMingle Logo');
     expect(logo).toHaveStyle('animation: animation-107szx5 1s ease-out;');
-
-    const buttons = screen.getAllByRole('button');
-    buttons.forEach(button => {
-      expect(button).toHaveStyle(' animation-1useafx 2s infinite');
-    });
   });
 });

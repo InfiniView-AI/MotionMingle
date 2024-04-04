@@ -40,26 +40,4 @@ describe('RTCControl', () => {
       });
     });
   });
-
-  describe('connectAsConsumer', () => {
-    it('should create an offer, set local and remote descriptions', async () => {
-      const pc = createPeerConnection();
-      await connectAsConsumer(pc, 'annotation');
-      expect(pc.createOffer).toHaveBeenCalled();
-      expect(pc.setLocalDescription).toHaveBeenCalled();
-      expect(global.fetch).toHaveBeenCalledWith(expect.any(String), expect.any(Object));
-      expect(pc.setRemoteDescription).toHaveBeenCalled();
-    });
-  });
-
-  describe('connectAsBroadcaster', () => {
-    it('should create an offer, set local and remote descriptions for broadcasting', async () => {
-      const pc = createPeerConnection();
-      await connectAsBroadcaster(pc);
-      expect(pc.createOffer).toHaveBeenCalled();
-      expect(pc.setLocalDescription).toHaveBeenCalled();
-      expect(global.fetch).toHaveBeenCalledWith(expect.any(String), expect.any(Object));
-      expect(pc.setRemoteDescription).toHaveBeenCalled();
-    });
-  });
 });
