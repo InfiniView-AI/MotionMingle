@@ -12,12 +12,14 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
-
+\usepackage[table]{xcolor}
 \usepackage[shortlabels]{enumitem}
 \usepackage{float}
 \usepackage{geometry}
 \usepackage{pdflscape}
 \usepackage{siunitx}
+\usepackage[normalem]{ulem}
+\newcommand{\rt}[1]{\textcolor{red}{#1}}
 
 \input{../Comments}
 \input{../Common}
@@ -38,6 +40,8 @@
 \toprule {\bf Date} & {\bf Developer(s)} & {\bf Change} \\
 \midrule
 November 3, 2023 & KH, QS, AJ, QC, XY & Initial Draft \\
+March 6, 2024 & KH, QS, AJ, QC, XY & Rev 0.1 \\
+March 27, 2024 & KH, QS, AJ, QC, XY & Rev 1 \\
 \bottomrule
 \end{tabularx}
 
@@ -51,39 +55,68 @@ November 3, 2023 & KH, QS, AJ, QC, XY & Initial Draft \\
 
 \section{Symbols, Abbreviations, and Acronyms}
 
+\subsection{Symbols}
 Table \ref{tab:abbrv} lists all the symbols, abbreviations, and acronyms used
 throughout this document.
 \begin{table}[H]
   \centering
   \begin{tabular}{L{0.25\linewidth}L{0.8\linewidth}} \toprule
     \textbf{Symbol}        & \textbf{Description}                                                                                                                                                                     \\ \midrule
-    Tai Chi          & A classical Chinese martial art system practiced for health promotion and rehabilitation.                                                                                          \\
     Instructor       & A person who teaches a Tai Chi class through an online conference system.                                                                                                          \\
-    Practitioner     & A person who learns Tai Chi through an online conference system.                                                                                                                   \\
+    Performance test & Testing the performance(includes different metrics) of a system.                                                                                                                   \\ 
     Pipeline         & A sequence of processing elements connected in series, which are responsible for generating annotations.                                                                           \\
-    UI               & User Interface.                                                                                                                                                                    \\
-    TA               & Teaching Assistant.                                                                                                                                                                \\
-    SRS              & The Software Requirements Specification document.                                                                                                                                  \\
     POC              & proof of concept.                                                                                                                                                                  \\
+    Practitioner     & A person who learns Tai Chi through an online conference system.                                                                                                                   \\
     SFU              & Selective Forwarding Unit, a component in real-time communication systems like WebRTC that routes and selectively forwards audio and video streams from one participant to others. \\
-    V\&V Plan        & The verification and validation plan document(this document).                                                                                                                      \\
+    SRS              & The Software Requirements Specification document.                                                                                                                                  \\
+    Stress test      & Testing the limits (often the amount of data) of a system.                                                                                                                         \\
+    TA               & Teaching Assistant.                                                                                                                                                                \\
+    Tai Chi          & A classical Chinese martial art system practiced for health promotion and rehabilitation.                                                                                          \\
     Type: Functional & Functional test: An input/output blackbox type test.                                                                                                                               \\
     Type: Dynamic    & Dynamic test: Test type that requires code/program to be executed.                                                                                                                 \\
     Type: Manual     & Manual test: Test type that requires the user to do the test without using automated tools.                                                                                        \\
     Type: Automated  & Automated test: Test type containing code/program that can be executed.                                                                                                            \\
-    Stress test      & Testing the limits (often the amount of data) of a system.                                                                                                                         \\
-    Performance test & Testing the performance(includes different metrics) of a system.                                                                                                                   \\ \bottomrule
+    UI               & User Interface.                                                                                                                                                                    \\
+    V\&V Plan        & The verification and validation plan document(this document).                                                                                                                      \\ \bottomrule
   \end{tabular}
   \caption{List of symbols, abbreviations, and acronyms}
   \label{tab:abbrv}
 \end{table}
+
+\subsection{Symbolic Constants}\label{sec:symbolic-constants}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{lX} 
+    \toprule
+    \textbf{Symbolic Constant} & \textbf{Value} \\
+    \midrule
+    \rt{MAX\_RESPONSE\_TIME} & \rt{2 seconds}\\
+    \rt{TEST\_ITERATIONS} & \rt{100}\\
+    \rt{TEST\_ACCOUNTS\_NUMBERS} & \rt{5}\\
+    \rt{MIN\_NUM\_USER\_SUPPORTED} & \rt{5}\\
+    \rt{TEST\_DISCONNECT\_DURATION} & \rt{30 seconds}\\
+
+    \rt{MAX\_DELAY}  & \rt{\SI{500}{\milli\second}} \\
+    \rt{MAX\_TEMP}  & \rt{\SI{65}{\degreeCelsius}} \\
+    \rt{MIN\_RES}  & \rt{720p} \\
+    \rt{TARGET\_FACTOR}  & \rt{\SI{85}{\percent}} \\
+
+    \rt{MAX\_ACCEPTABLE\_DELAY}  & \rt{2 seconds} \\
+    \rt{MAX\_ERROR\_RATE}  & \rt{\SI{1}{\percent}} \\
+    \rt{MIN\_OPERATIONAL\_PERIOD}  & \rt{8 hours} \\
+    \bottomrule
+  \end{tabularx}
+  \caption{List of Symbolic Constants}
+  \label{tab:symbolic-constants}
+\end{table}
+
 \newpage
 \pagenumbering{arabic}
 
 \section{General Information}
 
 This section introduces some general information about the present document,
-including a summary, objectives of the document, and related documentations that
+including a summary, objectives of the document, and related documentation\sout{s} that
 were mentioned or referred to in the present document.
 
 \subsection{Summary}
@@ -92,7 +125,7 @@ This document describes the testing, validation, and verification procedures
 that will be implemented for the “Real-time Digital Annotation Solution for
 Online Exercise Lessons” project. The general functionality of this project is
 to set up a live stream call streaming online TaiChi exercising class, while
-practitioners can configure the annotation they like to be added on to the
+practitioners can configure the annotation they like to be added \sout{on} to the
 instructor’s video stream. The test cases specified in this document were
 conceived prior to the majority of the implementation and are intended to be
 used by the project team for future reference during project development,
@@ -100,7 +133,7 @@ testing, and maintenance.
 
 \subsection{Objectives}
 
-The objectives of the validation and verification document for this project is
+\sout{The objectives of the validation and verification document for this project \sout{is}\rt{are}
 to serve as a comprehensive guideline for validating project requirements,
 ensuring the correctness of code, and establishing metrics to enhance user
 satisfaction. As all developers working on this project also have other life
@@ -108,12 +141,21 @@ priorities, we don’t have the resources to test out all aspects of the project
 Some parts of the project will be considered out of scope. For instance, we will
 not be testing the machine learning model utilized in the project, and we assume
 the machine learning model has already been verified by its implementation team.
-And our tests specified in this document will prioritize the functionalities and
-connections between components.
+\sout{And} Our tests specified in this document will prioritize the functionalities and
+connections between components.}\\
+\rt{The objectives of the validation and verification document for this project are to provide 
+a comprehensive guide for validating project requirements, ensuring the correctness of code, 
+and establishing metrics to enhance user satisfaction. Given the scope of the project and the 
+time constraints, certain aspects will be prioritized to ensure effective use of resources. For 
+example, this document will not cover the testing of the machine learning model utilized in the 
+project, as it is presumed to have undergone verification by its dedicated implementation team. 
+The focus of the testing will be on critical functionalities and the interconnectivity between 
+components, to ensure a robust and seamless user experience.}
+
 
 \subsection{Relevant Documentation}
 
-Relevant documentations include:
+Relevant documentation\sout{s} include:
 \begin{description}
 \item[\href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/SRS/SRS.pdf}{SRS}]
   The SRS document is a related document as most of the requirements specified
@@ -124,6 +166,10 @@ Relevant documentations include:
 \item[\href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/HazardAnalysis/HazardAnalysis.pdf}{Hazard Analysis}]
   The Hazard Analysis document is a related document as some of the requirements
   come from the Hazard Analysis document.
+\item[\href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/Design/SoftArchitecture/MG.pdf}{\rt{Module Guide}}]
+  \rt{The Module Guide is essential as it will outline the high-level architecture of the system, providing a roadmap for development and facilitating understanding of the system's structure and modularity.}
+\item[\href{https://github.com/InfiniView-AI/MotionMingle/blob/main/docs/Design/SoftDetailedDes/MIS.pdf}{\rt{Module Interface Specification}}]
+  \rt{The Module Interface Specification is pivotal for detailing the interactions between various system components, ensuring compatibility and defining the communication protocols necessary for module integration.}
 \end{description}
 
 \section{Plan}
@@ -141,14 +187,27 @@ the team, with each member actively participating.
 
 \begin{description}
 \item[Kehao Huang, Qi Shu] Responsible for Integration of Machine Learning Models
-  and Application Back-end Testing.
+  and Application Back-end Testing. \rt{This involves unit testing to validate each 
+  individual component of the machine learning models for correctness, efficiency, 
+  and reliability. Integration testing will follow, which checks the interaction 
+  between the machine learning models and the back-end systems to ensure data flows 
+  correctly and that the models perform as expected within the application environment. 
+  They might also use validation testing to confirm that the models meet the initial 
+  requirements and perform accurately with real-world data.}
 \item[Qianlin Chen, Xunzhou Ye, Anhao Jiao] Responsible for Full Stack Development
-  Testing.
+  Testing. \rt{For the front-end, they will use black box testing, which tests the 
+  user interface without knowledge of the underlying code, to ensure the user experience 
+  is as designed and is bug-free. They will conduct white box testing on the back-end to 
+  verify the internal workings of the application's logic. System testing will also be 
+  part of their responsibility to check the complete and integrated software product 
+  functions in line with the requirements. Finally, they'll perform end-to-end testing 
+  to simulate real user scenarios and make sure the application behaves as expected in 
+  production.}
 \end{description}
 
 \subsection{SRS Verification Plan}
 
-Our SRS (Software Requirements Specification) will be subject to verification
+\sout{Our SRS (Software Requirements Specification) will be subject to verification
 through a flexible and collaborative feedback process involving our classmates
 and Teaching Assistants (TAs). Given that the individuals involved in reviewing
 our VnV (Verification and Validation) plan and our TAs possess in-depth
@@ -164,7 +223,28 @@ identify possible behavioural bugs and anomalies within the application. This
 approach leverages the diverse perspectives and problem-solving abilities of our
 reviewers, helping us ensure that our SRS is thorough, accurate, and aligned
 with the project's objectives, ultimately contributing to the success of our
-project.
+project.}\\
+\rt{The Software Requirements Specification (SRS) is crucial for defining the project 
+scope and guiding its implementation. To ensure the SRS meets the project's standards 
+and objectives, a rigorous verification plan involving iterative feedback from peers 
+and Teaching Assistants (TAs) will be employed. This process begins with an initial 
+review where the SRS will be scrutinized for clarity, completeness, and alignment with 
+the project's goals. Feedback will be systematically gathered and categorized to 
+identify areas needing refinement. Additionally, exploratory assessment techniques 
+will be utilized, enabling reviewers to interact with the application's prototype 
+or review design mockups, thereby ensuring requirements are realistically translated 
+into application features.}\\
+
+\rt{Subsequent to the exploratory phase, functional testing based on the SRS will be 
+performed to validate the behavior of the application. This testing will be geared 
+toward verifying that each function of the application performs according to the 
+specified requirements. The feedback gathered will be carefully integrated into the 
+SRS, with the development team revising any sections as necessary to improve clarity 
+and accuracy. The final step of the verification plan involves a comprehensive review 
+to confirm that all feedback has been effectively addressed, solidifying the SRS as 
+a true reflection of the intended system. By leveraging the diverse insights from 
+our reviewers, the SRS will be refined to a state that facilitates a smooth transition 
+into the development phase, setting a strong foundation for the project's success.}
 
 \subsection{Design Verification Plan}
 
@@ -218,7 +298,7 @@ be taken by the testing team during the verification process:
 
 \subsection{Implementation Verification Plan}
 
-For ensuring the accuracy and effectiveness of our code implementation, we will
+\sout{For ensuring}\rt{To ensure} the accuracy and effectiveness of our code implementation, we will
 employ a multi-faceted verification approach.
 \begin{description}
 \item[System Testing] The primary means of validating the functionality and
@@ -240,12 +320,12 @@ employ a multi-faceted verification approach.
   \begin{enumerate}
   \item Highlight any deviations from the accepted coding standards and
     conventions.
-  \item Unearth potential logical inconsistencies or oversight in our
+  \item Unearth potential logical inconsistencies or oversight\rt{s} in our
     coding that automated tests might miss.
   \end{enumerate}
 \end{description}
 By integrating these multifaceted testing and verification techniques, we aim to
-ensure our code is both robust and aligned with the both functional and
+ensure our code is both robust and aligned with \sout{the} both functional and
 non-functional requirements. This plan will not only verify that the
 implementation meets the designated specifications but will also foster code
 quality, readability, and maintainability.
@@ -285,7 +365,7 @@ relevant testing tools. For the client-side components:
   monitoring, functional and load testing of the WebRTC services.
 \item[Real-Time Communication Engine] The RTCPeerConnection API will be used to
   inspect the properties and performance of a WebRTC peer connection. The WebRTC
-  Internals tool offers deeper insights into the client-side WebRTC status.
+  \sout{I}\rt{i}nternals tool offers deeper insights into the client-side WebRTC status.
 \end{description}
 
 On the server-side:
@@ -317,11 +397,11 @@ evaluation and validation study will be conducted with volunteers from each of
 the intended user groups. Specifically, at least one Tai Chi instructor and at
 least one Tai Chi practitioner or potential Tai Chi student should be invited to
 evaluate the software product. The process will be broken down into two main
-components. The first one being an observation study. Study participants will be
+components. The first one \sout{being}\rt{is} an observation study. Study participants will be
 asked to perform specific tasks as identified and described as use case
 scenarios in SRS. For the instructor, tasks include:
 \begin{itemize}
-\item Launch the application and set up appropriate peripherals, such as webcams,
+\item Launch the application and set up appropriate peripherals, such as webcams\sout{,} \rt{and}
   microphones, to create an environment ready for online instructional Tai Chi
   demonstrations.
 \item Navigate through the application interfaces and initiate a video conferencing
@@ -332,15 +412,16 @@ For the practitioner, tasks include:
 \item Navigate through the application interfaces and join an existing video
   conferencing session. Attempt to follow along the instructor’s movements.
 \end{itemize}
+
 Developments will observe and note how well the participants can complete the
-given tasks, making connections to the fit criterias of the non-functional
+given tasks, making connections to the fit criteria\sout{s} of the non-functional
 requirements. The second component will be a user satisfaction survey (refer to
 Appendix \ref{sec:survey}) conducted after the observation study. Participants
 will be asked to take a survey to rate their experience in using the
-application, in the scale of 1 (unsatisfied) to 5 (satisfied). The targeted
+application, \sout{in the}\rt{on a} scale of 1 (unsatisfied) to 5 (satisfied). The targeted
 satisfactory factor is set to TARGET\_FACTOR. The survey also includes questions
 about difficulties the user has encountered, and potential future improvements
-can be done to the application.
+can be \sout{done}\rt{made} to the application.
 
 For future developments beyond the capstone timeline, the development team will
 continue to conduct review sessions and presentations with stakeholder
@@ -369,7 +450,7 @@ non-functional requirements.
     testing framework in the CI pipeline. The test code will simulate a user's
     click on the screen and click on the applicable identity button, then assert
     the live stream video window showed up on the user's screen within the next
-    2 seconds.
+    \sout{2 seconds}\rt{MAX\_RESPONSE\_TIME}.
   \end{description}
 \item \label{FRT2}
   \begin{description}
@@ -384,13 +465,13 @@ non-functional requirements.
     running the prototype. The developer will make sure the on-device camera
     should be turned on after allowing the webcam permission, or the on-device
     camera should not be turned on after denying the webcam permission. The test
-    should be done at least 100 times to ensure the webcam on the instructor’s
+    should be done at least \sout{100}\rt{TEST\_ITERATIONS} times to ensure the webcam on the instructor’s
     device is turned on properly.
   \end{description}
 \item \label{FRT3}
   \begin{description}
   \item[Type] Functional, Dynamic, Automatic
-  \item[Initial State] both client applications and the server are running.
+  \item[Initial State] \sout{b}\rt{B}oth client applications and the server are running.
   \item[Input/Condition] The user clicks on the applicable identity button to
     indicate they are an instructor or a practitioner.
   \item[Output/Result] A log message indicates connection between the user’s device
@@ -408,13 +489,13 @@ non-functional requirements.
   \item[Input/Condition] The user’s device has established a connection with the
     server as a practitioner device.
   \item[Output/Result] A request from the client device to the server for accessing
-    the list of available annotation configuration.
+    the list of available annotation configuration\rt{s}.
   \item[How Test Will Be Performed] Test will be done automatically by the Cypress
-    testing framework. The test code will first establish connection with a
+    testing framework. The test code will first establish \rt{a} connection with a
     server as a practitioner device. Once the connection is established, the
     server will send a list of available annotations to the client device, and
-    the client device should render the list into a selectable list of type of
-    annotation on the user's screen.The test for the client application will
+    the client device should render the list into a selectable list of type\rt{s} of
+    annotation on the user's screen. The test for the client application will
     assert the list of available annotations from the server is received and
     rendered as a selectable list.
   \end{description}
@@ -429,11 +510,11 @@ non-functional requirements.
     the client device to the server for updating the annotation configuration,
     with a log indicating the request is sent.
   \item[How Test Will Be Performed] Test will be done automatically by the
-    Cypress testing framework.The unit test code will first establish connection
+    Cypress testing framework. The unit test code will first establish connection
     with a server as a practitioner device. The testing framework will then
     simulate a user's click to configure annotation selections on the rendered
     selectable list. After that, the testing framework will assert a request
-    that reflects the annotation configuration is received by the server. As
+    that reflects the annotation configuration \sout{is} received by the server. As
     well, assert a log is shown on the client device console indicating the
     request has been sent.
   \end{description}
@@ -502,7 +583,7 @@ non-functional requirements.
 \item \label{FRT10}
   \begin{description}
   \item[Type] Functional, Dynamic, Automated
-  \item[Initial State] The server is actively connected to practitioner clients.
+  \item[Initial State] The server is actively connected to practitioner\rt{-}client.
   \item[Input/Condition] The annotated video stream is generated and ready for
     transmission.
   \item[Output/Result] The annotated video stream is transmitted to each
@@ -529,16 +610,16 @@ non-functional requirements.
 \item \label{FRT12}
   \begin{description}
   \item[Type] Functional, Dynamic, Automated
-  \item[Initial State] The client application is running, but the user didn’t do
+  \item[Initial State] The client application is running, but the user \sout{didn’t do}\rt{hasn’t done}
     any operations yet
-  \item[Input/Condition] The user joining video stream session.
+  \item[Input/Condition] The user joining \rt{the} video stream session.
   \item[Output/Result] A button to identify if a user is an instructor or a
     practitioner is rendered.
   \item[How Test Will Be Performed] Test will be done automatically by unit
     testing framework in the CI pipeline. The test code will simulate a user's
     clicks to join a video stream session, then assert the button to identify if
     a user is an instructor or a practitioner showed up on the user's screen
-    within the next 1 second.
+    within the next \sout{1 second}\rt{MAX\_RESPONSE\_TIME}.
   \end{description}
 \end{enumerate}
 
@@ -547,7 +628,7 @@ non-functional requirements.
 \begin{enumerate}[NFR-T1]
 \item \label{NFRT1}
   \begin{description}
-  \item[Type] Functional, Dynamic, Manual
+  \item[Type] \sout{Functional, }Dynamic, Manual
   \item[Initial State] The system is in a typical operational state with all
     components and services running, including the user interface.
   \item[Input/Condition] User interactions such as button clicks and menu
@@ -563,8 +644,8 @@ non-functional requirements.
     in terms of the completeness of the tasks, the time it takes to complete the
     tasks, as well as the user’s experience in completing the tasks gathered
     through a short and informal interview. The test is considered successful if
-    the 4 out of 5 developers agree that the overall user experience meets their
-    expectation. Otherwise, the test is considered a failure.
+    \sout{the} 4 out of 5 developers agree that the overall user experience meets their
+    expectation\rt{s}. Otherwise, the test is considered a failure.
   \end{description}
 \item \label{NFRT2}
   \begin{description}
@@ -580,43 +661,43 @@ non-functional requirements.
     A test scenario should be designed for each use case to cover all possible
     interactions within that use case. Use performance monitoring tools to
     record the response time for each interaction. Repeat each test scenario at
-    least 5 times for each use case under different system loads to account for
+    least \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} times for each use case under different system loads to account for
     variability. Compare the recorded response times against the 1-second
     requirement. If the system consistently responds within this timeframe for
     all test scenarios, the test is considered successful. Any deviations beyond
-    1 second will be considered a failure.
+    \sout{1 second}\rt{MAX\_RESPONSE\_TIME} will be considered a failure.
   \end{description}
 \item \label{NFRT3}
   \begin{description}
   \item[Type] Structural, Dynamic, Manual
   \item[Initial State] The system is in a stable operational state with necessary
     services and components active. No users are currently logged in.
-  \item[Input/Condition] 5 test accounts (or more) for users. Predefined user
+  \item[Input/Condition] \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} test accounts (or more) for users. Predefined user
     actions/scripts (relevant to normal system interactions during peak
     periods).
   \item[Output/Result] The system remains stable and responsive. All user
     transactions are processed successfully. System performance metrics (such as
-    response time, throughput, resource utilization) stay within acceptable
+    response time, throughput, \rt{and} resource utilization) stay within acceptable
     limits.
   \item[How Test Will Be Performed] Set up an automated load testing tool and
     create test scripts mimicking typical user actions during peak periods. This
     might include logging in, accessing services, executing standard operations,
-    and logging out. Initiate the test by having 5 users (controlled by the load
+    and logging out. Initiate the test by having \sout{5}\rt{MIN\_NUM\_USER\_SUPPORTED} users (controlled by the load
     testing software) log into the system simultaneously, executing the
     predefined scripts that mimic peak load activities. Gradually increase the
     system load by adding more users (if applicable) to ensure it can handle
     more than the minimal load without performance degradation. Monitor system
     performance indicators, focusing on metrics like transaction success rate,
-    response times, CPU/memory usage. Continuously record system metrics
+    response times, \rt{and} CPU/memory usage. Continuously record system metrics
     throughout the testing duration. After completing the test, analyze the data
-    to assess whether the system could sustain the minimum of 5 users during
+    to assess whether the system could sustain \sout{the} a minimum of \sout{5}\rt{MIN\_NUM\_USER\_SUPPORTED} users during
     simulated peak conditions without performance degradation.
   \end{description}
 \item \label{NFRT4}
   \begin{description}
   \item[Type] Structural, Dynamic, Manual
   \item[Initial State] The system is operational, with all services and components
-    running. User accounts for test are set up, and no tasks are being
+    running. User accounts for test\rt{s} are set up, and no tasks are being
     performed.
   \item[Input/Condition] Erroneous user input data. Improper user actions.
   \item[Output/Result] The system detects and rejects invalid inputs or actions,
@@ -627,7 +708,7 @@ non-functional requirements.
     system where user errors could occur. Design a series of test cases that
     deliberately introduce various user errors. These might include inputting
     invalid data, using incorrect sequences of commands, or attempting
-    unauthorized actions.Prepare the test environment, ensuring that the system
+    unauthorized actions. Prepare the test environment, ensuring that the system
     is running and that tools for monitoring system behaviour (like log
     watchers, debuggers, etc.) are in place. Monitor how the system handles
     these errors, noting any deviations from expected behaviour, such as system
@@ -639,16 +720,16 @@ non-functional requirements.
   \end{description}
 \item \label{NFRT5}
   \begin{description}
-  \item[Type] Functional, Dynamic, Manual
-  \item[Initial State] The system is in a stable, operational state with the core
+  \item[\sout{Type}] \sout{Functional, Dynamic, Manual}
+  \item[\sout{Initial State}] \sout{The system is in a stable, operational state with the core
     functionalities running. No extensions are installed at the outset of the
-    test.
-  \item[Input/Condition] One or more sample extensions ready for installation
-  \item[Output/Result] Extensions are successfully installed on the system. The
+    test.}
+  \item[\sout{Input/Condition}] \sout{One or more sample extensions ready for installation}
+  \item[\sout{Output/Result}] \sout{Extensions are successfully installed on the system. The
     system recognizes and integrates new extensions' functionalities. System
     stability and core functionality remain uncompromised after the addition of
-    the extensions.
-  \item[How Test Will Be Performed] Identify or develop sample extensions for the
+    the extensions.}
+  \item[\sout{How Test Will Be Performed}] \sout{Identify or develop sample extensions for the
     test. These should be varied to represent different types of functionality
     users might add to the system. Ensure the system is running in a controlled
     test environment that replicates the end-user environment. Manually add the
@@ -657,11 +738,11 @@ non-functional requirements.
     the same time. After installation, verify that each extension is functioning
     within the system as intended. Check interoperability with existing features
     to ensure that there are no conflicts or issues. Test the system's core and
-    extended functionalities to ensure all operate correctly.
+    extended functionalities to ensure all operate correctly.}
   \end{description}
 \item \label{NFRT6}
   \begin{description}
-  \item[Type] Structual, Dynamic, Automated
+  \item[Type] Structu\rt{r}al, Dynamic, Automated
   \item[Initial State] The system, with the SFU component, is in a stable,
     operational state. Initially, there is a base number of video streams being
     processed, which is within the SFU's current capacity.
@@ -672,7 +753,7 @@ non-functional requirements.
   \item[How Test Will Be Performed] Configure a load testing tool to simulate video
     streams that mimic real-world usage. This could involve setting up dummy
     user connections each initiating video streams. Run the system with the base
-    number of video streams. Gradually increase the number of simulated video
+    number of video stream\sout{s}. Gradually increase the number of simulated video
     streams being sent through the SFU, starting from the base number and
     increasing in pre-defined increments. Identify the point(s) at which video
     quality begins to degrade beyond acceptable levels, or system resources
@@ -689,17 +770,17 @@ non-functional requirements.
   \item[Output/Result] The system attempts to resume the previous session.
   \item[How Test Will Be Performed] Test will be done manually by developers
     running the system. Testers will join a live session from either the
-    instructor client application or the practitioner client application. Tester
+    instructor\rt{-}client application or the practitioner\rt{-}client application. Tester
     will intentionally disrupt the internet connection on the device that the
-    system is running on, wait for 30 seconds, and resume the internet
+    system is running on, wait for \sout{30 seconds}\rt{TEST\_DISCONNECT\_DURATION}, and resume the internet
     connection on the device to simulate an application crash or internet
     interruption. The tester shall restart the application and then manually
     inspect the system UI to see if the user is able to automatically rejoin the
     previous live session after the network resumption. The test will be
-    repeated for 5 times on both the instructor client application and the
-    practitioner client application under different system loads. The test is
+    repeated \sout{for} \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} times on both the instructor\rt{-}client application and the
+    practitioner\rt{-}client application under different system loads. The test is
     considered successful if the user automatically joins the previous live
-    session after application restart when network resumes. The test will be
+    session after application restart when \rt{the} network resumes. The test will be
     considered a failure if, after restarting the application, the user is
     unable to automatically enter a live session or joins the wrong live
     session.
@@ -710,18 +791,18 @@ non-functional requirements.
   \item[Initial State] This system is in a typical operational state with all
     components and services running, the user is in a live session.
   \item[Input/Condition] Network instability
-  \item[Output/Result] A pop up window for network instability warning.
+  \item[Output/Result] A pop\rt{-}up window for network instability warning.
   \item[How Test Will Be Performed] Test will be done manually by developers
     running the system. Testers will join a live session from either the
-    instructor client application or the practitioner client application. The
+    instructor\rt{-}client application or the practitioner\rt{-}client application. The
     tester will produce network fluctuation/instability on the internet that the
     system has access to. The tester shall monitor the system UI to inspect for
-    the appearance of network instability warning. The test will be repeated for
-    5 times on both the instructor client application and the practitioner
+    the appearance of network instability warning. The test will be repeated \sout{for}
+    \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} times on both the instructor\rt{-}client application and the practitioner
     client application under different system loads. The test is considered
-    successful if a pop up window for network instability warning is displayed
+    successful if a pop\rt{-}up window for network instability warning is displayed
     after the network fluctuation/instability is created. Otherwise, if no pop
-    up window is displayed to provide network instability warning, the test will
+    up window is displayed to provide \rt{a} network instability warning, the test will
     be considered a failure.
   \end{description}
 \item \label{NFRT9}
@@ -746,23 +827,23 @@ non-functional requirements.
   \begin{description}
   \item[Type] Structural, Dynamic, Manual
   \item[Initial State] The system is in a typical operational state with all
-    components and services running. The user is in a live session with a media
-    capturing device plugged in.
-  \item[Input/Condition] Disconnect the media capturing device from the user’s
+    components and services running. The user is in a live session with a 
+    media\rt{-}capturing device plugged in.
+  \item[Input/Condition] Disconnect the media\rt{-}capturing device from the user’s
     computing device.
-  \item[Output/Result] A pop up window which warns the user that the client
-    application has lost connection to the media capturing device and prompts
+  \item[Output/Result] A pop\rt{-}up window which warns the user that the client
+    application has lost connection to the media\rt{-}capturing device and prompts
     the user to reconnect the device to resume the live session.
   \item[How Test Will Be Performed] The test will be done manually by developers
-    running the system. A tester will make sure a functional media capturing
+    running the system. A tester will make sure a functional media\rt{-}capturing
     device is securely connected to the computer. The tester will then run the
-    instructor client application on the computer, create a live session, and
+    instructor\rt{-}client application on the computer, create a live session, and
     make sure that the application receives and is able to send media streams
     from the capturing device. The tester will proceed to unplug the media
     capturing device from the computer. The tester shall monitor the client
     application and look for any pop up warnings. This test shall be repeated
-    for 5 times. The test is considered successful if a pop up warning about
-    media capturing devices being disconnected is displayed every time the media
+    for \sout{text}\rt{TEST\_ACCOUNTS\_NUMBERS} times. The test is considered successful if a pop up warning about
+    media\rt{-}capturing devices being disconnected is displayed every time the media
     capturing device is disconnected. Otherwise, if no pop up warning is
     displayed, the test is considered a failure.
   \end{description}
@@ -771,21 +852,21 @@ non-functional requirements.
   \item[Type] Structural, Dynamic, Manual
   \item[Initial State] The system is in a typical operational state with all
     components and services running.
-  \item[Input/Condition] Connect a media capturing device to the user’s computing
+  \item[Input/Condition] Connect a media\rt{-}capturing device to the user’s computing
     device.
   \item[Output/Result] A pop up window which warns the user that the video
-    capturing device does not meet required specification if the client
+    capturing device does not meet \rt{the} required specification\rt{s} if the client
     application detects that the video input stream has a resolution lower than
     MIN\_RES.
   \item[How Test Will Be Performed] The test will be done manually by developers
-    running the system. A tester shall prepare media capturing devices of
+    running the system. A tester shall prepare media\rt{-}capturing devices of
     various specifications. The tester shall make sure that at least one of them
     captures video at a resolution below MIN\_RES, at least one at
     MIN\_RES, and at least one higher than MIN\_RES. The tester
-    shall connect each media capturing device to the client application. The
+    shall connect each media\rt{-}capturing device to the client application. The
     test is considered successful if a pop up warning about video input not
     meeting the minimum required resolution is displayed whenever a capturing
-    device with resolution below MIN\_RES. Otherwise, the test is
+    device with \rt{a} resolution below MIN\_RES. Otherwise, the test is
     considered a failure.
   \end{description}
 \item \label{NFRT12}
@@ -793,11 +874,11 @@ non-functional requirements.
   \item[Type] Structural, Dynamic, Manual
   \item[Initial State] The system is in a typical operational state with all
     components and services running.
-  \item[Input/Condition] the user starts a live session and begins streaming.
+  \item[Input/Condition] \sout{t}\rt{T}he user starts a live session and begins streaming.
   \item[Output/Result] Accurate instructional annotations are rendered and
     overlaid on the instructor’s video stream.
   \item[How Test Will Be Performed] The test will be done manually by developers
-    running the system. The tester will run the instructor client application on
+    running the system. The tester will run the instructor\rt{-}client application on
     a computer, create a live session, and make sure that the application
     receives and is able to send media streams from the capturing device. The
     tester shall then monitor the annotations produced and rendered by the
@@ -812,19 +893,19 @@ non-functional requirements.
   \item[Type] Structural, Dynamic, Manual
   \item[Initial State] The system is in a typical operational state with all
     components and services running.
-  \item[Input/Condition] Connect more than one media capturing device to the
+  \item[Input/Condition] Connect more than one media\rt{-}capturing device to the
     user’s computing device.
-  \item[Output/Result] A dialog listing all the detected capturing devices is
-    displayed to prompt the user for selecting a device to use.
+  \item[Output/Result] A \sout{dialog}\rt{dialogue} listing all the detected capturing devices is
+    displayed to prompt the user \sout{for selecting}\rt{to select} a device to use.
   \item[How Test Will Be Performed] The test will be done manually by developers
-    running the system. A tester shall prepare media capturing devices of
+    running the system. A tester shall prepare media\rt{-}capturing devices of
     various types. The tester shall make sure that all prepared capturing
     devices are functional and establish secure connections to the computer
     running the client application. The test is considered successful if all
-    media capturing devices are listed and selectable in a dialog in the client
+    media\rt{-}capturing devices are listed and selectable in a \sout{dialog}\rt{dialogue} in the client
     application. Upon selecting any of the listed devices, the client
     application would switch to the selected device and fetch media streams from
-    the device. Failing in completing any of the described interactions would be
+    the device. Failing \sout{in completing}\rt{to complete} any of the described interactions would be
     considered a failure of this test case.
   \end{description}
 \item \label{NFRT14}
@@ -832,16 +913,16 @@ non-functional requirements.
   \item[Type] Structural, Dynamic, Manual
   \item[Initial State] This system is in a typical operational state with all
     components and services running, with a live session created.
-  \item[Input/Condition] The live video and audio stream from instructor client
+  \item[Input/Condition] The live video and audio stream from instructor\rt{-}client
     application.
   \item[Output/Result] Audio stream and video stream with annotations on
-    practitioner client application.
+    practitioner\rt{-}client application.
   \item[How Test Will Be Performed] Test will be done manually by developers
-    running the system. A tester will run the instructor client application,
-    create a live session, and start streaming using media capturing devices for
+    running the system. A tester will run the instructor\rt{-}client application,
+    create a live session, and start streaming using media\rt{-}capturing devices for
     30 minutes. User performance monitoring tools to measure and record the
     delay between the video stream frames and annotation frames. The test will
-    be repeated for at least 5 times under different system loads. The test is
+    be repeated \sout{for} at least \sout{5}\rt{TEST\_ACCOUNTS\_NUMBERS} times under different system loads. The test is
     considered successful if the recorded delay remains under MAX\_DELAY
     through each live session. Any deviations beyond MAX\_DELAY will be
     considered a failure.
@@ -852,14 +933,14 @@ non-functional requirements.
   \item[Initial State] The system is in a typical operational state with all
     components and services running.
   \item[Input/Condition] The user starts the client application for instructors.
-  \item[Output/Result] A message with detailed instruction to set up a media
+  \item[Output/Result] A message with detailed instruction\rt{s} to set up a media
     capturing device and a list of cautions is displayed. The user is informed
     that for generating accurate annotations, their full body must be within the
-    field of view from the media capturing device.
+    field of view from the media\rt{-}capturing device.
   \item[How Test Will Be Performed] The test will be done manually by developers
     running the system. A tester launches the client application for instructors
     and looks for any instructional messages or cautions. The test is considered
-    successful if the tester is able to properly set up the media capturing
+    successful if the tester is able to properly set up the media\rt{-}capturing
     device by strictly following the instructions displayed, such that their
     entire body is visible from the perspective of the capturing device.
     Otherwise, if any problem or confusion occurs during the setup process, the
@@ -872,7 +953,7 @@ non-functional requirements.
     for testing. The different test environments for the latest versions of
     Windows, Linux, and macOS are set up, each with default settings.
   \item[Input/Condition] The latest stable versions of Windows, Linux, and
-    macOS. Test cases designed to cover all the main functionalities of the
+    macOS. Test cases \rt{are} designed to cover all the main functionalities of the
     system.
   \item[Output/Result] The system functions correctly on all mentioned operating
     systems without crashes, unexpected behaviour, or significant performance
@@ -898,7 +979,7 @@ non-functional requirements.
     Test environments with the latest versions of Chrome, Firefox, Safari, and
     Edge are established, each configured with default browser settings.
   \item[Input/Condition] Latest stable versions of Chrome, Firefox, Safari, and
-    Edge. A series of test cases designed to fully evaluate the functionalities
+    Edge. A series of test cases \rt{are} designed to fully evaluate the functionalities
     and features of the system.
   \item[Output/Result] The system operates as intended on all tested web
     browsers without significant functionality issues, crashes, or severe
@@ -929,15 +1010,17 @@ non-functional requirements.
     specifications, but all within the commonly accepted 'standard' range for
     current users. Devices have functional cameras and optional microphones.
     Test script detailing system operation tasks.
-  \item[Output/Result] The system operates without significant delays, errors,
-    or crashes.
+  \item[Output/Result] \sout{The system operates without significant delays, errors,
+  or crashes.}\rt{The system operates with delays not exceeding\\ MAX\_ACCEPTABLE\_DELAY, 
+  error rates below MAX\_ERROR\_RATE, and without system crashes over a continuous 
+  operational period of\\ MIN\_OPERATIONAL\_PERIOD.}
   \item[How Test Will Be Performed] Identify a range of standard personal
     computers and laptops that reflect the typical user base's hardware. This
     range should include variations in processor speed, memory, age, and
     manufacturer. Ensure that each test machine is equipped with a functional
     camera and, if necessary for the system's functionality, a microphone.
     Install or access the system on each device, ensuring proper installation of
-    peripheral drivers and any necessary system software.Prepare a test script
+    peripheral drivers and any necessary system software. Prepare a test script
     that encompasses everyday tasks users would perform on the system, ensuring
     it thoroughly tests interaction with camera and microphone functions.
     Execute the test script on each device, interacting with the system as an
@@ -970,24 +1053,24 @@ non-functional requirements.
     should cover a range of complexity and potential impact on different parts
     of the system. Monitor the ease with which these tasks can be completed, the
     risk of introducing errors, and the effectiveness of the documentation and
-    procedures.Test the system’s ability to rollback updates by simulating a
+    procedures. Test the system’s ability to roll back updates by simulating a
     scenario where an update introduces a significant issue. Evaluate the
     effectiveness and ease of reversing changes without losing data or causing
     system downtime.
   \end{description}
 \item \label{NFRT20}
   \begin{description}
-  \item[Type] Structural, Dynamic, Manual
-  \item[Initial State] The system is fully operational, and a maintenance/update
+  \item[\sout{Type}] \sout{Structural, Dynamic, Manual}
+  \item[\sout{Initial State}] \sout{The system is fully operational, and a maintenance/update
     plan is ready, detailing the procedures to be followed. A stable pre-update
     version of the system is running, and a controlled environment is available
-    to simulate the maintenance process without affecting live users.
-  \item[Input/Condition] Tools and resources necessary for the maintenance task
-    (e.g., update packages, scripts, database migrations, etc.).
-  \item[Output/Result] The total time taken for the procedure is recorded, from
+    to simulate the maintenance process without affecting live users.}
+  \item[\sout{Input/Condition}] \sout{Tools and resources necessary for the maintenance task
+    (e.g., update packages, scripts, database migrations, etc.).}
+  \item[\sout{Output/Result}] \sout{The total time taken for the procedure is recorded, from
     initiation to completion, including the system being fully operational
-    post-update.
-  \item[How Test Will Be Performed] Prepare the test environment to match the
+    post-update.}
+  \item[\sout{How Test Will Be Performed}] \sout{Prepare the test environment to match the
     live system as closely as possible in terms of data, configurations, and
     system dependencies. Ready the maintenance/update package along with
     detailed procedures and any scripts or commands necessary for the process.
@@ -1006,28 +1089,28 @@ non-functional requirements.
     from the initial shutdown to the restoration of full functionality.If the
     process took longer than the specified 4-hour window, identify the stages
     that consumed more time than expected and analyze the reasons for this
-    delay.
+    delay.}
   \end{description}
 \item \label{NFRT21}
   \begin{description}
-  \item[Type] Structural, Dynamic, Automated
-  \item[Initial State] The system is fully operational, and user accounts
+  \item[\sout{Type}] \sout{Structural, Dynamic, Automated}
+  \item[\sout{Initial State}] \sout{The system is fully operational, and user accounts
     containing mock personal information are available for testing. Security
     measures, such as encryption protocols and compliance measures, are in
-    place.
-  \item[Input/Condition] Automated security testing tools or penetration testing
-    tools for vulnerability scanning. Test scripts designed to simulate typical
-    user interactions, including data input and retrieval.
-  \item[Output/Result] Confirmation that stored data, especially personal
-    information, is encrypted or securely hashed within the database or storage
-    system.
-  \item[How Test Will Be Performed] Use network monitoring tools to capture the
+    place.}
+  \item[\sout{Input/Condition}] \sout{Automated security testing tools or penetration testing
+    tools for vulnerability scanning. Test scripts \rt{are} designed to simulate typical
+    user interactions, including data input and retrieval.}
+  \item[\sout{Output/Result}] \sout{Confirmation that stored data, especially personal
+    information\sout{,} is encrypted or securely hashed within the database or storage
+    system.}
+  \item[\sout{How Test Will Be Performed}] \sout{Use network monitoring tools to capture the
     data being transmitted during the test sessions. This activity might include
     creating user accounts, logging in, or transmitting personal information.
     Analyze the captured data to verify that it's encrypted and that sensitive
     information isn't exposed in plaintext or easily decipherable formats. Then
     access the storage system (database, file storage) and inspect how user
-    data, particularly personal information, is stored. Verify that sensitive
+    data, particularly personal information\sout{,} is stored. Verify that sensitive
     data is encrypted or hashed, making it unreadable without proper
     authorization or decryption keys. Implement automated security tools to scan
     for vulnerabilities that could be exploited to gain unauthorized access to
@@ -1035,7 +1118,7 @@ non-functional requirements.
     known vulnerabilities within the system components. Document all findings
     from the security tests, including any potential vulnerabilities identified,
     successful and failed breach attempts, and the security status of data
-    transmission and storage.
+    transmission and storage.}
   \end{description}
 \item \label{NFRT22}
   \begin{description}
@@ -1056,7 +1139,7 @@ non-functional requirements.
     information that the system cannot function without. Identify any
     information that may be deemed "non-essential," meaning that its collection
     is not justified based on the system’s core functions. Compare the data
-    collected from entry with the classifications. Highlight any data fields
+    collected from \rt{the} entry with the classifications. Highlight any data fields
     that appear to be non-essential for the system’s operation.
   \end{description}
 \item \label{NFRT23}
@@ -1076,11 +1159,11 @@ non-functional requirements.
     \item Modify Critical system configuration files.
     \item Gain access to media streams in the system.
     \end{itemize}
-    The test will be performed on both the instructor client application and
-    practitioner client application. The test is considered successful if all
+    The test will be performed on both the instructor\rt{-}client application and
+    practitioner\rt{-}client application. The test is considered successful if all
     attempts by the unauthorized user are prevented by the system. The test will
     be considered a failure if any successful unauthorized access or
-    modification to the system were made during the testing process.
+    modification to the system \sout{were}\rt{is} made during the testing process.
   \end{description}
 \item \label{NFRT24}
   \begin{description}
@@ -1088,14 +1171,14 @@ non-functional requirements.
   \item[Initial State] The system is in a typical operational state with all
     components and services running.
   \item[Input/Condition] The user starts a live session and begins streaming.
-  \item[Output/Result] A prompt for granting access to use the media capturing
+  \item[Output/Result] A prompt for granting access to use the media\rt{-}capturing
     devices is displayed.
   \item[How Test Will Be Performed] Test will be done manually by developers
-    running the system. A tester will make sure a functional media capturing
+    running the system. A tester will make sure a functional media\rt{-}capturing
     device is securely connected to the computer. The tester will then run the
-    instructor client application on the computer. Upon creating a live session,
+    instructor\rt{-}client application on the computer. Upon creating a live session,
     the tester shall look for a prompt and they are able to consent to giving
-    the client application access to the media capturing device. If the video
+    the client application access to the media\rt{-}capturing device. If the video
     stream starts, or the media stream from the capturing device is displayed on
     the screen before the tester’s consent, the test is considered a failure.
     Otherwise, the test is considered successful.
@@ -1106,15 +1189,15 @@ non-functional requirements.
   \item[Initial State] The system is in a typical operational state with all
     components and services running.
   \item[Input/Condition] The user starts a live session and begins streaming.
-  \item[Output/Result] An indicator that the media capturing device is in use
+  \item[Output/Result] An indicator that the media\rt{-}capturing device is in use
     and that the user is being recorded is visible in the client application.
   \item[How Test Will Be Performed] Test will be done manually by developers
-    running the system. A tester will make sure a functional media capturing
+    running the system. A tester will make sure a functional media\rt{-}capturing
     device is securely connected to the computer. The tester will then run the
-    instructor client application on the computer, create a live session, and
+    instructor\rt{-}client application on the computer, create a live session, and
     make sure that the application receives and is able to send media streams
     from the capturing device for 30 minutes. The tester shall look for an
-    indicator that the media capturing device is in use. If such an indicator
+    indicator that the media\rt{-}capturing device is in use. If such an indicator
     cannot be found, or if the indicator disappears at any moment of time during
     the whole testing process, the test is considered a failure. Otherwise, the
     test is considered successful.
@@ -1125,13 +1208,13 @@ non-functional requirements.
   \item[Initial State] The system is in a typical operational state with all
     components and services running.
   \item[Input/Condition] The user ends a live session and stops streaming.
-  \item[Output/Result] The indicator that the media capturing device is in use
+  \item[Output/Result] The indicator that the media\rt{-}capturing device is in use
     disappears. The media stream from the capturing device is no longer
     displayed on the screen.
   \item[How Test Will Be Performed] Test will be done manually by developers
-    running the system. A tester will make sure a functional media capturing
+    running the system. A tester will make sure a functional media\rt{-}capturing
     device is securely connected to the computer. The tester will then run the
-    instructor client application on the computer, create a live session, and
+    instructor\rt{-}client application on the computer, create a live session, and
     make sure that the application receives and is able to send media streams
     from the capturing device. The tester shall then manually end the live
     stream session. The tester shall look for the indicator that the media
@@ -1149,7 +1232,7 @@ non-functional requirements.
   \item[How Test Will Be Performed] Test will be done manually by developers
     running the system. Testers will perform various user interactions that
     cover all possible use cases of the system and inspect if any offensive
-    cultural symbols/language are displayed on UI. The test is considered
+    cultural symbols/language are displayed on \rt{the} UI. The test is considered
     successful if all testers agree that there is no offensive cultural
     symbol/language displayed through the testing process.
   \end{description}
@@ -1162,9 +1245,9 @@ non-functional requirements.
   \item[Output/Result] A determination of whether the system and its associated
     processes, documentation, and activities comply with the ISO/IEC 12207
     standards.
-  \item[How Test Will Be Performed] Test will be performed by:1. Testers
+  \item[How Test Will Be Performed] Test will be performed by: 1. Testers
     carefully review all project documentation, including software development
-    processes, design documentations, coding standards and testing plans to
+    processes, design documentation\sout{s}, coding standards and testing plans to
     ensure they all align with the ISO/IEC 12207 standards. 2. Testers examine
     the processes and activities involved in the software development life cycle
     to determine if they adhere to the ISO/IEC 12207 standards. The test is
@@ -1185,7 +1268,7 @@ non-functional requirements.
     button clicks and menu selections, and joining/creating live sessions. The
     input user interactions shall cover all possible use cases of the system.
     Repeat the test on different computing devices. The tester shall monitor the
-    CPU temperature of the computer that the system is running on.The test is
+    CPU temperature of the computer that the system is running on. The test is
     considered successful if the CPU temperature of the computer that the system
     is running on remains under MAX\_TEMP through the test. Otherwise,
     the test is considered a failure.
@@ -1315,40 +1398,35 @@ More specifically, the majority of non-functional requirements exclude
 verification via unit testing. Non-functional testing methodologies tend to
 qualify as performance testing and preclude unit testing validation.
 
-All the parts that are not out of scope for testing should be unit tested.
+All the parts that are not out of scope for testing should be unit\rt{-}tested.
 
 \newpage
 
 \section{Appendix}
 
-\subsection{Symbolic Parameters}
-
-\begin{table}[h]
-  \caption{Symbolic constants in Verification and Validation Plan}
-  \begin{tabularx}{1.0\linewidth}[h]{XX} \toprule
-    \textbf{Symbol} & \textbf{Value} \\ \midrule
-    MAX\_DELAY \label{const:delay} & \SI{500}{\milli\second} \\
-    MAX\_TEMP \label{const:temp} & \SI{65}{\degreeCelsius} \\
-    MIN\_RES \label{const:res} & 720p \\
-    TARGET\_FACTOR \label{const:target} & \SI{85}{\percent} \\ \bottomrule
-  \end{tabularx}
-  \label{tab:syms}
-\end{table}
-
 \subsection{Usability Survey Questions}
 \label{sec:survey}
+
+\rt{Rating scales are defined as:}
+\begin{description}
+  \item[\rt{1}] \rt{Well below expectations}
+  \item[\rt{2}] \rt{Below expectations}
+  \item[\rt{3}] \rt{Met expectations}
+  \item[\rt{4}] \rt{Above expectations}
+  \item[\rt{5}] \rt{Beyond expectations}
+\end{description}
 
 Questions for the user experience survey:
 
 \begin{enumerate}
-\item On a scale of 1 to 5 (beyond expectation), how would you rate your overall
+\item On a scale of 1 to 5 \sout{(beyond expectation)}, how would you rate your overall
   experience with our Tai Chi video conferencing application?
-\item On a scale of 1 to 5 (beyond expectation), how would you rate the experience
+\item On a scale of 1 to 5 \sout{(beyond expectation)}, how would you rate the experience
   in reading the in-app instructions and navigating through the application?
-\item On a scale of 1 to 5 (beyond expectation), how would you rate the video
+\item On a scale of 1 to 5 \sout{(beyond expectation)}, how would you rate the video
   conference quality, considering the clarity, latency, and the accuracy of
   annotation overlays?
-\item On a scale of 1 to 5 (beyond expectation), how would you rate your overall
+\item On a scale of 1 to 5 \sout{(beyond expectation)}, how would you rate your overall
   Tai Chi learning experience with the aid of the application?
 \item Are there any specific issues or challenges you've encountered while using
   the application?
@@ -1425,7 +1503,7 @@ While working on the system tests for non-functional requirements, I delved into
 the performance and security aspects of our system. This was an enriching
 learning experience as I had to envision various usage scenarios and
 systematically design test cases to evaluate the system’s performance and
-behavior under different conditions. It was during this process that I realized
+\sout{behavior}\rt{behaviour} under different conditions. It was during this process that I realized
 the critical role that the system’s performance and security play in shaping the
 overall user experience. Meanwhile, the development of the design verification
 plan and the V\&V plan verification plan taught me valuable lessons about the
@@ -1437,8 +1515,8 @@ documentation tasks. The design verification plan ensures that our system is
 built according to the design, which, in turn, has a direct impact on the system
 tests for non-functional requirements. Through the process of developing these
 documents, I gained a deeper understanding of the importance of planning,
-verification, and validation in delivering a software product aht not only meets
-design specifications but also satisfied the use-users by performing effectively
+verification, and validation in delivering a software product \sout{aht}\rt{that} not only meets
+design specifications but also satisfied the \sout{use-users}\rt{users} by performing effectively
 and reliably.
 
 To further enhance the related skills, I plan to take proactive steps in the

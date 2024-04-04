@@ -9,6 +9,7 @@
 \usepackage{xcolor}
 \usepackage{ulem}
 \usepackage{gensymb}
+\usepackage{tikz}
 
 \addbibresource{reference.bib}
 \graphicspath{./}
@@ -36,7 +37,7 @@
 
 ~\newpage
 
-\pagenumbering{roman}
+\pagenumbering{arabic}
 
 \tableofcontents
 
@@ -50,6 +51,7 @@
     \midrule
     25 September 2023 & AJ, KH, QC, QS, XY & Initial draft \\
     02 February 2024 & AJ, KH, QC, QS, XY & rev 0.1 \\
+    22 March 2024 & AJ, KH, QC, QS, XY & rev 1 \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -71,7 +73,7 @@ This document serves as a comprehensive requirements specification for a \sout{W
     \item[Practitioner] A person who learns Tai Chi through an online conference system.
     \item[Skeleton Annotation] A type of annotation that the system can generate. This type of annotation looks like a human skeleton.
     \item\sout{\textbf{Clock Annotation}} A type of annotation that the system can generate. This type of annotation looks like a physical clock surrounding the instructor.
-    \item[Center of Mass Visualization] A type of annotation that the application generates. This type of annotation shows the instructor’s center of mass with the instructor's face and feet's direction.
+    \item[\textcolor{red}{Center of Mass Visualization}] \textcolor{red}{A type of annotation that the application generates. This type of annotation shows the instructor’s center of mass with the instructor's face and feet's direction.}
     \item[Semantic Segmentation] The process of linking each pixel in an image to a class label. It is a pixel-wise classification task that assigns a semantic label like “person”, “car”, “road”, etc. To every pixel in the image.
     \item[Pose Estimation/Extraction] The process of using machine learning models to estimate the pose of a person from an image or a video by estimating the spatial locations of the person’s key body joints.
     \item[2D Pose Estimation] The process of estimating the 2D position and orientation of a person or object in an image or video. This involves identifying the key points on the body or object, such as the head, shoulders, knees, etc. then estimating their position in  2D space.
@@ -83,7 +85,23 @@ This document serves as a comprehensive requirements specification for a \sout{W
     \item[UI] User Interface
     \item[UX] User Experience
     \item[AI] Artificial Intelligence
-    \item[OS] Operating System 
+    \item[OS] Operating System
+    \item[\textcolor{red}{SFU}] \textcolor{red}{Selective Forwarding Unit, a component in real-time communication systems like WebRTC
+    that routes and selectively forwards audio and video streams from one participant to others}
+    \item[\textcolor{red}{STUN/TURN servers}] \textcolor{red}{A component in real-time communication systems that is responsible for
+    establishing and maintaining connections.}
+    \item[\textcolor{red}{Elder User}] \textcolor{red}{Individuals who are aged 65 years and older}
+\end{description}
+
+\subsection{\textcolor{red}{Symbolic Constants}}\label{sec:symbolic-constants}
+\begin{description}
+    \item[\textcolor{red}{USER\_SATISFACTION\_PERCENTAGE =}] \textcolor{red}{\%95}
+    \item[\textcolor{red}{INTERNET\_UPLOAD\_SPEED =}] \textcolor{red}{5Mbps} 
+    \item[\textcolor{red}{INTERNET\_DOWNLOAD\_SPEED =}] \textcolor{red}{25Mbps} 
+    \item[\textcolor{red}{COMPATIBILITY\_PERCENTAGE =}] \textcolor{red}{\%95}
+    \item[\textcolor{red}{LOWEST\_RESOLUTION\_SUPPORTED =}] \textcolor{red}{480P}
+    \item[\textcolor{red}{HIGHEST\_RESOLUTION\_SUPPORTED =}] \textcolor{red}{1080P}
+    \item[\textcolor{red}{WORKING\_TEMPERATURE =}] \textcolor{red}{65\degree C}
 \end{description}
 
 \section{Project}
@@ -110,23 +128,26 @@ Other technical choices include the choice of programming language, Python, for 
 \newpage
 \subsection{Schedule and Milestones}
 Please refer to table \ref{TblMilestones}
+
+\textcolor{red}{ Items with "High" priority will be addressed first, with subsequent focus shifting to "Medium" and "Low" priorities as the project progresses. This approach ensures that resources and efforts are allocated according to the importance and impact of each milestone on the project's overall success.}
+
 \begin{table}
     \caption{Milestones and Scheduled Due Dates} \label{TblMilestones}
-    \begin{tabularx}{1.0\linewidth}[h]{p{7cm}|p{6cm}}
+    \begin{tabularx}{1.0\linewidth}[h]{p{5cm}|p{5cm}|p{2cm}}
     \toprule
-    \textbf{Milestone}        & \textbf{Scheduled Due Date} \\ \hline
+    \textbf{Milestone}        & \textbf{Scheduled Due Date}      & \textcolor{red}{\textbf{Priority}} \\ \hline
     \midrule
-    Team Formed, Project Selected                                  &   18 September 2023 \\ \hline
-    Problem Statement, Proof of Concept Plan, Development Plan     &   25 September 2023 \\ \hline
-    Requirements Documents Revision 0                              &   06 October 2023   \\ \hline
-    Hazard Analysis Revision 0                                     &   20 October 2023   \\ \hline
-    Verification and Validation Plan Revision 0                    &   03 November 2023  \\ \hline
-    Proof of Concept Demonstration                                 &   Week of 17 November 2023 \\ \hline
-    Design Document Revision 0                                     &   17 January 2024   \\ \hline
-    Project Demonstration Revision 0                               &   Two weeks starting 05 February 2024 \\ \hline
-    Verification and Validation Report Revision 0                  &   06 March 2024     \\ \hline
-    Project Demonstration Revision 1 (Final)                       &   Two weeks starting 18 March 2024 \\ \hline
-    Full Project Documentation Revision 1 (Final)                  &   04 April 2024 \\ \hline
+    Team Formed, Project Selected                                  &   18 September 2023 & \textcolor{red}{Low} \\ \hline
+    Problem Statement, Proof of Concept Plan, Development Plan     &   25 September 2023 & \textcolor{red}{Medium} \\ \hline
+    Requirements Documents Revision 0                              &   06 October 2023   & \textcolor{red}{High} \\ \hline
+    Hazard Analysis Revision 0                                     &   20 October 2023   & \textcolor{red}{Medium} \\ \hline
+    Verification and Validation Plan Revision 0                    &   03 November 2023  & \textcolor{red}{Medium} \\ \hline
+    Proof of Concept Demonstration                                 &   Week of 17 November 2023 & \textcolor{red}{High} \\ \hline
+    Design Document Revision 0                                     &   17 January 2024   & \textcolor{red}{High} \\ \hline
+    Project Demonstration Revision 0                               &   Two weeks starting 05 February 2024 & \textcolor{red}{Medium} \\ \hline
+    Verification and Validation Report Revision 0                  &   06 March 2024     & \textcolor{red}{Medium} \\ \hline
+    Project Demonstration Revision 1 (Final)                       &   Two weeks starting 18 March 2024 & \textcolor{red}{High} \\ \hline
+    Full Project Documentation Revision 1 (Final)                  &   04 April 2024 & \textcolor{red}{High} \\ \hline
     \bottomrule
     \end{tabularx}
 \end{table}
@@ -174,7 +195,7 @@ Please refer to \ref*{Glossary} Glossary
 \subsubsection{Hardware Components}
 \begin{description}
     \item[Webcam] A Webcam is required for the instructor's client.
-    \item[Microphone] Microphone is optional for both the instructors and the practitioners.
+    \item[\sout{Microphone}] \sout{Microphone is optional for both the instructors and the practitioners.}
     \item[Monitor] A monitor is required for practitioners.
     \item[Host Server] A host server is required for routing, processing video streams and annotation generation.
     \item[Network Connection] Having access to the internet is required for both instructors and practitioners.
@@ -188,8 +209,9 @@ Please refer to \ref*{Glossary} Glossary
 
 \subsection{Constraints}
 \begin{description}
-    \item[Bandwidth] The Application must not occupy more than 20MB/s download speed\cite{downloadSpeed2018} and 5 MB/s upload speed\cite{uploadSpeed2021}, as these two numbers are the most common home internet speeds for Canadian families.
-    \item[Compatibility] The product must be able to operate on all Windows, Mac OS and Linux platforms because over 95\% of the computers run on these three systems\cite{OSMarketShare}.
+    \item[Bandwidth] The Application must not occupy more than\\ \sout{20MB/s}\hyperref[sec:symbolic-constants]{\textcolor{red}{INTERNET\_DOWNLOAD\_SPEED}} download speed\cite{downloadSpeed2018} and \sout{5 MB/s}\hyperref[sec:symbolic-constants]{\textcolor{red}{INTERNET\_UPLOAD\_SPEED}} upload speed\cite{uploadSpeed2021}, as these two numbers are the most common home internet speeds for Canadian families.
+    \item[Compatibility] The product must be able to operate on all Windows, Mac OS and Linux platforms because over \sout{95\%} 
+    \hyperref[sec:symbolic-constants]{\textcolor{red}{COMPATIBILITY\_PERCENTAGE}} of the computers run on these three systems\cite{OSMarketShare}.
     \item[Security] Data leak in any video conference system is not permitted, according to the Personal Information Protection and Electronic Documents Act\cite{Law1}.
     \item[Ease of Learning] One of the target audiences of our system is senior people. This user group usually has some difficulties in using software as they have lower technical device adoption\cite{olderAdultsTechUse}. The UI interaction must be clear and intuitive enough for senior people to learn all the features without further instructions.
     \item[Compliance] The application is required to comply with all applicable laws\cite{Law1}\cite{Law2}\cite{Law3} and regulations.
@@ -199,9 +221,11 @@ Please refer to \ref*{Glossary} Glossary
 \begin{description}
     \item[Internet Access] Users of the system are assumed to have \textcolor{red}{access to }a \sout{reliable} internet connection. Packet loss and interruptions resulting from poor network connections are \sout{generally not} accounted for.
     \item[Device Capability and Compatibility] The system is assumed to run on modern portable/non-portable computing devices with adequate computational power and basic networking and real-time data streaming capabilities. The software runtime environment on top of the capable hardware is also assumed to be up-to-date. Extensive backward compatibility with outdated, deprecated hardware or software is not required.
-    \item[Understanding of the Annotation] After adding annotations to the instructor’s streaming video, practitioners are assumed to understand these annotations.
-    \item[Cognitive Ability] Assume users are able to understand and use the interface of the system, presuppose that users can navigate, process information, and make informed decisions within the interface without struggling.
-    \item[Supported Video Resolutions] Most users’ built-in webcams in laptops and phones are assumed to support video resolution \textcolor{red}{from 480p} \sout{up} to 1080p, which is commonly used for streaming and daily uses.
+    \item[\sout{Understanding of the Annotation}] \sout{After adding annotations to the instructor’s streaming video, practitioners are assumed to understand these annotations.}
+    \item[\textcolor{red}{Usability and Annotation Clarity}] \textcolor{red}{Rather than assuming users inherently understand the provided annotations, the design will undergo user testing to validate the effectiveness of annotations in conveying the intended information. Continuous improvement will be guided by user feedback to ensure clarity and comprehensiveness.}
+    \item[\sout{Cognitive Ability}] \sout{Assume users are able to understand and use the interface of the system, presuppose that users can navigate, process information, and make informed decisions within the interface without struggling.}
+    \item[\textcolor{red}{User Interaction}] \textcolor{red}{The interface will be designed for intuitive navigation and interaction, with the aim to accommodate a broad range of cognitive abilities. Usability testing will be conducted to ensure that users can effectively navigate, understand presented information, and make informed decisions within the system.}
+    \item[Supported Video Resolutions] Most users’ built-in webcams in laptops and phones are assumed to support video resolution\\ \hyperref[sec:symbolic-constants]{\textcolor{red}{LOWEST\_RESOLUTION\_SUPPORTED}} \sout{up} to \\\sout{1080p}\hyperref[sec:symbolic-constants]{\textcolor{red}{HIGHEST\_RESOLUTION\_SUPPORTED}}, which is commonly used for streaming and daily uses.
     \item[Scalability of the System] The system will be designed with scalability in mind, assuming a growing user base.
 \end{description}
 
@@ -256,9 +280,9 @@ The system is tailored with specific guidelines in mind. It's worth noting that 
 \subsubsection{Stakeholders}
 \begin{description}
     \item[Tai Chi Practitioners] Individuals who practice Tai Chi and can benefit from real-time instruction video after model rendering.
-    \item[Tai Chi instructors] Professionals who teach Tai Chi and can utilize the system for synchronous teaching sessions.
-    \item[Tai Chi potential practitioners] Individuals who are learning Tai Chi and can use the system to improve their practice.
-    \item[Capstone project supervisor] A supervisor who supervises the progress of the project.
+    \item[Tai Chi Instructors] Professionals who teach Tai Chi and can utilize the system for synchronous teaching sessions.
+    \item[Tai Chi Potential Practitioners] Individuals who are learning Tai Chi and can use the system to improve their practice.
+    \item[Capstone Project Supervisor] A supervisor who supervises the progress of the project.
 \end{description}
 \subsubsection{People Other Than Stakeholders}
 \begin{description}
@@ -299,9 +323,19 @@ This section provides a detailed breakdown of the system’s desired functionali
 For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video streaming} application using an SFU architecture, participants initiate sessions through a user interface. The \sout{WebRTC} \textcolor{red}{Real-Time Communication} Client, aided by STUN and TURN servers, manages connection establishment and multi-media stream transmissions. Real-time Communication Engine establishes, maintains, and terminates the real-time sessions. Session setup details, communicated via the Signaling Server using the Session Description Protocol (SDP), determine the following media rendering. During the video conference, the Selective Forwarding Unit (SFU) routes and optimizes media stream distribution to participants. The video streams will be extracted from the SFU server,  and transferred to the API server by the socket. Then the API server will assign its integrated Machine Learning Models to render the video and send it back to the client side. The underlying infrastructure ensures efficient data transmission, maintaining overall application performance.
 
 \subsection{Finite State Machine}
-\includegraphics[width=15cm, height=7cm]{FSM.png}
+\begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=13cm, height=5cm]{FSM.png}};
+    \draw[black, line width=2pt] (image.south west) -- (image.north east);
+    \draw[black, line width=2pt] (image.north west) -- (image.south east);
+    \end{tikzpicture}
 
-\subsection{Functional Requirements}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=15cm, height=7cm]{FSM_Updated.png}
+\caption{\textcolor{red}{Updated Finite State Machine Diagram}}
+\label{fig:fsm_updated}
+\end{figure}
+
 \begin{itemize}
     \item[FR1] The system shall provide a real-time video streaming interface for Tai Chi instructors to conduct live sessions. \label{FR1}
     \begin{itemize}
@@ -338,7 +372,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item[FR6] The system shall allow practitioners to configure the type of annotations. \label{FR6}
+    \item[FR6] The system shall allow practitioners to \sout{configure the type of annotations}\textcolor{red}{choose annotation from Skeleton, Center of Mass Visualization and Semantic Segmentation}. \label{FR6}
     \begin{itemize}
         \item Rationale: The system needs user configuration details from practitioners as parameters to arrange the corresponding machine-learning pipeline.
         \item Priority: Critical
@@ -417,6 +451,14 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
         \item Priority: Critical
     \end{itemize}
 \end{itemize}
+\begin{itemize}
+    \color{red}
+        \item[FR17] The system shall provide footwork annotation.  \label{FR17}
+        \begin{itemize}
+            \item Rationale: To identify the instructor's footwork annotation and increase Tai Chi learning experience.
+            \item Priority: Critical
+        \end{itemize}
+    \end{itemize}
 \subsection{Non-Functional Requirements}
 
 \subsubsection{Look and Reel Requirement}
@@ -424,7 +466,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \item[LF1] The system shall have a user interface design that prioritizes clear and logically organized menus \label{LF1}
     \begin{itemize}
         \item Rationale: To ensure that users can comfortably use the system.
-        \item Fit Criteria: 95\% of users are satisfied with the appearance of the UI interface.
+        \item Fit Criteria: \sout{95\%} \hyperref[sec:symbolic-constants]{\textcolor{red}{USER\_SATISFACTION\_PERCENTAGE}} of users are satisfied with the appearance of the UI interface.
         \item Priority: Medium
     \end{itemize}
 \end{itemize}
@@ -432,10 +474,10 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
 \textbf{Ease of Use Requirement:}
 \begin{itemize}
     \item[UH1] \sout{The system shall have a straightforward and intuitive user interface design.}
-    \textcolor{red}{At least 90\% of the users can complete all operations and nevigation without assistance} \label{UH1}
+    \textcolor{red}{At least \sout{90\%} \textcolor{red}{USER\_SATISFACTION\_PERCENTAGE} of the users can complete all operations and nevigation without assistance} \label{UH1}
     \begin{itemize}
         \item Rationale: To minimize user frustration and ensure a positive user experience.
-        \item Fit Criteria: Users can complete common tasks within the system without extensive assistance.
+        \item Fit Criteria: \hyperref[sec:symbolic-constants]{\textcolor{red}{USER\_SATISFACTION\_PERCENTAGE}} of the users can complete common tasks within the system without extensive assistance.
         \item Priority: Medium
     \end{itemize}
 \end{itemize}
@@ -444,7 +486,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \item[UH2] The system shall be easy to learn for users of all age groups and experience levels. \label{UH2}
     \begin{itemize}
         \item Rationale: To accommodate a diverse user base, including older individuals who may be less familiar with technology.
-        \item Fit Criteria: Elder users can perform basic tasks and navigate the system effectively \sout{after a short learning period}
+        \item Fit Criteria: Elder users\textcolor{red}{individuals who are aged 65 years and older} can perform basic tasks and navigate the system effectively \sout{after a short learning period}
         \textcolor{red}{within 10 minutes}.
         \item Priority: Medium
     \end{itemize}
@@ -489,11 +531,11 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
 \end{itemize}
 \textbf{Scalability of Extensibility Requirement}
 \begin{itemize}
-    \item[PR5] The system shall be able to add new extensions. \label{PR5}
+    \item[\sout{PR5}] \sout{The system shall be able to add new extensions.} \label{PR5}
     \begin{itemize}
-        \item Rationale: Further improvements and extensions of the system are needed.
-        \item Fit Criteria: Not applicable.
-        \item Priority: Medium
+        \item \sout{Rationale: Further improvements and extensions of the system are needed.}
+        \item \sout{Fit Criteria: Not applicable.}
+        \item \sout{Priority: Medium}
     \end{itemize}
 \end{itemize}
 \begin{itemize}
@@ -522,7 +564,7 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item[OE3] The system shall run smoothly on standard personal computers or laptops equipped with a camera and optionally a microphone. \label{OE3}
+    \item[OE3] The system shall run smoothly on standard personal computers or laptops equipped with a camera \sout{and optionally a microphone}. \label{OE3}
     \begin{itemize}
         \item Rationale: To minimize hardware-related barriers to using the platform.
         \item Fit Criteria: Users with standard personal computers or laptops can use the platform \sout{without significant performance issues}
@@ -540,20 +582,20 @@ For the \sout{WebRTC-based video conferencing} \textcolor{red} {Real-Time video 
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item[MS2] The system shall take no longer than 4 hours to be maintained/updated. \label{MS2}
+    \item[\sout{MS2}] \sout{The system shall take no longer than 4 hours to be maintained/updated.} \label{MS2}
     \begin{itemize}
-        \item Rationale: To ensure the availability of the system.
-        \item Fit Criteria: Updates can be done within 4 hours.
-        \item Priority: Low
+        \item \sout{Rationale: To ensure the availability of the system.}
+        \item \sout{Fit Criteria: Updates can be done within 4 hours.}
+        \item \sout{Priority: Low}
     \end{itemize}
 \end{itemize}
 \subsubsection{Security Requirements}
 \begin{itemize}
-    \item[SR1] The system shall securely transmit and store user data, including personal information. \label{SR1}
+    \item[\sout{SR1}] \sout{The system shall securely transmit and store user data, including personal information.} \label{SR1}
     \begin{itemize}
-        \item Rationale: To protect user privacy and data integrity.
-        \item Fit Criteria: User data is encrypted both in transit and at rest, and security protocols follow industry best practices.
-        \item Priority: Critical
+        \item \sout{Rationale: To protect user privacy and data integrity.}
+        \item \sout{Fit Criteria: User data is encrypted both in transit and at rest, and security protocols follow industry best practices.}
+        \item \sout{Priority: Critical}
     \end{itemize}
 \end{itemize}
 \begin{itemize}
@@ -596,7 +638,7 @@ made and reviewed by the development team.
     \item[HS1] The system shall not cause the computers to overload. \label{HS1}
     \begin{itemize}
         \item Rationale: The system should not overload the users’ computers.
-        \item Fit Criteria: The hardware running the system is under normal temperature \textcolor{red}{65\degree C}.
+        \item Fit Criteria: The hardware running the system is under normal temperature \hyperref[sec:symbolic-constants]{\textcolor{red}{WORKING\_TEMPERATURE}}.
         \item Priority: Medium
     \end{itemize}
 \end{itemize}
@@ -604,7 +646,7 @@ made and reviewed by the development team.
     \item[HS2] The system shall not affect users’ physical and mental health. \label{HS2}
     \begin{itemize}
         \item Rationale: The system must not harm users’ health and safety.
-        \item Fit Criteria: \textcolor{red}{99\% of the} users feel comfortable using the system in various situations.
+        \item Fit Criteria: \hyperref[sec:symbolic-constants]{\textcolor{red}{USER\_SATISFACTION\_PERCENTAGE}} users feel comfortable using the system in various situations.
         \item Priority: Critical
     \end{itemize}
 \end{itemize}
@@ -616,7 +658,7 @@ made and reviewed by the development team.
 \end{description}
 \subsubsection{Hardware Interfaces}
 \begin{description}
-    \item[Camera and Microphone] To capture video and audio from users’ sides, the system interfaces with hardware drivers and OS-level APIs.
+    \item[Camera \sout{and Microphone}] To capture video \sout{and audio} from users’ sides, the system interfaces with hardware drivers and OS-level APIs.
     \item[Network] For managing connections, the system might interact with the underlying operating system’s networking stack.
 \end{description}
 \subsection{Detailed Usage Scenarios}
@@ -729,29 +771,29 @@ Please refer to \ref{TblTrace_1} and \ref{TblTrace_2}.
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|c|}
     \hline
-        & FR1 & FR2 & FR3 & FR4 & FR5 & FR6 & FR7 \\
+        & FR1 \ref{FR1} & FR2 \ref{FR2}& FR3 \ref{FR3}& FR4 \ref{FR4}& FR5 \ref{FR5}& FR6 \ref{FR6}& FR7 \ref{FR7}\\
     \hline
-    LF1 & X & X & X & & & X &   \\ \hline
-    UH1 & X & X & X & & & X &   \\ \hline
-    UH2 & X & X & X & & & X &   \\ \hline
-    PR1 & X & X & & & & X &   \\ \hline
-    PR2 & & & & X & X & &   \\ \hline
-    PR3 & X & X & & X & X & &   \\ \hline
-    PR4 & X & X & X & & & X &   \\ \hline
-    PR5 & & & & & & &   \\ \hline
-    PR6 & & & & & & &   \\ \hline
-    OE1 & X & X & X & & & &   \\ \hline
-    OE2 & X & X & X & & & &   \\ \hline
-    OE3 & X & X & X & & & &   \\ \hline
-    MS1 & X & X & X & X & X & X & X   \\ \hline
-    MS2 & X & X & X & X & X & X & X   \\ \hline
-    SR1 & & & & X & X & &   \\ \hline
-    SR2 & X & X & & & & &   \\ \hline
-    SR3 & X & X & X & X & X & X & X \\ \hline
-    CR1 & X & X & & & & &   \\ \hline
-    LR1 & X & X & X & X & X & X & X \\ \hline
-    HS1 & X & X & & & & &   \\ \hline
-    HS2 & X & X & & & & &   \\ \hline
+    LF1 \ref{LF1}& X & X & X & & & X &   \\ \hline
+    UH1 \ref{UH1}& X & X & X & & & X &   \\ \hline
+    UH2 \ref{UH2}& X & X & X & & & X &   \\ \hline
+    PR1 \ref{PR1}& X & X & & & & X &   \\ \hline
+    PR2 \ref{PR2}& & & & X & X & &   \\ \hline
+    PR3 \ref{PR3}& X & X & & X & X & &   \\ \hline
+    PR4 \ref{PR4}& X & X & X & & & X &   \\ \hline
+    PR5 \ref{PR5}& & & & & & &   \\ \hline
+    PR6 \ref{PR6}& & & & & & &   \\ \hline
+    OE1 \ref{OE1}& X & X & X & & & &   \\ \hline
+    OE2 \ref{OE2}& X & X & X & & & &   \\ \hline
+    OE3 \ref{OE3}& X & X & X & & & &   \\ \hline
+    MS1 \ref{MS1}& X & X & X & X & X & X & X   \\ \hline
+    MS2 \ref{MS2}& X & X & X & X & X & X & X   \\ \hline
+    SR1 \ref{SR1}& & & & X & X & &   \\ \hline
+    SR2 \ref{SR2}& X & X & & & & &   \\ \hline
+    SR3 \ref{SR3}& X & X & X & X & X & X & X \\ \hline
+    CR1 \ref{CR1}& X & X & & & & &   \\ \hline
+    LR1 \ref{LR1}& X & X & X & X & X & X & X \\ \hline
+    HS1 \ref{HS1}& X & X & & & & &   \\ \hline
+    HS2 \ref{HS2}& X & X & & & & &   \\ \hline
     \end{tabular}
     \caption{Traceability Matrix Showing the Connections Between Functional Requirements and Non-functional Requirements} \label{TblTrace_1}
 \end{table}
@@ -760,29 +802,29 @@ Please refer to \ref{TblTrace_1} and \ref{TblTrace_2}.
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|c|}
     \hline
-        & FR8 & FR9 & FR10 & FR11 & FR12 & FR13 \\
+        & FR8 \ref{FR8} & FR9 \ref{FR9}& FR10 \ref{FR10}& FR11 \ref{FR11}& FR12 \ref{FR12}& FR13 \ref{FR13}\\
     \hline
-    LF1 & & & & & &    \\ \hline
-    UH1 & & & & & &    \\ \hline
-    UH2 & & & & & &    \\ \hline
-    PR1 & & & & & &    \\ \hline
-    PR2 & & & & & & X   \\ \hline
-    PR3 & & & & & X & X    \\ \hline
-    PR4 & & & & & &    \\ \hline
-    PR5 & & & X & & X & X    \\ \hline
-    PR6 & & & X & & X & X    \\ \hline
-    OE1 & & & & & &    \\ \hline
-    OE2 & & & & & &    \\ \hline
-    OE3 & & & & & &    \\ \hline
-    MS1 & X & X & X & X & X & X  \\ \hline
-    MS2 & X & X & X & X & X & X  \\ \hline
-    SR1 & & & & & X & X   \\ \hline
-    SR2 & & & & & &    \\ \hline
-    SR3 & X & X & X & X & X & X  \\ \hline
-    CR1 & & & & & &    \\ \hline
-    LR1 & X & X & X & X & X & X  \\ \hline
-    HS1 & & & & & &    \\ \hline
-    HS2 & & & & & &    \\ \hline
+    LF1 \ref{LF1}& & & & & &    \\ \hline
+    UH1 \ref{UH1}& & & & & &    \\ \hline
+    UH2 \ref{UH2}& & & & & &    \\ \hline
+    PR1 \ref{PR1}& & & & & &    \\ \hline
+    PR2 \ref{PR2}& & & & & & X   \\ \hline
+    PR3 \ref{PR3}& & & & & X & X    \\ \hline
+    PR4 \ref{PR4}& & & & & &    \\ \hline
+    PR5 \ref{PR5}& & & X & & X & X    \\ \hline
+    PR6 \ref{PR6}& & & X & & X & X    \\ \hline
+    OE1 \ref{OE1}& & & & & &    \\ \hline
+    OE2 \ref{OE2}& & & & & &    \\ \hline
+    OE3 \ref{OE3}& & & & & &    \\ \hline
+    MS1 \ref{MS1}& X & X & X & X & X & X  \\ \hline
+    MS2 \ref{MS2}& X & X & X & X & X & X  \\ \hline
+    SR1 \ref{SR1}& & & & & X & X   \\ \hline
+    SR2 \ref{SR2}& & & & & &    \\ \hline
+    SR3 \ref{SR3}& X & X & X & X & X & X  \\ \hline
+    CR1 \ref{CR1}& & & & & &    \\ \hline
+    LR1 \ref{LR1} & X & X & X & X & X & X  \\ \hline
+    HS1 \ref{HS1}& & & & & &    \\ \hline
+    HS2 \ref{HS2}& & & & & &    \\ \hline
     \end{tabular}
     \caption{Traceability Matrix Showing the Connections Between Functional Requirements and Non-functional Requirements} \label{TblTrace_2}
 \end{table}
@@ -812,6 +854,25 @@ Please refer to \ref{TblTrace_1} and \ref{TblTrace_2}.
   \item The application is intended to operate on Windows, Linux and MacOS platforms, but not limited to running on these systems natively.
   \item Secure data transmission and storage will be implemented to safeguard user data and mitigate data leakage risks.
 \end{itemize}
+
+\section{Appdendix}
+
+\subsection{Reflection}
+
+\textcolor{red}{Writing the Software Requirements Specification was a crucial phase that laid the foundational blueprint for our 
+entire development process. During this stage, we delved deeply into understanding and defining the core functionalities, 
+non-functional requirements, and the overall scope of our WebRTC-based video streaming application tailored for Tai Chi 
+instruction. We collaboratively identified the key features necessary for a successful implementation, such as real-time 
+video streaming, user-centred design, and machine learning integration for annotations. In doing so, we faced the challenge 
+of translating broad concepts and goals into clear, detailed specifications that could guide our development efforts effectively.}
+
+\textcolor{red}{One of the most significant aspects of this phase was the risk and mitigation analysis. We identified potential 
+risks, such as insufficient technical knowledge in specific areas like WebRTC and real-time streaming protocols, and the 
+challenge of integrating machine learning models for real-time annotations. As a team, we not only pinpointed these risks 
+but also developed strategies to mitigate them, which included allocating time for learning and experimentation. Moreover, 
+the process of creating the SRS reinforced the importance of clear communication and collaboration amongst ourselves. We learned 
+to articulate our thoughts and ideas precisely, ensuring that every team member had a unified understanding of the project's 
+objectives and requirements.}
 
 \printbibliography
 

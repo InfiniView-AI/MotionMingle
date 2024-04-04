@@ -199,6 +199,7 @@ sympy-plots-for-*.tex/
 *.pytxcode
 pythontex-files-*/
 venv/
+__pycache__/
 
 # tcolorbox
 *.listing
@@ -286,4 +287,3 @@ node_modules
 
 # installed packages
 package-lock.json
-
