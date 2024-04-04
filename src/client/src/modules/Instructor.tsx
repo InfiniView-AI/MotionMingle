@@ -19,12 +19,9 @@ const theme = createTheme({
     secondary: {
       main: '#E6F7FF',
     },
-<<<<<<< HEAD
-=======
     background: {
       default: '#E6F7FF', 
     },
->>>>>>> c6caecea77664253c5454dd561dbb7c3022b0580
   },
 });
 
@@ -135,16 +132,6 @@ function Instructor() {
     setIsPlayingRemoteVideo(true);
   };
 
-<<<<<<< HEAD
-return (
-  <ThemeProvider theme={theme}>
-    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
-        <img src={logo} alt="Motion Mingle Logo" style={{ height: 50 }} />
-        <Typography variant="h4" sx={{ ml: 2 }}>
-          Motion Mingle
-        </Typography>
-=======
   const closeRemoteVideo = () => {
     remoteVideoRef.current!.srcObject = null;
     setIsPlayingRemoteVideo(false);
@@ -178,7 +165,6 @@ return (
             Instructions
           </Button>
         </Box>
->>>>>>> c6caecea77664253c5454dd561dbb7c3022b0580
       </Box>
       <Container maxWidth="md" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <Typography variant="h5" gutterBottom>
@@ -188,11 +174,6 @@ return (
         <video
           ref={selfVideoRef}
           autoPlay
-<<<<<<< HEAD
-          style={{ width: '100%', maxWidth: '600px', marginTop: '20px', borderRadius: '4px' }}
-          playsInline
-        />
-=======
           style={{ width: '100%', maxWidth: '800px', aspectRatio: '600/450', border: '3px solid', borderColor: 'primary.main', borderRadius: '4px', marginTop: '20px' }}
           playsInline
         />
@@ -213,7 +194,6 @@ return (
           */
         }
         
->>>>>>> c6caecea77664253c5454dd561dbb7c3022b0580
         {isSelfVideoOn ? (
         <Button
           variant="contained"
@@ -290,24 +270,10 @@ return (
         </Button>
          */}
       </div>
-<<<<<<< HEAD
-      <div className="remote">
-        <video ref={remoteVideoRef} width="300" height="200" playsInline>
-          <track kind="captions" />
-        </video>
-      </div>
-=======
->>>>>>> c6caecea77664253c5454dd561dbb7c3022b0580
         <MessageModal
           isModalOpen={isModalOpen}
           handleClose={() => setIsModalOpen(false)}
           handelStopVideo={() => {
-<<<<<<< HEAD
-            closeRemote(brodcastPc!);
-            setIsModalOpen(false);
-          }}
-        />
-=======
             stopBroadcasting();
             setIsModalOpen(false);
           }}
@@ -386,7 +352,6 @@ return (
             </Button>
           </Box>
         )}
->>>>>>> c6caecea77664253c5454dd561dbb7c3022b0580
       </Container>
     </Box>
   </ThemeProvider>
