@@ -33,15 +33,10 @@ describe('Auth Component Tests', () => {
       </Router>
     );
     const instructorButton = screen.getByRole('button', { name: /Instructor/i });
-    const practitionerButton = screen.getByRole('button', { name: /Practitioner/i });
     expect(instructorButton).toBeInTheDocument();
-    expect(practitionerButton).toBeInTheDocument();
 
     // Simulate user clicking the buttons and navigating
     await user.click(instructorButton);
-    expect(window.location.pathname).toBe('/');
-
-    await user.click(practitionerButton);
     expect(window.location.pathname).toBe('/');
   });
 

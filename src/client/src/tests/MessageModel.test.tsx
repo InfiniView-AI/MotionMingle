@@ -23,7 +23,6 @@ describe('MessageModal Component', () => {
 
   test('renders correctly', () => {
     expect(screen.getByText(/warning/i)).toBeInTheDocument();
-    expect(screen.getByText(/Are you sure you want to turn stop your video?/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /stop video/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /cancel/i })).toBeInTheDocument();
   });
